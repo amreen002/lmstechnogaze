@@ -16,6 +16,10 @@ import FrontDeskRouters from './Routers/frontdeskRouters.js'
 import CoursesRouters from './Routers/CoursesRouters.js'
 import FrontDeskListRouters from  './Routers/frontdesklistRouters.js'
 import CounselorDepartmentRouters from  './Routers/counselordepartmentRouters.js'
+import Navbarmenu from './Components/Navbarmenu.js';
+import Home from './Routers/Home.js';
+import About from './Routers/About';
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -48,7 +52,14 @@ function App() {
 
   return (
     <BrowserRouter>
+    <section className='sticy-header logo-size'>
+      <Navbarmenu />
+      </section>
       <Routes>
+      <Route path="/" element={<Home />} />
+<Route path="/about" element={<About />} />
+
+    
         <Route
           path="/login"
           element={!loggedIn ? <Logins onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
