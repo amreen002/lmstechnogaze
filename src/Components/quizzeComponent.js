@@ -30,12 +30,12 @@ function BatchesUse() {
     useEffect(() => {
         fetchData();
         fetchData1()
-        /*        fetchData2() */
+        fetchData2()
     }, []);
 
     useEffect(() => {
         setTotalQuestions(parseInt(EasyQuestions) + parseInt(MediumQuestions) + parseInt(HardQuestions));
-        setTotalMarks(parseInt(EasyQuestions)*1 + parseInt(MediumQuestions)*2 + parseInt(HardQuestions)*4);
+        setTotalMarks(parseInt(EasyQuestions) * 1 + parseInt(MediumQuestions) * 2 + parseInt(HardQuestions) * 4);
     }, [EasyQuestions, MediumQuestions, HardQuestions]);
     const fetchData = async () => {
         try {
@@ -94,6 +94,25 @@ function BatchesUse() {
                 console.error('Error fetching data:', error);
             }
         }; */
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`http://localhost:3000/api/`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.teachers;
+             //   setTeachers(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
     useEffect(() => {
         fetchData3(quizzeId)
     }, [quizzeId]);
@@ -107,7 +126,7 @@ function BatchesUse() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-console.log(quizzeId)
+                console.log(quizzeId)
                 const userData = response.data.quizze;
 
                 setFindOneInstructor(userData);
@@ -362,7 +381,7 @@ console.log(quizzeId)
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Name</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Start</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">End</th>
-{/*                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Duration</th> */}
+                                                        {/*                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Duration</th> */}
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Questions</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Instructions</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Marks</th>
@@ -379,9 +398,9 @@ console.log(quizzeId)
                                                             <td>{item.QuizzName}</td>
                                                             <td>{item.QuizzStartTime}</td>
                                                             <td>{item.QuizzEndTime}</td>
-                                                         {/*    <td>{item.QuizzTestDuration}</td> */}
+                                                            {/*    <td>{item.QuizzTestDuration}</td> */}
                                                             <td>{item.TotalQuestions}</td>
-                                                            <td>{item.Batch && item.Batch.Teacher&&item.Batch.Teacher.Name}</td>
+                                                            <td>{item.Batch && item.Batch.Teacher && item.Batch.Teacher.Name}</td>
                                                             <td>{item.TotalMarks}</td>
                                                             <td><div class="d-inline-block text-nowrap">
                                                                 <Link to={`/quizzes/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">

@@ -239,4 +239,17 @@ div#listOnclick {
 }
 .user_role{
   padding-right: 50px;
+
+}
+.top-menu {
+  position: relative;
+  width: 1.35rem;
+  height: 1.35rem;
+  cursor: pointer;
+}
+
+
+.test-demo-class{
+  border-radius: 0.375rem !important;
+  padding: 14px;
 }

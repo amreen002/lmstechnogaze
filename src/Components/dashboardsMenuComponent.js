@@ -41,7 +41,7 @@ function DashBoardMenu(onLogout) {
                     <span class="app-brand-logo demo">
                     </span>
                     <span class="app-brand-text demo menu-text fw-bolder ms-2"><div class="avatar" style={{ width: "9.375rem", height: " 4.375rem" }}>
-                        <img src="../assets/img/TGSC Logo.svg" alt class="w-px-70 h-20px  rounded-circle" />
+                        <img src="../assets/img/TGSC Logo.svg" alt class="w-px-70 h-20px " />
                     </div></span>
                 </a>
 
@@ -215,8 +215,8 @@ function DashBoardMenu(onLogout) {
                 {/* Render menu for Telecaller Department */}
                 {table.Role && table.Role.Name === 'Telecaller Department' && (
                     <li className={`menu-item ${activeService === 'Telecaller Department' ? 'active' : ''} show_project_web`}>
-                        <a href="#" onClick={() => toggleDropdown('dropdowntelecallerdepartment')} className="menu-link menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bx-layout"></i>
+                        <a href="#" onClick={() => toggleDropdown('dropdowntelecallerdepartment')} className="menu-link menu-toggle " id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bx-layout "></i>
                             <div data-i18n="Layouts">Telecaller Department</div>
                         </a>
                         {activeService === 'dropdowntelecallerdepartment' && (
@@ -259,9 +259,9 @@ function DashBoardMenu(onLogout) {
                 )}
                 {/* Render  menu Role */}
                 {table.Role && table.Role.Name === 'Administrator' && (
-                    <li className={`menu-item ${activeService === 'Administrator' ? 'active' : ''} show_project_web`}>
-                        <a href="#" onClick={() => toggleDropdown('dropdowninstructor')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bx-user"></i>
+                    <li className={`menu-item  ${activeService === 'Administrator' ? 'active' : ''} show_project_web`}>
+                        <a href="#" onClick={() => toggleDropdown('dropdowninstructor')} className="menu-link  menu-toggle " id="dropdownMenuButton">
+                            <i className='menu-icon bx bx-user bx-spain'></i>
                             <div data-i18n="Layouts">Instructor</div>
                         </a>
                         {/* Step 4: Conditionally render dropdown based on state */}
@@ -270,7 +270,7 @@ function DashBoardMenu(onLogout) {
                                 {/* Dropdown content */}
                                 <li className="menu-item">
                                     <Link to="/teachers" className="menu-link">
-                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <i className='menu-icon bx bx-list-ul bx-fade-left'></i>
                                         <div data-i18n="Without menu">All Instructor</div>
                                     </Link>
                                 </li>
@@ -287,7 +287,7 @@ function DashBoardMenu(onLogout) {
 
 
                         <a href="#" onClick={() => toggleDropdown('dropdowncourese')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bxs-graduation"></i>
+                            <i className="menu-icon tf-icons bx bxs-graduation bx-tada-hover"></i>
                             <div data-i18n="Layouts">Courese</div>
                         </a>
 
@@ -309,15 +309,33 @@ function DashBoardMenu(onLogout) {
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/coursesreports" className="menu-link">
-                                        <i className='menu-icon bx bxs-report'></i>
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
                                         <div data-i18n="Without menu">Courese Report</div>
                                     </Link>
                                 </li>
 
+                                <li className="menu-item">
+                                    <Link to="/topic" className="menu-link">
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Topic</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/lession" className="menu-link">
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Lession</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/video" className="menu-link">
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Video</div>
+                                    </Link>
+                                </li>
                             </ul>
                         )}
                         <a href="#" onClick={() => toggleDropdown('dropdownbatches')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bx-time-five"></i>
+                            <i className="menu-icon tf-icons bx bx-time-five bx-spin"></i>
                             <div data-i18n="Layouts">Batches</div>
                         </a>
                         {activeService === 'dropdownbatches' && (
@@ -340,7 +358,7 @@ function DashBoardMenu(onLogout) {
                         )}
 
                         <a href="#" onClick={() => toggleDropdown('dropdownstudent')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bxs-group"></i>
+                            <i className="menu-icon tf-icons bx bxs-group bx-tada-hover"></i>
                             <div data-i18n="Layouts">Student</div>
                         </a>
 
@@ -370,7 +388,7 @@ function DashBoardMenu(onLogout) {
                         )}
 
                         <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bxs-envelope"></i>
+                            <i className="menu-icon tf-icons bx bxs-envelope bx-tada-hover"></i>
                             <div data-i18n="Layouts">Quizze</div>
                         </a>
 
@@ -394,7 +412,8 @@ function DashBoardMenu(onLogout) {
                             </ul>
                         )}
                         <a href="#" onClick={() => toggleDropdown('dropdowquestion')} className="menu-link  menu-toggle" id="dropdownMenuButton">
-                            <i className="menu-icon tf-icons bx bx-question-mark"></i>
+                            <i className="menu-icon tf-icons bx bx-question-mark bx-tada-hover"></i>
+
                             <div data-i18n="Layouts">Question</div>
                         </a>
                         {activeService === 'dropdowquestion' && (

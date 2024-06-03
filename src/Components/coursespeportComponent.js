@@ -266,11 +266,11 @@ function CoursesP() {
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
-                                                                                <a href='#' className="dropdown-item">
+                                                                                <Link to={`/addcoursecontent/${item.id}`} className="dropdown-item">
                                                                                     <button className="btn btn-sm btn-icon">
                                                                                         <i className="bx bx-check"></i>
-                                                                                    </button> Add Course Content
-                                                                                </a>
+                                                                                    </button>Organize Course Content
+                                                                                </Link>
                                                                             </li>
                                                                             <li>
                                                                                 <Link to={`/couresbatches/${item.id}`} className="dropdown-item">
@@ -281,30 +281,6 @@ function CoursesP() {
 
                                                                             </li>
 
-                                                                            <li>
-                                                                                <Link to='#' className="dropdown-item">
-                                                                                    <button className="btn btn-sm btn-icon">
-                                                                                        <i className="bx bx-check"></i>
-                                                                                    </button> Add Topic
-                                                                                </Link>
-
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href='#' className="dropdown-item">
-                                                                                    <button className="btn btn-sm btn-icon">
-                                                                                        <i className="bx bx-check"></i>
-                                                                                    </button> Add Lession
-                                                                                </a>
-
-                                                                            </li>
-                                                                            <li>
-                                                                                <a href='#' className="dropdown-item">
-                                                                                    <button className="btn btn-sm btn-icon">
-                                                                                        <i className="bx bx-check"></i>
-                                                                                    </button> Add Video
-                                                                                </a>
-
-                                                                            </li>
                                                                         </ul>
 
                                                                     </div>

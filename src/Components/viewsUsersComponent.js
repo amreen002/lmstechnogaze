@@ -40,14 +40,18 @@ function VieweUsersP() {
                     }
                 });
                 const userData = response.data.users;
-                setUserData(userData);
-                setName(userData.name);
-                setUserName(userData.userName);
-                setEmail(userData.email);
-                setDepartmentId(userData.departmentId);
-                setPhoneNumber(userData.phoneNumber);
-                setMessage(userData.message);
-                setImage(userData.image);// Assuming response.data directly contains user data
+                setUserData(userData)
+                setFormData({
+                    name: userData.name,
+                    userName: userData.userName,
+                    email: userData.email,
+                    departmentId: userData.departmentId,
+                    phoneNumber: userData.phoneNumber,
+                    message: userData.message,
+                    image: null,
+                });
+              
+
             }
 
         } catch (err) {
@@ -73,19 +77,36 @@ function VieweUsersP() {
             console.error('Error fetching data:', error);
         }
     };
+    const [formData, setFormData] = useState({
+        name: '',
+        userName:'',
+        userData: '',
+        departmentId: '',
+        phoneNumber: '',
+        message: '',
+        image: null,
+    });
+
+
+    const handleChange = (e) => {
+        const { name, files, value } = e.target;
+        setFormData(formData => ({
+            ...formData,
+            [name]: files ? files[0] : value
+        }));
+    };
 
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
-            const updatedUserData = { name, userName, email, departmentId, phoneNumber, message, image };
-            // Append the new image file to FormData if it exists
-            if (image instanceof File) {
-                updatedUserData.append('image', image);
-            }
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/users/${usersId}`, updatedUserData, {
+                await axios.put(`http://localhost:3000/api/users/${usersId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
                         Authorization: `Bearer ${token}`
@@ -398,21 +419,21 @@ function VieweUsersP() {
                                                 <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                     <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Full Name</label>
                                                     <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
-                                                        defaultValue={name} onChange={(e) => setName(e.target.value)}
+                                                        value={formData.name} onChange={handleChange}
                                                     />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                 <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                     <label class="form-label" for="modalEditUserLastName">User Name</label>
                                                     <input type="text" id="modalEditUserLastName" name='userName'
-                                                        onChange={(e) => setUserName(e.target.value)}
-                                                        defaultValue={userName} class="form-control" placeholder="Doe" />
+                                                        onChange={handleChange}
+                                                        value={formData.userName} class="form-control" placeholder="Doe" />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label class="form-label" for="modalEditUserEmail">Email</label>
                                                     <input type="text" id="modalEditUserEmail" name='email'
-                                                        onChange={(e) => setEmail(e.target.value)}
-                                                        defaultValue={email} class="form-control" placeholder="example@domain.com" />
+                                                       onChange={handleChange}
+                                                       value={formData.email} class="form-control" placeholder="example@domain.com" />
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
@@ -421,8 +442,8 @@ function VieweUsersP() {
                                                         <span class="input-group-text">+91</span>
                                                         <input type="text" id="modalEditUserPhone"
                                                             name='phoneNumber'
-                                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                                            defaultValue={phoneNumber} class="form-control phone-number-mask" placeholder="202 555 0111" />
+                                                            onChange={handleChange}
+                                                        value={formData.phoneNumber} class="form-control phone-number-mask" placeholder="202 555 0111" />
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
@@ -431,8 +452,9 @@ function VieweUsersP() {
                                                         id="modalEditUserStatus"
                                                         className="form-select"
                                                         name="departmentId"
-                                                        value={departmentId}
-                                                        onChange={(e) => setDepartmentId(e.target.value)}
+                                                        onChange={handleChange}
+                                                        value={formData.departmentId}
+
 
                                                     >
                                                         {roleData.map((option) => (
@@ -443,10 +465,10 @@ function VieweUsersP() {
                                                 </div>
                                                 <div class="col-12 col-md-6">
                                                     <label class="form-label" for="modalEditTaxID">Message</label>
-                                                    <input type="text" id="modalEditTaxID" name="message" onChange={(e) => setMessage(e.target.value)}
-                                                        value={message} class="form-control modal-edit-tax-id" placeholder="message" />
+                                                    <input type="text" id="modalEditTaxID" name="message" onChange={handleChange}
+                                                        value={formData.message} class="form-control modal-edit-tax-id" placeholder="message" />
                                                 </div>
-                                                {/*             <div class="col-12 col-md-6">
+                                                    <div class="col-12 col-md-6">
                                                     <div class="input-group">
                                                         <input
                                                             type="file"
@@ -456,11 +478,12 @@ function VieweUsersP() {
                                                             aria-label="Upload"
                                                             name="file"
                                                             accept="image/png, image/jpeg"
-                                                            defaultValue={image} onChange={(e) => setImage(e.target.value)}
+                                                            onChange={handleChange}
+                                                            value={formData.image}
                                                         />
                                                         <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Button</button>
                                                     </div>
-                                                </div> */}
+                                                </div> 
                                                 <div class="col-12 text-center">
                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
                                                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>

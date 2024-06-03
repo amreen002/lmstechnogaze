@@ -75,7 +75,7 @@ function NavAllPages(token) {
                         <ul class="dropdown-menu dropdown-menu-end">
                             <ul>
 
-                            <li class="menu-item active">
+                                <li class="menu-item active">
                                     <a className="menu-link">
                                         <Link to={`/accountusers`} className="navbar-brand">
                                             <div className="d-flex">
@@ -85,7 +85,11 @@ function NavAllPages(token) {
                                                     </div>
                                                 </div>
                                                 <div className="flex-grow-1">
-                                                    <span className="fw-semibold d-block">{table.roleName}</span>
+
+                                                    { table.Role && table.Role.Name == "Super Admin" || table.Role && table.Role.Name== "Admin" || table.Role && table.Role.Name == "Sale Department" || table.Role && table.Role.Name == "Telecaller Department" || table.Role && table.Role.Name== "Telecaller Team" ||table.Role && table.Role.Name == "Front Desk" || table.Role && table.Role.Name== "Counselor Department" || table.Role && table.Role.Name == "Account Department" || table.Role && table.Role.Name == "Administrator"
+                                                        ? (<span className="fw-semibold d-block">{table.roleName}</span>) : ( <span className="fw-semibold d-block">{table.name}</span>)}
+
+
                                                     <small className="text-muted">{table.Role && table.Role.Name}</small>
                                                 </div>
                                             </div>
