@@ -29,6 +29,9 @@ import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
 import TopicRouters from "./Routers/topicRouters.js"
 import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
+import Navbarmenu from './Components/Navbarmenu.js';
+import Home from './Routers/Home.js';
+import About from './Routers/About';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -61,7 +64,13 @@ function App() {
 
   return (
     <BrowserRouter>
+      <section className='sticy-header logo-size'>
+        <Navbarmenu />
+      </section>
       <Routes>
+
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
         <Route
           path="/login"
           element={!loggedIn ? <Logins onLogin={handleLogin} /> : <Navigate to="/dashboard" />}

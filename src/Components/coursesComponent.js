@@ -8,18 +8,26 @@ function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
     const [name, setName] = useState('');
+<<<<<<< HEAD
+    const [userData, setUserData] = useState("");
+    const [table, setSaleTeamData] = useState([]);
+=======
     const [CoursePrice, setCoursePrice] = useState('');
     const [CourseCategoryId, setCourseCategoryId] = useState('');
     const [userData, setUserData] = useState("");
     const [table, setCourse] = useState([]);
 
     const [category, setCategory] = useState([]);
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     useEffect(() => {
         fetchData(coursesId);
     }, [coursesId]);
     useEffect(() => {
         fetchData1();
+<<<<<<< HEAD
+=======
         fetchData2();
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     }, []);
 
     const fetchData = async (coursesId) => {
@@ -40,9 +48,13 @@ function CoursesP() {
                 const userData = response.data.courses;
                 setUserData(userData);
                 setName(userData.name);
+<<<<<<< HEAD
+
+=======
                 setCoursePrice(userData.CoursePrice);
                 setCourseCategoryId(userData.CourseCategoryId);
                
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
 
         } catch (err) {
@@ -61,13 +73,29 @@ function CoursesP() {
                     }
                 });
                 const userDatas = response.data.courses;
+<<<<<<< HEAD
+                setSaleTeamData(userDatas)
+=======
                 setCourse(userDatas)
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
 
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+<<<<<<< HEAD
+    const [formData, setFormData] = useState({
+        name: '',
+    })
+    const handleChange = (e) => {
+        setFormData({
+            ...formData,
+            [e.target.name]: e.target.value
+        });
+
+    }
+=======
     const fetchData2 = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -87,13 +115,17 @@ function CoursesP() {
             console.error('Error fetching data:', error);
         }
     };
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
+<<<<<<< HEAD
+=======
                 let formData = { name, CoursePrice, CourseCategoryId }
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                 await axios.post('http://localhost:3000/api/addcourses', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -131,6 +163,19 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
+<<<<<<< HEAD
+                const updatedUserData = { name};
+                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`,updatedUserData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+             
+                alert("User data updated successfully!");
+
+=======
                 const updatedUserData = { name, CoursePrice, CourseCategoryId}
                 await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
                     headers: {
@@ -140,6 +185,7 @@ function CoursesP() {
               fetchData(coursesId)
                 alert("Courses updated successfully!");
              /*    window.location.href = "/courses"; */
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -321,6 +367,12 @@ function CoursesP() {
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Full Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+<<<<<<< HEAD
+                                                        onChange={handleChange}
+                                                        value={formData.name} aria-label="John Doe" />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+
+=======
                                                         value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
@@ -340,6 +392,7 @@ function CoursesP() {
                                                         ))}
                                                     </select>
                                                 </div>
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                 <input type="hidden" /></form>
@@ -361,6 +414,13 @@ function CoursesP() {
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="modalEditUserFirstName">Full Name</label>
                                                         <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
+<<<<<<< HEAD
+                                                            value={name} onChange={(e) => setName(e.target.value)}
+                                                        />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+
+
+=======
                                                            disabled="false"  value={name} onChange={(e) => setName(e.target.value)}
                                                         />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
@@ -380,6 +440,7 @@ function CoursesP() {
                                                             ))}
                                                         </select>
                                                     </div>
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
 
                                                     <div class="col-12 text-center">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>

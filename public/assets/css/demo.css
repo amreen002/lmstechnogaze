@@ -139,6 +139,22 @@ input[type="checkbox"].custom-checkbox:checked {
 }
 
 .modal-edit-tax-id:disabled,
+<<<<<<< HEAD
+.modal-edit-tax-id[readonly]{
+  background-color: #ffffff;
+  opacity: 1;
+}
+.telecallar-team {
+  border: 1px solid #ffffff;
+  padding-left: 0px !important;
+  padding-right:  0px !important;
+}
+.flatpickr-input{
+  border: 1px solid #ffffff;
+  padding-left: 0px !important;
+  padding-right:  0px !important;
+}
+=======
 .modal-edit-tax-id[readonly] {
   background-color: #ffffff;
   opacity: 1;
@@ -156,11 +172,16 @@ input[type="checkbox"].custom-checkbox:checked {
   padding-right: 0px !important;
 }
 
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
 .flatpickr-input:disabled,
 .flatpickr-input[readonly] {
   background-color: #ffffff;
   opacity: 1;
 }
+<<<<<<< HEAD
+.bg-menu-theme .menu-inner > .menu-item.active:before {
+   background: 0; 
+=======
 
 .bg-menu-theme .menu-inner>.menu-item.active:before {
   background: 0;
@@ -239,6 +260,7 @@ div#listOnclick {
 }
 .user_role{
   padding-right: 50px;
+<<<<<<< HEAD
 
 }
 .top-menu {
@@ -252,4 +274,7 @@ div#listOnclick {
 .test-demo-class{
   border-radius: 0.375rem !important;
   padding: 14px;
+=======
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
+>>>>>>> 57a308b778e219e4f3b294624e429dbd7e5555fb
 }
