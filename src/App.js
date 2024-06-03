@@ -31,7 +31,7 @@ import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
 import Navbarmenu from './Components/Navbarmenu.js';
 import Home from './Routers/Home.js';
-import About from './Routers/About';
+import About from './Routers/About.js';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -64,9 +64,9 @@ function App() {
 
   return (
     <BrowserRouter>
-      <section className='sticy-header logo-size'>
+    <section className='sticy-header logo-size'>
         <Navbarmenu />
-      </section>
+      </section> 
       <Routes>
 
         <Route path="/" element={<Home />} />

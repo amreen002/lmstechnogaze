@@ -11,12 +11,7 @@ function Footer() {
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-<<<<<<< HEAD
-                    , made with ❤️ by
-                    <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-=======
                     <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">The Good Student</a>
->>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                 </div>
                 <div>
                     <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>

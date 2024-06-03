@@ -195,19 +195,11 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
                                 {/* Dropdown content */}
                                 {/*      <li className="menu-item">
-<<<<<<< HEAD
-                                    <Link to="/addsaleteam" className="menu-link">
-                                        <i className='bx bx-list-ul'></i>
-                                        <div data-i18n="Without menu">Add Lead</div>
-                                    </Link>
-                                </li> */}
-=======
                                 <Link to="/addsaleteam" className="menu-link">
                                     <i className='bx bx-list-ul'></i>
                                     <div data-i18n="Without menu">Add Lead</div>
                                 </Link>
                             </li> */}
->>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                                 <li className="menu-item">
                                     <Link to="/addsaleteam" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
@@ -265,9 +257,6 @@ function DashBoardMenu(onLogout) {
                         )}
                     </li>
                 )}
-<<<<<<< HEAD
-
-=======
                 {/* Render  menu Role */}
                 {table.Role && table.Role.Name === 'Administrator' && (
                     <li className={`menu-item  ${activeService === 'Administrator' ? 'active' : ''} show_project_web`}>
@@ -479,7 +468,6 @@ function DashBoardMenu(onLogout) {
 
 
                 )}
->>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             </ul>
         </aside>
     )
