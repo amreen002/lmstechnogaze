@@ -195,11 +195,19 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
                                 {/* Dropdown content */}
                                 {/*      <li className="menu-item">
+<<<<<<< HEAD
                                     <Link to="/addsaleteam" className="menu-link">
                                         <i className='bx bx-list-ul'></i>
                                         <div data-i18n="Without menu">Add Lead</div>
                                     </Link>
                                 </li> */}
+=======
+                                <Link to="/addsaleteam" className="menu-link">
+                                    <i className='bx bx-list-ul'></i>
+                                    <div data-i18n="Without menu">Add Lead</div>
+                                </Link>
+                            </li> */}
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                                 <li className="menu-item">
                                     <Link to="/addsaleteam" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
@@ -257,7 +265,202 @@ function DashBoardMenu(onLogout) {
                         )}
                     </li>
                 )}
+<<<<<<< HEAD
 
+=======
+                {/* Render  menu Role */}
+                {table.Role && table.Role.Name === 'Administrator' && (
+                    <li className={`menu-item ${activeService === 'Administrator' ? 'active' : ''} show_project_web`}>
+                        <a href="#" onClick={() => toggleDropdown('dropdowninstructor')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bx-user"></i>
+                            <div data-i18n="Layouts">Instructor</div>
+                        </a>
+                        {/* Step 4: Conditionally render dropdown based on state */}
+                        {activeService === 'dropdowninstructor' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+                                <li className="menu-item">
+                                    <Link to="/teachers" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Instructor</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/addteachers" className="menu-link">
+                                        <i className='menu-icon bx bx-add-to-queue'></i>
+                                        <div data-i18n="Without menu">Add Instructor</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+
+
+
+
+                        <a href="#" onClick={() => toggleDropdown('dropdowncourese')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bxs-graduation"></i>
+                            <div data-i18n="Layouts">Courese</div>
+                        </a>
+
+                        {/* Step 4: Conditionally render dropdown based on state */}
+                        {activeService === 'dropdowncourese' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+                                <li className="menu-item">
+                                    <Link to="/courses" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Courese</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/courses" className="menu-link">
+                                        <i className='menu-icon bx bx-add-to-queue'></i>
+                                        <div data-i18n="Without menu">Add Courese</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/coursesreports" className="menu-link">
+                                        <i className='menu-icon bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Courese Report</div>
+                                    </Link>
+                                </li>
+
+                            </ul>
+                        )}
+                        <a href="#" onClick={() => toggleDropdown('dropdownbatches')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bx-time-five"></i>
+                            <div data-i18n="Layouts">Batches</div>
+                        </a>
+                        {activeService === 'dropdownbatches' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+
+                                <li className="menu-item">
+                                    <Link to="/batches" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Batches</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/batches" className="menu-link">
+                                        <i className='menu-icon bx bx-add-to-queue'></i>
+                                        <div data-i18n="Without menu">add Batches</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+
+                        <a href="#" onClick={() => toggleDropdown('dropdownstudent')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bxs-group"></i>
+                            <div data-i18n="Layouts">Student</div>
+                        </a>
+
+                        {/* Step 4: Conditionally render dropdown based on state */}
+                        {activeService === 'dropdownstudent' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+                                <li className="menu-item">
+                                    <Link to="/students" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Student</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/students" className="menu-link">
+                                        <i className='menu-icon bx bx-add-to-queue'></i>
+                                        <div data-i18n="Without menu">Add Student</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/studentsreports" className="menu-link">
+                                        <i className='menu-icon bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Student Report</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+
+                        <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bxs-envelope"></i>
+                            <div data-i18n="Layouts">Quizze</div>
+                        </a>
+
+                        {/* Step 4: Conditionally render dropdown based on state */}
+                        {activeService === 'dropdownquize' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+                                <li className="menu-item">
+                                    <Link to="/quizzes" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Quize </div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="/quizzes" className="menu-link">
+                                        <i className='menu-icon bx bx-add-to-queue'></i>
+                                        <div data-i18n="Without menu">Add Quize</div>
+                                    </Link>
+                                </li>
+
+                            </ul>
+                        )}
+                        <a href="#" onClick={() => toggleDropdown('dropdowquestion')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bx-question-mark"></i>
+                            <div data-i18n="Layouts">Question</div>
+                        </a>
+                        {activeService === 'dropdowquestion' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+
+                                <li className="menu-item">
+                                    <Link to="#" className="menu-link">
+                                        <i className='menu-icon bx bx-list-check'></i>
+                                        <div data-i18n="Without menu">All Question</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="#" className="menu-link">
+                                        <i className='menu-icon bx bxs-add-to-queue'></i>
+                                        <div data-i18n="Without menu">Add Question</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
+                                    <Link to="#" className="menu-link">
+                                        <i className='menu-icon bx bxs-category'></i>
+                                        <div data-i18n="Without menu">Question Category</div>
+                                    </Link>
+                                </li>
+                            </ul>
+                        )}
+                        <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                            <i className="menu-icon tf-icons bx bxs-envelope"></i>
+                            <div data-i18n="Layouts">Assignments Activity</div>
+                        </a>
+
+                        {/* Step 4: Conditionally render dropdown based on state */}
+                        {activeService === 'dropdownquize' && (
+                            <ul className="" aria-labelledby="dropdownMenuButton">
+                                {/* Dropdown content */}
+                                <li className="menu-item">
+                                    <Link to="/courses" className="menu-link">
+                                        <i className='menu-icon bx bx-list-ul'></i>
+                                        <div data-i18n="Without menu">All Activity </div>
+                                    </Link>
+                                </li>
+
+                                <li className="menu-item">
+                                    <Link to="#" className="menu-link">
+                                        <i className='menu-icon bx bx-list-check'></i>
+                                        <div data-i18n="Without menu">All Question</div>
+                                    </Link>
+                                </li>
+
+                            </ul>
+                        )}
+                    </li>
+
+
+                )}
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             </ul>
         </aside>
     )

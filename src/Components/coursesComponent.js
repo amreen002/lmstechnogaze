@@ -8,13 +8,26 @@ function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
     const [name, setName] = useState('');
+<<<<<<< HEAD
     const [userData, setUserData] = useState("");
     const [table, setSaleTeamData] = useState([]);
+=======
+    const [CoursePrice, setCoursePrice] = useState('');
+    const [CourseCategoryId, setCourseCategoryId] = useState('');
+    const [userData, setUserData] = useState("");
+    const [table, setCourse] = useState([]);
+
+    const [category, setCategory] = useState([]);
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     useEffect(() => {
         fetchData(coursesId);
     }, [coursesId]);
     useEffect(() => {
         fetchData1();
+<<<<<<< HEAD
+=======
+        fetchData2();
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     }, []);
 
     const fetchData = async (coursesId) => {
@@ -35,7 +48,13 @@ function CoursesP() {
                 const userData = response.data.courses;
                 setUserData(userData);
                 setName(userData.name);
+<<<<<<< HEAD
 
+=======
+                setCoursePrice(userData.CoursePrice);
+                setCourseCategoryId(userData.CourseCategoryId);
+               
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
 
         } catch (err) {
@@ -54,13 +73,18 @@ function CoursesP() {
                     }
                 });
                 const userDatas = response.data.courses;
+<<<<<<< HEAD
                 setSaleTeamData(userDatas)
+=======
+                setCourse(userDatas)
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
 
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+<<<<<<< HEAD
     const [formData, setFormData] = useState({
         name: '',
     })
@@ -71,12 +95,37 @@ function CoursesP() {
         });
 
     }
+=======
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.categories;
+                setCategory(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
+<<<<<<< HEAD
+=======
+                let formData = { name, CoursePrice, CourseCategoryId }
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                 await axios.post('http://localhost:3000/api/addcourses', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -114,6 +163,7 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
+<<<<<<< HEAD
                 const updatedUserData = { name};
                 await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`,updatedUserData, {
                     headers: {
@@ -125,6 +175,17 @@ function CoursesP() {
              
                 alert("User data updated successfully!");
 
+=======
+                const updatedUserData = { name, CoursePrice, CourseCategoryId}
+                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+              fetchData(coursesId)
+                alert("Courses updated successfully!");
+             /*    window.location.href = "/courses"; */
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -306,10 +367,32 @@ function CoursesP() {
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Full Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+<<<<<<< HEAD
                                                         onChange={handleChange}
                                                         value={formData.name} aria-label="John Doe" />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
+=======
+                                                        value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Courses Price</label>
+                                                    <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
+                                                        value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
+                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                        <option value="">Select</option>
+                                                        {category.map((option) => (
+                                                            <option key={option.id} value={option.id}>{option.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                 <input type="hidden" /></form>
@@ -331,11 +414,33 @@ function CoursesP() {
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="modalEditUserFirstName">Full Name</label>
                                                         <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
+<<<<<<< HEAD
                                                             value={name} onChange={(e) => setName(e.target.value)}
                                                         />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
 
+=======
+                                                           disabled="false"  value={name} onChange={(e) => setName(e.target.value)}
+                                                        />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+
+                                                    <div class="col-12 fv-plugins-icon-container">
+                                                        <label class="form-label" for="add-user-fullname">Courses Price</label>
+                                                        <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
+                                                            value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="col-12 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                            <option value="">Select</option>
+                                                            {category.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+>>>>>>> 01e74208e2234d3fa6066fb5057f670a9bef41dc
 
                                                     <div class="col-12 text-center">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
