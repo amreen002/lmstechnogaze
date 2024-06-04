@@ -420,7 +420,7 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
 
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/question" className="menu-link">
                                         <i className='menu-icon bx bx-list-check'></i>
                                         <div data-i18n="Without menu">All Question</div>
                                     </Link>
