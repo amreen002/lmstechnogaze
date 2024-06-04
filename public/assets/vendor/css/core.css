@@ -51,6 +51,37 @@
 h3, .h3 {
   font-size: 16px !important;
 }
+
+button.btn.buttons-collection.dropdown-toggle.btn-label-secondary.mx-3.d-flex {
+  color: #8592a3;
+  border-color: rgba(0, 0, 0, 0);
+  background: #ebeef0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.cus_Add{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 38px;
+  margin-top: 0px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.cus_Add .bx {
+    font-family: "boxicons" !important;
+    font-weight: normal;
+    font-style: normal;
+    font-variant: normal;
+    line-height: 1;
+    text-rendering: auto;
+    display: inline !important;
+}
 *,
 *::before,
 *::after {

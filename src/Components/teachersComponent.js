@@ -401,8 +401,28 @@ function ListUse() {
                                         </div>
                                     </div>
                                     <div class="card-datatable table-responsive">
-                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div> <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add New Instructor</span></span></button> </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10">
+                                            <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
+                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div>
+                                            <div class="dt-buttons btn-group flex-wrap">
+                                                 <div class="btn-group d-flex flex-row">
+                                                    <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex" 
+                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" 
+                                                    aria-expanded="false">
+                                                    <span><i class="bx bx-export me-1"></i>Export</span>
+                                                    </button>
+                                                  
+                                                    <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+                                                   
+                                                    <span><i class="bx bx-plus me-0 me-sm-1"></i>Instructor</span>
+                                                    </button>
+                                                 </div>
+                                              
+                                                     </div>
+                                                     </div>
+                                                     </div >
+                                                     </div>
+                                                     <table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label=""></th>
@@ -459,39 +479,39 @@ function ListUse() {
 
                                                     <div class="col-lg-6 p-t-20">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
-                                                        <label class="form-label" for="add-user-fullname">Instructor Frist Name</label>
+                                                        <label class="form-label" for="add-user-fullname">Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
                                                             onChange={(e) => setName(e.target.value)}
                                                             value={Name} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user-fullname">Instructor Last Name</label>
+                                                        <label class="form-label" for="add-user-fullname">Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={(e) => setLastName(e.target.value)}
                                                             value={LastName} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user-email">Instructor Email</label>
+                                                        <label class="form-label" for="add-user-email">Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
                                                             onChange={(e) => setEmail(e.target.value)}
                                                             value={Email} />
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user-contact">Instructor Contact</label>
+                                                        <label class="form-label" for="add-user-contact"> Contact</label>
                                                         <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={(e) => setPhoneNumber(e.target.value)}
                                                             value={PhoneNumber} />
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user"> Instructor User Name</label>
+                                                        <label class="form-label" for="add-user"> User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                             onChange={(e) => setUsername(e.target.value)}
                                                             value={Username} />
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
 
-                                                        <label class="form-label" for="basic-icon-default-password">Instructor Password</label>
+                                                        <label class="form-label" for="basic-icon-default-password">Password</label>
                                                         <input type="Password"
                                                             onChange={(e) => setPassword(e.target.value)}
                                                             name='Password'
@@ -503,7 +523,7 @@ function ListUse() {
                                                         {error && <div style={{ color: 'red' }}>{error}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="basic-icon-default-password">Instructor DOB</label>
+                                                        <label class="form-label" for="basic-icon-default-password">DOB</label>
                                                         <input type="date"
                                                             onChange={(e) => setDOB(e.target.value)}
                                                             name='DOB'
@@ -515,7 +535,7 @@ function ListUse() {
 
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Instructor Type</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={(e) => setTeacherType(e.target.value)}>
                                                             <option value="">Select</option>
                                                             <option value="Online">Online</option>
@@ -523,7 +543,7 @@ function ListUse() {
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Instructor Country</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Country</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -538,7 +558,7 @@ function ListUse() {
                                                         </select>
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Instructor State</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">State</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -554,7 +574,7 @@ function ListUse() {
                                                     </div>
 
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Instructor District</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -570,21 +590,21 @@ function ListUse() {
                                                     </div>
 
                                                     <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user-email">Instructor Address</label>
+                                                        <label class="form-label" for="add-user-email">Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                             onChange={(e) => setAddress(e.target.value)}
                                                             value={Address} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email">Instructor City</label>
+                                                        <label class="form-label" for="add-user-email">City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
                                                             onChange={(e) => setCity(e.target.value)}
                                                             value={City} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="basic-icon-default-message">Instructor Your Introducation & Skills</label>
+                                                        <label class="form-label" for="basic-icon-default-message">Introducation & Skills</label>
                                                         <div class="input-group input-group-merge">
                                                             <span id="basic-icon-default-message2" class="input-group-text"
                                                             ><i class="bx bx-comment"></i
@@ -599,9 +619,10 @@ function ListUse() {
                                                                 name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                    <div class="mb-3 d-flex flex-row">
+
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit d-flex">Submit</button>
+                                                        <button type="reset" class="btn btn-label-secondary d-flex" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
                                                     </div>
 

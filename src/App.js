@@ -33,6 +33,8 @@ import VideoRouters from "./Routers/videoRouters.js"
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import Login from './Components/Login.js';
+import InstructorDashboard from './Components/instructorDashboard.js';
+import InstructorCourseadd from './Components/instructorCourseadd.js';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -65,19 +67,21 @@ function App() {
 
   return (
     <BrowserRouter>
-   
+
       <Routes>
 
-      <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route
-                    path="/login"
-                    element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
-                />
-                <Route
-                    path="/dashboard"
-                    element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
-                />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/instructorDashboard" element={<InstructorDashboard />} />
+        <Route path="/InstructorCourseadd" element={<InstructorCourseadd />} />
+        <Route
+          path="/login"
+          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+        />
+        <Route
+          path="/dashboard"
+          element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
