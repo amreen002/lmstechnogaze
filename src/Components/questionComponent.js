@@ -90,7 +90,6 @@ function Questions() {
                 const response = await axios.get(`http://localhost:3000/api/questionscategory`, {
                     headers: {
                         Authorization: `Bearer ${token}`
-
                     }
                 });
                 const userDatas = response.data.questionscategory;
@@ -207,6 +206,7 @@ function Questions() {
                 await axios.put(`http://localhost:3000/api/question/${questionId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
+
                     }
                 });
                 fetchData3(questionId)
@@ -347,13 +347,12 @@ function Questions() {
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Id</th>
 
-                                                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Question</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">option</th>
+                                                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Questions</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">options</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Quizze</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Category</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Answer</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Type</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Questions</th>
-
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Marks</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="145px;" aria-label="Actions">Actions</th>
 
                                                     </tr>
@@ -365,14 +364,21 @@ function Questions() {
                                                                 <td>{index + 1}</td>
                                                             </td>
                                                             <td>{item.Questions}</td>
-                                                            <td>{item.Options1} {item.Options2} {item.Options3} {item.Options4}</td>
+                                                            <td class="left">
+                                                                <ul>
+                                                                </ul>
+                                                                <li>{item.Options1} <br /></li>
+                                                                <li>{item.Options2} <br /></li>
+                                                                <li>{item.Options3} <br /></li>
+                                                                <li>{item.Options4} <br /></li>                                                                            </td>
+                                                               
                                                             <td>{item.Quize && item.Quize.id} {item.Quize && item.Quize.QuizzName}</td>
-                                                            <td>{item.CategoriesQuestion&& item.CategoriesQuestion.name}</td>
+                                                            <td>{item.CategoriesQuestion && item.CategoriesQuestion.name}</td>
                                                             <td>{item.Answer}</td>
-
+                                                            <td>{item.Type}</td>
 
                                                             <td><div class="d-inline-block text-nowrap">
-                                                                <Link to={`/quizzes/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">
+                                                                <Link to={`/question/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">
                                                                     <i class="bx bx-edit"></i>
                                                                 </button>
                                                                 </Link>
@@ -389,7 +395,7 @@ function Questions() {
 
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
                                         <div class="offcanvas-header">
-                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Student</h5>
+                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Question</h5>
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
@@ -400,7 +406,7 @@ function Questions() {
                                                         <label class="form-label" for="add-user-fullname">Questions</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Questions'
                                                             onChange={(e) => setQuestions(e.target.value)}
-                                                            defaultValue={Questions} />
+                                                            value={Questions} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="mb-3">
@@ -496,18 +502,19 @@ function Questions() {
                                                         <label class="form-label" for="add-user-fullname">Questions</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Questions'
                                                             onChange={(e) => setQuestions(e.target.value)}
-                                                            defaultValue={Questions} />
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                    </div>
-
-
+                                                            value={Questions} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-contact">Type</label>
-                                                        <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="Easy" name="Type"
-                                                            onChange={(e) => setType(e.target.value)}
-                                                            value={Type} />
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Type" value={Type} onChange={(e) => setType(e.target.value)}>
+                                                            <option value="">Select</option>
+                                                            <option value="Easy">Easy</option>
+                                                            <option value="Medium">Medium</option>
+                                                            <option value="Hard">Hard</option>
+                                                        </select>
                                                     </div>
+
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user">Options 1</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Options 1" name="Options1"
@@ -541,16 +548,16 @@ function Questions() {
                                                             value={Answer} />
                                                     </div>
 
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Select Quizze</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzeId" value={QuizzeId} onChange={(e) => setQuizzeId(e.target.value)}>
                                                             <option value="">Select</option>
-                                                            {category.map((option) => (
-                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            {quizze.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.id} {option.QuizzName}</option>
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Questions Category</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CategoryId" value={CategoryId} onChange={(e) => setCategoryId(e.target.value)}>
                                                             <option value="">Select</option>
@@ -559,16 +566,6 @@ function Questions() {
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                                                        <input type="hidden" />
-                                                    </div>
-
-
-
-
-
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>

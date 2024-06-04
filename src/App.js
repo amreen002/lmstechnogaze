@@ -32,6 +32,7 @@ import VideoRouters from "./Routers/videoRouters.js"
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import QuestionRouters from './Routers/questionRouters.js'
+import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -228,6 +229,18 @@ function App() {
         <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/question/:questionId"
+          element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/questioncategory"
+          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/questioncategory/:questioncategoryId"
+          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
       </Routes>
 

@@ -432,7 +432,7 @@ function DashBoardMenu(onLogout) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/questioncategory" className="menu-link">
                                         <i className='menu-icon bx bxs-category'></i>
                                         <div data-i18n="Without menu">Question Category</div>
                                     </Link>
