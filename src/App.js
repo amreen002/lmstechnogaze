@@ -33,6 +33,7 @@ import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import QuestionRouters from './Routers/questionRouters.js'
 import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
+import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -239,8 +240,16 @@ function App() {
           element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
         <Route
-          path="/questioncategory/:questioncategoryId"
+          path="/questioncategory/:questionscategoryId"
           element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/coursecategory"
+          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/coursecategory/:categoriesId"
+          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
       </Routes>
 

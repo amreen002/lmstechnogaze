@@ -296,6 +296,12 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
                                 {/* Dropdown content */}
                                 <li className="menu-item">
+                                    <Link to="/coursecategory" className="menu-link">
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Courese Category</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
                                         <div data-i18n="Without menu">All Courese</div>
@@ -439,11 +445,11 @@ function DashBoardMenu(onLogout) {
                                 </li>
                             </ul>
                         )}
-                        <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                       {/*  <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className="menu-icon tf-icons bx bxs-envelope"></i>
                             <div data-i18n="Layouts">Assignments Activity</div>
                         </a>
-
+ */}
                         {/* Step 4: Conditionally render dropdown based on state */}
                         {activeService === 'dropdownquize' && (
                             <ul className="" aria-labelledby="dropdownMenuButton">

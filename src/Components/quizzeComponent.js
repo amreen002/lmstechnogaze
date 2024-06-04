@@ -24,10 +24,12 @@ function BatchesUse() {
     const [TotalQuestions, setTotalQuestions] = useState('');
     const [TotalMarks, setTotalMarks] = useState('');
     const [Instructions, setInstructions] = useState('');
+    const [CourseId,setCourseId]= useState('');
     const [FindOneInstructor, setFindOneInstructor] = useState({})
     const [QuizzCategoryId, setQuizzCategoryId] = useState([]);
     const [batch, setBatchs] = useState([]);
     const [category, setCategory] = useState([]);
+    const [course, setCourse] = useState([]);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
@@ -44,6 +46,7 @@ function BatchesUse() {
         fetchData();
         fetchData1()
         fetchData2()
+        fetchData4()
     }, []);
 
     // Format options for react-select
@@ -148,6 +151,7 @@ function BatchesUse() {
                 setInstructions(userData.Instructions);
                 setQuizzCategoryId(userData.QuizzCategoryId);
                 setBatchId(Array.isArray(userData.BatchId) ? userData.BatchId : []);
+                setCourseId(userData.CourseId)
             } else {
                 console.warn('No token found in localStorage');
             }
@@ -159,6 +163,25 @@ function BatchesUse() {
 
 
 
+    const fetchData4 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.courses;
+                setCourse(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
 
     const handleSubmit = async (e) => {
@@ -178,6 +201,7 @@ function BatchesUse() {
                 Instructions,
                 BatchId,
                 QuizzCategoryId,
+                CourseId,
             }
 
             const token = localStorage.getItem('token');
@@ -229,6 +253,7 @@ function BatchesUse() {
                 Instructions,
                 BatchId,
                 QuizzCategoryId,
+                CourseId
             }
             const token = localStorage.getItem('token');
 
@@ -511,6 +536,15 @@ function BatchesUse() {
                                                             ))}
                                                         </select>
                                                     </div>
+                                                    <div class="col-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Courses</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseId" value={CourseId} onChange={(e) => setCourseId(e.target.value)}>
+                                                            <option value="">Select</option>
+                                                            {course.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
                                                     <div class="mb-3">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
@@ -623,6 +657,15 @@ function BatchesUse() {
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzCategoryId" value={QuizzCategoryId} onChange={(e) => setQuizzCategoryId(e.target.value)}>
                                                             <option value="">Select</option>
                                                             {category.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Courses</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseId" value={CourseId} onChange={(e) => setCourseId(e.target.value)}>
+                                                            <option value="">Select</option>
+                                                            {course.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>

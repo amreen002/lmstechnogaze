@@ -8,17 +8,17 @@ import DashBoardMenus from './dashboardsMenuComponent';
 
 function QuestionsCategory() {
 
-    const { questionscategoryId } = useParams();
-    const [questionscategory, setQuestionscategory] = useState([]);
-    const [FindOneQuestionscategory, setFindOneQuestionscategory] = useState({});
+    const { categoriesId } = useParams();
+    const [coursecategory, setcoursecategory] = useState([]);
+    const [FindOnecoursecategory, setFindOnecoursecategory] = useState({});
     const [name, setname] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
 
 
     useEffect(() => {
-        fetchData2(questionscategoryId)
-    }, [questionscategoryId]);
+        fetchData2(categoriesId)
+    }, [categoriesId]);
 
     useEffect(() => {
         fetchData();
@@ -32,14 +32,14 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory`, {
+                const response = await axios.get(`http://localhost:3000/api/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
-                const userData = response.data.questionscategory;
-                setQuestionscategory(userData)
+                const userData = response.data.categories;
+                setcoursecategory(userData)
             }
 
         } catch (error) {
@@ -49,19 +49,19 @@ function QuestionsCategory() {
 
 
 
-    const fetchData2 = async (questionscategoryId) => {
+    const fetchData2 = async (categoriesId) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, {
+                const response = await axios.get(`http://localhost:3000/api/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                const userData = response.data.questionscategory;
+                const userData = response.data.categories;
 
-                setFindOneQuestionscategory(userData);
+                setFindOnecoursecategory(userData);
                 setname(userData.name);
 
             } else {
@@ -87,25 +87,25 @@ function QuestionsCategory() {
 
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.post('http://localhost:3000/api/questionscategory', formData, {
+                const response = await axios.post('http://localhost:3000/api/categories', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                window.location.href = "/questioncategory";
-                alert('Questions Category SuccessFully Create');
+                window.location.href = "/coursecategory";
+                alert('Course Category SuccessFully Create');
             }
         } catch (error) {
             alert('Failed to send message.');
         }
     };
 
-    const handleDelete = async (questionscategoryId) => {
+    const handleDelete = async (categoriesId) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, {
+                await axios.delete(`http://localhost:3000/api/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -127,14 +127,14 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, updatedUserData, {
+                await axios.put(`http://localhost:3000/api/categories/${categoriesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
-                fetchData2(questionscategoryId)
-                alert("Questions Category Is Updated Successfully!");
+                fetchData2(categoriesId)
+                alert("Course Category Is Updated Successfully!");
             }
         } catch (error) {
             console.error('Error updating:', error);
@@ -277,7 +277,7 @@ function QuestionsCategory() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {questionscategory.map((item, index) => (
+                                                    {coursecategory.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td class="sorting_1">
                                                                 <td>{index + 1}</td>
@@ -285,7 +285,7 @@ function QuestionsCategory() {
                                                             <td>{item.name}</td>
                                                         
                                                             <td><div class="d-inline-block text-nowrap">
-                                                                <Link to={`/questioncategory/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">
+                                                                <Link to={`/coursecategory/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">
                                                                     <i class="bx bx-edit"></i>
                                                                 </button>
                                                                 </Link>

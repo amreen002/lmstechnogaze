@@ -10,6 +10,7 @@ function CoursesP() {
     const [name, setName] = useState('');
     const [CoursePrice, setCoursePrice] = useState('');
     const [CourseCategoryId, setCourseCategoryId] = useState('');
+    const [CourseDuration, setCourseDuration] = useState('');
     const [userData, setUserData] = useState("");
     const [table, setCourse] = useState([]);
 
@@ -42,7 +43,7 @@ function CoursesP() {
                 setName(userData.name);
                 setCoursePrice(userData.CoursePrice);
                 setCourseCategoryId(userData.CourseCategoryId);
-               
+                setCourseDuration(userData.CourseDuration)
             }
 
         } catch (err) {
@@ -93,7 +94,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                let formData = { name, CoursePrice, CourseCategoryId }
+                let formData = { name, CoursePrice, CourseCategoryId, CourseDuration }
                 await axios.post('http://localhost:3000/api/addcourses', formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -131,15 +132,15 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const updatedUserData = { name, CoursePrice, CourseCategoryId}
+                const updatedUserData = { name, CoursePrice, CourseCategoryId, CourseDuration }
                 await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-              fetchData(coursesId)
+                fetchData(coursesId)
                 alert("Courses updated successfully!");
-             /*    window.location.href = "/courses"; */
+                /*    window.location.href = "/courses"; */
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -330,7 +331,12 @@ function CoursesP() {
                                                         value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
-
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
+                                                    <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
+                                                        value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
@@ -361,7 +367,7 @@ function CoursesP() {
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="modalEditUserFirstName">Full Name</label>
                                                         <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
-                                                           disabled="false"  value={name} onChange={(e) => setName(e.target.value)}
+                                                            disabled="false" value={name} onChange={(e) => setName(e.target.value)}
                                                         />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
@@ -369,6 +375,12 @@ function CoursesP() {
                                                         <label class="form-label" for="add-user-fullname">Courses Price</label>
                                                         <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
                                                             value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
+                                                        <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
+                                                            value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="col-12 fv-plugins-icon-container">

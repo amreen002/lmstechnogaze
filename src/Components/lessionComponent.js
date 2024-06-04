@@ -380,7 +380,7 @@ function Topic() {
                                                                     <td>{item.Course && item.Course.name}</td>
                                                                     <td>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (topic.name))}</td>
                                                                     <td>{item.Course && item.Course.Category && item.Course.Category.name}</td>
-                                                                    <td><Link to={'#'}>Course 5 Days</Link></td>
+                                                                    <td><Link to={'#'}>{item.Course && item.Course.CourseDuration} Days</Link></td>
                                                                     <td>
                                                                         <div class="d-inline-block text-nowrap">
                                                                             <Link to={`/lession/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">
