@@ -1,16 +1,46 @@
 
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 
 
 import FooterFrontend from '../Components/FooterFrontend';
+import Navbarmenu from '../Components/Navbarmenu';
 
 const Home = () => {
+
+    const [cssLoaded, setCssLoaded] = useState(false);
+
+    useEffect(() => {
+        // Check if CSS has already been loaded
+        const isCssLoaded = localStorage.getItem('homeCssLoaded');
+        if (!isCssLoaded) {
+            // Dynamically load CSS
+            Promise.all([
+                import('../styles/css/plugins/fontawesome-6.css'),
+                import('../styles/css/vendor/bootstrap.min.css'),
+                import('../styles/css/style.css')
+            ]).then(() => {
+                console.log('Home page CSS loaded successfully');
+                // Set flag to indicate CSS has been loaded
+                localStorage.setItem('homeCssLoaded', true);
+                setCssLoaded(true);
+            }).catch(error => {
+                console.error('Error loading Home page CSS:', error);
+            });
+        } else {
+            setCssLoaded(true);
+        }
+    }, []);
   return (
+
+ 
+
     <div>
-    
+     <section className='sticy-header logo-size'>
+        <Navbarmenu />
+      </section> 
 
     <div className="banner-area-one shape-move">
-        <div className="container">
+        <div className="container-fluid">
             <div className="row">
                 <div className="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
                     <div className="banner-content-one">
@@ -23,7 +53,7 @@ const Home = () => {
                             Discover your learning <br />style, 
                             
                                 and <span>ace your grades!</span>
-                                <img src="assets/fontend/images/banner/02.png" alt="banner" />
+                                <img src="assets/fontend/images/banner/02.png" alt="banner"  />
                             </h1>
                             <p className="disc">Are you ready to embark on an exciting learning journey tailored just for you? 
 
@@ -33,8 +63,8 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 <div className="sm-image-wrapper">
                                     <div className="images-wrap">
                                         <img src="assets/fontend/images/banner/shape/06.png" alt="banner" />
-                                        <img className="two" src="assets/images/banner/shape/07.png" alt="banner" />
-                                        <img className="three" src="assets/images/banner/shape/08.png" alt="banner" />
+                                        <img className="two" src="assets/fontend/images/banner/shape/07.png" alt="banner" />
+                                        <img className="three" src="assets/fontend/images/banner/shape/08.png" alt="banner" />
                                     </div>
                                     <div className="info">
                                         <h6 className="title">2k students</h6>
@@ -73,14 +103,14 @@ Welcome to The Good Student Co., where we believe every student has the potentia
        
         </div>
         <div className="shape-image">
-            <div className="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/shape/banner-shape01.svg" alt="shape_image" /></div>
-            <div className="shape two" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape02.svg" alt="shape_image" /></div>
-            <div className="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape03.svg" alt="shape_image" /></div>
+            <div className="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/shape/banner-shape01.svg" alt="shape_image" style={{width:'20%'}}/></div>
+            <div className="shape two" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape02.svg" alt="shape_image" style={{width:'20%'}} /></div>
+            <div className="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape03.svg" alt="shape_image" style={{width:'20%'}} /></div>
         </div>
     </div>
 
     <div className="about-area-start rts-section-gapBottom">
-        <div className="container">
+        <div className="container-fluid">
             <div className="row align-items-center">
                 <div className="col-xl-6 col-lg-12">
                  
@@ -136,8 +166,8 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                         <div className="what-you-get">
                        
                             <div className="single-facilityes">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/about/icon/01.png" alt="icon-image" />
+                                <div className="icon" style={{width:'20%'}}>
+                                    <img src="assets/fontend/images/about/icon/01.svg" alt="icon-image" style={{width:'100%'}}  />
                                 </div>
                                 <div className="information">
                                     <h5 className="title">Learn with Expert </h5>
@@ -146,8 +176,8 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                             </div>
                           
                             <div className="single-facilityes">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/about/icon/02.png" alt="icon-image" />
+                                <div className="icon" style={{width:'20%'}}>
+                                    <img src="assets/fontend/images/about/icon/02.svg" alt="icon-image" style={{width:'100%'}} />
                                 </div>
                                 <div className="information">
                                     <h5 className="title">Expert Instructors</h5>
@@ -177,13 +207,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
 
 
     <div className="why-choose-us bg-blue bg-choose-us-one bg_image rts-section-gap shape-move">
-        <div className="container">
+        <div className="container-fluid">
             <div className="row align-items-center">
                 <div className="col-lg-6">
                     <div className="why-choose-us-area-image pb--50">
-                        <img className="one" src="assets/fontend/images/why-choose/11.png" alt="why-choose" />
+                        <img className="one" src="assets/fontend/images/why-choose/2.png" alt="why-choose" />
                         <div className="border-img">
-                            <img className="two ml--20" src="assets/fontend/images/why-choose/2.png" alt="why-choose" />
+                            <img className="two ml--20" src="assets/fontend/images/why-choose/11.png" alt="why-choose" />
                         </div>
                         <div className="circle-animation">
                             <a className="uni-circle-text uk-background-white dark:uk-background-gray-80 uk-box-shadow-large uk-visible@m" href="#view_in_opensea">
@@ -209,6 +239,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                         </div>
                         <h2 className="title">YOUR LEARNING STYLE</h2>
                         <p className="post-title">Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who learns best by doing, touching, and moving?</p>
+                   <p className='post-title'>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
                     </div>
                     <div className="why-choose-main-wrapper-1">
                    
@@ -266,7 +297,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
             </div>
         </div>
         <div className="shape-image">
-            <div className="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/15.png" alt="" /></div>
+            <div className="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/" alt="" /></div>
             <div className="shape two" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape02-w.svg" alt="" /></div>
             <div className="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/16.png" alt="" /></div>
         </div>
@@ -274,98 +305,37 @@ Welcome to The Good Student Co., where we believe every student has the potentia
 
 
     <div class="category-area-style-one shape-move rts-section-gap bg_image">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-12">
+                <div className='col-lg-4'></div>
+                <div class="col-lg-6">
                     <div class="title-area-center-style">
                         <div class="pre-title">
-                            <img src="assets/images/banner/bulb.png" alt="icon" />
-                            <span>Top Category</span>
+                            <img src="assets/fontend/images/banner/bulb.png" alt="icon" />
+                            <span>Explore</span>
                         </div>
-                        <h2 class="title">Explore 2000+ Free Online Courses</h2>
-                        <p class="post-title">You'll find something to spark your curiosity and enhance</p>
+                        <h2 class="title">who loves to doodle diagrams?</h2>
+                        <p class="post-title">YOUR LEARNING STYLE</p>
                     </div>
                 </div>
             </div>
             <div class="row mt--50">
-                <div class="col-lg-12">
-                    <div class="category-swiper-wrapper">
-                        <div class="swiper mySwiper-category-1">
-                            <div class="swiper-wrapper">
-                            
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/01.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Development</h5>
-                                        <span>130+ Courses</span>
-                                    </a>
-                                </div>
-                             
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/02.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Business</h5>
-                                        <span>230+ Courses</span>
-                                    </a>
-                                </div>
-                            
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/03.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Design & Art</h5>
-                                        <span>230+ Courses</span>
-                                    </a>
-                                </div>
-                       
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/04.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Marketing</h5>
-                                        <span>144+ Courses</span>
-                                    </a>
-                                </div>
-                             
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/05.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Music</h5>
-                                        <span>130+ Courses</span>
-                                    </a>
-                                </div>
-                             
-                                <div class="swiper-slide">
-                                    <a href="#" class="category-style-one">
-                                        <div class="icon">
-                                            <img src="assets/images/category/06.svg" alt="brand" />
-                                        </div>
-                                        <h5 class="title">Accounting</h5>
-                                        <span>110+ Courses</span>
-                                    </a>
-                                </div>
-                        
-                            </div>
-                            <div class="swiper-button-next"><i class="fa-solid fa-chevron-right"></i></div>
-                            <div class="swiper-button-prev"><i class="fa-solid fa-chevron-left"></i></div>
-                            <div class="swiper-pagination"></div>
-                        </div>
-                    </div>
+                <div className='col-lg-4'></div>
+                <div class="col-lg-8">
+                   <div className='explore_text'>
+                    <p>Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado
+                         who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who
+                          learns best by doing, touching, and moving?</p>
+                          <p>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
+                   </div>
                 </div>
+              
             </div>
         </div>
         <div class="shape-image">
-            <div class="shape one" data-speed="0.04" data-revert="true"><img src="assets/images/banner/15.png" alt="" /></div>
-            <div class="shape two" data-speed="0.04"><img src="assets/images/banner/shape/banner-shape02.svg" alt="" /></div>
-            <div class="shape three" data-speed="0.04"><img src="assets/images/banner/shape/banner-shape03.svg" alt="" /></div>
+            <div class="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/15.png" alt="" /></div>
+            <div class="shape two" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape0.svg" alt="" /></div>
+            <div class="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/shape/categoryy.gif" alt="" /></div>
         </div>
     </div>
     
@@ -376,7 +346,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                     <div className="title-between-area">
                         <div className="title-area-left-style">
                             <div className="pre-title">
-                                <img src="assets/images/banner/bulb.png" alt="icon" />
+                                <img src="assets/fontend/images/banner/bulb.png" alt="icon" />
                                 <span>Courses</span>
                             </div>
                             <h2 className="title">Explore Featured Courses</h2>
@@ -399,7 +369,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                       
                             <div className="rts-single-course">
                                 <a href="single-course.html" class="thumbnail">
-                                    <img src="assets/images/course/01.jpg" alt="course" />
+                                    <img src="assets/fontend//images/course/01.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -425,7 +395,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Dr. Angela Yu</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -436,13 +406,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="not price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                         <div className="price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                     </div>
                                 </div>
@@ -454,7 +424,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                          
                             <div className="rts-single-course">
                                 <a href="single-course.html" class="thumbnail">
-                                    <img src="assets/images/course/02.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/02.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -483,7 +453,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">William U. Peña, MBA</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -494,10 +464,10 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                     </div>
                                 </div>
@@ -509,7 +479,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                     
                             <div className="rts-single-course">
                                 <a href="single-course.html" class="thumbnail">
-                                    <img src="assets/images/course/03.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/03.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -535,7 +505,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Dr. Angela Yu</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -546,13 +516,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="not price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                         <div className="price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                     </div>
                                 </div>
@@ -564,7 +534,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                          
                             <div className="rts-single-course">
                                 <a href="single-course.html" className="thumbnail">
-                                    <img src="assets/images/course/04.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/04.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -593,7 +563,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">David Travis</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -604,13 +574,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="not price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                         <div className="price">
-                                            $79.99
+                                            INR-709.99
                                         </div>
                                     </div>
                                 </div>
@@ -622,7 +592,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                       
                             <div className="rts-single-course">
                                 <a href="single-course.html" className="thumbnail">
-                                    <img src="assets/images/course/05.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/05.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -651,7 +621,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Erich Andreas</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -662,13 +632,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="not price">
-                                            $79.99
+                                            INR-7009.99
                                         </div>
                                         <div className="price">
-                                            $79.99
+                                            INR-7009.99
                                         </div>
                                     </div>
                                 </div>
@@ -680,7 +650,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                         
                             <div className="rts-single-course">
                                 <a href="single-course.html" className="thumbnail">
-                                    <img src="assets/images/course/06.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/06.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -705,7 +675,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Dr. Angela Yu</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -716,10 +686,10 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="price">
-                                            $79.99
+                                            INR-7009.99
                                         </div>
                                     </div>
                                 </div>
@@ -731,7 +701,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                            
                             <div className="rts-single-course">
                                 <a href="single-course.html" className="thumbnail">
-                                    <img src="assets/images/course/07.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/07.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -757,7 +727,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Dr. Angela Yu</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -768,13 +738,13 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="not price">
-                                            $79.99
+                                            INR-7009.99
                                         </div>
                                         <div className="price">
-                                            $39.99
+                                            INR-3009.99
                                         </div>
                                     </div>
                                 </div>
@@ -786,7 +756,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                        
                             <div className="rts-single-course">
                                 <a href="single-course.html" className="thumbnail">
-                                    <img src="assets/images/course/08.jpg" alt="course" />
+                                    <img src="assets/fontend/images/course/08.jpg" alt="course" />
                                 </a>
                                 <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                     <i className="fa-sharp fa-light fa-bookmark"></i>
@@ -815,7 +785,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </a>
                                 <p className="teacher">Dr. Angela Yu</p>
                                 <div className="rating-and-price">
-                                    <div className="rating-area">
+                                    {/* <div className="rating-area">
                                         <span>4.5</span>
                                         <div className="stars">
                                             <ul>
@@ -826,10 +796,10 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                                 <li><i className="fa-sharp fa-regular fa-star"></i></li>
                                             </ul>
                                         </div>
-                                    </div>
+                                    </div> */}
                                     <div className="price-area">
                                         <div className="price">
-                                            $59.99
+                                            INR-5009.99
                                         </div>
                                     </div>
                                 </div>
@@ -840,6 +810,116 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+
+    <section className='pt--100 joingood'>
+      <div className='container'>
+      <div className='row'>
+        <div className='col-12 col-xl-2 col-lg-2 col-md-2'></div>
+           <div className='col-12 col-xl-8 col-lg-8 col-md-8'>
+               <div className='d-flex flex-row '>
+                <div className='join'>
+                <h5>JOIN THE</h5>
+                </div>
+                <div className='good'>
+                  <h5>Good Student Squad!</h5>
+                </div>
+                  
+               </div>
+           </div>
+           <div className='col-12 col-xl-2 col-lg-2 col-md-2'></div>
+
+           <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
+              <div className='join_text pt-4'>
+                 <p>
+                 Ready to join the ranks of the next generation of super scholars? <br /><br />
+
+Sign up now and become part of our vibrant community of learners! With regular challenges, contests, and rewards, there's never a dull moment at 
+<br /><br />
+The Good Student Co.
+                 </p>
+              </div>
+           </div>
+
+           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+              <div className='img_one'>
+                  <img src='../assets/img/home-img/7.png' className='img-fluid' />
+              </div>
+           </div>
+           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+              <div className='img_one'>
+                  <img src='../assets/img/home-img/15.png' className='img-fluid' />
+              </div>
+           </div>
+           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+              <div className='img_one'>
+                  <img src='../assets/img/home-img/23.png' className='img-fluid' />
+              </div>
+           </div>
+           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+              <div className='img_one'>
+                  <img src='../assets/img/home-img/44.png' className='img-fluid' />
+              </div>
+           </div>
+         
+        </div>
+      </div>
+      
+     </section>
+
+
+
+     <div class="category-area-style-one shape-move rts-section-gap bg_image">
+        <div class="container-fluid">
+            <div class="row">
+                <div className='col-lg-4'></div>
+                <div class="col-lg-6">
+                    <div class="title-area-center-style">
+                        <div class="pre-title">
+                            <img src="assets/fontend/images/banner/bulb.png" alt="icon" />
+                            <span>UNLOCK ENDLESS POSSIBILITIES</span>
+                        </div>
+
+                        <p class="post-title">Once we've cracked the code to your unique learning style, get ready to dive into a treasure trove of resources specially curated to suit you. From interactive games and videos to hands-on activities and personalized study plans, our platform is your one-stop shop for academic excellence!</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt--50">
+                <div className='col-lg-1'></div>
+                <div class="col-lg-9">
+                <div class="title-area-center-style">
+                        <div class="pre-title">
+                      
+                            <h2>SHINE BRIGHT, STAY CURIOUS</h2>
+                        </div>
+
+                   
+                    </div>
+                </div>
+<div className='col-lg-4'></div>
+                <div class="col-lg-8">
+                <div class="title-area-center-style">
+                        
+                        <p class="post-title">
+                        At The Good Student Co., we're not just about grades – we're about nurturing a lifelong love for learning. 
+                            </p>
+                        <p class="post-title">So come on, grab your backpack and join us on an adventure through the fascinating world of knowledge. </p>
+                        <p class="post-title">
+                        Together, let's unlock the secrets of the universe and become the best versions of ourselves!
+                            </p>
+                    </div>
+                </div>
+
+                
+              
+            </div>
+        </div>
+        <div class="shape-image">
+            <div class="shape one" data-speed="0.04" data-revert="true"><img src="" alt="" /></div>
+            <div class="shape two sun" data-speed="0.04"><img src="assets/fontend/images/banner/sun.png" alt="" style={{width:'25%'}}/></div>
+            <div class="shape three unlock" data-speed="0.04"><img src="assets/fontend/images/about/6.png" alt="" style={{width:'25%'}} /></div>
         </div>
     </div>
      <FooterFrontend />

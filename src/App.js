@@ -1,4 +1,4 @@
-import './App.css';
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -29,9 +29,10 @@ import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
 import TopicRouters from "./Routers/topicRouters.js"
 import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
-import Navbarmenu from './Components/Navbarmenu.js';
+
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
+import Login from './Components/Login.js';
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -64,21 +65,19 @@ function App() {
 
   return (
     <BrowserRouter>
-    <section className='sticy-header logo-size'>
-        <Navbarmenu />
-      </section> 
+   
       <Routes>
 
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route
-          path="/login"
-          element={!loggedIn ? <Logins onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
-        />
-        <Route
-          path="/dashboard"
-          element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
-        />
+      <Route path="/" element={<Home />} />
+                <Route path="/about" element={<About />} />
+                <Route
+                    path="/login"
+                    element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+                />
+                <Route
+                    path="/dashboard"
+                    element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
+                />
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
