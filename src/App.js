@@ -29,9 +29,11 @@ import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
 import TopicRouters from "./Routers/topicRouters.js"
 import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
-import Navbarmenu from './Components/Navbarmenu.js';
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
+import QuestionRouters from './Routers/questionRouters.js'
+import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
+import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
 
@@ -64,9 +66,6 @@ function App() {
 
   return (
     <BrowserRouter>
-    <section className='sticy-header logo-size'>
-        <Navbarmenu />
-      </section> 
       <Routes>
 
         <Route path="/" element={<Home />} />
@@ -227,6 +226,30 @@ function App() {
         <Route
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/question"
+          element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/question/:questionId"
+          element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/questioncategory"
+          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/questioncategory/:questionscategoryId"
+          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/coursecategory"
+          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/coursecategory/:categoriesId"
+          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
       </Routes>
 

@@ -1,75 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-function CoursesP() {
-    const { coursesId } = useParams();
-    const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [CoursePrice, setCoursePrice] = useState('');
-    const [CourseCategoryId, setCourseCategoryId] = useState('');
-    const [CourseDuration, setCourseDuration] = useState('');
-    const [userData, setUserData] = useState("");
-    const [table, setCourse] = useState([]);
 
-    const [category, setCategory] = useState([]);
+
+function QuestionsCategory() {
+
+    const { categoriesId } = useParams();
+    const [coursecategory, setcoursecategory] = useState([]);
+    const [FindOnecoursecategory, setFindOnecoursecategory] = useState({});
+    const [name, setname] = useState('');
+    const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
+
+
     useEffect(() => {
-        fetchData(coursesId);
-    }, [coursesId]);
+        fetchData2(categoriesId)
+    }, [categoriesId]);
+
     useEffect(() => {
-        fetchData1();
-        fetchData2();
+        fetchData();
     }, []);
 
-    const fetchData = async (coursesId) => {
-        try {
-            if (!coursesId) {
-                console.log("coursesId is undefined");
-                return;
-            }
-            const token = localStorage.getItem('token');
 
-            if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses/${coursesId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
 
-                    }
-                });
-                const userData = response.data.courses;
-                setUserData(userData);
-                setName(userData.name);
-                setCoursePrice(userData.CoursePrice);
-                setCourseCategoryId(userData.CourseCategoryId);
-                setCourseDuration(userData.CourseDuration)
-            }
 
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
-    const fetchData1 = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userDatas = response.data.courses;
-                setCourse(userDatas)
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-    const fetchData2 = async () => {
+    const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
 
@@ -80,76 +38,112 @@ function CoursesP() {
 
                     }
                 });
-                const userDatas = response.data.categories;
-                setCategory(userDatas)
+                const userData = response.data.categories;
+                setcoursecategory(userData)
             }
 
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+
+
+
+    const fetchData2 = async (categoriesId) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                let formData = { name, CoursePrice, CourseCategoryId, CourseDuration }
-                await axios.post('http://localhost:3000/api/addcourses', formData, {
+                const response = await axios.get(`http://localhost:3000/api/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userData = response.data.categories;
 
-                window.location.href = "/courses";
-                alert('Courses Successfully Create');
+                setFindOnecoursecategory(userData);
+                setname(userData.name);
 
+            } else {
+                console.warn('No token found in localStorage');
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+
+
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+            let formData = {
+                name,
+            }
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                const response = await axios.post('http://localhost:3000/api/categories', formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                window.location.href = "/coursecategory";
+                alert('Course Category SuccessFully Create');
             }
         } catch (error) {
             alert('Failed to send message.');
         }
-    }
-    const handleDelete = async (coursesId) => {
+    };
+
+    const handleDelete = async (categoriesId) => {
         try {
             const token = localStorage.getItem('token');
+
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deletecourses/${coursesId}`, {
+                await axios.delete(`http://localhost:3000/api/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData(coursesId);
+                fetchData();
                 alert('Data successfully deleted');
-
             }
         } catch (error) {
             console.error('Error deleting data:', error);
             alert('An error occurred while deleting data');
         }
-    }
+    };
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
+            let updatedUserData = {
+                name
+            }
             const token = localStorage.getItem('token');
+
             if (token) {
-                const updatedUserData = { name, CoursePrice, CourseCategoryId, CourseDuration }
-                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
+                await axios.put(`http://localhost:3000/api/categories/${categoriesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
+
                     }
                 });
-                fetchData(coursesId)
-                alert("Courses updated successfully!");
-                /*    window.location.href = "/courses"; */
+                fetchData2(categoriesId)
+                alert("Course Category Is Updated Successfully!");
             }
         } catch (error) {
-            console.error('Error updating user:', error);
-            alert('An error occurred while updating user data');
+            console.error('Error updating:', error);
+            alert('An error occurred while updating');
         }
 
+        // Clear input fields after update
 
     };
-
 
 
     return (
@@ -272,37 +266,33 @@ function CoursesP() {
                                     </div>
                                     <div class="card-datatable table-responsive">
                                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div> <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add New Courses</span></span></button> </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div> <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add New Category</span></span></button> </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
-                                                        <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="250px;" aria-label="User: activate to sort column ascending" aria-sort="descending">S.NO</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="250px;" aria-label="Role: activate to sort column ascending">Full Name</th>
-                                                        <th class="sorting_disabled" rowspan="1" colspan="1" width="250px;" aria-label="Actions">Actions</th>
+                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Id</th>
+
+                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Name</th>
+                                                        <th class="sorting_disabled" rowspan="1" colspan="1" width="145px;" aria-label="Actions">Actions</th>
 
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {table.map((item, index) => (
+                                                    {coursecategory.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td class="sorting_1">
-
+                                                                <td>{index + 1}</td>
                                                             </td>
-                                                            <td>{index + 1}</td>
                                                             <td>{item.name}</td>
+                                                        
+                                                            <td><div class="d-inline-block text-nowrap">
+                                                                <Link to={`/coursecategory/${item.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#editQuizze" data-bs-toggle="modal">
+                                                                    <i class="bx bx-edit"></i>
+                                                                </button>
+                                                                </Link>
+                                                                <button class="btn btn-sm btn-icon delete-record" onClick={() => handleDelete(item.id)}>
+                                                                    <i class="bx bx-trash"></i>
+                                                                </button></div></td>
 
-                                                            <td>
-                                                                <div class="d-inline-block text-nowrap">
-                                                                    <Link to={`/courses/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">
-                                                                        <i class="bx bx-edit"></i>
-
-                                                                    </button>
-                                                                    </Link>
-                                                                    <button class="btn btn-sm btn-icon delete-record" onClick={() => handleDelete(item.id)}>
-                                                                        <i class="bx bx-trash"></i>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
                                                         </tr>
                                                     ))}
                                                 </tbody>
@@ -310,99 +300,76 @@ function CoursesP() {
                                             <div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 50 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
                                     </div>
 
-                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel">
+                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
                                         <div class="offcanvas-header">
-                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add New Courses</h5>
+                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Category</h5>
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
+                                                <div class="card-body row">
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user-fullname">Name</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+                                                            onChange={(e) => setname(e.target.value)}
+                                                            value={name} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
 
-                                                <div class="mb-3 fv-plugins-icon-container">
-                                                    <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
-                                                        value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    <div class="mb-3">
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                        <input type="hidden" />
+                                                    </div>
+
+
+
+
                                                 </div>
-                                                <div class="mb-3 fv-plugins-icon-container">
-                                                    <label class="form-label" for="add-user-fullname">Courses Price</label>
-                                                    <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                        value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                </div>
-                                                <div class="mb-3 fv-plugins-icon-container">
-                                                    <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
-                                                    <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
-                                                        value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                </div>
-                                                <div class="mb-3 fv-plugins-icon-container">
-                                                    <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
-                                                        <option value="">Select</option>
-                                                        {category.map((option) => (
-                                                            <option key={option.id} value={option.id}>{option.name}</option>
-                                                        ))}
-                                                    </select>
-                                                </div>
-                                                <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
-                                                <input type="hidden" /></form>
+                                                {message && <p style={{ color: 'green' }}>{message}</p>}
+                                                {error && <p style={{ color: 'red' }}>{error}</p>}
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                {/*  <!-- Modal -->
-                            <!-- Edit User Modal --> */}
-                                <div class="modal fade" id="editUser" tabindex="-1" aria-hidden="true">
+                                {/*  /*   <!--  Modal table --> */}
+                                <div class="modal fade" id="editQuizze" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-simple modal-edit-user">
                                         <div class="modal-content p-3 p-md-5">
                                             <div class="modal-body">
+                                                {/*  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> */}
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h3>Edit Information</h3>
-                                                    <p>Updating  details will receive a privacy audit.</p>
+                                                    <h3> Category Information</h3>
+
                                                 </div>
-                                                <form id="editUserForm" className="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
-                                                    <div class="col-12 fv-plugins-icon-container">
-                                                        <label class="form-label" for="modalEditUserFirstName">Full Name</label>
-                                                        <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
-                                                            disabled="false" value={name} onChange={(e) => setName(e.target.value)}
-                                                        />
+                                                <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <label class="form-label" for="add-user-fullname">Name</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+                                                            onChange={(e) => setname(e.target.value)}
+                                                            value={name} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
-                                                    <div class="col-12 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Courses Price</label>
-                                                        <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                            value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                    </div>
-                                                    <div class="mb-3 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
-                                                        <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
-                                                            value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                    </div>
-                                                    <div class="col-12 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
-                                                            <option value="">Select</option>
-                                                            {category.map((option) => (
-                                                                <option key={option.id} value={option.id}>{option.name}</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="col-12 text-center">
-                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
-                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
+                                                  
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
+                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                        <input type="hidden" />
                                                     </div>
                                                     <input type="hidden" /></form>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
+                            {/*                <!-- / Content --> */}
+
+
+
+
                             {/*  <!-- Footer --> */}
 
                             <Footer />
@@ -412,7 +379,7 @@ function CoursesP() {
                         </div>
                     </div >
                     {/*     <!-- Overlay --> */}
-                    <div class="layout-overlay layout-menu-toggle"></div>
+                    < div class="layout-overlay layout-menu-toggle" ></div >
                 </div >
                 {/* / Layout wrapper  */}
 
@@ -421,4 +388,5 @@ function CoursesP() {
         </>
     )
 }
-export default CoursesP
+
+export default QuestionsCategory
