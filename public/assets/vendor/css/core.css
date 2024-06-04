@@ -48,7 +48,9 @@
   --bs-body-color: #697a8d;
   --bs-body-bg: #f5f5f9;
 }
-
+h3, .h3 {
+  font-size: 16px !important;
+}
 *,
 *::before,
 *::after {

@@ -1,35 +1,13 @@
 
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 
 
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
 
 const Home = () => {
+   
 
-    const [cssLoaded, setCssLoaded] = useState(false);
-
-    useEffect(() => {
-        // Check if CSS has already been loaded
-        const isCssLoaded = localStorage.getItem('homeCssLoaded');
-        if (!isCssLoaded) {
-            // Dynamically load CSS
-            Promise.all([
-                import('../styles/css/plugins/fontawesome-6.css'),
-                import('../styles/css/vendor/bootstrap.min.css'),
-                import('../styles/css/style.css')
-            ]).then(() => {
-                console.log('Home page CSS loaded successfully');
-                // Set flag to indicate CSS has been loaded
-                localStorage.setItem('homeCssLoaded', true);
-                setCssLoaded(true);
-            }).catch(error => {
-                console.error('Error loading Home page CSS:', error);
-            });
-        } else {
-            setCssLoaded(true);
-        }
-    }, []);
   return (
 
  

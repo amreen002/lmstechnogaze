@@ -1,21 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
 const Login = ({onLogin}) => {
 
-    useEffect(() => {
-        // Dynamically load CSS
-        Promise.all([
-            import('../styles/css/plugins/fontawesome-6.css'),
-            import('../styles/css/vendor/bootstrap.min.css'),
-            import('../styles/css/style.css')
-        ]).then(() => {
-            console.log('CSS loaded successfully');
-        }).catch(error => {
-            console.error('Error loading CSS:', error);
-        });
-    }, []); 
-
+  
 
 
     const [error, setError] = useState(null);
