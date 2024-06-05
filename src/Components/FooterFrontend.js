@@ -16,7 +16,7 @@ const Footer = () => {
                         <div className="footer-singl-wized left-logo">
                             <div className="head">
                                 <a href="#">
-                                    <img src="assets/images/logo/logo.svg" alt="logo" loading="lazy" />
+                                    <img src="assets/fontend/images/logo/logotgsc.png" alt="logo" loading="lazy" />
                                 </a>
                             </div>
                             <div className="body">

@@ -1,6 +1,15 @@
 import React from "react";
-
+import axios from 'axios';
 const Sidebar = () =>{
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:3000/api/logout'); // Send logout request to backend
+            localStorage.removeItem('token'); // Remove token from local storage or state
+            window.location.href = "/login"
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
 return(
    
          <div className="col-lg-3 rts-sticky-column-item">
@@ -95,10 +104,10 @@ return(
                                 <p>Settings</p>
                             </a>
                        
-                            <a href="index-2.html" className="single-item">
-                                <i className="fa-light fa-right-from-bracket"></i>
-                                <p>Logout</p>
-                            </a>
+                            <a className="single-item" onClick={handleLogout}>
+                        <i className="fa-light fa-right-from-bracket"></i>
+                        <p>Logout</p>
+                    </a>
                          
                         </div>
                     </div>
