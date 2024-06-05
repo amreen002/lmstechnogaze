@@ -336,7 +336,7 @@ function Video() {
 
                                                                 <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="678px;" aria-label="Categories: activate to sort column ascending" aria-sort="descending">Course</th>
                                                                 <th class="text-nowrap text-sm-end sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="201px;" aria-label="Total Products &amp;nbsp;: activate to sort column ascending">Video Name &nbsp;</th>
-                                                                <th class="text-nowrap text-sm-end sorting_disabled" rowspan="1" colspan="1" width="172px;" aria-label="Duration">Duration</th>
+{/*  <th class="text-nowrap text-sm-end sorting_disabled" rowspan="1" colspan="1" width="172px;" aria-label="Duration">Duration</th> */}
                                                                 <th class="text-lg-center sorting_disabled" rowspan="1" colspan="1" width="113px;" aria-label="Actions">Actions</th></tr>
 
                                                         </thead>
@@ -368,9 +368,9 @@ function Video() {
                                                                         <div class="fw-medium text-sm-end">{item.Title}</div>
                                                                     </td>
 
-                                                                    <td>
+                                                                  {/*   <td>
                                                                         <div class="fw-medium text-sm-end">{item.createdAt}</div>
-                                                                    </td>
+                                                                    </td> */}
                                                                     <td>
                                                                         <div class="d-inline-block text-nowrap">
                                                                             <Link to={`/video/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">

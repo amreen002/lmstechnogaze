@@ -1,7 +1,60 @@
-import React from "react";
+import React, { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import Sidebar from "./sidebar";
-const InstructorDashboard =() => {
+function InstructorDashboard(token) {
+    const [table, setTable] = useState("");
+    const [course, setCourse] = useState([]);
+    const [coursesCount, setCoursesCount] = useState(null);
+    const [totalstudent, setTotalstudent] = useState(null);
+    const [totalVideoCount,settotalVideoCount]= useState(null);
+    const [activeService, setActiveService] = useState(null);
+    const fetchData = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get('http://localhost:3000/api/userwisedata', {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+
+                setTable(response.data);
+            }// Updated state variable
+        } catch (err) {
+            console.log(err.response);
+        }
+    }
+    const fetchData1 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.courses;
+                setCoursesCount(response.data.coursescount);
+                setTotalstudent(response.data.totalStudentCount)
+                settotalVideoCount(response.data.totalVideoCount)
+                setCourse(userDatas)
+
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    useEffect(() => {
+        fetchData();
+        fetchData1()
+    }, []);
+
     return(
         <div>
             <section>
@@ -30,15 +83,15 @@ const InstructorDashboard =() => {
                                 <img src="assets/fontend/images/dashboard/01.png" alt="dashboard" />
                             </div>
                             <div className="name-desig">
-                                <h1 className="title">Jon Adam</h1>
+                                <h1 className="title">{table.name}</h1>
                                 <div className="course-vedio">
                                     <div className="single">
                                         <i className="fa-light fa-users"></i>
-                                        <span>1350 Students</span>
+                                        <span style={{paddingLeft: "5px"}}>{totalstudent} Students</span>
                                     </div>
                                     <div className="single">
                                         <i className="fa-regular fa-video"></i>
-                                        <span>26 Course</span>
+                                        <span style={{paddingLeft: "5px"}}>{totalVideoCount} Course</span>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +148,7 @@ const InstructorDashboard =() => {
                                     <div class="icon">
                                         <i class="fa-light fa-user"></i>
                                     </div>
-                                    <h5 class="title"><span class="counter">41</span></h5>
+                                    <h5 class="title"><span class="counter">{totalstudent}</span></h5>
                                     <p>Total Students</p>
                                 </div>
                         
@@ -106,7 +159,7 @@ const InstructorDashboard =() => {
                                     <div class="icon">
                                         <i class="fa-light fa-book"></i>
                                     </div>
-                                    <h5 class="title"><span class="counter">28</span></h5>
+                                    <h5 class="title"><span class="counter">{coursesCount}</span></h5>
                                     <p>Total Courses</p>
                                 </div>
                            

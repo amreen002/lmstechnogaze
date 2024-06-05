@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Logins from './Routers/loginRouter';
+/* import Logins from './Routers/loginRouter'; */
 import Dashboards from './Routers/dashboardsRouter';
 import AddUserRouters from './Routers/addUserRouter';
 import AccountUserRouters from './Routers/accountUserRouters.js';
@@ -33,11 +33,12 @@ import VideoRouters from "./Routers/videoRouters.js"
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import Login from './Components/Login.js';
-import InstructorDashboard from './Components/instructorDashboard.js';
+import InstructorDashboard from './Routers/instructordashboardRouters.js';
 import InstructorCourseadd from './Components/instructorCourseadd.js';
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
-
+  const [datatoken, setdatatoken] = useState({});
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = localStorage.getItem('token');
@@ -51,6 +52,8 @@ function App() {
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3000/api/login', { email, password });
+      let datatokendata = response.data.users
+      setdatatoken(datatokendata);
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
     } catch (error) {
@@ -63,7 +66,7 @@ function App() {
     localStorage.removeItem('token');
     setLoggedIn(false);
   };
-
+  console.log(datatoken)
 
   return (
     <BrowserRouter>
@@ -72,16 +75,25 @@ function App() {
 
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/instructorDashboard" element={<InstructorDashboard />} />
+
         <Route path="/InstructorCourseadd" element={<InstructorCourseadd />} />
         <Route
           path="/login"
           element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
         />
-        <Route
-          path="/dashboard"
-          element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
-        />
+
+        
+        {datatoken.Role && datatoken.Role.Name === "Instructor" ? (
+          <Route
+            path="/dashboard"
+            element={loggedIn ? <InstructorDashboard onLogin={handleLogout} /> : <Navigate to="/login" />}
+          />
+        ) : (
+          <Route
+            path="/dashboard"
+            element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
+          />
+        )}
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
