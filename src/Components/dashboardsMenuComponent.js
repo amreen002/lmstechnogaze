@@ -296,6 +296,12 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
                                 {/* Dropdown content */}
                                 <li className="menu-item">
+                                    <Link to="/coursecategory" className="menu-link">
+                                        <i className='menu-icon bx-tada bx bxs-report'></i>
+                                        <div data-i18n="Without menu">Courese Category</div>
+                                    </Link>
+                                </li>
+                                <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
                                         <div data-i18n="Without menu">All Courese</div>
@@ -420,7 +426,7 @@ function DashBoardMenu(onLogout) {
                             <ul className="" aria-labelledby="dropdownMenuButton">
 
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/question" className="menu-link">
                                         <i className='menu-icon bx bx-list-check'></i>
                                         <div data-i18n="Without menu">All Question</div>
                                     </Link>
@@ -432,18 +438,18 @@ function DashBoardMenu(onLogout) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/questioncategory" className="menu-link">
                                         <i className='menu-icon bx bxs-category'></i>
                                         <div data-i18n="Without menu">Question Category</div>
                                     </Link>
                                 </li>
                             </ul>
                         )}
-                        <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
+                       {/*  <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className="menu-icon tf-icons bx bxs-envelope"></i>
                             <div data-i18n="Layouts">Assignments Activity</div>
                         </a>
-
+ */}
                         {/* Step 4: Conditionally render dropdown based on state */}
                         {activeService === 'dropdownquize' && (
                             <ul className="" aria-labelledby="dropdownMenuButton">

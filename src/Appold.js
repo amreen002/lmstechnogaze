@@ -29,9 +29,6 @@ import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
 import TopicRouters from "./Routers/topicRouters.js"
 import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
-import QuestionRouters from './Routers/questionRouters.js'
-import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
-import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
@@ -245,7 +242,7 @@ function App() {
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-     <Route
+        <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
