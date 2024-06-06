@@ -403,7 +403,7 @@ function CoursesP() {
                                             <div class="modal-body">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h3>Edit Information</h3>
+                                                    <h3 style={{marginTop:'-40px'}}>Edit Information</h3>
                                                     <p>Updating  details will receive a privacy audit.</p>
                                                 </div>
                                                 <form id="editUserForm" className="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
@@ -436,7 +436,7 @@ function CoursesP() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-12 text-center ">
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

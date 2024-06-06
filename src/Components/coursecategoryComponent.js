@@ -354,15 +354,22 @@ function QuestionsCategory() {
                                 <div class="modal fade" id="editQuizze" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-simple modal-edit-user">
                                         <div class="modal-content p-3 p-md-5">
+                                        <div class="modal-header d-flex flex-row">
+                                            <div className='d-flex'>
+                                            <h5 class="modal-title"> Category Information</h5>
+                                            </div>
+        <div className='d-flex'>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+         
+      </div>
+
                                             <div class="modal-body">
                                                 {/*  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> */}
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                <div class="text-center mb-4">
-                                                    <h3> Category Information</h3>
-
-                                                </div>
+                                             
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-12 col-md-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
                                                             onChange={(e) => setname(e.target.value)}
@@ -370,7 +377,7 @@ function QuestionsCategory() {
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                   
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-12 col-md-12 fv-plugins-icon-container d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
                                                         <input type="hidden" />
