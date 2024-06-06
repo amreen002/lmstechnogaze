@@ -265,8 +265,23 @@ function QuestionsCategory() {
                                         </div>
                                     </div>
                                     <div class="card-datatable table-responsive">
-                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div> <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add New Category</span></span></button> </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                            <div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
+                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" />
+                                            </label></div>
+                                            <div class="btn-group d-flex flex-row">
+                                                    <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex" 
+                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" 
+                                                    aria-expanded="false">
+                                                    <span><i class="bx bx-export me-1"></i>Export</span>
+                                                    </button>
+                                                  
+                                                    <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+                                                   
+                                                    <span><i class="bx bx-plus me-0 me-sm-1"></i>Category</span>
+                                                    </button>
+                                                 </div>
+                                                </div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Id</th>
@@ -317,7 +332,7 @@ function QuestionsCategory() {
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
 
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
@@ -341,11 +356,11 @@ function QuestionsCategory() {
                                                 {/*  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> */}
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h3> Category Information</h3>
+                                                    <h3 style={{marginTop:'-40px'}}> Category Information</h3>
 
                                                 </div>
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-12 col-md-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
                                                             onChange={(e) => setname(e.target.value)}
@@ -353,7 +368,7 @@ function QuestionsCategory() {
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                   
-                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <div class="col-12 col-md-12 fv-plugins-icon-container d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
                                                         <input type="hidden" />

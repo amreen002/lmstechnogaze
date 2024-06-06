@@ -200,7 +200,7 @@ function Topic() {
                                                                         ))}
                                                                     </select>
                                                                 </div>
-                                                                <div class="mb-3 fv-plugins-icon-container">
+                                                                <div class="mb-3 fv-plugins-icon-container col-lg-3">
                                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
 
                                                                 </div>
@@ -281,7 +281,7 @@ function Topic() {
                                         <div class="modal-content p-3 p-md-5">
                                             <div class="modal-body">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                <div class="text-center mb-4">
+                                                <div class="text-center mb-4 cus_infor">
                                                     <h3>Edit Information</h3>
                                                     <p>Updating  details will receive a privacy audit.</p>
                                                 </div>
@@ -305,7 +305,7 @@ function Topic() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-12 text-center">
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

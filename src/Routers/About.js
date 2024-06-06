@@ -35,6 +35,9 @@ const About = () => {
 
 
 <div>
+<section className='sticy-header logo-size'>
+        <Navbarmenu />
+      </section> 
 
 
       <section className='py-5 about_one' style={sectionStyle} >

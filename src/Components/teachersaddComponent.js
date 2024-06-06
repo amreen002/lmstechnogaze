@@ -376,7 +376,7 @@ function ListUse() {
                                                                     name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
                                                             </div>
                                                         </div>
-                                                        <div class="mb-3">
+                                                        <div class="mb-3 d-flex">
                                                             <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                             <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                             <input type="hidden" />

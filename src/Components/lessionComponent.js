@@ -267,7 +267,7 @@ function Topic() {
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
                                                         <h3>Add Lession</h3>
-                                                        <div class="offcanvas-body mx-0">
+                                                        <div class=" mx-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
