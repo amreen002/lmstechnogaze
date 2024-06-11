@@ -4752,7 +4752,78 @@ textarea.form-control-lg {
 .modal-body {
   position: relative;
   flex: 1 1 auto;
-  padding: 1.5rem;
+  padding: 0px;
+}
+h5.modal-title {
+  margin-top: -47px !important;
+  text-transform: uppercase;
+  color: #000;
+  margin-left: -24px;
+}
+.p-t-20 {
+  padding-top: 15px;
+}
+
+input:focus, input:active, button:focus, button:active, select:focus, select:active, textarea:focus, textarea:active {
+  outline: none;
+  border-color: #3b332c05 !important;
+}
+
+div#listOnclicktwo {
+  display: block;
+  margin-left: -194px !important;
+  margin-top: 29px !important;
+  display: block;
+}
+.ques1 {
+  border: 1px solid #ffc5c5;
+  padding: 0px 5px;
+  box-shadow: 0px 0px 3px 0px #ccc;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  margin: 0px 2px;
+}
+.ques2 {
+  border: 1px solid #ffc5c5;
+  padding: 0px 5px;
+  box-shadow: 0px 0px 3px 0px #ccc;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  margin: 0px 2px;
+}
+.ques3 {
+  border: 1px solid #ffc5c5;
+  padding: 0px 5px;
+  box-shadow: 0px 0px 3px 0px #ccc;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  margin: 0px 2px;
+}
+.ques4 {
+  border: 1px solid #ffc5c5;
+  padding: 0px 5px;
+  box-shadow: 0px 0px 3px 0px #ccc;
+  background-color: #fff;
+  border-top-right-radius: 5px;
+  margin: 0px 2px;
+}
+.cus_design_view li a {
+  font-size: 14px;
+  text-decoration: none;
+  text-align: left;
+  padding: 0px 0px !important;
+  line-height: 34px !important;
+}
+.cus_infor {
+  margin-top: -46px;
+}
+table a, table a:link, table a:visited {
+  text-decoration: none !important;
+}
+.cus_design_view li {
+  line-height: 0px !important;
+  padding: 0px !important;
+  margin: 0px !important;
 }
 
 .modal-footer {

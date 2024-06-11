@@ -281,7 +281,7 @@ function Topic() {
                                         <div class="modal-content p-3 p-md-5">
                                             <div class="modal-body">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                <div class="text-center mb-4">
+                                                <div class="text-center mb-4 cus_infor">
                                                     <h3>Edit Information</h3>
                                                     <p>Updating  details will receive a privacy audit.</p>
                                                 </div>

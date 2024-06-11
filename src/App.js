@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -10,16 +9,16 @@ import UserListRouters from './Routers/listUserRouters.js';
 import UserViewsRouters from './Routers/viewsUserRouters.js';
 import AddSaleTeamRouters from './Routers/addsaleteamRouters.js';
 import TeleCallerRouters from './Routers/telecallerRouters.js';
-import TeleCallerTeamRouters from './Routers/telecallerteamRouters.js'
-import RoleRouters from './Routers/roleRouters.js'
-import FrontDeskRouters from './Routers/frontdeskRouters.js'
-import CoursesRouters from './Routers/CoursesRouters.js'
-import FrontDeskListRouters from './Routers/frontdesklistRouters.js'
-import CounselorDepartmentRouters from './Routers/counselordepartmentRouters.js'
-import TeachersRouters from './Routers/teachersRouters.js'
-import TeachersAddRouters from './Routers/teachersaddRouters.js'
-import StudentRouters from './Routers/studentRouters.js'
-import BatchesRouters from './Routers/batchesRouters'
+import TeleCallerTeamRouters from './Routers/telecallerteamRouters.js';
+import RoleRouters from './Routers/roleRouters.js';
+import FrontDeskRouters from './Routers/frontdeskRouters.js';
+import CoursesRouters from './Routers/CoursesRouters.js';
+import FrontDeskListRouters from './Routers/frontdesklistRouters.js';
+import CounselorDepartmentRouters from './Routers/counselordepartmentRouters.js';
+import TeachersRouters from './Routers/teachersRouters.js';
+import TeachersAddRouters from './Routers/teachersaddRouters.js';
+import StudentRouters from './Routers/studentRouters.js';
+import BatchesRouters from './Routers/batchesRouters';
 import QuizzeRouters from "./Routers/quizzeRouters";
 import CoursesReportsRouters from "./Routers/coursesreportsRouters";
 import StudentsReportsRouters from "./Routers/studentsreportsRouters";
@@ -41,6 +40,9 @@ import InstructorCourse from './Routers/instructorcourseRouters.js';
 import CoursedetailRouter from './Routers/coursedetailsRouter.js'
 import InstructorUpdateCourse from './Routers/instructorcourseupdateRouters.js'
 import LernerenrollcourseRouter from './Routers/lernerenrollcourseRouter.js'
+import CompleteProfile from './Components/CompleteProfile';
+
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [datatoken, setdatatoken] = useState({});
@@ -57,7 +59,7 @@ function App() {
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3000/api/login', { email, password });
-      let datatokendata = response.data.users
+      let datatokendata = response.data.users;
       setdatatoken(datatokendata);
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
@@ -71,13 +73,10 @@ function App() {
     localStorage.removeItem('token');
     setLoggedIn(false);
   };
-  console.log(datatoken)
 
   return (
     <BrowserRouter>
-
       <Routes>
-
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
   
@@ -99,6 +98,15 @@ function App() {
             element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
           />
         )}
+
+        <Route
+          path="/login"
+          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+        />
+        <Route
+          path="/complete-profile"
+          element={<CompleteProfile />}
+        />
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
@@ -163,7 +171,6 @@ function App() {
           path="/couresstudents/:coursecodeId"
           element={loggedIn ? <CourseStudentsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-
         <Route
           path="/frontdesk"
           element={loggedIn ? <FrontDeskRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
@@ -206,10 +213,6 @@ function App() {
         />
         <Route
           path="/batches"
-          element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/batches/:batchesId"
           element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
         <Route
@@ -286,8 +289,6 @@ function App() {
 
 
       </Routes>
-
-
     </BrowserRouter>
   );
 }

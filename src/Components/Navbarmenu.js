@@ -1,11 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-
 
 function Navbarmenu() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  const handleLogout = () => {
+    // Assuming you're using JWT token-based authentication, clear the token from local storage
+    localStorage.removeItem('token');
+    // Set isLoggedIn to false
+    setIsLoggedIn(false);
+  };
+
   return (
     <header className="header-one header--sticky">
       <div className="header-top-one-wrapper">
@@ -66,8 +71,14 @@ function Navbarmenu() {
                   </div>
                 </div>
                 <div className="buttons-area">
-                  <Link to="/login" className="rts-btn btn-border">Log In</Link>
-                  <Link to="/sign-up" className="rts-btn btn-primary">Sign Up</Link>
+                  {isLoggedIn ? (
+                    <button onClick={handleLogout} className="rts-btn btn-border">Log Out</button>
+                  ) : (
+                    <>
+                      <Link to="/login" className="rts-btn btn-border">Log In</Link>
+                      <Link to="/sign-up" className="rts-btn btn-primary">Sign Up</Link>
+                    </>
+                  )}
                 </div>
                 <div className="menu-btn" id="menu-btn">
                   <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">

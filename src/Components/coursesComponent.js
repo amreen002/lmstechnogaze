@@ -446,7 +446,7 @@ function CoursesP() {
                                             <div class="modal-body">
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h3>Edit Information</h3>
+                                                    <h3 style={{marginTop:'-40px'}}>Edit Information</h3>
                                                     <p>Updating  details will receive a privacy audit.</p>
                                                 </div>
                                                 <form id="editUserForm" className="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
@@ -469,6 +469,7 @@ function CoursesP() {
                                                             value={formData.CourseDuration} onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={formData.CourseCategoryId} onChange={handleChange}>

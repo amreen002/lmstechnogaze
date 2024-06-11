@@ -225,7 +225,11 @@ function CoursesP() {
                                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
                                             <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div>
 
-                                            </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                            </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
@@ -256,7 +260,7 @@ function CoursesP() {
                                                                 </div></td>
                                                                 {activeService === item.id && (
                                                                     <div className="dropdown-menu dropdown-menu-end" id="listOnclick">
-                                                                        <ul class="navbar-nav ms-auto">
+                                                                        <ul class="navbar-nav ms-auto cus_design_view">
                                                                             <li>
                                                                                 <Link to={`/couresview/${item.CourseCode}`} className="dropdown-item">
                                                                                     <button className="btn btn-sm btn-icon">

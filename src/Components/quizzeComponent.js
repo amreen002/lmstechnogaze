@@ -562,7 +562,7 @@ function BatchesUse() {
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 d-flex mt-3">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
@@ -586,7 +586,7 @@ function BatchesUse() {
                                                 {/*  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button> */}
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 <div class="text-center mb-4">
-                                                    <h3>Batches Information</h3>
+                                                    <h3 style={{marginTop:'-40px'}}>Batches Information</h3>
 
                                                 </div>
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
@@ -688,9 +688,9 @@ function BatchesUse() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="mb-3 d-flex">
-                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
-                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <div class="mb-3 d-flex mt-3">
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
                                                     </div>
                                                     <input type="hidden" /></form>
