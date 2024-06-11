@@ -24,20 +24,24 @@ import CoursesReportsRouters from "./Routers/coursesreportsRouters";
 import StudentsReportsRouters from "./Routers/studentsreportsRouters";
 import CoursesViewRouters from "./Routers/coursesviewRouters";
 import CoursesBatchesRouters from "./Routers/coursesbatchesRouters.js";
-import CourseStudentsRouters from "./Routers/coursestudentsRouters.js";
-import TopicRouters from "./Routers/topicRouters.js";
-import LessionRouters from "./Routers/lessionRouters.js";
-import VideoRouters from "./Routers/videoRouters.js";
-import QuestionRouters from './Routers/questionRouters.js';
-import QuestionCategoryRouters from './Routers/questioncategoryRouters.js';
-import CourseCategoryRouters from './Routers/coursecategoryRouters.js';
+import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
+import TopicRouters from "./Routers/topicRouters.js"
+import LessionRouters from "./Routers/lessionRouters.js"
+import VideoRouters from "./Routers/videoRouters.js"
+import QuestionRouters from './Routers/questionRouters.js'
+import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
+import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import Login from './Components/Login.js';
-import CompleteProfile from './Components/CompleteProfile';
-import InstructorCourseadd from './Components/instructorCourseadd.js';
 import InstructorDashboard from './Routers/instructordashboardRouters.js';
+import InstructorCourse from './Routers/instructorcourseRouters.js';
+import CoursedetailRouter from './Routers/coursedetailsRouter.js'
+import InstructorUpdateCourse from './Routers/instructorcourseupdateRouters.js'
+import LernerenrollcourseRouter from './Routers/lernerenrollcourseRouter.js'
+import CompleteProfile from './Components/CompleteProfile';
+
 
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -75,7 +79,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        {datatoken.Role && datatoken.Role.Name === "Instructor" ? (
+  
+        <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
+        <Route
+          path="/login"
+          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+        />
+
+        
+        {['Student', 'Instructor'].includes(datatoken.Role && datatoken.Role.Name) ? (
           <Route
             path="/dashboard"
             element={loggedIn ? <InstructorDashboard onLogin={handleLogout} /> : <Navigate to="/login" />}
@@ -86,7 +98,7 @@ function App() {
             element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
           />
         )}
-        <Route path="/InstructorCourseadd" element={<InstructorCourseadd />} />
+
         <Route
           path="/login"
           element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
@@ -239,7 +251,7 @@ function App() {
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-        <Route
+     <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
@@ -263,6 +275,19 @@ function App() {
           path="/coursecategory/:categoriesId"
           element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
+         <Route
+          path="/coursedetails/:coursesId"
+          element={ <CoursedetailRouter  />}
+        />
+         <Route path="/createcourse/:coursesId" element={<InstructorUpdateCourse />} />
+
+         <Route path="/createcourse" element={loggedIn ? <InstructorCourse onLogout={handleLogout} /> : <Navigate to="/login" />} />
+         <Route
+          path="/lernerenrollcourse"
+          element={loggedIn ? <LernerenrollcourseRouter  onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        
+
+
       </Routes>
     </BrowserRouter>
   );
