@@ -233,8 +233,6 @@ function DashBoardMenu(onLogout) {
                     </li>
                 )}
 
-
-
                 {/* Render menu for Telecaller Team */}
                 {table.Role && table.Role.Name === 'Telecaller Team' && (
                     <li className={`menu-item ${activeService === 'Telecaller Team' ? 'active' : ''} show_project_web`}>
@@ -282,10 +280,6 @@ function DashBoardMenu(onLogout) {
                                 </li>
                             </ul>
                         )}
-
-
-
-
                         <a href="#" onClick={() => toggleDropdown('dropdowncourese')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className="menu-icon tf-icons bx bxs-graduation bx-tada-hover"></i>
                             <div data-i18n="Layouts">Courese</div>

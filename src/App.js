@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -10,35 +9,36 @@ import UserListRouters from './Routers/listUserRouters.js';
 import UserViewsRouters from './Routers/viewsUserRouters.js';
 import AddSaleTeamRouters from './Routers/addsaleteamRouters.js';
 import TeleCallerRouters from './Routers/telecallerRouters.js';
-import TeleCallerTeamRouters from './Routers/telecallerteamRouters.js'
-import RoleRouters from './Routers/roleRouters.js'
-import FrontDeskRouters from './Routers/frontdeskRouters.js'
-import CoursesRouters from './Routers/CoursesRouters.js'
-import FrontDeskListRouters from './Routers/frontdesklistRouters.js'
-import CounselorDepartmentRouters from './Routers/counselordepartmentRouters.js'
-import TeachersRouters from './Routers/teachersRouters.js'
-import TeachersAddRouters from './Routers/teachersaddRouters.js'
-import StudentRouters from './Routers/studentRouters.js'
-import BatchesRouters from './Routers/batchesRouters'
+import TeleCallerTeamRouters from './Routers/telecallerteamRouters.js';
+import RoleRouters from './Routers/roleRouters.js';
+import FrontDeskRouters from './Routers/frontdeskRouters.js';
+import CoursesRouters from './Routers/CoursesRouters.js';
+import FrontDeskListRouters from './Routers/frontdesklistRouters.js';
+import CounselorDepartmentRouters from './Routers/counselordepartmentRouters.js';
+import TeachersRouters from './Routers/teachersRouters.js';
+import TeachersAddRouters from './Routers/teachersaddRouters.js';
+import StudentRouters from './Routers/studentRouters.js';
+import BatchesRouters from './Routers/batchesRouters';
 import QuizzeRouters from "./Routers/quizzeRouters";
 import CoursesReportsRouters from "./Routers/coursesreportsRouters";
 import StudentsReportsRouters from "./Routers/studentsreportsRouters";
 import CoursesViewRouters from "./Routers/coursesviewRouters";
 import CoursesBatchesRouters from "./Routers/coursesbatchesRouters.js";
-import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
-import TopicRouters from "./Routers/topicRouters.js"
-import LessionRouters from "./Routers/lessionRouters.js"
-import VideoRouters from "./Routers/videoRouters.js"
-import QuestionRouters from './Routers/questionRouters.js'
-import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
-import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
+import CourseStudentsRouters from "./Routers/coursestudentsRouters.js";
+import TopicRouters from "./Routers/topicRouters.js";
+import LessionRouters from "./Routers/lessionRouters.js";
+import VideoRouters from "./Routers/videoRouters.js";
+import QuestionRouters from './Routers/questionRouters.js';
+import QuestionCategoryRouters from './Routers/questioncategoryRouters.js';
+import CourseCategoryRouters from './Routers/coursecategoryRouters.js';
 
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import Login from './Components/Login.js';
-
+import CompleteProfile from './Components/CompleteProfile';
 import InstructorCourseadd from './Components/instructorCourseadd.js';
 import InstructorDashboard from './Routers/instructordashboardRouters.js';
+
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [datatoken, setdatatoken] = useState({});
@@ -56,7 +56,7 @@ function App() {
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post('http://localhost:3000/api/login', { email, password });
-      let datatokendata = response.data.users
+      let datatokendata = response.data.users;
       setdatatoken(datatokendata);
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
@@ -71,12 +71,9 @@ function App() {
     setLoggedIn(false);
   };
 
-
   return (
     <BrowserRouter>
-
       <Routes>
-
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         {datatoken.Role && datatoken.Role.Name === "Instructor" ? (
@@ -95,7 +92,10 @@ function App() {
           path="/login"
           element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
         />
-       
+        <Route
+          path="/complete-profile"
+          element={<CompleteProfile />}
+        />
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
@@ -160,7 +160,6 @@ function App() {
           path="/couresstudents/:coursecodeId"
           element={loggedIn ? <CourseStudentsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-
         <Route
           path="/frontdesk"
           element={loggedIn ? <FrontDeskRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
@@ -210,10 +209,6 @@ function App() {
           element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
         <Route
-          path="/batches/:batchesId"
-          element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
-        />
-        <Route
           path="/quizzes"
           element={loggedIn ? <QuizzeRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
@@ -245,7 +240,7 @@ function App() {
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-     <Route
+        <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
@@ -270,8 +265,6 @@ function App() {
           element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
       </Routes>
-
-
     </BrowserRouter>
   );
 }
