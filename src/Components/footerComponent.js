@@ -11,25 +11,15 @@ function Footer() {
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">The Good Student</a>
+                    <a href="#" target="_blank" class="footer-link fw-bolder">The Good Student</a>
                 </div>
                 <div>
-                    <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                    <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
+                    <a href="https://technogaze.com/" class="footer-link me-4" target="_blank">Technogaze Solutions Pvt.Ltd</a>
+                 
 
-                    <a
-                        href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                        target="_blank"
-                        class="footer-link me-4"
-                    >Documentation</a
-                    >
+                 
 
-                    <a
-                        href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                        target="_blank"
-                        class="footer-link me-4"
-                    >Support</a
-                    >
+                  
                 </div>
             </div>
         </footer>

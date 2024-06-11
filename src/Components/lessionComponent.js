@@ -267,7 +267,7 @@ function Topic() {
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
                                                         <h3>Add Lession</h3>
-                                                        <div class="offcanvas-body mx-0">
+                                                        <div class=" mx-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
@@ -380,7 +380,7 @@ function Topic() {
                                                                     <td>{item.Course && item.Course.name}</td>
                                                                     <td>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (topic.name))}</td>
                                                                     <td>{item.Course && item.Course.Category && item.Course.Category.name}</td>
-                                                                    <td><Link to={'#'}>Course 5 Days</Link></td>
+                                                                    <td><Link to={'#'}>{item.Course && item.Course.CourseDuration} Days</Link></td>
                                                                     <td>
                                                                         <div class="d-inline-block text-nowrap">
                                                                             <Link to={`/lession/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">

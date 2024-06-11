@@ -1,7 +1,6 @@
-import React from 'react';
+import React from "react";
 import axios from 'axios';
-
-const Sidebar = () => {
+const Sidebar = () =>{
     const handleLogout = async () => {
         try {
             await axios.post('http://localhost:3000/api/logout'); // Send logout request to backend

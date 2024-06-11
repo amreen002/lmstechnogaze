@@ -638,12 +638,19 @@ function ListUse() {
                                 <div class="modal fade" id="editInstructor" tabindex="-1" aria-hidden="true">
                                     <div class="modal-dialog modal-lg modal-simple modal-edit-user">
                                         <div class="modal-content p-3 p-md-5">
-                                            <div class="modal-body">
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                <div class="text-center mb-4">
-                                                    <h3>Instructor Information</h3>
-
+                                            <div className='modal-header d-flex'>
+                                                <div className='d-flex'>
+                                                <h5 class="modal-title">Instructor Information</h5>
                                                 </div>
+                                                <div className='d-flex'>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" 
+                                            aria-label="Close"></button>
+                                                </div>
+                                            
+                                             
+                                            </div>
+                                            <div class="modal-body">
+                                               
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
@@ -775,7 +782,7 @@ function ListUse() {
                                                                 name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
                                                         </div>
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
                                                         <input type="hidden" />
