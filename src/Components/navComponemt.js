@@ -37,7 +37,7 @@ function NavAllPages(token) {
     return (
 
         <nav
-            class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
+            class="cus_ndash layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
             id="layout-navbar"
         >
             <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
@@ -104,7 +104,8 @@ function NavAllPages(token) {
                             </li>
                             <li>
                                 <a className="dropdown-item"><Link to={`/userviews/${table.id}`}><i class="bx bx-user me-2"></i>
-                                    <span class="align-middle">My Profile</span> </Link></a>  <a href="javascript:;" class="dropdown-item">Suspend</a>
+                                    <span class="align-middle">My Profile</span> </Link></a> 
+                                    
 
                             </li>
                             <li>

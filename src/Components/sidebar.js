@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate, useParams, Link } from 'react-router-dom';
 const Sidebar = () => {
     const handleLogout = async () => {
         try {
@@ -66,10 +66,10 @@ const Sidebar = () => {
                 <div className="dashboard-left-single-wrapper mt--40">
                     <h4 className="title mb--5">Instructor</h4>
 
-                    <a href="my-course.html" className="single-item">
+                    <Link to={`/lernerenrollcourse`} className="single-item">
                         <i className="fa-light fa-book"></i>
                         <p>My Courses</p>
-                    </a>
+                    </Link>
 
                     <a href="my-bundles.html" className="single-item">
                         <i className="fa-sharp fa-regular fa-layer-group"></i>

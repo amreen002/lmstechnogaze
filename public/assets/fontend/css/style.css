@@ -31356,3 +31356,32 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   text-align: center;
 }
 /*# sourceMappingURL=../maps/style.css.map */
+.course-details-btn-wrapper ul li button.nav-link.active {
+  background: #3b332c;
+  color: #fff !important;
+}
+.tabcnt{
+padding: 0px !important;
+}
+.btns {
+border: 1px solid #7f6235;
+background-color: #f5f5f9;
+padding: 7px 16px 7px 10px;
+border-radius: 4px;
+cursor: pointer;
+color: #000;
+font-size: 12px;
+font-weight: 500;
+
+}
+.button-roll-course {
+  border: 1px solid #7f6235;
+  background-color: #fff;
+  padding: 5px 20px 5px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #000;
+  font-size: 12px;
+  font-weight: 500;
+  margin-top: 13px;
+  }

@@ -7,10 +7,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [CoursePrice, setCoursePrice] = useState('');
-    const [CourseCategoryId, setCourseCategoryId] = useState('');
-    const [userData, setUserData] = useState("");
+    const [userData, setUserData] = useState({});
     const [table, setCourse] = useState([]);
 
     const [category, setCategory] = useState([]);
@@ -39,10 +36,15 @@ function CoursesP() {
                 });
                 const userData = response.data.courses;
                 setUserData(userData);
-                setName(userData.name);
-                setCoursePrice(userData.CoursePrice);
-                setCourseCategoryId(userData.CourseCategoryId);
-               
+                setFormData({
+                    name:userData.name , 
+                    CoursePrice:userData.CoursePrice,
+                    CourseCategoryId: userData.CourseCategoryId, 
+                    CourseDuration:userData.CourseDuration,
+                    CourseUplod:null,
+                    AboutCourse:userData.AboutCourse,
+                    Description:userData.Description,
+                });
             }
 
         } catch (err) {
@@ -87,15 +89,29 @@ function CoursesP() {
             console.error('Error fetching data:', error);
         }
     };
+    const [formData, setFormData] = useState({
+        name:'' , CoursePrice:'', CourseCategoryId: '', CourseDuration:'',CourseUplod:null, AboutCourse: '',Description: '',
+    });
+    const handleChange = (e) => {
+        const { name, files, value } = e.target;
+        setFormData(formData => ({
+            ...formData,
+            [name]: files ? files[0] : value
+        }));
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                let formData = { name, CoursePrice, CourseCategoryId }
-                await axios.post('http://localhost:3000/api/addcourses', formData, {
+                await axios.post('http://localhost:3000/api/addcourses', data, {
                     headers: {
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
@@ -128,18 +144,21 @@ function CoursesP() {
     }
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const updatedUserData = { name, CoursePrice, CourseCategoryId}
-                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
+                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-              fetchData(coursesId)
+                fetchData(coursesId)
                 alert("Courses updated successfully!");
-             /*    window.location.href = "/courses"; */
+                /*    window.location.href = "/courses"; */
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -270,8 +289,48 @@ function CoursesP() {
                                         </div>
                                     </div>
                                     <div class="card-datatable table-responsive">
-                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div><div class="dt-buttons btn-group flex-wrap"> <div class="btn-group"><button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" aria-expanded="false"><span><i class="bx bx-export me-1"></i>Export</span></button></div> <button class="btn btn-secondary add-new btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser"><span><i class="bx bx-plus me-0 me-sm-1"></i><span class="d-none d-sm-inline-block">Add New Courses</span></span></button> </div></div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer">
+                                            <div class="row mx-2">
+                                                <div class="col-md-2">
+                                                    <div class="me-3">
+                                                        <div class="dataTables_length" id="DataTables_Table_0_length">
+                                                            <label>
+                                                                <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" 
+                                                                class="form-select">
+                                                                    <option value="10">10</option>
+                                                                    <option value="25">25</option>
+                                                                    <option value="50">50</option>
+                                                                    <option value="100">100</option>
+                                                                    </select>
+                                                                    </label>
+                                                                    </div>
+                                                                    </div>
+                                                                    </div>
+                                                                    <div class="col-md-10">
+                                                                        <div class="dt-action-buttons text-xl-end text-lg-start 
+                                                                        text-md-end text-start d-flex align-items-center 
+                                                                        justify-content-end flex-md-row flex-column mb-3 mb-md-0">
+                                                                            <div id="DataTables_Table_0_filter" class="dataTables_filter">
+                                                                                <label>
+                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" />
+                                            </label>
+                                            </div>
+                                            <div class="btn-group d-flex flex-row">
+                                                    <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex" 
+                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" 
+                                                    aria-expanded="false">
+                                                    <span><i class="bx bx-export me-1"></i>Export</span>
+                                                    </button>
+                                                  
+                                                    <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+                                                   
+                                                    <span><i class="bx bx-plus me-0 me-sm-1"></i>Course</span>
+                                                    </button>
+                                                 </div>
+                                            </div>
+                                            </div>
+                                            </div>
+                                            <table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
@@ -321,27 +380,60 @@ function CoursesP() {
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Full Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
-                                                        value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
+                                                        value={formData.name} aria-label="John Doe" onChange={handleChange} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Courses Price</label>
                                                     <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                        value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                        value={formData.CoursePrice} onChange={handleChange} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
-
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
+                                                    <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
+                                                        value={formData.CourseDuration} onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={formData.CourseCategoryId} onChange={handleChange}>
                                                         <option value="">Select</option>
                                                         {category.map((option) => (
                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                         ))}
                                                     </select>
                                                 </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                <label class="form-label">Upload Image</label>
+                                                        <input
+                                                           type="file"
+                                                           class="form-control"
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04"
+                                                           aria-label="Upload"
+                                                            name="file"
+                                                             value={formData.CourseUplod} onChange={handleChange}
+                                                        />
+
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">About Course</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='AboutCourse'
+                                                        value={formData.AboutCourse} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Description</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Description'
+                                                        value={formData.Description} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div className='mt-3 d-flex'>
                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                </div>
+                                               
                                                 <input type="hidden" /></form>
                                         </div>
                                     </div>
@@ -361,27 +453,57 @@ function CoursesP() {
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="modalEditUserFirstName">Full Name</label>
                                                         <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
-                                                           disabled="false"  value={name} onChange={(e) => setName(e.target.value)}
+                                                            disabled="false" value={formData.name} onChange={handleChange}
                                                         />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Courses Price</label>
                                                         <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                            value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                            value={formData.CoursePrice} onChange={handleChange} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
+                                                        <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
+                                                            value={formData.CourseDuration} onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={formData.CourseCategoryId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {category.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
                                                     </div>
+                                                    <div class="col-12 fv-plugins-icon-container">
+                                                       <label class="form-label">Upload Video</label>
+                                                        <input
+                                                           type="file"
+                                                           class="form-control"
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04"
+                                                           aria-label="Upload"
+                                                            name="file"
+                                                             value={formData.CourseUplod} onChange={handleChange}
+                                                        />
 
-                                                    <div class="col-12 text-center">
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">About Course</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='AboutCourse'
+                                                        value={formData.AboutCourse} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Description</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Description'
+                                                        value={formData.Description} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                    <div class="col-12 text-center ">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

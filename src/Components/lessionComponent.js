@@ -20,14 +20,7 @@ function Topic() {
         fetchData2();
         fetchData3()
     }, []);
-    /*     const handleCourseChange = (e) => {
-            const selectedCoursesId = parseInt(e.target.value);
-            const selectedCourses = courses.find(course => course.id === selectedCoursesId)
-            setCoursesId(selectedCoursesId);
-            setSelectedCourses(selectedCourses);
-            setTopicId(''); // Reset district selection
-        };
-     */
+
 
     /*     const handleCourseChange = (e) => {
             const selectedCoursesId = parseInt(e.target.value);
@@ -54,9 +47,11 @@ function Topic() {
             TopicId: '' // Reset topic selection
         });
         setSelectedCourses(selectedCourse);
-        if (selectedCoursesId) {
-            fetchData3(selectedCoursesId);
+        if (selectedCourse) {
+            fetchData2(selectedCoursesId);
+
         }
+
     };
     const fetchData = async (lessionId) => {
         try {
@@ -267,7 +262,7 @@ function Topic() {
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
                                                         <h3>Add Lession</h3>
-                                                        <div class="offcanvas-body mx-0">
+                                                        <div class=" mx-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
@@ -282,7 +277,7 @@ function Topic() {
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
-                                                                        <option value="">Select</option>
+                                                                        <option value="Select">Select</option>
                                                                         {courses.map((option) => (
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
@@ -300,7 +295,7 @@ function Topic() {
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Upload Lession PDF | Docx | Doc</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Upload Lession PDF | Docx | Doc</label>
                                                                     <div class="input-group">
                                                                         <input
                                                                             type="file"
@@ -380,7 +375,7 @@ function Topic() {
                                                                     <td>{item.Course && item.Course.name}</td>
                                                                     <td>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (topic.name))}</td>
                                                                     <td>{item.Course && item.Course.Category && item.Course.Category.name}</td>
-                                                                    <td><Link to={'#'}>Course 5 Days</Link></td>
+                                                                    <td><Link to={'#'}>{item.Course && item.Course.CourseDuration} Days</Link></td>
                                                                     <td>
                                                                         <div class="d-inline-block text-nowrap">
                                                                             <Link to={`/lession/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">
@@ -442,13 +437,11 @@ function Topic() {
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId"
-                                                            value={formData.TopicId} onChange={(e) => setFormData({ ...formData, TopicId: e.target.value })}
-                                                        >
-                                                            <option value="">Select</option>
-                                                            {selectedCourses && selectedCourses.Topics.map(topic => (
-                                                                <option key={topic.id} value={topic.id}>{topic.name}</option>
-                                                            ))}
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formData.TopicId} onChange={handleChange}>
+                                                              <option value="">Select</option>
+                                                              {selectedCourses && selectedCourses.Topics.map(topic => (
+                                                       <option key={topic.id} value={topic.id}>{topic.name}</option>
+                                                           ))}
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
@@ -475,7 +468,7 @@ function Topic() {
                                                             initialValue="Welcome to TinyMCE!"
                                                         />
                                                     </div>
-                                                    <div class="col-12 text-center">
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

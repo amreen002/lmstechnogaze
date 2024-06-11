@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-/* import Logins from './Routers/loginRouter'; */
+import Logins from './Routers/loginRouter';
 import Dashboards from './Routers/dashboardsRouter';
 import AddUserRouters from './Routers/addUserRouter';
 import AccountUserRouters from './Routers/accountUserRouters.js';
@@ -29,21 +29,17 @@ import CourseStudentsRouters from "./Routers/coursestudentsRouters.js"
 import TopicRouters from "./Routers/topicRouters.js"
 import LessionRouters from "./Routers/lessionRouters.js"
 import VideoRouters from "./Routers/videoRouters.js"
-import QuestionRouters from './Routers/questionRouters.js'
-import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
-import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 
 import Home from './Routers/Home.js';
 import About from './Routers/About.js';
 import Login from './Components/Login.js';
+
+import InstructorCourseadd from './Components/instructorCourseadd.js';
 import InstructorDashboard from './Routers/instructordashboardRouters.js';
-import InstructorCourse from './Routers/instructorcourseRouters.js';
-import CoursedetailRouter from './Routers/coursedetailsRouter.js'
-import InstructorUpdateCourse from './Routers/instructorcourseupdateRouters.js'
-import LernerenrollcourseRouter from './Routers/lernerenrollcourseRouter.js'
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [datatoken, setdatatoken] = useState({});
+
   useEffect(() => {
     const checkLoginStatus = async () => {
       const token = localStorage.getItem('token');
@@ -71,7 +67,7 @@ function App() {
     localStorage.removeItem('token');
     setLoggedIn(false);
   };
-  console.log(datatoken)
+
 
   return (
     <BrowserRouter>
@@ -80,15 +76,7 @@ function App() {
 
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-  
-        <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
-        <Route
-          path="/login"
-          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
-        />
-
-        
-        {['Student', 'Instructor'].includes(datatoken.Role && datatoken.Role.Name) ? (
+        {datatoken.Role && datatoken.Role.Name === "Instructor" ? (
           <Route
             path="/dashboard"
             element={loggedIn ? <InstructorDashboard onLogin={handleLogout} /> : <Navigate to="/login" />}
@@ -99,6 +87,12 @@ function App() {
             element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
           />
         )}
+        <Route path="/InstructorCourseadd" element={<InstructorCourseadd />} />
+        <Route
+          path="/login"
+          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+        />
+       
         <Route
           path="/adduser"
           element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
@@ -248,7 +242,7 @@ function App() {
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-     <Route
+        <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
@@ -272,19 +266,6 @@ function App() {
           path="/coursecategory/:categoriesId"
           element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-         <Route
-          path="/coursedetails/:coursesId"
-          element={ <CoursedetailRouter  />}
-        />
-         <Route path="/createcourse/:coursesId" element={<InstructorUpdateCourse />} />
-
-         <Route path="/createcourse" element={loggedIn ? <InstructorCourse onLogout={handleLogout} /> : <Navigate to="/login" />} />
-         <Route
-          path="/lernerenrollcourse"
-          element={loggedIn ? <LernerenrollcourseRouter  onLogout={handleLogout} /> : <Navigate to="/login" />} />
-        
-
-
       </Routes>
 
 

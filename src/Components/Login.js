@@ -89,10 +89,10 @@ const Login = ({onLogin}) => {
 
                             <div className="google-apple-wrapper">
                                 <div className="google">
-                                    <img src="assets/images/contact/06.png" alt="contact" />
+                                    <img src="assets/fontend/images/contact/06.png" alt="contact" />
                                 </div>
                                 <div className="google">
-                                    <img src="assets/images/contact/07.png" alt="contact" />
+                                    <img src="assets/fontend/images/contact/07.png" alt="contact" />
                                 </div>
                             </div>
                             <p>Don't Have an account? <a href="registration.html">Registration</a></p>

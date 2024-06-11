@@ -200,7 +200,7 @@ function Topic() {
                                                                         ))}
                                                                     </select>
                                                                 </div>
-                                                                <div class="mb-3 fv-plugins-icon-container">
+                                                                <div class="mb-3 fv-plugins-icon-container col-lg-3">
                                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
 
                                                                 </div>
@@ -305,7 +305,7 @@ function Topic() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-12 text-center">
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>
