@@ -11,6 +11,7 @@ function Video() {
     const [courses, setCourse] = useState([]);
     const [table, setVideo] = useState([]);
     const [Topic, setTopic] = useState([]);
+    const [findOnevideo, setfindOnevido] = useState({})
     const [selectedCourses, setSelectedCourses] = useState('');
     useEffect(() => {
         fetchData(videoId);
@@ -21,7 +22,12 @@ function Video() {
         fetchData3()
     }, []);
 
+    const [selectedvideo, setselectedvideo] = useState('');
 
+    const handleSelectVideo = (e) => {
+        const value = e.target.value;
+        setselectedvideo(value);
+    };
     const handleCourseChange = async (e) => {
         const selectedCoursesId = parseInt(e.target.value);
         const selectedCourse = courses.find(course => course.id === selectedCoursesId);
@@ -51,6 +57,7 @@ function Video() {
                     }
                 });
                 const lessonData = lessonResponse.data.video;
+                setfindOnevido(lessonData)
                 setFormData({
                     Title: lessonData.Title,
                     CoursesId: lessonData.CoursesId,
@@ -199,7 +206,7 @@ function Video() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.put(`http://localhost:3000/api/video/${videoId}`, data, {
+                await axios.patch(`http://localhost:3000/api/video/${videoId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -268,7 +275,6 @@ function Video() {
                                                                     </select>
                                                                 </div>
 
-
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formData.TopicId} onChange={handleChange}>
@@ -278,28 +284,46 @@ function Video() {
                                                                         ))}
                                                                     </select>
                                                                 </div>
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Upload Video</label>
-                                                                    <div class="input-group">
-                                                                        <input
-                                                                            type="file"
-                                                                            class="form-control"
-                                                                            id="inputGroupFile04"
-                                                                            aria-describedby="inputGroupFileAddon04"
-                                                                            aria-label="Upload"
-                                                                            name="file"
-                                                                            value={formData.VideoUplod} onChange={handleChange}
-                                                                        />
+                                                                <div class="mb-3 fv-plugins-icon-container">
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Video</label>
+                                                                    <select
+                                                                        id="exampleFormControlSelect2"
+                                                                        className="select2 form-select"
+                                                                        name="videoselect"
+                                                                        onChange={handleSelectVideo}
+                                                                    >
+                                                                        <option value="">Select Video Source</option>
+                                                                        <option value="gallery">Video URL</option>
+                                                                        <option value="upload">Choose From Gallery</option>
+                                                                    </select>
 
-                                                                    </div>
+
+
+                                                                    {selectedvideo === 'upload' ? (<div class="mb-3">
+                                                                        <label class="form-label">Upload Video</label>
+                                                                        <div class="input-group">
+                                                                            <input
+                                                                                type="file"
+                                                                                class="form-control"
+                                                                                id="inputGroupFile04"
+                                                                                aria-describedby="inputGroupFileAddon04"
+                                                                                aria-label="Upload"
+                                                                                name="file"
+                                                                                value={formData.VideoUplod} onChange={handleChange}
+                                                                            />
+
+                                                                        </div>
+                                                                    </div>) : selectedvideo === 'gallery' ? (
+                                                                        <div class="mb-3" data-quillbot-parent="oopPrLVIHzQ4Ey_EnMuDh">
+                                                                            <label class="form-label">Video Url</label>
+                                                                            <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoUplod} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
+
+                                                                        </div>
+                                                                    ) : ''
+                                                                    }
+
+
                                                                 </div>
-
-                                                                <div class="mb-3" data-quillbot-parent="oopPrLVIHzQ4Ey_EnMuDh">
-                                                                    <label class="form-label">Video Url</label>
-                                                                    <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoUplod} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
-
-                                                                </div>
-
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
 
@@ -336,7 +360,7 @@ function Video() {
 
                                                                 <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="678px;" aria-label="Categories: activate to sort column ascending" aria-sort="descending">Course</th>
                                                                 <th class="text-nowrap text-sm-end sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="201px;" aria-label="Total Products &amp;nbsp;: activate to sort column ascending">Video Name &nbsp;</th>
-                                                                <th class="text-nowrap text-sm-end sorting_disabled" rowspan="1" colspan="1" width="172px;" aria-label="Duration">Duration</th>
+                                                                {/*  <th class="text-nowrap text-sm-end sorting_disabled" rowspan="1" colspan="1" width="172px;" aria-label="Duration">Duration</th> */}
                                                                 <th class="text-lg-center sorting_disabled" rowspan="1" colspan="1" width="113px;" aria-label="Actions">Actions</th></tr>
 
                                                         </thead>
@@ -368,9 +392,9 @@ function Video() {
                                                                         <div class="fw-medium text-sm-end">{item.Title}</div>
                                                                     </td>
 
-                                                                    <td>
+                                                                    {/*   <td>
                                                                         <div class="fw-medium text-sm-end">{item.createdAt}</div>
-                                                                    </td>
+                                                                    </td> */}
                                                                     <td>
                                                                         <div class="d-inline-block text-nowrap">
                                                                             <Link to={`/video/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">
@@ -413,7 +437,7 @@ function Video() {
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Full Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
-                                                            disabled="false" aria-label="John Doe"
+
                                                             value={formData.Title}
                                                             onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -441,9 +465,15 @@ function Video() {
                                                             ))}
                                                         </select>
                                                     </div>
+
+
+
                                                     <div class="mb-3">
                                                         <label class="form-label">Upload Video</label>
                                                         <div class="input-group">
+                                                            <video src={`http://localhost:3000/${findOnevideo.VideoUplod}`} width="100%" controls="controls" autoplay muted>
+                                                            </video>
+
                                                             <input
                                                                 type="file"
                                                                 class="form-control"
@@ -456,13 +486,12 @@ function Video() {
 
                                                         </div>
                                                     </div>
-
                                                     <div class="mb-3" data-quillbot-parent="oopPrLVIHzQ4Ey_EnMuDh">
                                                         <label class="form-label">Video Url</label>
-                                                        <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoUplod} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
-
+                                                        <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoIframe} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
                                                     </div>
-                                                    <div class="col-12 text-center">
+
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

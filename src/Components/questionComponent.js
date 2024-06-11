@@ -507,7 +507,6 @@ function Questions() {
 
 
 
-
                                                 </div>
                                                 {message && <p style={{ color: 'green' }}>{message}</p>}
                                                 {error && <p style={{ color: 'red' }}>{error}</p>}

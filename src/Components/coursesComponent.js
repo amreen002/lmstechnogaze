@@ -7,11 +7,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [CoursePrice, setCoursePrice] = useState('');
-    const [CourseCategoryId, setCourseCategoryId] = useState('');
-    const [CourseDuration, setCourseDuration] = useState('');
-    const [userData, setUserData] = useState("");
+    const [userData, setUserData] = useState({});
     const [table, setCourse] = useState([]);
 
     const [category, setCategory] = useState([]);
@@ -40,10 +36,15 @@ function CoursesP() {
                 });
                 const userData = response.data.courses;
                 setUserData(userData);
-                setName(userData.name);
-                setCoursePrice(userData.CoursePrice);
-                setCourseCategoryId(userData.CourseCategoryId);
-                setCourseDuration(userData.CourseDuration)
+                setFormData({
+                    name:userData.name , 
+                    CoursePrice:userData.CoursePrice,
+                    CourseCategoryId: userData.CourseCategoryId, 
+                    CourseDuration:userData.CourseDuration,
+                    CourseUplod:null,
+                    AboutCourse:userData.AboutCourse,
+                    Description:userData.Description,
+                });
             }
 
         } catch (err) {
@@ -88,15 +89,29 @@ function CoursesP() {
             console.error('Error fetching data:', error);
         }
     };
+    const [formData, setFormData] = useState({
+        name:'' , CoursePrice:'', CourseCategoryId: '', CourseDuration:'',CourseUplod:null, AboutCourse: '',Description: '',
+    });
+    const handleChange = (e) => {
+        const { name, files, value } = e.target;
+        setFormData(formData => ({
+            ...formData,
+            [name]: files ? files[0] : value
+        }));
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                let formData = { name, CoursePrice, CourseCategoryId, CourseDuration }
-                await axios.post('http://localhost:3000/api/addcourses', formData, {
+                await axios.post('http://localhost:3000/api/addcourses', data, {
                     headers: {
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
@@ -129,11 +144,14 @@ function CoursesP() {
     }
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const updatedUserData = { name, CoursePrice, CourseCategoryId, CourseDuration }
-                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, updatedUserData, {
+                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -362,29 +380,54 @@ function CoursesP() {
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Full Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
-                                                        value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
+                                                        value={formData.name} aria-label="John Doe" onChange={handleChange} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Courses Price</label>
                                                     <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                        value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                        value={formData.CoursePrice} onChange={handleChange} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
                                                     <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
-                                                        value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
+                                                        value={formData.CourseDuration} onChange={handleChange} />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" defaultValue={formData.CourseCategoryId} onChange={handleChange}>
                                                         <option value="">Select</option>
                                                         {category.map((option) => (
                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                         ))}
                                                     </select>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                <label class="form-label">Upload Image</label>
+                                                        <input
+                                                           type="file"
+                                                           class="form-control"
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04"
+                                                           aria-label="Upload"
+                                                            name="file"
+                                                             value={formData.CourseUplod} onChange={handleChange}
+                                                        />
+
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">About Course</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='AboutCourse'
+                                                        value={formData.AboutCourse} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Description</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Description'
+                                                        value={formData.Description} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div className='mt-3 d-flex'>
                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
@@ -410,33 +453,58 @@ function CoursesP() {
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="modalEditUserFirstName">Full Name</label>
                                                         <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
-                                                            disabled="false" value={name} onChange={(e) => setName(e.target.value)}
+                                                            disabled="false" value={formData.name} onChange={handleChange}
                                                         />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Courses Price</label>
                                                         <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Price" name='CoursePrice'
-                                                            value={CoursePrice} onChange={(e) => setCoursePrice(e.target.value)} />
+                                                            value={formData.CoursePrice} onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Course Duration (Days)</label>
                                                         <input type="number" class="form-control" id="add-user-fullname" placeholder="Courses Duration" name='CourseDuration'
-                                                            value={CourseDuration} onChange={(e) => setCourseDuration(e.target.value)} />
+                                                            value={formData.CourseDuration} onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
                                                     <div class="col-12 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={CourseCategoryId} onChange={(e) => setCourseCategoryId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseCategoryId" value={formData.CourseCategoryId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {category.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
                                                     </div>
+                                                    <div class="col-12 fv-plugins-icon-container">
+                                                       <label class="form-label">Upload Video</label>
+                                                        <input
+                                                           type="file"
+                                                           class="form-control"
+                                                           id="inputGroupFile04"
+                                                           aria-describedby="inputGroupFileAddon04"
+                                                           aria-label="Upload"
+                                                            name="file"
+                                                             value={formData.CourseUplod} onChange={handleChange}
+                                                        />
 
-                                                    <div class="col-12 text-center d-flex">
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">About Course</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='AboutCourse'
+                                                        value={formData.AboutCourse} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                <div class="mb-3 fv-plugins-icon-container">
+                                                    <label class="form-label" for="add-user-fullname">Description</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Description'
+                                                        value={formData.Description} aria-label="John Doe" onChange={handleChange} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+                                                    <div class="col-12 text-center ">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

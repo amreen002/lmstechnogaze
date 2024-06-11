@@ -562,7 +562,7 @@ function BatchesUse() {
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 d-flex mt-3">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
@@ -688,9 +688,9 @@ function BatchesUse() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="mb-3 d-flex">
-                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
-                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>
+                                                    <div class="mb-3 d-flex mt-3">
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />
                                                     </div>
                                                     <input type="hidden" /></form>
