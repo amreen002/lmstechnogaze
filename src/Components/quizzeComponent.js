@@ -6,11 +6,11 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import Select, { StylesConfig } from 'react-select'
 import makeAnimated from 'react-select/animated';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 const animatedComponents = makeAnimated();
 
-function BatchesUse() {
+function Quizze() {
 
     const { quizzeId } = useParams();
     const [quizze, setQuizze] = useState([]);
@@ -69,7 +69,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/quizze`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/quizze`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -90,7 +90,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listbatches`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -111,7 +111,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/questionscategory`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -131,7 +131,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/quizze/${quizzeId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -168,7 +168,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -206,7 +206,7 @@ function BatchesUse() {
 
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.post('http://localhost:3000/api/quizze', formData, {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/quizze`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -224,7 +224,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/quizze/${quizzeId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -258,7 +258,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/quizze/${quizzeId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -724,4 +724,4 @@ function BatchesUse() {
     )
 }
 
-export default BatchesUse
+export default Quizze

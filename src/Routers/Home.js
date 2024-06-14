@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
-
+const { REACT_APP_API_ENDPOINT,REACT_APP_API_IMG } = process.env;
 const Home = () => {
     const [courses, setCourse] = useState([]);
     const [totalLessionCount, settotalLessionCount] = useState(null);
@@ -12,7 +12,7 @@ const Home = () => {
     }, []);
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/courses`);
+            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
             const userDatas = response.data.courses;
             settotalLessionCount(response.data.totalLessionCount)
             settotalStudentCount(response.data.totalStudentCount)
@@ -365,7 +365,7 @@ const Home = () => {
                                             <div className="flash grid-item-p element-item transition creative col-xl-3 col-lg-4 col-md-6 col-sm-6" data-category="transition" key={item.id}>
                                                 <div className="rts-single-course">
                                                     <a href={`/coursedetails/${item.id}`} class="thumbnail">
-                                                        <img src={`http://localhost:3000/${item.CourseUplod}`} alt="course" />
+                                                        <img src={`${REACT_APP_API_IMG}/${item.CourseUplod}`} alt="course" />
                                                     </a>
                                                     <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
                                                         <i className="fa-sharp fa-light fa-bookmark"></i>

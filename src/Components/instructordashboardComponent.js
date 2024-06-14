@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import Sidebar from "./sidebar";
+import DashboardCard from "./dashboardcardComponent";
+const  {REACT_APP_API_ENDPOINT,REACT_APP_API_IMG} = process.env;
 function InstructorDashboard(token) {
     const [table, setTable] = useState("");
     const [course, setCourse] = useState([]);
@@ -15,7 +17,7 @@ function InstructorDashboard(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/userwisedata', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -32,7 +34,7 @@ function InstructorDashboard(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -60,47 +62,8 @@ function InstructorDashboard(token) {
             <section>
                 <Navbarmenu />
             </section>
-
-            <div className="dashboard-banner-area-wrapper">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="dashboard-banner-area-start bg_image">
-                                <div className="rating-area-banner-dashboard">
-                                    <div className="stars">
-                                        <span>4.5</span>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-regular fa-star"></i>
-                                    </div>
-                                    <p>Digital Marketing Instructor</p>
-                                    <Link to={"/createcourse"} className="create-btn"><i className="fa-regular fa-circle-plus"></i> Create a New Course</Link>
-                                </div>
-                                <div className="author-profile-image-and-name">
-                                    <div className="profile-pic">
-                                        <img src="assets/fontend/images/dashboard/01.png" alt="dashboard" />
-                                    </div>
-                                    <div className="name-desig">
-                                        <h1 className="title">{table.name}</h1>
-                                        <div className="course-vedio">
-                                            <div className="single">
-                                                <i className="fa-light fa-users"></i>
-                                                <span style={{ paddingLeft: "5px" }}>{totalstudent} Students</span>
-                                            </div>
-                                            <div className="single">
-                                                <i className="fa-regular fa-video"></i>
-                                                <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Course</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DashboardCard />
+           
 
             <div class="dashboard--area-main pt--100 pt_sm--50">
                 <div class="container">

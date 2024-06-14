@@ -3,6 +3,7 @@ import axios from 'axios';
 import {  useParams, } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import { Editor } from '@tinymce/tinymce-react';
+const { REACT_APP_API_ENDPOINT } = process.env;
 const InstructorCourseadd = () => {
     const { coursesId } = useParams();
     const [userData, setUserData] = useState({});
@@ -43,7 +44,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses/${coursesId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses/${coursesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -71,7 +72,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -90,7 +91,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -218,7 +219,7 @@ const InstructorCourseadd = () => {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/addcourses', data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -244,7 +245,7 @@ const InstructorCourseadd = () => {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/topic', formDataTopic, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formDataTopic, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -272,7 +273,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
             if (token) {
 
-                let ddd = await axios.post('http://localhost:3000/api/lession', data, {
+                let ddd = await axios.post(`${REACT_APP_API_ENDPOINT}/lession`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -304,7 +305,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
             if (token) {
 
-              await axios.post('http://localhost:3000/api/video', data, {
+              await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`

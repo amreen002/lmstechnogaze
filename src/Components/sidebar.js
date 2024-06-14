@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 const Sidebar = () => {
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:3000/api/logout'); // Send logout request to backend
+            await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
             localStorage.removeItem('token'); // Remove token from local storage or state
             window.location.href = "/login"
         } catch (error) {
@@ -17,10 +18,10 @@ const Sidebar = () => {
             <div className="left-sindebar-dashboard theiaStickySidebar">
                 <div className="dashboard-left-single-wrapper">
 
-                    <a href="dashboard.html" className="single-item active">
+                    <Link to={`/dashboard`} className="single-item active">
                         <i className="fa-light fa-house"></i>
                         <p>Dashboard</p>
-                    </a>
+                    </Link>
 
                     <a href="my-profile.html" className="single-item">
                         <i className="fa-regular fa-user"></i>
@@ -42,11 +43,15 @@ const Sidebar = () => {
                         <p>Reviews</p>
                     </a>
 
-                    <a href="quiz-attempts.html" className="single-item">
+                    <Link to={`/instructoreaddquize`} className="single-item">
                         <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
                         <p>My Quiz Attempts</p>
-                    </a>
+                    </Link>
 
+                    <Link to={`/instructorviewquize`} className="single-item">
+                        <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
+                        <p>Quize View</p>
+                    </Link>
                     <a href="order-history.html" className="single-item">
                         <i className="fa-sharp fa-light fa-bag-shopping"></i>
                         <p>Order History</p>

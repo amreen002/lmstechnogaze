@@ -3,6 +3,7 @@ import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function RegistersP(onLogout) {
     const [error, setError] = useState(null);
     const [formData, setFormData] = useState({
@@ -54,7 +55,7 @@ function RegistersP(onLogout) {
         }
 
         try {
-            const response = await axios.post('http://localhost:3000/api/users', formData, {
+            const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data', // Important for file upload
                 }

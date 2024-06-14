@@ -5,6 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function Topic() {
     const { lessionId } = useParams();
     const navigate = useNavigate();
@@ -62,7 +63,7 @@ function Topic() {
             }
             const token = localStorage.getItem('token');
             if (token) {
-                const lessonResponse = await axios.get(`http://localhost:3000/api/lession/${lessionId}`, {
+                const lessonResponse = await axios.get(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -91,7 +92,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/lession`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/lession`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -111,7 +112,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -131,7 +132,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/topic`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -173,7 +174,7 @@ function Topic() {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/lession', data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/lession`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -192,7 +193,7 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`http://localhost:3000/api/lession/${lessionId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -215,7 +216,7 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.put(`http://localhost:3000/api/lession/${lessionId}`, data, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`

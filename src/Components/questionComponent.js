@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function Questions() {
 
@@ -45,7 +45,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/question`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/question`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -66,7 +66,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/quizze`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/quizze`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -87,7 +87,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/questionscategory`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -106,7 +106,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/question/${questionId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -155,7 +155,7 @@ function Questions() {
 
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.post('http://localhost:3000/api/question', formData, {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/question`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -173,7 +173,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/question/${questionId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -203,7 +203,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/question/${questionId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

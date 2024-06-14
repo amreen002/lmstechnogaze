@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function StudentCourses() {
     const [table, setTable] = useState([]);
     const { studentsId } = useParams();
@@ -81,7 +81,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/students/${coursecodeId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/students/${coursecodeId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -99,7 +99,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -118,7 +118,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcountry`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -137,7 +137,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -159,7 +159,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/liststudents/${studentsId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/liststudents/${studentsId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -236,7 +236,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
             if (token) {
 
-              let  response = await axios.post('http://localhost:3000/api/addstudents', formData, {
+              let  response = await axios.post(`${REACT_APP_API_ENDPOINT}/addstudents`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -254,7 +254,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deletestudents/${studentsId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletestudents/${studentsId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -290,7 +290,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewsstudents/${studentsId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
