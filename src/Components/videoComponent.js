@@ -5,6 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Video() {
     const { videoId } = useParams();
     const navigate = useNavigate();
@@ -50,7 +51,7 @@ function Video() {
             }
             const token = localStorage.getItem('token');
             if (token) {
-                const lessonResponse = await axios.get(`http://localhost:3000/api/video/${videoId}`, {
+                const lessonResponse = await axios.get(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -81,7 +82,7 @@ function Video() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/video`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/video`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -101,7 +102,7 @@ function Video() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -121,7 +122,7 @@ function Video() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/topic`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -164,7 +165,7 @@ function Video() {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/video', data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -183,7 +184,7 @@ function Video() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`http://localhost:3000/api/video/${videoId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -206,7 +207,7 @@ function Video() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.patch(`http://localhost:3000/api/video/${videoId}`, data, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`

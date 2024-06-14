@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function BatchesUse() {
 
     const { batchesId } = useParams();
@@ -42,7 +42,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listbatches`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -61,7 +61,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -80,7 +80,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listteachers`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listteachers`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -102,7 +102,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listbatches/${batchesId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches/${batchesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -153,7 +153,7 @@ function BatchesUse() {
             let response
             if (token) {
 
-                response = await axios.post('http://localhost:3000/api/addbatches', formData, {
+                response = await axios.post(`${REACT_APP_API_ENDPOINT}/addbatches`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -171,7 +171,7 @@ function BatchesUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deletebatches/${batchesId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletebatches/${batchesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -204,7 +204,7 @@ function BatchesUse() {
                     BatchDatails
     
                 }
-                await axios.put(`http://localhost:3000/api/viewsbatches/${batchesId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsbatches/${batchesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

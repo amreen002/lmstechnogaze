@@ -6,7 +6,7 @@ import Footer from "./FooterFrontend";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function CoursedetailsComponent() {
     const settings = {
@@ -75,7 +75,7 @@ function CoursedetailsComponent() {
     }, [coursesId]);
     const fetchData = async () => {
         try {
-            const response = await axios.get(`http://localhost:3000/api/courses`);
+            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
             const userDatas = response.data.courses;
             settotalLessionCount(response.data.totalLessionCount)
             settotalStudentCount(response.data.totalStudentCount)
@@ -94,13 +94,12 @@ function CoursedetailsComponent() {
                 return;
             }
 
-            const response = await axios.get(`http://localhost:3000/api/courses/${coursesId}`);
+            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses/${coursesId}`);
             const userData = response.data.courses;
             setCoureseFindOne(userData);
             settotalLessionCount(response.data.totalLessionCount)
             settotalStudentCount(response.data.totalStudentCount)
             setLastupdated(response.data.Lastupdated)
-
 
 
         } catch (err) {
@@ -245,9 +244,9 @@ function CoursedetailsComponent() {
                                                                     aria-labelledby="headingOne"
                                                                     data-bs-parent="#accordionExample"
                                                                 >
-                                                                    {topic.videos && topic.videos.map((video) => (
-                                                                        <div className="accordion-body">
-                                                                            <a href="#" className="play-vedio-wrapper" onClick={() => openModal(video.id)}>
+                                                                    {topic.videos &&  Array.isArray(topic.videos) && topic.videos.map((video) => (
+                                                                        <div className="accordion-body" key={video.id}>
+                                                                            <a href="#" className="play-vedio-wrapper" onClick={() => openModal(video)}>
                                                                                 <div className="left">
                                                                                     <i className="fa-light fa-circle-play"></i>
                                                                                     <span>{video.Title}</span>
@@ -255,6 +254,7 @@ function CoursedetailsComponent() {
                                                                                 <div className="right">
                                                                                     <span className="play">Preview</span>
                                                                                     <span>9 min</span>
+                                                                                    
                                                                                 </div>
                                                                             </a>
 
@@ -277,7 +277,7 @@ function CoursedetailsComponent() {
                                                             </div>
                                                             <div className="modal-body">
                                                                 <video width="100%" controls>
-                                                                    <source src={`http://localhost:3000/${modalContent.VideoUplod}`} type="video/mp4" />
+                                                                    <source src={`${REACT_APP_API_IMG}/${modalContent.VideoUplod}`} type="video/mp4" />
                                                                     Your browser does not support the video tag.
                                                                 </video>
                                                             </div>
@@ -285,6 +285,7 @@ function CoursedetailsComponent() {
                                                     </div>
                                                 </div>
                                             )}
+
 
                                         </div>
                                         {/* <!-- course content accordion area end --> */}
@@ -653,7 +654,7 @@ function CoursedetailsComponent() {
                                 <div className="course-side-bar">
 
                                     <div className="thumbnail">
-                                        <img src={`http://localhost:3000/${CoureseFindOne.CourseUplod}`} alt="course" />
+                                        <img src={`${REACT_APP_API_IMG}/${CoureseFindOne.CourseUplod}`} alt="course" />
                                     {/*     {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
 
                                             CoureseFindOne.topics.map((topic) => (
@@ -772,7 +773,7 @@ function CoursedetailsComponent() {
                                             <div class="swiper-slide ">
                                                 <div class="single-course-style-three" style={{ marginLeft: '15px' }}>
                                                     <a href="#" class="thumbnail">
-                                                        <img src={`http://localhost:3000/${course.CourseUplod}`} alt="course" />
+                                                        <img src={`${REACT_APP_API_IMG}/${course.CourseUplod}`} alt="course" />
                                                         <div class="tag-thumb">
                                                             <span>{course.Category && course.Category.name}</span>
                                                         </div>

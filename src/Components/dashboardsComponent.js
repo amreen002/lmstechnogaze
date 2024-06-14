@@ -2,6 +2,7 @@ import React from 'react'
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function DashBoards(onLogout) {
     return (
         <div>

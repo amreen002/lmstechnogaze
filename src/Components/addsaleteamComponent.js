@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function SaleTeamUse() {
     const [table, setTable] = useState([]);
     const { saleteamId } = useParams();
@@ -31,7 +31,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listsaleteam/${saleteamId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listsaleteam/${saleteamId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -64,7 +64,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/listsaleteam', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listsaleteam`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -99,7 +99,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.post('http://localhost:3000/api/addsaleteam', formData, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addsaleteam`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -116,7 +116,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deletesaleteam/${saleteamId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletesaleteam/${saleteamId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -137,7 +137,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewssaleteam/${saleteamId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${saleteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

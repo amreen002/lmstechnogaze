@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function FrontUse() {
 
 
@@ -108,7 +108,7 @@ function FrontUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listtelecallerteam`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listtelecallerteam`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -137,7 +137,7 @@ function FrontUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -157,7 +157,7 @@ function FrontUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcountry`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -181,7 +181,7 @@ function FrontUse() {
             let formData = { name, workingStatus, phoneNumber, email, age, date, remark, visitDate, roleId, gender, Education, coursesId, AddressType, PostalCode, Address, DistrictId, City, StateId, CountryId, Area, CounselingDepartmentAllotted, CounselorName, CounselorRoomNo }
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.post('http://localhost:3000/api/addfrontdesk', formData, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addfrontdesk`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -195,7 +195,7 @@ function FrontUse() {
 
             const promises = Object.entries(createdItems).map(([telecallerteamId, isChecked]) => {
                 const updatedUserData = { TelecallerCheckbox: isChecked };
-                return axios.put(`http://localhost:3000/api/updatetelecallerteam/${telecallerteamId}`, updatedUserData, {
+                return axios.put(`${REACT_APP_API_ENDPOINT}/updatetelecallerteam/${telecallerteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

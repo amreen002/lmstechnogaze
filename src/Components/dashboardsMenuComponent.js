@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function DashBoardMenu(onLogout) {
 
     const [table, setTable] = useState("");
@@ -9,7 +10,7 @@ function DashBoardMenu(onLogout) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/userwisedata', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

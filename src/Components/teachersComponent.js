@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function ListUse() {
     const [table, setTable] = useState([]);
     const { teachersId } = useParams();
@@ -62,7 +62,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/listteachers', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listteachers`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -80,7 +80,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -99,7 +99,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcountry`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -122,7 +122,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listteachers/${teachersId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listteachers/${teachersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -202,7 +202,7 @@ function ListUse() {
             let response
             if (token) {
 
-                response = await axios.post('http://localhost:3000/api/addteachers', formData, {
+                response = await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -220,7 +220,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deleteteachers/${teachersId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deleteteachers/${teachersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -257,7 +257,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewsteachers/${teachersId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

@@ -4,6 +4,8 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+
 function VieweUsersP() {
     const { usersId } = useParams();
     const navigate = useNavigate();
@@ -33,7 +35,7 @@ function VieweUsersP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/users/${usersId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -63,7 +65,7 @@ function VieweUsersP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -106,7 +108,7 @@ function VieweUsersP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/users/${usersId}`, data, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
                         Authorization: `Bearer ${token}`
@@ -158,7 +160,7 @@ function VieweUsersP() {
                                         <div class="card-body">
                                             <div class="user-avatar-section">
                                                 <div class=" d-flex align-items-center flex-column">
-                                                    <img class="img-fluid rounded my-4" src={`http://localhost:3000/uploads/${userData.image}`} height="110" width="110" alt="User avatar" />
+                                                    <img class="img-fluid rounded my-4" src={`${REACT_APP_API_IMG}/uploads/${userData.image}`} height="110" width="110" alt="User avatar" />
                                                     <div class="user-info text-center">
                                                         <h4 class="mb-2">{userData.name}</h4>
                                                         <span class="badge bg-label-secondary">{userData.userName}</span>

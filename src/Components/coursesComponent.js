@@ -4,6 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses/${coursesId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses/${coursesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -56,7 +57,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -75,7 +76,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -109,7 +110,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.post('http://localhost:3000/api/addcourses', data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -128,7 +129,7 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`http://localhost:3000/api/deletecourses/${coursesId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletecourses/${coursesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -151,7 +152,7 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewscourses/${coursesId}`, data, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

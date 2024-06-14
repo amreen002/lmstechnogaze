@@ -122,6 +122,77 @@ html {
   overflow-y: auto;
   scroll-behavior: auto !important;
 }
+.aaa{
+    margin-right: 10px;
+    margin-bottom: 0px;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    padding: 0px 8px 2px 8px;
+    font-weight: bold;
+  
+}
+.outof p{
+  font-size: 23px;
+    margin-top: -6px;
+}
+.prqust {
+  border: 1px solid #ccc;
+  padding: 5px 15px 5px 15px;
+}
+.questnum span{
+  border: 1px solid #ccc;
+  padding: 10px 15px 10px 15px;
+  border-radius: 42px;
+  color: #000;
+}
+
+
+.outof {
+  font-size: 1em;
+  color: #777;
+}
+
+.optiionss p {
+  margin: 0;
+}
+.dashboard--area-main {
+  padding-top: 100px;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.qust {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.optiionss .aaa {
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.optiionss {
+  margin-bottom: 10px;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+  border-color: #004085;
+}
+.questnum {
+  margin-right: 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+
 .menuu{
   display: inline-block !important;
   list-style-type: none !important;
@@ -26612,6 +26683,7 @@ edit .quantity-edit button {
   border-radius: 6px;
   border: 1px solid #DDD8F9;
   padding: 30px;
+  background-color: #fff;
 }
 @media only screen and (max-width: 575px) {
   .right-sidebar-dashboard {
@@ -31385,3 +31457,50 @@ font-weight: 500;
   font-weight: 500;
   margin-top: 13px;
   }
+  .explore_text p {
+  text-align: center;
+}
+.inputts{
+  background: transparent !important;
+  border: 1px solid #d5d5d561!important;
+  transition: all 0.4s ease-out 0s !important;
+  color: var(--color-body);
+  width: 100%;
+  padding: 5px 15px !important; 
+}
+.box{
+  padding: 20px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+}
+.ints{
+  height: 170px !important;
+  text-align: center;
+}
+.crls{
+  padding: 0px 9px 0px 9px;
+}
+.crl{
+  padding: 5px;
+  font-size: 12px;
+}
+
+.bnt i:active{
+  background-color: #09A24F;
+  color: #fff;
+ 
+}
+.crans{
+  border: 1px solid  #d5d5d561;
+  padding: 5px;
+  cursor: pointer;
+}
+.crans:active{
+  background-color: #000;
+  color: #fff !important;
+}
+.sve{
+      border: 1px solid  #d5d5d561;
+    padding: 7px 25px;
+    border-radius: 7px;
+}

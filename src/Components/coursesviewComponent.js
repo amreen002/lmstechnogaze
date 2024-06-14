@@ -4,6 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function CoursesP() {
     const { coursecodeId } = useParams();
     const navigate = useNavigate();
@@ -36,7 +37,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/coursecode/${coursecodeId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/coursecode/${coursecodeId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -63,7 +64,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/api/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

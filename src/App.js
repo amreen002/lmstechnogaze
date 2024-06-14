@@ -41,7 +41,10 @@ import CoursedetailRouter from './Routers/coursedetailsRouter.js'
 import InstructorUpdateCourse from './Routers/instructorcourseupdateRouters.js'
 import LernerenrollcourseRouter from './Routers/lernerenrollcourseRouter.js'
 import CompleteProfile from './Components/CompleteProfile';
-
+import InstructoreaddquizeRouter from './Routers/instructoreaddquizeRouter.js'
+import InstructorviewquizRouter from './Routers/instructorviewquizRouters.js'
+import MultiplequestionRouter from './Routers/multiplequestionRouters.js'
+const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -58,7 +61,7 @@ function App() {
 
   const handleLogin = async (email, password) => {
     try {
-      const response = await axios.post('http://localhost:3000/api/login', { email, password });
+      const response = await axios.post(`${REACT_APP_API_ENDPOINT}/login`, { email, password });
       let datatokendata = response.data.users;
       setdatatoken(datatokendata);
       localStorage.setItem('token', response.data.token);
@@ -79,14 +82,14 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-  
+
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
         <Route
           path="/login"
           element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
         />
 
-        
+
         {['Student', 'Instructor'].includes(datatoken.Role && datatoken.Role.Name) ? (
           <Route
             path="/dashboard"
@@ -251,7 +254,7 @@ function App() {
           path="/video/:videoId"
           element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-     <Route
+        <Route
           path="/question"
           element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
@@ -275,19 +278,26 @@ function App() {
           path="/coursecategory/:categoriesId"
           element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
         />
-         <Route
+        <Route
           path="/coursedetails/:coursesId"
-          element={ <CoursedetailRouter  />}
+          element={<CoursedetailRouter />}
         />
-         <Route path="/createcourse/:coursesId" element={<InstructorUpdateCourse />} />
+        <Route path="/createcourse/:coursesId" element={<InstructorUpdateCourse />} />
 
-         <Route path="/createcourse" element={loggedIn ? <InstructorCourse onLogout={handleLogout} /> : <Navigate to="/login" />} />
-         <Route
+        <Route path="/createcourse" element={loggedIn ? <InstructorCourse onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        <Route
           path="/lernerenrollcourse"
-          element={loggedIn ? <LernerenrollcourseRouter  onLogout={handleLogout} /> : <Navigate to="/login" />} />
-        
-
-
+          element={loggedIn ? <LernerenrollcourseRouter onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        <Route
+          path="/instructoreaddquize"
+          element={loggedIn ? <InstructoreaddquizeRouter onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        <Route
+          path="/instructorviewquize"
+          element={<InstructorviewquizRouter />}
+        />        <Route
+          path="/multiplequestion"
+          element={loggedIn ? <MultiplequestionRouter onLogout={handleLogout} /> : <Navigate to="/login" />}
+        />
       </Routes>
     </BrowserRouter>
   );

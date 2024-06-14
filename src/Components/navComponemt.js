@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom'
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function NavAllPages(token) {
     const [table, setTable] = useState("");
     const fetchData = async () => {
@@ -9,7 +9,7 @@ function NavAllPages(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/userwisedata', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -26,7 +26,7 @@ function NavAllPages(token) {
     }, []);
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:3000/api/logout'); // Send logout request to backend
+            await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
             localStorage.removeItem('token'); // Remove token from local storage or state
             window.location.href = "/login"
         } catch (error) {
@@ -68,7 +68,7 @@ function NavAllPages(token) {
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow show" href="#" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src={`http://localhost:3000/uploads/${table.image}`} alt class="w-px-40 h-12px  rounded-circle" />
+                                <img src={`http://localhost:8080/uploads/${table.image}`} alt class="w-px-40 h-12px  rounded-circle" />
                             </div>
                         </a>
 
@@ -81,7 +81,7 @@ function NavAllPages(token) {
                                             <div className="d-flex">
                                                 <div className="flex-shrink-0 me-3">
                                                     <div className="avatar avatar-online">
-                                                        <img src={`http://localhost:3000/uploads/${table.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
+                                                        <img src={`http://localhost:8080/uploads/${table.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div className="flex-grow-1">

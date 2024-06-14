@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function TelecallerUse() {
     const [table, setTable] = useState([]);
     const [dataUser, setTabledataUser] = useState([]);
@@ -33,7 +33,7 @@ function TelecallerUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/listsaleteam', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listsaleteam`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -51,7 +51,7 @@ function TelecallerUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/userwisedata', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -68,7 +68,7 @@ function TelecallerUse() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/users?LeadGetAllowated=true', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users?LeadGetAllowated=true`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -97,7 +97,7 @@ function TelecallerUse() {
 
             if (token) {
                 if (window.confirm('Are you sure you want to allocate the Telecaller Department Team Member?')) {
-                    await axios.put(`http://localhost:3000/api/viewssaleteam/${saleteamId}`, { telecallerPersonName: newValue, roleId: roleId }, {
+                    await axios.put(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${saleteamId}`, { telecallerPersonName: newValue, roleId: roleId }, {
                         headers: {
                             Authorization: `Bearer ${token}`
                         }

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import Sidebar from "./sidebar";
+import DashboardCard from "./dashboardcardComponent";
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function LernerenrollcourseComponent(token) {
     const [table, setTable] = useState("");
     const [course, setCourse] = useState([]);
@@ -10,28 +12,12 @@ function LernerenrollcourseComponent(token) {
     const [totalstudent, setTotalstudent] = useState(null);
     const [totalVideoCount, settotalVideoCount] = useState(null);
     const [activeService, setActiveService] = useState(null);
-    const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
 
-            if (token) {
-                const response = await axios.get('http://localhost:3000/api/userwisedata', {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-
-                setTable(response.data);
-            }// Updated state variable
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
     const fetchData1 = async () => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -50,7 +36,6 @@ function LernerenrollcourseComponent(token) {
         }
     };
     useEffect(() => {
-        fetchData();
         fetchData1()
     }, []);
 
@@ -60,46 +45,7 @@ function LernerenrollcourseComponent(token) {
             <section>
                 <Navbarmenu />
             </section>
-
-            <div className="dashboard-banner-area-wrapper">
-                <div className="container">
-                    <div className="row">
-                        <div className="col-lg-12">
-                            <div className="dashboard-banner-area-start bg_image">
-                                <div className="rating-area-banner-dashboard">
-                                    <div className="stars">
-                                        <span>4.5</span>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-solid fa-star"></i>
-                                        <i className="fa-regular fa-star"></i>
-                                    </div>
-                                    <p>Digital Marketing Instructor</p>
-                                </div>
-                                <div className="author-profile-image-and-name">
-                                    <div className="profile-pic">
-                                        <img src="assets/fontend/images/dashboard/01.png" alt="dashboard" />
-                                    </div>
-                                    <div className="name-desig">
-                                        <h1 className="title">{table.name}</h1>
-                                        <div className="course-vedio">
-                                            <div className="single">
-                                                <i className="fa-light fa-users"></i>
-                                                <span style={{ paddingLeft: "5px" }}>{totalstudent} Students</span>
-                                            </div>
-                                            <div className="single">
-                                                <i className="fa-regular fa-video"></i>
-                                                <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Course</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <DashboardCard />
 
             <div class="dashboard--area-main pt--100 pt_sm--50">
                 <div class="container">
@@ -130,7 +76,7 @@ function LernerenrollcourseComponent(token) {
                                                             {/* <!-- single course style two --> */}
                                                             <div class="single-course-style-three enroll-course">
                                                                 <a href="single-course.html" class="thumbnail">
-                                                                    <img src={`http://localhost:3000/${item.CourseUplod}`} alt="course" />
+                                                                    <img src={`${REACT_APP_API_IMG}/${item.CourseUplod}`} alt="dashboard" />
                                                                     <div class="tag-thumb">
                                                                         <span>{item.Category && item.Category.name}</span>
                                                                     </div>
@@ -172,7 +118,7 @@ function LernerenrollcourseComponent(token) {
                                                                 </div>
                                                                 <div className="tags-area-wrapper d-flex" style={{ justifyContent: 'space-between' }}>
                                                                     <div className='button-roll-course'>
-                                                                        <a  href={`/createcourse/${item.id}`}  className="btnm flex-row d-flex">
+                                                                        <a href={`/createcourse/${item.id}`} className="btnm flex-row d-flex">
                                                                             <div className='icon' style={{ marginRight: '7px' }}>
                                                                                 <i className="bx bx-edit"></i>
                                                                             </div>
@@ -180,7 +126,7 @@ function LernerenrollcourseComponent(token) {
                                                                         </a>
                                                                     </div>
                                                                     <div className='button-roll-course'>
-                                                                        <a  href={`#`} className=" flex-row d-flex">
+                                                                        <a href={`#`} className=" flex-row d-flex">
                                                                             <div className='icon' style={{ marginRight: '7px' }}>
                                                                                 <i className="bx bx-trash"></i>
                                                                             </div>
