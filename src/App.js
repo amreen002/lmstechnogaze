@@ -76,11 +76,11 @@ function App() {
       setLoggedIn(true);
       if (datatokendata.Role?.Name === 'Student' || datatokendata.Role?.Name === 'Instructor') {
         window.location.href = '/dashboard';
-      } else if (datatokendata.Role?.Name === 'Administrator') {
+      } else if (datatokendata.Role?.Name === 'Administrator'||datatokendata.Role?.Name === 'Super Admin' || datatokendata.Role?.Name === 'Admin' || datatokendata.Role?.Name ==='Telecaller Department'|| datatokendata.Role?.Name ==='Guest/Viewer'||datatokendata.Role?.Name ==='Sale Department' ||datatokendata.Role?.Name ==='Telecaller Team'||datatokendata.Role?.Name ==='Front Desk'||datatokendata.Role?.Name ==='Counselor Department'||datatokendata.Role?.Name ==='Account Department') {
         window.location.href = '/dashboard/admin';
       } else {
         alert('Invalid role'); // Handle other roles if needed
-      }
+      } 
     } catch (error) {
       alert(error.message);
       console.error(error);
@@ -121,7 +121,7 @@ function App() {
      
          <Route
           path="/dashboard/admin"
-          element={ loggedIn === true && datatoken?.Role?.Name === 'Administrator'|| datatoken?.Role?.Name === 'Super Admin'||datatoken?.Role?.Name === 'Admin'||datatoken?.Role?.Name === 'Guest/Viewer'||datatoken?.Role?.Name === 'Sale Department'||datatoken?.Role?.Name === 'Telecaller Department' || datatoken?.Role?.Name === 'Telecaller Team' ||datatoken?.Role?.Name === 'Front Desk' || datatoken?.Role?.Name === 'Counselor Department' || datatoken?.Role?.Name === 'Account Department'  ? <Dashboards userData={datatoken} onLogout={handleLogout} />:<Dashboards userData={datatoken} onLogout={handleLogout} />}
+          element={ loggedIn === true &&  ['Super Admin', 'Admin', 'Telecaller Department','Administrator','Guest/Viewer','Sale Department','Telecaller Team','Front Desk','Counselor Department','Account Department'].includes(datatoken?.Role && datatoken?.Role?.Name) ? <Dashboards userData={datatoken} onLogout={handleLogout} />:<Dashboards userData={datatoken} onLogout={handleLogout} />}
         />
 
 
