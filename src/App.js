@@ -121,7 +121,7 @@ function App() {
      
          <Route
           path="/dashboard/admin"
-          element={ loggedIn === true && datatoken?.Role?.Name === 'Administrator' ? <Dashboards userData={datatoken} onLogout={handleLogout} />:<Dashboards userData={datatoken} onLogout={handleLogout} />}
+          element={ loggedIn === true && datatoken?.Role?.Name === 'Administrator'|| datatoken?.Role?.Name === 'Super Admin'||datatoken?.Role?.Name === 'Admin'||datatoken?.Role?.Name === 'Guest/Viewer'||datatoken?.Role?.Name === 'Sale Department'||datatoken?.Role?.Name === 'Telecaller Department' || datatoken?.Role?.Name === 'Telecaller Team' ||datatoken?.Role?.Name === 'Front Desk' || datatoken?.Role?.Name === 'Counselor Department' || datatoken?.Role?.Name === 'Account Department'  ? <Dashboards userData={datatoken} onLogout={handleLogout} />:<Dashboards userData={datatoken} onLogout={handleLogout} />}
         />
 
 
