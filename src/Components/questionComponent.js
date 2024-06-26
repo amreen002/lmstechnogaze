@@ -211,6 +211,7 @@ function Questions() {
                 });
                 fetchData3(questionId)
                 alert("Question Is Updated Successfully!");
+                window.location.href = "/question";
             }
         } catch (error) {
             console.error('Error updating:', error);

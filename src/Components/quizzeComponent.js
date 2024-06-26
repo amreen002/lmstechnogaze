@@ -265,6 +265,7 @@ function Quizze() {
                 });
                 fetchData3(quizzeId)
                 alert("Quizze Is Updated Successfully!");
+                window.location.href = "/quizzes";
             }
         } catch (error) {
             console.error('Error updating:', error);

@@ -6,7 +6,7 @@ import Footer from "./FooterFrontend";
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 
 function CoursedetailsComponent() {
     const settings = {
@@ -244,7 +244,7 @@ function CoursedetailsComponent() {
                                                                     aria-labelledby="headingOne"
                                                                     data-bs-parent="#accordionExample"
                                                                 >
-                                                                    {topic.videos &&  Array.isArray(topic.videos) && topic.videos.map((video) => (
+                                                                    {topic.videos && Array.isArray(topic.videos) && topic.videos.map((video) => (
                                                                         <div className="accordion-body" key={video.id}>
                                                                             <a href="#" className="play-vedio-wrapper" onClick={() => openModal(video)}>
                                                                                 <div className="left">
@@ -254,7 +254,7 @@ function CoursedetailsComponent() {
                                                                                 <div className="right">
                                                                                     <span className="play">Preview</span>
                                                                                     <span>9 min</span>
-                                                                                    
+
                                                                                 </div>
                                                                             </a>
 
@@ -268,18 +268,20 @@ function CoursedetailsComponent() {
                                             </div>
                                             {/* Modal */}
                                             {isModalOpen && modalContent && (
-                                                <div className="modal fade show" style={{ display: 'block' }} onClick={closeModal}>
-                                                    <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
-                                                        <div className="modal-content">
-                                                            <div className="modal-header">
-                                                                <h5 className="modal-title">{modalContent.Title}</h5>
-                                                                <button type="button" className="btn-close" onClick={closeModal}></button>
-                                                            </div>
-                                                            <div className="modal-body">
+                                                <div className=' modal-backdropss' tabindex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', paddingRight: '17px' }} aria-modal="true" role="dialog">
+                                                    <div className="mdlogs" style={{ display: 'block' }} onClick={closeModal}>
+                                                        <div onClick={(e) => e.stopPropagation()}>
+                                                            <div className="mt--130" style={{ position: 'relative' }}>
+
+
+                                                                <button class="btn-close cloes" onClick={closeModal} style={{ position: 'absolute' }}></button>
+
                                                                 <video width="100%" controls>
+
                                                                     <source src={`${REACT_APP_API_IMG}/${modalContent.VideoUplod}`} type="video/mp4" />
                                                                     Your browser does not support the video tag.
                                                                 </video>
+
                                                             </div>
                                                         </div>
                                                     </div>
@@ -655,7 +657,7 @@ function CoursedetailsComponent() {
 
                                     <div className="thumbnail">
                                         <img src={`${REACT_APP_API_IMG}/${CoureseFindOne.CourseUplod}`} alt="course" />
-                                    {/*     {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
+                                        {/*     {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
 
                                             CoureseFindOne.topics.map((topic) => (
                                                 <div className="vedio-icone" key={topic.id}>

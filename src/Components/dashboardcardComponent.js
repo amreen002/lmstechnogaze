@@ -10,7 +10,7 @@ function DashboardCard(token) {
     const [coursesCount, setCoursesCount] = useState(null);
     const [totalstudent, setTotalstudent] = useState(null);
     const [totalVideoCount, settotalVideoCount] = useState(null);
-    const [activeService, setActiveService] = useState(null);
+    const [activeService, setOpenDropdown] = useState(null);
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -55,7 +55,10 @@ function DashboardCard(token) {
         fetchData();
         fetchData1()
     }, []);
-
+    // Function to toggle a specific dropdown
+    const toggleDropdown = () => {
+        setOpenDropdown(!activeService);
+    };
     return (
 
 
@@ -74,6 +77,7 @@ function DashboardCard(token) {
                                     <i className="fa-regular fa-star"></i>
                                 </div>
                                 <p>Digital Marketing Instructor</p>
+                                <Link to={"/createcourse"} onClick={() => toggleDropdown('create-btn')} className="create-btn"><i className="fa-regular fa-circle-plus"></i> Create a New Class</Link>
                             </div>
                             <div className="author-profile-image-and-name">
                                 <div className="profile-pic">

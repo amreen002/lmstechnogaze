@@ -38,7 +38,7 @@ function DashBoardMenu(onLogout) {
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
-                <Link href="/dashboard" class="app-brand-link">
+                <Link to="/dashboard" class="app-brand-link">
                     <span class="app-brand-logo demo">
                     </span>
                     <span class="app-brand-text demo menu-text fw-bolder ms-2"><div class="avatar" style={{ width: "9.375rem", height: " 4.375rem" }}>
@@ -56,7 +56,7 @@ function DashBoardMenu(onLogout) {
             <ul class="menu-inner py-1">
                 {/*    <!-- Dashboard --> */}
                 <li class="menu-item active">
-                <Link href="/dashboard" class="menu-link">
+                <Link to="/dashboard" class="menu-link">
                         <i class="menu-icon tf-icons bx bx-home-circle"></i>
                         <div data-i18n="Analytics">Dashboard</div>
                     </Link>
@@ -94,7 +94,7 @@ function DashBoardMenu(onLogout) {
                     <li className={`menu-item ${activeService === 'Super Admin' ? 'active' : ''} show_project_web`}>
                         <a href="#" onClick={() => toggleDropdown('dropdowncourese')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className='menu-icon bx bxl-discourse'></i>
-                            <div data-i18n="Layouts">Courses</div>
+                            <div data-i18n="Layouts">Class</div>
                         </a>
                         {/* Step 4: Conditionally render dropdown based on state */}
                         {activeService === 'dropdowncourese' && (
@@ -102,7 +102,7 @@ function DashBoardMenu(onLogout) {
                                 <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
-                                        <div data-i18n="Without menu">Courses List</div>
+                                        <div data-i18n="Without menu">Class List</div>
                                     </Link>
                                 </li>
 
@@ -265,7 +265,7 @@ function DashBoardMenu(onLogout) {
                         </a>
                         {/* Step 4: Conditionally render dropdown based on state */}
                         {activeService === 'dropdowninstructor' && (
-                            <ul className="" aria-labelledby="dropdownMenuButton">
+                            <ul className="" aria-labelledby="dropdowninstructor">
                                 {/* Dropdown content */}
                                 <li className="menu-item">
                                     <Link to="/teachers" className="menu-link">
@@ -283,7 +283,7 @@ function DashBoardMenu(onLogout) {
                         )}
                         <a href="#" onClick={() => toggleDropdown('dropdowncourese')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className="menu-icon tf-icons bx bxs-graduation bx-tada-hover"></i>
-                            <div data-i18n="Layouts">Courese</div>
+                            <div data-i18n="Layouts">Boards</div>
                         </a>
 
                         {/* Step 4: Conditionally render dropdown based on state */}
@@ -293,44 +293,44 @@ function DashBoardMenu(onLogout) {
                                 <li className="menu-item">
                                     <Link to="/coursecategory" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Courese Category</div>
+                                        <div data-i18n="Without menu">Boards Category</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
-                                        <div data-i18n="Without menu">All Courese</div>
+                                        <div data-i18n="Without menu">All Classes</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-add-to-queue'></i>
-                                        <div data-i18n="Without menu">Add Courese</div>
+                                        <div data-i18n="Without menu">Add Class</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/coursesreports" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Courese Report</div>
+                                        <div data-i18n="Without menu">Class Report</div>
                                     </Link>
                                 </li>
 
                                 <li className="menu-item">
                                     <Link to="/topic" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Topic</div>
+                                        <div data-i18n="Without menu">Subjectes</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/lession" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Lession</div>
+                                        <div data-i18n="Without menu">Modules</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/video" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Video</div>
+                                        <div data-i18n="Without menu">Content</div>
                                     </Link>
                                 </li>
                             </ul>
@@ -465,10 +465,8 @@ function DashBoardMenu(onLogout) {
 
                             </ul>
                         )}
-                    </li>
-
-
-                )}
+                    </li>)
+                }
             </ul>
         </aside>
     )

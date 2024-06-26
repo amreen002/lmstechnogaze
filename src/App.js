@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter , Route, Navigate, Routes  } from 'react-router-dom';
 /* import Logins from './Routers/loginRouter'; */
 import Dashboards from './Routers/dashboardsRouter';
 import AddUserRouters from './Routers/addUserRouter';
@@ -44,28 +44,37 @@ import CompleteProfile from './Components/CompleteProfile';
 import InstructoreaddquizeRouter from './Routers/instructoreaddquizeRouter.js'
 import InstructorviewquizRouter from './Routers/instructorviewquizRouters.js'
 import MultiplequestionRouter from './Routers/multiplequestionRouters.js'
+import StudentQuestionViewRouter from './Routers/studentquestionviewRouters.js'
+import StudentAddquestionRouter  from  './Routers/studentquizattemptRouter.js'
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [datatoken, setdatatoken] = useState({});
+;
   useEffect(() => {
-    const checkLoginStatus = async () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        setLoggedIn(true);
-      }
-    };
-    checkLoginStatus();
-  }, []);
+    if (datatoken) {
+      setLoggedIn(true);
+    }
+  }, [datatoken]);
+
 
   const handleLogin = async (email, password) => {
     try {
       const response = await axios.post(`${REACT_APP_API_ENDPOINT}/login`, { email, password });
+
       let datatokendata = response.data.users;
       setdatatoken(datatokendata);
+      localStorage.setItem('datatoken', JSON.stringify(datatokendata));
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
+      if (datatokendata.Role?.Name === 'Student' || datatokendata.Role?.Name === 'Instructor') {
+        window.location.href = '/dashboard';
+      } else if (datatokendata.Role?.Name === 'Administrator') {
+        window.location.href = '/dashboard/admin';
+      } else {
+        alert('Invalid role'); // Handle other roles if needed
+      }
     } catch (error) {
       alert(error.message);
       console.error(error);
@@ -73,8 +82,11 @@ function App() {
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
     setLoggedIn(false);
+    setdatatoken(null);
+    localStorage.removeItem('datatoken');
+    localStorage.removeItem('token');
+    window.location.href = '/login'; // Redirect to login page
   };
 
   return (
@@ -84,220 +96,232 @@ function App() {
         <Route path="/about" element={<About />} />
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
-        <Route
-          path="/login"
-          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
+
+        <Route path="/login" element={<Login onLogin={handleLogin} />} />
+
+        {/* Route for Student/Instructor Dashboard */}
+       
+          <Route
+            path="/dashboard"
+            element={
+              loggedIn === true && datatoken?.Role?.Name === 'Student' || datatoken?.Role?.Name === 'Instructor' ?  <InstructorDashboard userData={datatoken} onLogout={handleLogout} />: <InstructorDashboard userData={datatoken} onLogout={handleLogout} />}
+          />
+
+
+        {/* Route for Admin Dashboard */}
+     
+         <Route
+          path="/dashboard/admin"
+          element={ loggedIn === true && datatoken?.Role?.Name === 'Administrator' ? <Dashboards userData={datatoken} onLogout={handleLogout} />:<Dashboards userData={datatoken} onLogout={handleLogout} />}
         />
 
 
-        {['Student', 'Instructor'].includes(datatoken.Role && datatoken.Role.Name) ? (
-          <Route
-            path="/dashboard"
-            element={loggedIn ? <InstructorDashboard onLogin={handleLogout} /> : <Navigate to="/login" />}
-          />
-        ) : (
-          <Route
-            path="/dashboard"
-            element={loggedIn ? <Dashboards onLogout={handleLogout} /> : <Navigate to="/login" />}
-          />
-        )}
-
-        <Route
-          path="/login"
-          element={!loggedIn ? <Login onLogin={handleLogin} /> : <Navigate to="/dashboard" />}
-        />
         <Route
           path="/complete-profile"
           element={<CompleteProfile />}
         />
         <Route
           path="/adduser"
-          element={loggedIn ? <AddUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <AddUserRouters onLogout={handleLogout} />}
         />
         <Route
           path="/accountusers"
-          element={loggedIn ? <AccountUserRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <AccountUserRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/userlist"
-          element={loggedIn ? <UserListRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <UserListRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/userviews/:usersId"
-          element={loggedIn ? <UserViewsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <UserViewsRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/addsaleteam"
-          element={loggedIn ? <AddSaleTeamRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <AddSaleTeamRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/addsaleteam/:saleteamId"
-          element={loggedIn ? <AddSaleTeamRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <AddSaleTeamRouters onLogout={handleLogout} />}
         />
         <Route
           path="/telecaller"
-          element={loggedIn ? <TeleCallerRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <TeleCallerRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/telecallerteam"
-          element={loggedIn ? <TeleCallerTeamRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <TeleCallerTeamRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/role"
-          element={loggedIn ? <RoleRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <RoleRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/role/:roleId"
-          element={loggedIn ? <RoleRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <RoleRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/courses"
-          element={loggedIn ? <CoursesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CoursesRouters onLogout={handleLogout} />}
         />
         <Route
           path="/courses/:coursesId"
-          element={loggedIn ? <CoursesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CoursesRouters onLogout={handleLogout} />}
         />
         <Route
           path="/coursesreports"
-          element={loggedIn ? <CoursesReportsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CoursesReportsRouters onLogout={handleLogout} />}
         />
         <Route
           path="/couresview/:coursecodeId"
-          element={loggedIn ? <CoursesViewRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CoursesViewRouters onLogout={handleLogout} />}
         />
         <Route
           path="/couresbatches/:coursecodeId"
-          element={loggedIn ? <CoursesBatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CoursesBatchesRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/couresstudents/:coursecodeId"
-          element={loggedIn ? <CourseStudentsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CourseStudentsRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/frontdesk"
-          element={loggedIn ? <FrontDeskRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <FrontDeskRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/frontdesklist"
-          element={loggedIn ? <FrontDeskListRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <FrontDeskListRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/frontdesklist/:frontdeskId"
-          element={loggedIn ? <FrontDeskListRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <FrontDeskListRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/counselordepartment"
-          element={loggedIn ? <CounselorDepartmentRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <CounselorDepartmentRouters onLogout={handleLogout} />  }
         />
         <Route
           path="/teachers"
-          element={loggedIn ? <TeachersRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn ===true && <TeachersRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/teachers/:teachersId"
-          element={loggedIn ? <TeachersRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <TeachersRouters onLogout={handleLogout}   />}
         />
         <Route
           path="/addteachers"
-          element={loggedIn ? <TeachersAddRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <TeachersAddRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/students"
-          element={loggedIn ? <StudentRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <StudentRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/students/:studentsId"
-          element={loggedIn ? <StudentRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <StudentRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/studentsreports"
-          element={loggedIn ? <StudentsReportsRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <StudentsReportsRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/batches"
-          element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <BatchesRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/batches/:batchesId"
-          element={loggedIn ? <BatchesRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <BatchesRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/quizzes"
-          element={loggedIn ? <QuizzeRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <QuizzeRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/quizzes/:quizzeId"
-          element={loggedIn ? <QuizzeRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <QuizzeRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/topic"
-          element={loggedIn ? <TopicRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <TopicRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/topic/:topicId"
-          element={loggedIn ? <TopicRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <TopicRouters onLogout={handleLogout} />}
         />
         <Route
           path="/lession"
-          element={loggedIn ? <LessionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <LessionRouters onLogout={handleLogout} />}
         />
         <Route
           path="/lession/:lessionId"
-          element={loggedIn ? <LessionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <LessionRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/video"
-          element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <VideoRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/video/:videoId"
-          element={loggedIn ? <VideoRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <VideoRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/question"
-          element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true && <QuestionRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/question/:questionId"
-          element={loggedIn ? <QuestionRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <QuestionRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/questioncategory"
-          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <QuestionCategoryRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/questioncategory/:questionscategoryId"
-          element={loggedIn ? <QuestionCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <QuestionCategoryRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/coursecategory"
-          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <CourseCategoryRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/coursecategory/:categoriesId"
-          element={loggedIn ? <CourseCategoryRouters onLogout={handleLogout} /> : <Navigate to="/login" />}
+          element={loggedIn === true &&  <CourseCategoryRouters onLogout={handleLogout} /> }
         />
         <Route
           path="/coursedetails/:coursesId"
-          element={<CoursedetailRouter />}
+          element={ <CoursedetailRouter />}
         />
-        <Route path="/createcourse/:coursesId" element={<InstructorUpdateCourse />} />
+        <Route 
+        path="/createcourse/:coursesId" 
+        element={ loggedIn === true &&  <InstructorUpdateCourse onLogout={handleLogout}/> } />
 
-        <Route path="/createcourse" element={loggedIn ? <InstructorCourse onLogout={handleLogout} /> : <Navigate to="/login" />} />
+        <Route 
+        path="/createcourse" 
+        element={ loggedIn === true &&  <InstructorCourse onLogout={handleLogout}/>}/>
         <Route
           path="/lernerenrollcourse"
-          element={loggedIn ? <LernerenrollcourseRouter onLogout={handleLogout} /> : <Navigate to="/login" />} />
+          element={loggedIn === true &&  <LernerenrollcourseRouter onLogout={handleLogout} />} />
         <Route
-          path="/instructoreaddquize"
-          element={loggedIn ? <InstructoreaddquizeRouter onLogout={handleLogout} /> : <Navigate to="/login" />} />
+          path="/instructor/addquize"
+          element={loggedIn === true &&  <InstructoreaddquizeRouter onLogout={handleLogout} />} />
         <Route
-          path="/instructorviewquize"
-          element={<InstructorviewquizRouter />}
-        />        <Route
-          path="/multiplequestion"
-          element={loggedIn ? <MultiplequestionRouter onLogout={handleLogout} /> : <Navigate to="/login" />}
+          path="/instructor/viewquize"
+          element={loggedIn === true &&  <InstructorviewquizRouter onLogout={handleLogout} />}
         />
+        <Route
+          path="/instructor/question"
+          element={loggedIn === true && <MultiplequestionRouter onLogout={handleLogout} />}
+          /> 
+      
+        <Route
+          path="/student/question"
+          element={loggedIn === true &&  <StudentQuestionViewRouter onLogout={handleLogout} />}
+        />
+        <Route
+          path="/student/addquestion"
+          element={loggedIn === true &&  <StudentAddquestionRouter onLogout={handleLogout} />} />
+
       </Routes>
     </BrowserRouter>
   );

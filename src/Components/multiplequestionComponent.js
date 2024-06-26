@@ -5,9 +5,9 @@ import Navbarmenu from "./Navbarmenu";
 import Sidebar from "./sidebar";
 import DashboardCard from "./dashboardcardComponent";
 import Position from 'rsuite/esm/internals/Overlay/Position';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function MultiplequestionComponent(token) {
-
+    const navigate = useNavigate();
 
     //Dropdown Navigation
     const [isExpanded, setIsExpanded] = useState(false);
@@ -27,8 +27,14 @@ function MultiplequestionComponent(token) {
             setAnswer(newSelectedOptions);
         } else {
             const newSelectedOptions = [...selectedOptions, option];
-            setSelectedOptions(newSelectedOptions);
-            setAnswer(newSelectedOptions);
+            if (newSelectedOptions) {
+                setSelectedOptions(newSelectedOptions)
+                setAnswer(newSelectedOptions);
+            }else{
+                setSelectedOptions(' ')
+                setAnswer(' ')
+            }
+           
         }
     };
 
@@ -54,15 +60,8 @@ function MultiplequestionComponent(token) {
 
 
     const handleSelectQuestion = (e) => {
-       // setselectednewquestion(isExpanded === serviceName ? '' : serviceName);
         let value = e.target.value;
-        if (value) {
-            setselectednewquestion(value)
-
-        }else{
-                        window.location.href = "/multiplequestion"
-            setselectednewquestion(' ')
-        }
+        value ? setselectednewquestion(e.target.value) : setselectednewquestion('');
     };
     const handleOptionChange = (e) => {
         let value = e.target.value;
@@ -269,7 +268,7 @@ function MultiplequestionComponent(token) {
                 <Navbarmenu />
             </section>
 
-            <DashboardCard/>
+            <DashboardCard />
             <div class="dashboard--area-main pt--100 pt_sm--50">
                 <div class="container">
                     <div class="row g-5">
@@ -319,7 +318,7 @@ function MultiplequestionComponent(token) {
 
                                         </div>
                                     </div>
-                                    <div className='col-12 mt-5'>
+                                    <div className='col-12 mt-5 shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
                                         <input type='text' className='inputts ints' placeholder='Type question here' name='Questions'
                                             onChange={(e) => setQuestions(e.target.value)}
                                             value={Questions} />
@@ -329,91 +328,99 @@ function MultiplequestionComponent(token) {
                                         <div className='container mt-5'>
                                             <div className='row mt-5'>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                    <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                        <div >
-                                                            <i class="fa-light fa-trash-alt crl"></i>
+                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                        <div className='d-flex iconss' >
+                                                            <div >
+                                                                <i class="fa-light fa-trash-alt crl"></i>
+                                                            </div>
+                                                            <div className='crls'>a</div>
+
+                                                            <label className={`custom-radio ${selectedOption === 'a' ? 'selected' : ''}`}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="optin"
+                                                                    id="Green"
+                                                                    value="a"
+                                                                    checked={selectedOption === 'a'}
+                                                                    onChange={handleOptionChange}
+                                                                />
+
+                                                            </label>
+
                                                         </div>
-                                                        <div className='crls'>a</div>
-
-                                                        <label className={`custom-radio ${selectedOption === 'a' ? 'selected' : ''}`}>
-                                                            <input
-                                                                type="radio"
-                                                                name="optin"
-                                                                id="Green"
-                                                                value="a"
-                                                                checked={selectedOption === 'a'}
-                                                                onChange={handleOptionChange}
-                                                            />
-
-                                                        </label>
-
+                                                        <input type='text' className='inputts ints ' placeholder='type answer here' name="Options1"
+                                                            onChange={(e) => setOptions1(e.target.value)}
+                                                            value={Options1} />
                                                     </div>
-                                                    <input type='text' className='inputts ints ' placeholder='type answer here' name="Options1"
-                                                        onChange={(e) => setOptions1(e.target.value)}
-                                                        value={Options1} />
                                                 </div>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                    <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                        <div>
-                                                            <i class="fa-light fa-trash-alt crl"></i>
+                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                        <div className='d-flex iconss' >
+                                                            <div>
+                                                                <i class="fa-light fa-trash-alt crl"></i>
+                                                            </div>
+                                                            <div className='crls'>b</div>
+
+                                                            <label className={`custom-radio ${selectedOption === 'b' ? 'selected' : ''}`}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="optin"
+                                                                    id="Green"
+                                                                    value="b"
+                                                                    checked={singleOption === "b"}
+                                                                    onChange={handleOptionChange} />
+                                                            </label>
+
                                                         </div>
-                                                        <div className='crls'>b</div>
-
-                                                        <label className={`custom-radio ${selectedOption === 'b' ? 'selected' : ''}`}>
-                                                            <input
-                                                                type="radio"
-                                                                name="optin"
-                                                                id="Green"
-                                                                value="b"
-                                                                checked={singleOption === "b"}
-                                                                onChange={handleOptionChange} />
-                                                        </label>
-
+                                                        <input type='text' className='inputts ints ' placeholder='type answer here' name="Options2"
+                                                            onChange={(e) => setOptions2(e.target.value)}
+                                                            value={Options2} />
                                                     </div>
-                                                    <input type='text' className='inputts ints ' placeholder='type answer here' name="Options2"
-                                                        onChange={(e) => setOptions2(e.target.value)}
-                                                        value={Options2} />
                                                 </div>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                    <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                        <div>
-                                                            <i class="fa-light fa-trash-alt crl"></i>
+                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                        <div className='d-flex iconss' >
+                                                            <div>
+                                                                <i class="fa-light fa-trash-alt crl"></i>
+                                                            </div>
+                                                            <div className='crls'>c</div>
+                                                            <label className={`custom-radio ${selectedOption === 'c' ? 'selected' : ''}`}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="optin"
+                                                                    id="Green"
+                                                                    value="c"
+                                                                    checked={singleOption === "c"}
+                                                                    onChange={handleOptionChange} />
+                                                            </label>
                                                         </div>
-                                                        <div className='crls'>c</div>
-                                                        <label className={`custom-radio ${selectedOption === 'c' ? 'selected' : ''}`}>
-                                                            <input
-                                                                type="radio"
-                                                                name="optin"
-                                                                id="Green"
-                                                                value="c"
-                                                                checked={singleOption === "c"}
-                                                                onChange={handleOptionChange} />
-                                                        </label>
+                                                        <input type='text' className='inputts ints ' placeholder='type answer here' name="Options3"
+                                                            onChange={(e) => setOptions3(e.target.value)}
+                                                            value={Options3} />
                                                     </div>
-                                                    <input type='text' className='inputts ints ' placeholder='type answer here' name="Options3"
-                                                        onChange={(e) => setOptions3(e.target.value)}
-                                                        value={Options3} />
                                                 </div>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                    <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                        <div>
-                                                            <i class="fa-light fa-trash-alt crl"></i>
-                                                        </div>
-                                                        <div className='crls'>d</div>
-                                                        <label className={`custom-radio ${selectedOption === 'd' ? 'selected' : ''}`}>
-                                                            <input
-                                                                type="radio"
-                                                                name="optin"
-                                                                id="Green"
-                                                                value="d"
-                                                                checked={singleOption === "d"}
-                                                                onChange={handleOptionChange} />
-                                                        </label>
+                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                        <div className='d-flex iconss' >
+                                                            <div>
+                                                                <i class="fa-light fa-trash-alt crl"></i>
+                                                            </div>
+                                                            <div className='crls'>d</div>
+                                                            <label className={`custom-radio ${selectedOption === 'd' ? 'selected' : ''}`}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="optin"
+                                                                    id="Green"
+                                                                    value="d"
+                                                                    checked={singleOption === "d"}
+                                                                    onChange={handleOptionChange} />
+                                                            </label>
 
+                                                        </div>
+                                                        <input type='text' className='inputts ints ' placeholder='type answer here' name="Options4"
+                                                            onChange={(e) => setOptions4(e.target.value)}
+                                                            value={Options4} />
                                                     </div>
-                                                    <input type='text' className='inputts ints ' placeholder='type answer here' name="Options4"
-                                                        onChange={(e) => setOptions4(e.target.value)}
-                                                        value={Options4} />
                                                 </div>
                                                 <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
@@ -426,7 +433,7 @@ function MultiplequestionComponent(token) {
                                             <div className='row'>
                                                 <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
-                                                <div className='col-12 col-md-3 col-xl-3 col-lg-3 d-flex'>
+                                                <div className='col-12 col-md-3 col-xl-3 col-lg-3 d-flex mt-3'>
 
                                                     <div className='inputts mt-3'  >
                                                         <label>Answer:
@@ -551,93 +558,101 @@ function MultiplequestionComponent(token) {
                                                     </div>
 
                                                 </div>) : isExpanded === "single" ? (
+
                                                     <div className='row mt-5'>
                                                         <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                            <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                                <div >
+                                                            <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                <div className='d-flex iconss'> <div >
                                                                     <i class="fa-light fa-trash-alt crl"></i>
                                                                 </div>
-                                                                <div className='crls'>a</div>
+                                                                    <div className='crls'>a</div>
 
-                                                                <label className={`custom-radio ${selectedOption === 'a' ? 'selected' : ''}`}>
-                                                                    <input
-                                                                        type="radio"
-                                                                        name="optin"
-                                                                        id="Green"
-                                                                        value="a"
-                                                                        checked={selectedOption === 'a'}
-                                                                        onChange={handleOptionChange}
-                                                                    />
+                                                                    <label className={`custom-radio ${selectedOption === 'a' ? 'selected' : ''}`}>
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="optin"
+                                                                            id="Green"
+                                                                            value="a"
+                                                                            checked={selectedOption === 'a'}
+                                                                            onChange={handleOptionChange}
+                                                                        />
 
-                                                                </label>
+                                                                    </label>
 
+                                                                </div>
+                                                                <input type='text' className='inputts ints ' placeholder='type answer here' name="Options1"
+                                                                    onChange={(e) => setOptions1(e.target.value)}
+                                                                    value={Options1} />
                                                             </div>
-                                                            <input type='text' className='inputts ints ' placeholder='type answer here' name="Options1"
-                                                                onChange={(e) => setOptions1(e.target.value)}
-                                                                value={Options1} />
                                                         </div>
                                                         <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                            <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                                <div>
-                                                                    <i class="fa-light fa-trash-alt crl"></i>
+                                                            <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                <div className='d-flex iconss'>
+                                                                    <div>
+                                                                        <i class="fa-light fa-trash-alt crl"></i>
+                                                                    </div>
+                                                                    <div className='crls'>b</div>
+
+                                                                    <label className={`custom-radio ${selectedOption === 'b' ? 'selected' : ''}`}>
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="optin"
+                                                                            id="Green"
+                                                                            value="b"
+                                                                            checked={singleOption === "b"}
+                                                                            onChange={handleOptionChange} />
+                                                                    </label>
+
                                                                 </div>
-                                                                <div className='crls'>b</div>
-
-                                                                <label className={`custom-radio ${selectedOption === 'b' ? 'selected' : ''}`}>
-                                                                    <input
-                                                                        type="radio"
-                                                                        name="optin"
-                                                                        id="Green"
-                                                                        value="b"
-                                                                        checked={singleOption === "b"}
-                                                                        onChange={handleOptionChange} />
-                                                                </label>
-
+                                                                <input type='text' className='inputts ints ' placeholder='type answer here' name="Options2"
+                                                                    onChange={(e) => setOptions2(e.target.value)}
+                                                                    value={Options2} />
                                                             </div>
-                                                            <input type='text' className='inputts ints ' placeholder='type answer here' name="Options2"
-                                                                onChange={(e) => setOptions2(e.target.value)}
-                                                                value={Options2} />
                                                         </div>
                                                         <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                            <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                                <div>
-                                                                    <i class="fa-light fa-trash-alt crl"></i>
+                                                            <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                <div className='d-flex iconss'>
+                                                                    <div>
+                                                                        <i class="fa-light fa-trash-alt crl"></i>
+                                                                    </div>
+                                                                    <div className='crls'>c</div>
+                                                                    <label className={`custom-radio ${selectedOption === 'c' ? 'selected' : ''}`}>
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="optin"
+                                                                            id="Green"
+                                                                            value="c"
+                                                                            checked={singleOption === "c"}
+                                                                            onChange={handleOptionChange} />
+                                                                    </label>
                                                                 </div>
-                                                                <div className='crls'>c</div>
-                                                                <label className={`custom-radio ${selectedOption === 'c' ? 'selected' : ''}`}>
-                                                                    <input
-                                                                        type="radio"
-                                                                        name="optin"
-                                                                        id="Green"
-                                                                        value="c"
-                                                                        checked={singleOption === "c"}
-                                                                        onChange={handleOptionChange} />
-                                                                </label>
+                                                                <input type='text' className='inputts ints ' placeholder='type answer here' name="Options3"
+                                                                    onChange={(e) => setOptions3(e.target.value)}
+                                                                    value={Options3} />
                                                             </div>
-                                                            <input type='text' className='inputts ints ' placeholder='type answer here' name="Options3"
-                                                                onChange={(e) => setOptions3(e.target.value)}
-                                                                value={Options3} />
                                                         </div>
                                                         <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                            <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
-                                                                <div>
-                                                                    <i class="fa-light fa-trash-alt crl"></i>
-                                                                </div>
-                                                                <div className='crls'>d</div>
-                                                                <label className={`custom-radio ${selectedOption === 'd' ? 'selected' : ''}`}>
-                                                                    <input
-                                                                        type="radio"
-                                                                        name="optin"
-                                                                        id="Green"
-                                                                        value="d"
-                                                                        checked={singleOption === "d"}
-                                                                        onChange={handleOptionChange} />
-                                                                </label>
+                                                            <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                <div className='d-flex iconss'>
+                                                                    <div>
+                                                                        <i class="fa-light fa-trash-alt crl"></i>
+                                                                    </div>
+                                                                    <div className='crls'>d</div>
+                                                                    <label className={`custom-radio ${selectedOption === 'd' ? 'selected' : ''}`}>
+                                                                        <input
+                                                                            type="radio"
+                                                                            name="optin"
+                                                                            id="Green"
+                                                                            value="d"
+                                                                            checked={singleOption === "d"}
+                                                                            onChange={handleOptionChange} />
+                                                                    </label>
 
+                                                                </div>
+                                                                <input type='text' className='inputts ints ' placeholder='type answer here' name="Options4"
+                                                                    onChange={(e) => setOptions4(e.target.value)}
+                                                                    value={Options4} />
                                                             </div>
-                                                            <input type='text' className='inputts ints ' placeholder='type answer here' name="Options4"
-                                                                onChange={(e) => setOptions4(e.target.value)}
-                                                                value={Options4} />
                                                         </div>
                                                         <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                         <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
