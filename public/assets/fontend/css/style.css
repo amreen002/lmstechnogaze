@@ -368,6 +368,9 @@ section.py-5.about-fourth {
   background-color: #f8f8f8;
 }
 
+.std-dropdown-menu li a {
+  font-size: 14px;
+}
 
 /*========================================*/
 /* Default  */
