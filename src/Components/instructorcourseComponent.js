@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import {  useParams, } from 'react-router-dom';
+import { useParams, } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import { Editor } from '@tinymce/tinymce-react';
 const { REACT_APP_API_ENDPOINT } = process.env;
@@ -53,13 +53,13 @@ const InstructorCourseadd = () => {
                 const userData = response.data.courses;
                 setUserData(userData);
                 setFormDataCourse({
-                    name:userData.name , 
-                    CoursePrice:userData.CoursePrice,
-                    CourseCategoryId: userData.CourseCategoryId, 
-                    CourseDuration:userData.CourseDuration,
-                    CourseUplod:null,
-                    AboutCourse:userData.AboutCourse,
-                    Description:userData.Description,
+                    name: userData.name,
+                    CoursePrice: userData.CoursePrice,
+                    CourseCategoryId: userData.CourseCategoryId,
+                    CourseDuration: userData.CourseDuration,
+                    CourseUplod: null,
+                    AboutCourse: userData.AboutCourse,
+                    Description: userData.Description,
                 });
             }
 
@@ -132,7 +132,7 @@ const InstructorCourseadd = () => {
         CoursesId: "",
         TopicId: "",
         LessionUpload: null,
-        
+
     });
 
     // video start add 
@@ -177,7 +177,7 @@ const InstructorCourseadd = () => {
         }
 
     };
-    
+
 
     // topic start handleChangeTopic
     const handleChangeTopic = (e) => {
@@ -226,10 +226,18 @@ const InstructorCourseadd = () => {
                     }
                 });
 
-                 window.location.href = '/createcourse'
-                alert('Courses Successfully Create');
+               
+                if (window.confirm('Class Successfully Create')) {
+                    alert('Next Step Add Subject');
+                    window.location.href = '/createcourse'
+                } else {
+                    // Do nothing!
+                    console.log('Class Forword Not To Subject');
+
+                }
 
             }
+
         } catch (error) {
             alert('Failed to send message.');
         }
@@ -251,7 +259,16 @@ const InstructorCourseadd = () => {
                     }
                 });
                 window.location.href = '/createcourse'
-                alert('Topic Successfully Create');
+ 
+
+                if (window.confirm('Subject Successfully Create')) {
+                    alert('Next Step Add Module');
+                    window.location.href = '/createcourse'
+                } else {
+                    // Do nothing!
+                    console.log('Class Forword Not To Module');
+
+                }
 
             }
         } catch (error) {
@@ -279,9 +296,15 @@ const InstructorCourseadd = () => {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                window.location.href = '/createcourse'
-                alert('Lession Successfully Create');
-                console.log(ddd)
+
+                if (window.confirm('Module Successfully Create')) {
+                    alert('Next Step Add Module');
+                    window.location.href = '/createcourse'
+                } else {
+                    // Do nothing!
+                    console.log('Class Forword Not To Lession');
+
+                }
 
             }
 
@@ -305,15 +328,21 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
             if (token) {
 
-              await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
-               
-                alert('Video Successfully Create');
-                  window.location.href = '/createcourse'
+                if (window.confirm('Content Successfully Create')) {
+                    alert('Confirm All Step');
+                    window.location.href = '/createcourse'
+                } else {
+                    // Do nothing!
+                    console.log('Class Forword Not To Content');
+
+                }
+
             }
 
 
@@ -333,12 +362,12 @@ const InstructorCourseadd = () => {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb-main-wrapper">
-                                <h1 className="title">Create Course</h1>
+                                <h1 className="title">Create Class</h1>
 
                                 <div className="pagination-wrapper">
                                     <a href="index-2.html">Home</a>
                                     <i className="fa-regular fa-chevron-right"></i>
-                                    <a className="active" href="create-course.html">Create Course</a>
+                                    <a className="active" href="create-course.html">Create Class</a>
                                 </div>
 
                             </div>
@@ -365,7 +394,7 @@ const InstructorCourseadd = () => {
                                                 aria-expanded={isExpanded ? false : true}
                                                 aria-controls="collapseOne"
                                             >
-                                                Course Info
+                                               Create Class
                                             </button>
                                         </h2>
 
@@ -380,48 +409,49 @@ const InstructorCourseadd = () => {
                                                     <div className="course-information-area">
                                                         <form className="top-form-create-course" onSubmit={handleSubmitCourse}>
                                                             <div className="single-input">
-                                                                <label htmlFor="name" className="form-label">Course Title</label>
+                                                                <label htmlFor="name" className="form-label">Class Title</label>
                                                                 <input
                                                                     id="name"
                                                                     name="name"
                                                                     value={formDataCourse.name}
                                                                     onChange={handleChangeCourse}
                                                                     type="text"
-                                                                    placeholder="New Course"
+                                                                    placeholder="Class 6th/Class 7th/Class 8th"
                                                                 />
                                                             </div>
                                                             <div className="single-input">
-                                                                <label htmlFor="slug" className="form-label">Course Price</label>
+                                                                <label htmlFor="slug" className="form-label">Class Price</label>
                                                                 <input
                                                                     type="number"
                                                                     id="slug"
-                                                                    placeholder="Course Price"
+                                                                    placeholder="Class Price"
                                                                     name="CoursePrice"
                                                                     value={formDataCourse.CoursePrice}
                                                                     onChange={handleChangeCourse}
                                                                 />
                                                             </div>
                                                             <div className="single-input">
-                                                                <label htmlFor="duration" className="form-label">Course Duration (Days)</label>
+                                                                <label htmlFor="duration" className="form-label">Class Duration (Days)</label>
                                                                 <input
                                                                     type="number"
                                                                     id="duration"
-                                                                    placeholder="Course Duration"
+                                                                    placeholder="Class Duration"
                                                                     name="CourseDuration"
                                                                     value={formDataCourse.CourseDuration}
                                                                     onChange={handleChangeCourse}
                                                                 />
                                                             </div>
                                                             <div className="single-input">
-                                                                <label htmlFor="exampleFormControlSelect2" className="form-label">Courses Category</label>
+                                                                <label htmlFor="exampleFormControlSelect2" className="form-label">Class Category</label>
                                                                 <select
                                                                     id="exampleFormControlSelect2"
                                                                     className="select2 form-select"
                                                                     name="CourseCategoryId"
                                                                     value={formDataCourse.CourseCategoryId}
                                                                     onChange={handleChangeCourse}
+                                                                    placeholder="MP/CSBC/ICSE (Board)"
                                                                 >
-                                                                    <option value="">Select</option>
+                                                                    <option value="">Select MP/CSBC/ICSE (Board)</option>
                                                                     {category.map((option) => (
                                                                         <option key={option.id} value={option.id}>{option.name}</option>
                                                                     ))}
@@ -438,25 +468,27 @@ const InstructorCourseadd = () => {
                                                                     name="file"
                                                                     value={formDataCourse.CourseUplod} onChange={handleChangeCourse}
                                                                 /> </div>
-                                                                    <div className="single-input">
-                                                                <label class="form-label">About Course</label>
+                                                            <div className="single-input">
+                                                                <label class="form-label">About Class</label>
                                                                 <input
                                                                     type="text"
                                                                     class="form-control"
                                                                     name="AboutCourse"
+                                                                     placeholder="About Class Content"
                                                                     value={formDataCourse.AboutCourse} onChange={handleChangeCourse}
                                                                 /> </div>
-                                                               <div className="single-input">
+                                                            <div className="single-input">
                                                                 <label class="form-label">Description</label>
                                                                 <input
                                                                     type="text"
                                                                     class="form-control"
                                                                     name="Description"
+                                                                      placeholder="Description Class Content"
                                                                     value={formDataCourse.Description} onChange={handleChangeCourse}
                                                                 /> </div>
                                                             <div class="col-3 col-lg-3 single-input d-flex">
                                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>  
+                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>
 
                                                             </div>
                                                             <input type="hidden" />
@@ -483,7 +515,7 @@ const InstructorCourseadd = () => {
                                                     data-bs-target="#collapseTwo"
                                                     aria-controls="collapseTwo"
                                                 >
-                                                    Course Topic
+                                                    Class Subject
                                                 </button>
                                             </h2>
                                             {isExpanded === 'collapseTwo' && (<div id="collapseTwo" className={`accordion-collapse collapse ${isExpanded ? 'show' : ''}`} aria-labelledby="headingTwo" data-bs-parent="#accordionExampls3">
@@ -491,15 +523,15 @@ const InstructorCourseadd = () => {
                                                     <div className="course-information-area">
                                                         <form action="#" className="top-form-create-course" onSubmit={handleSubmitTopic} >
                                                             <div className="single-input">
-                                                                <label for="name" class="form-label">Topic Name</label>
-                                                                <input id="name" name='name' value={formDataTopic.name} onChange={handleChangeTopic} type="text" placeholder="Topic Name" />
+                                                                <label for="name" class="form-label">Subject Name</label>
+                                                                <input id="name" name='name' value={formDataTopic.name} onChange={handleChangeTopic} type="text"    placeholder="Mathes/Physic/Science" />
                                                             </div>
 
                                                             <div className="single-input">
 
-                                                                <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                 <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formDataTopic.CoursesId} onChange={handleChangeTopic}>
-                                                                    <option value="">Select</option>
+                                                                    <option value="">Class 6th/7th/8th</option>
                                                                     {courses.map((option) => (
                                                                         <option key={option.id} value={option.id}>{option.name}</option>
                                                                     ))}
@@ -507,7 +539,7 @@ const InstructorCourseadd = () => {
                                                             </div>
                                                             <div class="col-3 col-lg-3 single-input d-flex">
                                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>  
+                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>
                                                             </div>
                                                             <input type="hidden" /></form>
 
@@ -530,7 +562,7 @@ const InstructorCourseadd = () => {
                                                     aria-expanded={isExpanded ? false : true}
                                                     aria-controls="collapseThree"
                                                 >
-                                                    Course Lession
+                                                    Class Module
                                                 </button>
                                             </h2>
                                             {isExpanded === 'collapseThree' && (<div id="collapseThree" className={`accordion-collapse collapse ${isExpanded ? 'show' : ''}`} aria-labelledby="headingThree" data-bs-parent="#accordionExampls2">
@@ -539,12 +571,12 @@ const InstructorCourseadd = () => {
                                                         <form className="top-form-create-course" onSubmit={handleSubmitLession}>
                                                             <div className="single-input">
                                                                 <label for="name" class="form-label">Title</label>
-                                                                <input type="text" class="form-control" id="name" placeholder="John Doe" name='LessionTitle' value={formDataLession.LessionTitle} aria-label="John Doe" onChange={handleChangeLession} />
+                                                                <input type="text" class="form-control" id="name" placeholder="Chapteres / History" name='LessionTitle' value={formDataLession.LessionTitle} aria-label="John Doe" onChange={handleChangeLession} />
                                                             </div>
 
 
                                                             <div className="single-input">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                 <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formDataLession.CoursesId} onChange={handleCourseChange}>
                                                                     <option value="">Select</option>
                                                                     {courses.map((option) => (
@@ -555,7 +587,7 @@ const InstructorCourseadd = () => {
 
 
                                                             <div className="single-input">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
                                                                 <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formDataLession.TopicId} onChange={handleChangeLession} >
                                                                     <option value="">Select</option>
                                                                     {selectedCourses && selectedCourses.Topics.map(topic => (
@@ -567,7 +599,7 @@ const InstructorCourseadd = () => {
 
 
                                                             <div className="single-input">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Upload Lession PDF | Docx | Doc</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF | Docx | Doc</label>
 
                                                                 <div class="input-group">
                                                                     <input
@@ -594,7 +626,7 @@ const InstructorCourseadd = () => {
                                                             </div>
                                                             <div class="col-3 col-lg-3 single-input d-flex">
                                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>  
+                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>
                                                             </div>
                                                             <input type="hidden" /></form>
 
@@ -620,7 +652,7 @@ const InstructorCourseadd = () => {
                                                     aria-expanded={isExpanded ? false : true}
                                                     aria-controls="collapseFour"
                                                 >
-                                                    Course Video
+                                                    Class Content
                                                 </button>
                                             </h2>
                                             {isExpanded === 'collapseFour' && (<div id="collapseFour" className={`accordion-collapse collapse ${isExpanded ? 'show' : ''}`} aria-labelledby="headingFour" data-bs-parent="#accordionExampls2">
@@ -630,12 +662,12 @@ const InstructorCourseadd = () => {
 
                                                             <div className="single-input">
                                                                 <label for="name" class="form-label">Title</label>
-                                                                <input type="text" class="form-control" id="name" placeholder="John Doe" name='Title' value={formDataVideo.Title} aria-label="John Doe" onChange={handleChangeVideo} />
+                                                                <input type="text" class="form-control" id="name" placeholder="Content Title" name='Title' value={formDataVideo.Title} aria-label="John Doe" onChange={handleChangeVideo} />
                                                             </div>
 
 
                                                             <div className="single-input">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                 <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formDataVideo.CoursesId} onChange={handleCourseChange} >
                                                                     <option value="">Select</option>
                                                                     {courses.map((option) => (
@@ -646,7 +678,7 @@ const InstructorCourseadd = () => {
 
 
                                                             <div className="single-input">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
+                                                                <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
                                                                 <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formDataVideo.TopicId} onChange={handleChangeVideo} >
                                                                     <option value="">Select</option>
                                                                     {selectedCourses && selectedCourses.Topics.map(topic => (<option key={topic.id} value={topic.id}>{topic.name}</option>
@@ -700,7 +732,7 @@ const InstructorCourseadd = () => {
                                                             </div>
                                                             <div class="col-3 col-lg-3 single-input d-flex">
                                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>  
+                                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>
                                                             </div>
                                                             <input type="hidden" /></form>
 

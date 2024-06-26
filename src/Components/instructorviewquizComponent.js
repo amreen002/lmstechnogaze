@@ -82,7 +82,7 @@ function InstructorviewquizComponent(token) {
                                 <h5 class="title">Quiz View</h5>
                                 {question.map((item, index) => (
                                     <div className='box' key={item.id}>
-                                        <div>
+                                           <div className='pt--5 pl--5'>
                                             <div className='flex-row d-flex'>
                                                 <div className='icon grips'>
                                                     <i class="fa-grip-vertical fa-light"></i>
@@ -160,53 +160,59 @@ function InstructorviewquizComponent(token) {
 
 
                                         </div>
-                                        <div className='pt--30'>
+                                        <div className='pt--50 pl--5'>
                                             <div>
                                                 <p>{item.Questions}</p>
                                             </div>
-                                            <div className='pt--15'>
+                                            <div className='pt--20'>
                                                 <span className='ansc'>  Answer Choices</span>
                                             </div>
-                                            <div className='pt-2 flex-row d-flex'>
-                                                <div className='flex-row d-flex'>
-                                                    <div className='icon'>
-                                                        <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer!="a"? 'fa-check selected' : 'fa-times not-selected'}`}></i>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml--20 crls'>{item.Options1}</span>
-                                                    </div>
+                                            <div className="pt-3">
+                                                <div className="row flex-row d-flex">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
+                                                        <div className="icon">
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("a") || item.Answer === "a" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                        </div>
 
+                                                        <div>
+                                                            <span className="ml--20 crls">{item.Options1}</span>
+                                                        </div>
+
+
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
+                                                        <div className="icon">
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("b") || item.Answer === "b" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                        </div>
+
+                                                        <div>
+                                                            <span className="ml--20 crls">{item.Options2}</span>
+                                                        </div>
+
+                                                    </div>
                                                 </div>
-                                                <div className='ml--200 flex-row d-flex'>
-                                                    <div className='icon'>
-                                                        <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer!="a"? 'fa-check selected' : 'fa-times not-selected'}`}></i>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml--20 crls'>{item.Options2}</span>
-                                                    </div>
+                                                <div className=" row flex-row d-flex">
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
+                                                        <div className="icon">
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("c") || item.Answer === "c" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                        </div>
 
+                                                        <div>
+                                                            <span className="ml--20 crls">{item.Options3}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
+                                                        <div className="icon">
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("d") || item.Answer === "d" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                        </div>
+
+                                                        <div>
+                                                            <span className="ml--20 crls">{item.Options4}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <div className='flex-row d-flex'>
-                                                <div className='flex-row d-flex'>
-                                                    <div className='icon'>
-                                                        <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer!="a"? 'fa-check selected' : 'fa-times not-selected'}`}></i>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml--20 crls'>{item.Options3}</span>
-                                                    </div>
 
-                                                </div>
-                                                <div className='ml--200 flex-row d-flex'>
-                                                    <div className='icon'>
-                                                        <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer!="a"? 'fa-check selected' : 'fa-times not-selected'}`}></i>
-                                                    </div>
-                                                    <div>
-                                                        <span className='ml--20 crls'>{item.Options4}</span>
-                                                    </div>
-
-                                                </div>
-                                            </div>
                                         </div>
 
                                     </div>
@@ -217,108 +223,7 @@ function InstructorviewquizComponent(token) {
                 </div>
             </div>
 
-            {/*    <div className="dashboard--area-main pt-100 pt_sm-50">
-                <div className="container">
-                    <div className="row g-5">
-                        <Sidebar />
-                        <div className="col-lg-9">
-                            <div className="calender-area">
-                                <div className='d-flex justify-content-between'>
-                                    <h5 className="title">Quiz Attempt</h5>
-                                    <div>
-                                        <h5>Timer: 1</h5>
-                                    </div>
-                                </div>
 
-                                <div className='mt-2'>
-                                    <div className='row' style={{ backgroundColor: 'rgb(49 4 2 / 58%)', color: "#fff" }}>
-                                        <div className='col-12 py-2'>
-                                            <div className='d-flex justify-content-between align-items-center'>
-                                                <div className='qust'>
-                                                    30 Questions
-                                                </div>
-                                                <div className='d-flex align-items-center'>
-                                                    <i className="fa fa-clock fa-light mr-2"></i>
-                                                    <div>1m 10s</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="mt-5">
-                                    {question.map((item, index) => (
-                                        <div key={index} className="mb-5">
-                                            <div className="d-flex flex-row align-items-center">
-                                                <div className="questnum mr-3">
-                                                    <span>{index + 1}</span>
-                                                </div>
-                                                <div className="outof">
-                                                    <p>Question {index + 1} of {question.length}</p>
-                                                </div>
-                                            </div>
-                                            <div className="mt-3 ml-4">
-                                                <p>{item.Questions}</p>
-                                            </div>
-
-                                            <div className="row ml-3">
-                                                <div className="col-12 col-md-6">
-                                                    <div className="mt-3">
-                                                        <div className="d-flex flex-row align-items-center optiionss mt-2">
-                                                            <p className="aaa">A</p>
-                                                            <p className="ml-2">{item.Options1}</p>
-                                                        </div>
-                                                        <div className="d-flex flex-row align-items-center optiionss mt-2">
-                                                            <p className="aaa">B</p>
-                                                            <p className="ml-2">{item.Options2}</p>
-                                                        </div>
-                                                        <div className="d-flex flex-row align-items-center optiionss mt-2">
-                                                            <p className="aaa">C</p>
-                                                            <p className="ml-2">{item.Options3}</p>
-                                                        </div>
-                                                        <div className="d-flex flex-row align-items-center optiionss mt-2">
-                                                            <p className="aaa">D</p>
-                                                            <p className="ml-2">{item.Options4}</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-5 ml-3">
-                                                <div className="row">
-                                                    <div className="col-12 col-md-3">
-                                                        <div className="prqust">
-                                                            <button className="btn btn-primary" onClick={() => toggleVisibility(`${item.id}`)}>
-                                                                {isVisible === `${item.id}` ? (
-                                                                    <>
-                                                                        <i className="fa fa-eye-slash"></i> Hide Answer
-                                                                    </>
-                                                                ) : (
-                                                                    <>
-                                                                        <i className="fa fa-eye"></i> Show Answer
-                                                                    </>
-                                                                )}
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                {isVisible ===`${item.id}` && (
-                                                    <div className="col-12 mt-5 pb-2">
-                                                        <div className="alert alert-info">
-                                                            <strong>Answer:</strong> {Array.isArray(item.Answer) ? item.Answer.map(sentences => sentences.toUpperCase()) : item.Answer.toUpperCase()}
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                            </div>
-                                        </div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
 
         </div>
     );

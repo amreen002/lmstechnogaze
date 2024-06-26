@@ -189,7 +189,7 @@ function Video() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData(videoId)
+                window.location.href = "/video";
                 alert('Data successfully deleted');
 
             }
@@ -207,15 +207,14 @@ function Video() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.patch(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, data, {
+                const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(videoId)
-                alert("Video updated successfully!");
-                navigate("/video");
+                window.location.href = '/video'
             }
         } catch (error) {
             console.error('Error updating video:', error);
@@ -253,13 +252,13 @@ function Video() {
                                             <div class="card-body">
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
-                                                        <h3>Add Video</h3>
+                                                        <h3>Add Content</h3>
                                                         <div class="offcanvas-body mx-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label class="form-label" for="add-user-fullname">Name</label>
+                                                                    <label class="form-label" for="add-user-fullname">Content Name</label>
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
                                                                         value={formData.Title} aria-label="John Doe" onChange={handleChange} />
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -267,7 +266,7 @@ function Video() {
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (
@@ -277,7 +276,7 @@ function Video() {
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formData.TopicId} onChange={handleChange}>
                                                                         <option value="">Select</option>
                                                                         {selectedCourses && selectedCourses.Topics.map(topic => (
@@ -359,8 +358,8 @@ function Video() {
                                                         <thead>
                                                             <tr><th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" style={{ width: "0px", display: "none" }} aria-label=""></th>
 
-                                                                <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="678px;" aria-label="Categories: activate to sort column ascending" aria-sort="descending">Course</th>
-                                                                <th class="text-nowrap text-sm-end sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="201px;" aria-label="Total Products &amp;nbsp;: activate to sort column ascending">Video Name &nbsp;</th>
+                                                                <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="678px;" aria-label="Categories: activate to sort column ascending" aria-sort="descending">Content</th>
+                                                                <th class="text-nowrap text-sm-end sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="201px;" aria-label="Total Products &amp;nbsp;: activate to sort column ascending">Title  &nbsp;</th>
                                                                 {/*  <th class="text-nowrap text-sm-end sorting_disabled" rowspan="1" colspan="1" width="172px;" aria-label="Duration">Duration</th> */}
                                                                 <th class="text-lg-center sorting_disabled" rowspan="1" colspan="1" width="113px;" aria-label="Actions">Actions</th></tr>
 
@@ -377,14 +376,21 @@ function Video() {
                                                                                     width: "7.375rem",
                                                                                     height: "4.375rem"
                                                                                 }}>
-                                                                                    <video src={`http://localhost:3000/${item.VideoUplod}`} width="100%" controls="controls" autoplay muted>
+                                                                                    <video src={`${REACT_APP_API_IMG}/${item.VideoUplod}`} width="100%" controls="controls" autoplay muted>
                                                                                     </video>
                                                                                 </div>
                                                                             </div>
                                                                             <div class="d-flex flex-column justify-content-center">
                                                                                 <span class="text-body text-wrap fw-medium">{item.Course && item.Course.name}</span>
                                                                                 <span class="text-muted text-truncate mb-0 d-none d-sm-block">
-                                                                                    <small>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (topic.name))}</small>
+                                                                                    <small>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (
+                                                                                        <td className="left">
+                                                                                            <div className='flex-row d-flex'>
+                                                                                                <div className='ques1'>
+                                                                                                    {topic.name}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td>))}</small>
                                                                                 </span>
                                                                             </div>
                                                                         </div>
@@ -436,8 +442,8 @@ function Video() {
                                                 <form id="editUserForm" className="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
+                                                        <label class="form-label" for="add-user-fullname">Content Name</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="Content" name='Title'
 
                                                             value={formData.Title}
                                                             onChange={handleChange} />
@@ -445,7 +451,7 @@ function Video() {
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId"
                                                             value={formData.CoursesId}
                                                             onChange={handleCourseChange}>
@@ -456,7 +462,7 @@ function Video() {
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId"
                                                             value={formData.TopicId} onChange={(e) => setFormData({ ...formData, TopicId: e.target.value })}
                                                         >
@@ -472,7 +478,7 @@ function Video() {
                                                     <div class="mb-3">
                                                         <label class="form-label">Upload Video</label>
                                                         <div class="input-group">
-                                                            <video src={`http://localhost:3000/${findOnevideo.VideoUplod}`} width="100%" controls="controls" autoplay muted>
+                                                            <video src={`${REACT_APP_API_IMG}/${findOnevideo.VideoUplod}`} width="100%" controls="controls" autoplay muted>
                                                             </video>
 
                                                             <input

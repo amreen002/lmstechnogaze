@@ -64,7 +64,7 @@ function InstructoreaddquizeComponent(token) {
     const [category, setCategory] = useState([]);
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
-
+    const navigate = useNavigate();
     useEffect(() => {
         setTotalQuestions(parseInt(EasyQuestions) + parseInt(MediumQuestions) + parseInt(HardQuestions));
         setTotalMarks(parseInt(EasyQuestions) * 1 + parseInt(MediumQuestions) * 2 + parseInt(HardQuestions) * 4);
@@ -200,8 +200,9 @@ function InstructoreaddquizeComponent(token) {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+    
         try {
-            let formData = {
+            const formData = {
                 QuizzName,
                 QuizzStartTime,
                 QuizzEndTime,
@@ -215,22 +216,37 @@ function InstructoreaddquizeComponent(token) {
                 BatchId,
                 QuizzCategoryId,
                 CourseId,
-            }
-
+            };
+    
             const token = localStorage.getItem('token');
-            if (token) {
-                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/quizze`, formData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                window.location.href = "/multiplequestion";
-                alert('Quizze SuccessFully Create');
+    
+            if (!token) {
+                alert('Token not found. Please log in again.');
+                return;
+            }
+    
+            const response = await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/quizze`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            alert('Quiz successfully created');
+            navigate('/instructor/question'); 
+            if (response.status === 200) {
+                alert('Quiz successfully created');
+                navigate('/instructor/question'); // Use navigate instead of window.location.href
+            } else {
+                console.error('Unexpected response status:', response.status);
+                alert('Failed to create quiz. Please try again.');
             }
         } catch (error) {
-            alert('Failed to send message.');
+            console.error('Error creating quiz:', error);
+            alert('Failed to create quiz. Please try again.');
         }
     };
+    
+
+    
 
     /*    const handleDelete = async (quizzeId) => {
            try {
@@ -302,7 +318,7 @@ function InstructoreaddquizeComponent(token) {
                     <div class="row g-5">
                         <Sidebar />
                         <div class="col-lg-9">
-                            <div class="right-sidebar-dashboard">
+                        <div class="right-sidebar-dashboard" style={{ backgroundColor: '#fff' }}>
                                 <h5 class="title"> Manage Quiz</h5>
                                 <form className='row' onSubmit={handleSubmit}>
 
@@ -348,7 +364,7 @@ function InstructoreaddquizeComponent(token) {
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Number of Hard Questions (4 Mark)</label>
-                                        <input className='inputts' type='text' placeholder='Number of hard questions' name="HardQuestions"
+                                        <input className='inputts' type='number' placeholder='Number of hard questions' name="HardQuestions"
                                             onChange={(e) => setHardQuestions(e.target.value)}
                                             value={HardQuestions} />
 
