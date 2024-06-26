@@ -1,3 +1,24 @@
+.cus_head h2 {
+  color: #fff !important;
+  font-size: 20px;
+  padding: 11px 5px;
+}
+.cus_head {
+  background-color: #3b332c;
+  color: #fff;
+  padding: 0px 10px;
+  margin-top: -8px;
+  border-top-left-radius: 6px;
+  margin-left: -14px;
+  margin-right: -14px;
+  border-top-right-radius: 6px;
+}
+.llbl label {
+  color: #000;
+  padding-bottom: 5px;
+  font-weight: 500;
+}
+
 .rts-btn {
   display: block;
   max-width: max-content;
