@@ -2,46 +2,64 @@ import React, { useState } from "react";
 import axios from 'axios';
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 const SignUp = () => {
 
-
-
-    const [error, setError] = useState(null);
-    const [state, setState] = useState({
+    const [formData, setFormData] = useState({
+        name: '',
+        userName: '',
         email: '',
         password: '',
+        roleName: '',
+        phoneNumber: '',
+        message: '',
+        image: null,
+        departmentId: '',
     });
-/*     const validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }; */
 
     const handleChange = (e) => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        });
-     
+        const { name, files } = e.target;
+        if (files) {
+            setFormData({
+                ...formData,
+                [name]: files[0]  // Handle files differently
+            });
+        } else {
+            setFormData({
+                ...formData,
+                [e.target.name]: e.target.value
+            });
+        }
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const { email, password } = state;
-
-     /*    if (!validateEmail(email)) {
-            setError('Invalid Email',error);
-            return;
-        } */
-
-      /*   if (password.length < 8) {
-            setError('Password must be at least 8 chars long',error);
-            return;
+        const data = new FormData();
+        for (const key in formData) {
+            data.append(key, formData[key]);
         }
- */
-       /*  setError(null); */
-             // Assuming onLogin returns a promise
-        
+
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data', // Important for file upload
+                         Authorization: `Bearer ${token}`
+
+                    }
+                });
+                console.log(response.data);
+                window.location.href = "/complete-profile";
+                alert('User Successfully Create');
+            
+            }
+        } catch (error) {
+            alert('Failed to send message.');
+        }
+    
+
     
     };
 
@@ -58,29 +76,33 @@ const SignUp = () => {
             <div class="col-lg-6">
                     <div class="login-page-form-area">
                         <h4 class="title">Sign Up to Your Account👋</h4>
-                        <form action="#">
+                        <form action="POST" onSubmit={handleSubmit}>
                             <div class="single-input-wrapper">
                                 <label for="name">Your Name*</label>
-                                <input id="name" type="text" placeholder="Enter Your Name" required=""/>
+                                <input  onChange={handleChange} value={formData.name}  name="name" id="name" type="text" placeholder="Enter Your Name" required=""/>
                             </div>
                             <div class="half-input-wrapper">
                                 <div class="single-input-wrapper">
                                     <label for="username">User Name</label>
-                                    <input id="username" type="text" placeholder="Enter User Name" required=""/>
+                                    <input  onChange={handleChange} value={formData.userName}  name="userName" id="username" type="text" placeholder="Enter User Name" required=""/>
                                 </div>
                                 <div class="single-input-wrapper">
                                     <label for="email">Email*</label>
-                                    <input id="email" type="email" placeholder="Enter Your Email" required=""/>
+                                    <input  onChange={handleChange} value={formData.email}  name="email" id="email" type="email" placeholder="Enter Your Email" required=""/>
                                 </div>
                             </div>
                             <div class="half-input-wrapper">
                                 <div class="single-input-wrapper">
                                     <label for="password">Your Password</label>
-                                    <input id="password" type="password" placeholder="Password" required=""/>
+                                    <input onChange={handleChange} value={formData.password}  name="password" id="password" type="password" placeholder="Password" required=""/>
                                 </div>
                                 <div class="single-input-wrapper">
-                                    <label for="passwords">Re Password</label>
-                                    <input id="passwords" type="password" placeholder="Re Password" required=""/>
+                                    <label for="passwords">Instructor/Student</label>
+                                    <select id="passwords" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                        <option value="3">Instructor</option>
+                                        <option value="4">Student</option>
+                                                
+                                    </select>
                                 </div>
                             </div>
                             <div class="single-checkbox-filter">
@@ -89,7 +111,7 @@ const SignUp = () => {
                                     <label for="type-1">Accept the Terms and Privacy Policy</label><br/>
                                 </div>
                             </div>
-                            <button class="rts-btn btn-primary">signup</button>
+                            <button type="submit"  class="rts-btn btn-primary">Signup</button>
                          
                            
                         </form>

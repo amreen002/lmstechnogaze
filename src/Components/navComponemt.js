@@ -68,7 +68,7 @@ function NavAllPages(token) {
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow show" href="#" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src={`http://localhost:8080/uploads/${table.image}`} alt class="w-px-40 h-12px  rounded-circle" />
+                                <img src={`${REACT_APP_API_IMG}/uploads/${table.image}`} alt class="w-px-40 h-12px  rounded-circle" />
                             </div>
                         </a>
 
@@ -81,7 +81,7 @@ function NavAllPages(token) {
                                             <div className="d-flex">
                                                 <div className="flex-shrink-0 me-3">
                                                     <div className="avatar avatar-online">
-                                                        <img src={`http://localhost:8080/uploads/${table.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
+                                                        <img src={`${REACT_APP_API_IMG}/uploads/${table.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div className="flex-grow-1">
