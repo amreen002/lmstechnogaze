@@ -92,22 +92,21 @@ const Login = ({ onLogin }) => {
                   <button className="rts-btn btn-primary" type="submit">Login</button>
                 </form>
                 <div className="google-apple-wrapper">
-                  <div className="google">
+                  {/* <div className="google">
                     <GoogleLogin
                       onSuccess={handleGoogleLoginSuccess}
                       onError={handleGoogleLoginError}
                     />
-                  </div>
+                  </div> */}
                   {/* Add your other login options here */}
                 </div>
-                <p>Don't Have an account? <a href="registration.html">Registration</a></p>
+                <p>Don't Have an account? <a href="signup">Registration</a></p>
               </div>
             </div>
-            <div className="col-lg-6">
-              <div className="contact-thumbnail-login-p mt--100">
-                {/* Your login page image */}
+            <div class="col-lg-6"><div class="contact-thumbnail-login-p mt--100">
+              <img src="assets/fontend/images/banner/login-bg.png" width="600" height="495" alt="login-form" />
               </div>
-            </div>
+              </div>
           </div>
         </div>
       </div>

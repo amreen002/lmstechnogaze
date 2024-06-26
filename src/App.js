@@ -33,7 +33,7 @@ import QuestionCategoryRouters from './Routers/questioncategoryRouters.js'
 import CourseCategoryRouters from './Routers/coursecategoryRouters.js'
 
 import Home from './Routers/Home.js';
-import About from './Routers/About.js';
+import AboutPages from './Routers/aboutRouter.js';
 import Login from './Components/Login.js';
 import InstructorDashboard from './Routers/instructordashboardRouters.js';
 import InstructorCourse from './Routers/instructorcourseRouters.js';
@@ -44,6 +44,9 @@ import CompleteProfile from './Components/CompleteProfile';
 import InstructoreaddquizeRouter from './Routers/instructoreaddquizeRouter.js'
 import InstructorviewquizRouter from './Routers/instructorviewquizRouters.js'
 import MultiplequestionRouter from './Routers/multiplequestionRouters.js'
+import SignupRouter from './Routers/signupRouter.js';
+import Lsa from './Routers/Lsa.js';
+
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
@@ -81,7 +84,10 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
+        <Route path="/about" element={<AboutPages />} />
+        <Route path="/lsa" element={<Lsa />} />
+       
+        <Route path="/signup" element={<SignupRouter />} />
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
         <Route
