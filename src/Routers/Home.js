@@ -319,7 +319,7 @@ const Home = () => {
                                                             </a>
                                                         </div>
                                                         <div className='btns'>
-                                                            <a className=" flex-row d-flex" href={`/coursedetails/${item.id}`}>
+                                                            <a className=" flex-row d-flex view_details" href={`/coursedetails/${item.id}`}>
                                                                 <div className='icon' style={{ marginRight: '7px' }}>
                                                                     <i className="fa-sharp fa-light fa-eye"></i>
                                                                 </div>
