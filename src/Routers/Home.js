@@ -283,7 +283,7 @@ const Home = () => {
                                                             <span>{item.studentCount}  Students</span>
                                                         </div>
                                                     </div>
-                                                    <a href="single-course.html">
+                                                    <a href={`/coursedetails/${item.id}`}>
                                                         <h5 className="title">{item.name}</h5>
                                                     </a>
                                                     <div className="rating-and-price">
@@ -319,7 +319,7 @@ const Home = () => {
                                                             </a>
                                                         </div>
                                                         <div className='btns'>
-                                                            <a className=" flex-row d-flex">
+                                                            <a className=" flex-row d-flex" href={`/coursedetails/${item.id}`}>
                                                                 <div className='icon' style={{ marginRight: '7px' }}>
                                                                     <i className="fa-sharp fa-light fa-eye"></i>
                                                                 </div>

@@ -1,3 +1,134 @@
+/**/
+.view_details {
+  color: #fff;
+}
+/*end*/
+/*Lsa*/
+.about_one {
+  background-color: #fff;
+}
+
+.lsa_img {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 48px 0px;
+}
+
+.lsa_bx {
+  background-color: #000;
+  color: #fff;
+  padding: 40px 36px 87px 40px;
+  margin-top: 56px;
+  margin-left: -56px;
+  border-top-right-radius: 80px;
+  border-bottom-left-radius: 80px;
+  border-top-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+}
+
+.about_head h1 {
+  color: #fff !important;
+  font-size: 28px;
+  font-weight: 600;
+  padding-top: 5px;
+}
+.about_head span {
+  color: #ffe2dc;
+  font-size: 16px;
+  font-weight: 600;
+}
+.about_cnt p {
+  color: #fff;
+}
+.custom_lsa {
+  background-color: #fffbf2 !important;
+  color: #000 !important;
+  font-weight: 600 !important;
+  margin-top: 20px;
+}
+
+.lsa_img2 {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 48px 100px;
+}
+
+.lsa_bx2 {
+  background-color: #fff4c7;
+  color: #fff;
+  padding: 40px 40px 110px 40px;
+  margin-top: 56px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 80px;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 8px;
+  margin-right: -60px;
+  position: relative;
+}
+.about_hd span {
+  color: #ff7234;
+  font-size: 16px;
+  font-weight: 600;
+}
+.about_two {
+  background-color: #f5fffc;
+}
+.about_hd h1 {
+  color: #040404 !important;
+  font-size: 28px;
+  font-weight: 600;
+  padding-top: 5px;
+}
+
+section.py-5.whatlearning {
+  background-color: #fff;
+  text-align: center;
+}
+
+.about_last h3 {
+  font-size: 75px !important;
+}
+.about_last h3 {
+  font-size: 85px !important;
+  text-align: center;
+  font-weight: 100 !important;
+  font-family: cursive;
+  color: #000 !important;
+}
+.whatlearning {
+  background-color: #fff;
+}
+.tab_bg {
+  background-color: #6345a2;
+  margin-left: -26px;
+  margin-right: -26px;
+  padding: 0px 50px;
+}
+
+.tab_bg .nav-pills .nav-link.active, .nav-pills .nav-link.active:hover, .nav-pills .nav-link.active:focus {
+  background-color: #000000 !important;
+  color: #fff;
+  box-shadow: 0 2px 4px 0 rgba(105, 108, 255, 0.4);
+}
+.tab_bg ul li a {
+  text-align: center;
+}
+.tab_bg .nav-pills .nav-link:not(.active, .disabled) {
+  color: #ffffff;
+}
+.tab_bg .nav .nav-link:hover, .nav .nav-link:focus {
+  color: #ffffff !important;
+}
+
+.benifits {
+  padding: 72px 0px;
+  background-color: #fff;
+  border-radius: 8px;
+  text-align: center;
+}
+
+/*Lsa */
+
 .cus_head h2 {
   color: #fff !important;
   font-size: 20px;
@@ -514,6 +645,31 @@ body {
   body {
     overflow: hidden;
   }
+
+  .lsa_bx {
+    background-color: #000;
+    color: #fff;
+    padding: 30px 35px 30px 40px;
+    margin-top: -44px;
+    margin-left: -56px;
+    border-top-right-radius: 80px;
+    border-bottom-left-radius: 80px;
+    border-top-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.lsa_bx2 {
+  background-color: #fff4c7;
+  color: #fff;
+  padding: 35px 20px 17px 30px;
+  margin-top: -48px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 80px;
+  border-top-left-radius: 80px;
+  border-bottom-left-radius: 8px;
+  margin-right: -60px;
+  position: relative;
+}
+
 }
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   body {
@@ -19261,13 +19417,13 @@ nav ul li a {
 }
 
 .rts-single-course {
-  padding: 24px;
+  padding: 0px 0px 0px 0px;
   border-radius: 6px;
   border: 1px solid #e2def7;
   position: relative;
   height: 100%;
   background-color: #ffffff59;
-  }
+}
 .rts-single-course.course-list {
   display: flex;
   align-items: center;
@@ -19352,7 +19508,7 @@ nav ul li a {
   align-items: center;
   gap: 10px;
   margin-top: 15px;
-  margin: 5px 10px;
+  margin: 15px 10px;
 }
 .rts-single-course .tags-area-wrapper .single-tag span {
   display: block;
