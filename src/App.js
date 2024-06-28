@@ -51,7 +51,7 @@ import StudentAddquestionRouter  from  './Routers/studentquizattemptRouter.js'
 import SignupRouter from './Routers/signupRouter.js';
 import Lsa from './Routers/Lsa.js';
 
-import { CartProvider } from './Context/CartContext.js';
+import {CartProvider} from './Context/CartContext';
 import CartComponent from './Components/Cart.js';
 import CheckoutPage from './Components/CheckoutComponemt.js';
 
@@ -117,7 +117,7 @@ function App() {
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
         <Route path="/cart" element={<CartComponent />} />
-        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
         <Route

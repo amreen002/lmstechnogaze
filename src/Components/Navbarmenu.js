@@ -2,7 +2,8 @@ import React, { useState, useContext,useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import CartItemComponent from './cartitemComponent';
 import SearchComponent from './searchComponent';
-import  {CartContext}  from '../Context/CartContext';
+import { CartContext } from '../Context/CartContext';
+import ResponsivenavbarComponent from './responsivenavbarComponent';
 import axios from 'axios';
 const { REACT_APP_API_ENDPOINT } = process.env;
 
@@ -35,6 +36,13 @@ function Navbarmenu() {
   const closeSearch = () => {
     setIsSearch(false);
   };
+  const [isMenubtn , setIsMenubtn] =useState(false)
+const openMenubtn =()=>{
+  setIsMenubtn(true)
+}
+const closebtn=()=>{
+  setIsMenubtn(false)
+}
 
   const handleServiceMouseEnter = () => {
     setIsServiceDropdownOpen(true);
@@ -163,12 +171,14 @@ function Navbarmenu() {
                     </div>
                     {(['Student', 'Super Admin', 'Admin', 'Telecaller Department', 'Administrator', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(data?.Role?.Name)) && (
                       <div className="cart cart-icon">
-                        <Link to="/cart"><i className="fa-regular fa-cart-shopping"></i> <span className='p_cunt'>0</span></Link>
+                        <i className="fa-regular fa-cart-shopping" onClick={openPopup}></i> <span className='p_cunt'>{cartCount}</span>
+
                       </div>)
                     }
                     {!loggedIn && (
                       <div className="cart cart-icon">
-                        <Link to="/cart"><i className="fa-regular fa-cart-shopping"></i> <span className='p_cunt'>0</span></Link>
+                        <i className="fa-regular fa-cart-shopping" onClick={openPopup}></i> <span className='p_cunt'>{cartCount}</span>
+
                       </div>
                     )}
                   </div>
@@ -184,6 +194,21 @@ function Navbarmenu() {
                       <Link to="/signup" className="rts-btn btn-primary">Sign Up</Link>
                     </div>
                   )}
+                   <div className='menubtns'>
+                <div className="menu-btn" id="menu-btn" onClick={openMenubtn}>
+                 
+                  <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                    <rect y="14" width="20" height="2" fill="#1F1F25" ></rect>
+                    <rect y="7" width="20" height="2" fill="#1F1F25"></rect>
+                    <rect width="20" height="2" fill="#1F1F25"></rect>
+                  </svg>
+                
+                </div>
+                <div >            
+                 
+                  </div>
+                  </div>
+
                 </div>
 
               </div>
@@ -193,6 +218,8 @@ function Navbarmenu() {
       </header>
       {isPopupOpen && <CartItemComponent closePopup={closePopup} />}
       {isSearch && <SearchComponent closeSearch={closeSearch} />}
+      {isMenubtn && 
+        <ResponsivenavbarComponent closebtn={closebtn}/>}
     </>
   );
 }

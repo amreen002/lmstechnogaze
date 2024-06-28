@@ -25108,6 +25108,7 @@ input[type=checkbox]:checked ~ label::after, input[type=radio]:checked ~ label::
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   z-index: 1000;
+  overflow-y: scroll;
 }
 @media only screen and (max-width: 767px) {
   .cart-bar {
@@ -25212,7 +25213,7 @@ input[type=checkbox]:checked ~ label::after, input[type=radio]:checked ~ label::
 
 .cart-bar .product-detail .product-thumb {
   margin-right: 15px;
-  max-width: 75px;
+  max-width: 185px;
 }
 
 .cart-bar .cart-edit .quantity-edit {
@@ -25277,7 +25278,7 @@ edit .quantity-edit button {
 
 .cart-bar .cart-edit .quantity-edit input {
   text-align: center;
-  max-width: 26px;
+  max-width: 52px;
   padding: 0;
 }
 

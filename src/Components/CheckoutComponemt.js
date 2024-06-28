@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
-
+import Navbarmenu from './Navbarmenu';
 const CheckoutPage = () => {
     const { cartItems, clearCart } = useContext(CartContext);
 
@@ -12,7 +12,11 @@ const CheckoutPage = () => {
     };
 
     return (
+
         <div>
+            <section className='sticky-top'>
+                <Navbarmenu />
+            </section>
             <h1>Checkout Page</h1>
             {cartItems.map((item) => (
                 <div key={item.id}>
