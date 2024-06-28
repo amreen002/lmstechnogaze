@@ -62,8 +62,8 @@ function CoursedetailsComponent() {
         ] // ad
     };
     const [courses, setCourse] = useState([]);
-    const [totalLessionCount, settotalLessionCount] = useState(null);
-    const [totalStudentCount, settotalStudentCount] = useState(null);
+    const [totalLessionCount, settotalLessionCount] = useState(0);
+    const [totalStudentCount, settotalStudentCount] = useState(0);
     const [Lastupdated, setLastupdated] = useState(null);
     const [CoureseFindOne, setCoureseFindOne] = useState({});
     const { coursesId } = useParams();

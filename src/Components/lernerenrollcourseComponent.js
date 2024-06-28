@@ -8,16 +8,22 @@ const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function LernerenrollcourseComponent(token) {
     const [table, setTable] = useState("");
     const [course, setCourse] = useState([]);
-    const [coursesCount, setCoursesCount] = useState(null);
-    const [totalstudent, setTotalstudent] = useState(null);
-    const [totalVideoCount, settotalVideoCount] = useState(null);
+    const [coursesCount, setCoursesCount] = useState(0);
+    const [totalstudent, setTotalstudent] = useState(0);
+    const [totalVideoCount, settotalVideoCount] = useState(0);
     const [activeService, setActiveService] = useState(null);
 
     const fetchData1 = async () => {
         try {
             const token = localStorage.getItem('token');
+           
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                const datatoken =localStorage.getItem('datatoken');
+                const coursedatafetch = JSON.parse(datatoken)
+                let courseurl
+                coursedatafetch.Role.Name=="Student"? courseurl ="courses" : courseurl ="listcourses"
+                console.log(courseurl)
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/${courseurl}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
