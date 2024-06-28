@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import CartItemComponent from './cartitemComponent';
 import SearchComponent from './searchComponent';
 import { CartContext } from '../Context/CartContext';
+import ResponsivenavbarComponent from './responsivenavbarComponent';
 
 function Navbarmenu() {
   const { cartCount } = useContext(CartContext);
@@ -27,6 +28,13 @@ function Navbarmenu() {
   const closeSearch = () => {
     setIsSearch(false);
   };
+  const [isMenubtn , setIsMenubtn] =useState(false)
+const openMenubtn =()=>{
+  setIsMenubtn(true)
+}
+const closebtn=()=>{
+  setIsMenubtn(false)
+}
 
   const handleServiceMouseEnter = () => {
     setIsServiceDropdownOpen(true);
@@ -144,20 +152,27 @@ function Navbarmenu() {
                     </div>
                     <div className="cart cart-icon">
                   
-                    <Link to="/cart"> <i className="fa-regular fa-cart-shopping" ></i> <span className='p_cunt'>{cartCount}</span></Link>
-                     
+                    <i className="fa-regular fa-cart-shopping" onClick={openPopup}></i> <span className='p_cunt'>{cartCount}</span>
+                    
                     </div>
                   </div>
                   <div className="buttons-area">
                     <Link to="/login" className="rts-btn btn-border">Log In</Link>
                     <Link to="/signup" className="rts-btn btn-primary">Sign Up</Link>
                   </div>
-                  <div className="menu-btn" id="menu-btn">
-                    <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect y="14" width="20" height="2" fill="#1F1F25"></rect>
-                      <rect y="7" width="20" height="2" fill="#1F1F25"></rect>
-                      <rect width="20" height="2" fill="#1F1F25"></rect>
-                    </svg>
+                  <div className='menubtns'>
+                <div className="menu-btn" id="menu-btn" onClick={openMenubtn}>
+                 
+                  <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" >
+                    <rect y="14" width="20" height="2" fill="#1F1F25" ></rect>
+                    <rect y="7" width="20" height="2" fill="#1F1F25"></rect>
+                    <rect width="20" height="2" fill="#1F1F25"></rect>
+                  </svg>
+                
+                </div>
+                <div >            
+                 
+                  </div>
                   </div>
                 </div>
               </div>
@@ -167,6 +182,8 @@ function Navbarmenu() {
       </header>
       {isPopupOpen && <CartItemComponent closePopup={closePopup} />}
       {isSearch && <SearchComponent closeSearch={closeSearch} />}
+      {isMenubtn && 
+        <ResponsivenavbarComponent closebtn={closebtn}/>}
     </>
   );
 }
