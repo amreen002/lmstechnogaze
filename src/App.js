@@ -51,6 +51,10 @@ import StudentAddquestionRouter  from  './Routers/studentquizattemptRouter.js'
 import SignupRouter from './Routers/signupRouter.js';
 import Lsa from './Routers/Lsa.js';
 
+import { CartProvider } from './Context/CartContext.js';
+import CartComponent from './Components/Cart.js';
+import CheckoutPage from './Components/CheckoutComponemt.js';
+
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -96,8 +100,10 @@ function App() {
   };
 
   return (
+    <CartProvider>
     <BrowserRouter>
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPages />} />
         <Route path="/lsa" element={<Lsa />} />
@@ -105,7 +111,8 @@ function App() {
         <Route path="/signup" element={<SignupRouter />} />
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
-
+        <Route path="/cart" element={<CartComponent />} />
+        <Route path="/checkout" component={CheckoutPage} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
         {/* Route for Student/Instructor Dashboard */}
@@ -333,6 +340,7 @@ function App() {
 
       </Routes>
     </BrowserRouter>
+    </CartProvider>
   );
 }
 

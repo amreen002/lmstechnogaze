@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CartItemComponent from './cartitemComponent';
 import SearchComponent from './searchComponent';
+import { CartContext } from '../Context/CartContext';
 
 function Navbarmenu() {
+  const { cartCount } = useContext(CartContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
@@ -141,7 +143,9 @@ function Navbarmenu() {
                       </svg>
                     </div>
                     <div className="cart cart-icon">
-                      <i className="fa-regular fa-cart-shopping" onClick={openPopup}></i>
+                  
+                    <Link to="/cart"> <i className="fa-regular fa-cart-shopping" ></i> <span className='p_cunt'>{cartCount}</span></Link>
+                     
                     </div>
                   </div>
                   <div className="buttons-area">

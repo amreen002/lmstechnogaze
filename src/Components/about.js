@@ -130,7 +130,7 @@ child's needs. Our platform assesses their learning style and offers customised 
                               </div>
                           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
                             <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/abc.webp" className='img-fluid' />
+                                <img src="assets/fontend/images/about/3.png" className='img-fluid' />
                             </div>
                           </div>
                 </div>
@@ -141,7 +141,7 @@ child's needs. Our platform assesses their learning style and offers customised 
                 <div className='row'>
                  <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
                  <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/two.webp" className='img-fluid' />
+                                <img src="assets/fontend/images/about/5.png" className='img-fluid' />
                             </div>
                  </div>
                  <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
@@ -188,7 +188,7 @@ child's needs. Our platform assesses their learning style and offers customised 
                               </div>
                               <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
                               <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/two.webp" className='img-fluid' />
+                                <img src="assets/fontend/images/about/4.png" className='img-fluid' />
                             </div>
                               </div>
                 </div>
