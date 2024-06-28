@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { BrowserRouter , Route, Navigate, Routes  } from 'react-router-dom';
+import { BrowserRouter , Route, Routes  } from 'react-router-dom';
 /* import Logins from './Routers/loginRouter'; */
 import Dashboards from './Routers/dashboardsRouter';
 import AddUserRouters from './Routers/addUserRouter';
@@ -40,7 +40,7 @@ import InstructorCourse from './Routers/instructorcourseRouters.js';
 import CoursedetailRouter from './Routers/coursedetailsRouter.js'
 import InstructorUpdateCourse from './Routers/instructorcourseupdateRouters.js'
 import LernerenrollcourseRouter from './Routers/lernerenrollcourseRouter.js'
-import CompleteProfile from './Components/CompleteProfile';
+import CompleteProfile from './Routers/completeprofileRouters.js';
 import InstructoreaddquizeRouter from './Routers/instructoreaddquizeRouter.js'
 import InstructorviewquizRouter from './Routers/instructorviewquizRouters.js'
 import MultiplequestionRouter from './Routers/multiplequestionRouters.js'
@@ -94,9 +94,8 @@ function App() {
   const handleLogout = () => {
     setLoggedIn(false);
     setdatatoken(null);
-    localStorage.removeItem('datatoken');
     localStorage.removeItem('token');
-    window.location.href = '/login'; // Redirect to login page
+    window.location.href = '/'; // Redirect to login page
   };
 
   return (
@@ -133,7 +132,7 @@ function App() {
 
 
         <Route
-          path="/complete-profile"
+          path="/complete-profile/:usersId"
           element={<CompleteProfile />}
         />
         <Route

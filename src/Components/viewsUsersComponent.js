@@ -9,13 +9,6 @@ const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function VieweUsersP() {
     const { usersId } = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState("");
-    const [userName, setUserName] = useState("");
-    const [email, setEmail] = useState("");
-    const [departmentId, setDepartmentId] = useState("");
-    const [phoneNumber, setPhoneNumber] = useState("");
-    const [message, setMessage] = useState("");
-    const [image, setImage] = useState(null);
     const [userData, setUserData] = useState({});
     const [roleData, setSaleTeamData] = useState([]);
     useEffect(() => {

@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState ,useEffect} from "react";
 import axios from 'axios';
 import FooterFrontend from '../Components/FooterFrontend';
+import { useNavigate } from 'react-router-dom';
 import Navbarmenu from '../Components/Navbarmenu';
 const { REACT_APP_API_ENDPOINT } = process.env;
 const SignUp = () => {
-
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
@@ -50,8 +50,7 @@ const SignUp = () => {
 
                     }
                 });
-                console.log(response.data);
-                window.location.href = "/complete-profile";
+                window.location.href = `/complete-profile/${response.data.users.id}`;
                 alert('User Successfully Create');
             
             }
@@ -98,7 +97,7 @@ const SignUp = () => {
                                 </div>
                                 <div class="single-input-wrapper">
                                     <label for="passwords">Instructor/Student</label>
-                                    <select id="passwords" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                    <select id="departmentId" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
                                         <option value="3">Instructor</option>
                                         <option value="4">Student</option>
                                                 

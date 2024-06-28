@@ -3,32 +3,13 @@ import axios from 'axios';
 import { Link } from 'react-router-dom'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function NavAllPages(token) {
-    const [table, setTable] = useState("");
-    const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-
-                setTable(response.data);
-            }// Updated state variable
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const datatoken =localStorage.getItem('datatoken');
+    const coursedatafetch =JSON.parse(datatoken)
     const handleLogout = async () => {
         try {
             await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
             localStorage.removeItem('token'); // Remove token from local storage or state
-            window.location.href = "/login"
+            window.location.href = "/"
         } catch (error) {
             console.error('Logout failed:', error);
         }
@@ -68,7 +49,7 @@ function NavAllPages(token) {
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow show" href="#" data-bs-toggle="dropdown">
                             <div class="avatar avatar-online">
-                                <img src={`${REACT_APP_API_IMG}/uploads/${table.image}`} alt class="w-px-40 h-12px  rounded-circle" />
+                                <img src={`${REACT_APP_API_IMG}/uploads/${coursedatafetch.image}`} alt class="w-px-40 h-12px  rounded-circle" />
                             </div>
                         </a>
 
@@ -81,16 +62,16 @@ function NavAllPages(token) {
                                             <div className="d-flex">
                                                 <div className="flex-shrink-0 me-3">
                                                     <div className="avatar avatar-online">
-                                                        <img src={`${REACT_APP_API_IMG}/uploads/${table.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
+                                                        <img src={`${REACT_APP_API_IMG}/uploads/${coursedatafetch.image}`} alt="avatar" className="w-px-40 h-12px  rounded-circle" />
                                                     </div>
                                                 </div>
                                                 <div className="flex-grow-1">
 
-                                                    { table.Role && table.Role.Name == "Super Admin" || table.Role && table.Role.Name== "Admin" || table.Role && table.Role.Name == "Sale Department" || table.Role && table.Role.Name == "Telecaller Department" || table.Role && table.Role.Name== "Telecaller Team" ||table.Role && table.Role.Name == "Front Desk" || table.Role && table.Role.Name== "Counselor Department" || table.Role && table.Role.Name == "Account Department" || table.Role && table.Role.Name == "Administrator"
-                                                        ? (<span className="fw-semibold d-block">{table.roleName}</span>) : ( <span className="fw-semibold d-block">{table.name}</span>)}
+                                                    { coursedatafetch.Role && coursedatafetch.Role.Name == "Super Admin" || coursedatafetch.Role && coursedatafetch.Role.Name== "Admin" || coursedatafetch.Role && coursedatafetch.Role.Name == "Sale Department" || coursedatafetch.Role && coursedatafetch.Role.Name == "Telecaller Department" || coursedatafetch.Role && coursedatafetch.Role.Name== "Telecaller Team" ||coursedatafetch.Role && coursedatafetch.Role.Name == "Front Desk" ||coursedatafetch.Role && coursedatafetch.Role.Name == "Counselor Department" || coursedatafetch.Role && coursedatafetch.Role.Name == "Account Department" || coursedatafetch.Role && coursedatafetch.Role.Name == "Administrator"
+                                                        ? (<span className="fw-semibold d-block">{coursedatafetch.roleName}</span>) : ( <span className="fw-semibold d-block">{coursedatafetch.name}</span>)}
 
 
-                                                    <small className="text-muted">{table.Role && table.Role.Name}</small>
+                                                    <small className="text-muted">{coursedatafetch.Role && coursedatafetch.Role.Name}</small>
                                                 </div>
                                             </div>
                                         </Link>
@@ -103,7 +84,7 @@ function NavAllPages(token) {
                                 <div class="dropdown-divider"></div>
                             </li>
                             <li>
-                                <a className="dropdown-item"><Link to={`/userviews/${table.id}`}><i class="bx bx-user me-2"></i>
+                                <a className="dropdown-item"><Link to={`/userviews/${coursedatafetch.id}`}><i class="bx bx-user me-2"></i>
                                     <span class="align-middle">My Profile</span> </Link></a> 
                                     
 

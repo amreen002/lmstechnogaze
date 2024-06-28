@@ -5,29 +5,14 @@ import Navbarmenu from "./Navbarmenu";
 import Sidebar from "./sidebar";
 const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function DashboardCard(token) {
-    const [table, setTable] = useState("");
     const [course, setCourse] = useState([]);
-    const [coursesCount, setCoursesCount] = useState(null);
-    const [totalstudent, setTotalstudent] = useState(null);
-    const [totalVideoCount, settotalVideoCount] = useState(null);
-    const [activeService, setOpenDropdown] = useState(null);
-    const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
+    const [coursesCount, setCoursesCount] = useState(0);
+    const [totalstudent, setTotalstudent] = useState(0);
+    const [totalVideoCount, settotalVideoCount] = useState(0);
+    const [activeService, setOpenDropdown] = useState(0);
 
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-
-                setTable(response.data);
-            }// Updated state variable
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
+    const datatoken =localStorage.getItem('datatoken');
+    const coursedatafetch =JSON.parse(datatoken)
     const fetchData1 = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -52,7 +37,6 @@ function DashboardCard(token) {
         }
     };
     useEffect(() => {
-        fetchData();
         fetchData1()
     }, []);
     // Function to toggle a specific dropdown
@@ -77,14 +61,15 @@ function DashboardCard(token) {
                                     <i className="fa-regular fa-star"></i>
                                 </div>
                                 <p>Digital Marketing Instructor</p>
-                                <Link to={"/createcourse"} onClick={() => toggleDropdown('create-btn')} className="create-btn"><i className="fa-regular fa-circle-plus"></i> Create a New Class</Link>
+                                {coursedatafetch.Role.Name === "Instructor" ?(<Link to={"/createcourse"} onClick={() => toggleDropdown('create-btn')} className="create-btn"><i className="fa-regular fa-circle-plus"></i> Create a New Class</Link>):(<></>)}
+
                             </div>
                             <div className="author-profile-image-and-name">
                                 <div className="profile-pic">
-                                    <img src={`${REACT_APP_API_IMG}/uploads/${table.image}`} alt="dashboard" />
+                                    <img src={`${REACT_APP_API_IMG}/uploads/${coursedatafetch.image}`} alt="dashboard" />
                                 </div>
                                 <div className="name-desig">
-                                    <h1 className="title">{table.name}</h1>
+                                    <h1 className="title">{coursedatafetch.name}</h1>
                                     <div className="course-vedio">
                                         <div className="single">
                                             <i className="fa-light fa-users"></i>

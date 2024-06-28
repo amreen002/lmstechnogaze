@@ -7,31 +7,13 @@ const Sidebar = () => {
         try {
             await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
             localStorage.removeItem('token'); // Remove token from local storage or state
-            window.location.href = "/login"
+            window.location.href = "/"
         } catch (error) {
             console.error('Logout failed:', error);
         }
     };
-    const [table, setTable] = useState("");
-    const fetchData = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/userwisedata`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                setTable(response.data);
-            }// Updated state variable
-        } catch (err) {
-            console.log(err.response);
-        }
-    }
-    useEffect(() => {
-        fetchData();
-    }, []);
+    const datatoken =localStorage.getItem('datatoken');
+    const table =JSON.parse(datatoken)
 
     //Dropdown Navigation
     const [activeService, setOpenDropdown] = useState(null);
@@ -55,30 +37,10 @@ const Sidebar = () => {
                                 <p>Dashboard</p>
                             </Link>
 
-
-                            {/*           <a href="enroll-course.html" className="single-item">
-<i className="fa-light fa-graduation-cap"></i>
-<p>Enrolled Courses</p>
-</a> */}
-
-                            {/*   <a href="wishlist.html" className="single-item">
-<i className="fa-sharp fa-light fa-bookmark"></i>
-<p>Wishlist</p>
-</a> */}
-
-                            {/*    <a href="reviews.html" className="single-item">
-<i className="fa-regular fa-star"></i>
-<p>Reviews</p>
-</a> */}
-
                             <Link to={`/instructor/addquize`} className="single-item">
                                 <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
-                                <p>My Quiz Attempts</p>
+                                <p>My Quiz Add</p>
                             </Link>
-                            {/*   <a href="order-history.html" className="single-item">
-<i className="fa-sharp fa-light fa-bag-shopping"></i>
-<p>Order History</p>
-</a> */}
 
                             <Link to={`/instructor/viewquize`} className="single-item">
                                 <i className="fa-regular fa-circle-question"></i>
@@ -100,32 +62,12 @@ const Sidebar = () => {
                                 <p>My Class</p>
                             </Link>
 
-                            {/*    <a href="my-bundles.html" className="single-item">
-<i className="fa-sharp fa-regular fa-layer-group"></i>
-<p>My Bundles</p>
-</a> */}
-
-                            {/*  <a href="announcement.html" className="single-item">
-<i className="fa-solid fa-megaphone"></i>
-<p>Announcements</p>
-</a>
-
-<a href="withdrowals.html" className="single-item">
-<i className="fa-regular fa-box"></i>
-<p>Withdrawals</p>
-</a>
-*/}
                             <a href="#" className="single-item">
                                 <i className="fa-regular fa-page"></i>
                                 <p>Assignments</p>
                             </a>
-
-                            {/*   <a href="certificate.html" className="single-item">
-<i className="fa-sharp fa-light fa-file-certificate"></i>
-<p>Certificate</p>
-</a> */}
-
                         </div>
+
                         <div className="dashboard-left-single-wrapper bbnone mt--40">
                             <h4 className="title mb--5">User</h4>
 
@@ -152,9 +94,6 @@ const Sidebar = () => {
                                 <p>Dashboard</p>
                             </Link>
 
-
-
-                        
                             <Link to={`/student/addquestion`} className="single-item">
                                 <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
                                 <p>My Quiz Attempts</p>

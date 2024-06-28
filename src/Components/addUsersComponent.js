@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
@@ -6,6 +6,7 @@ import DashBoardMenus from './dashboardsMenuComponent';
 const { REACT_APP_API_ENDPOINT } = process.env;
 function RegistersP(onLogout) {
     const [error, setError] = useState(null);
+    const [roleData, setSaleTeamData] = useState([]);
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
@@ -16,6 +17,29 @@ function RegistersP(onLogout) {
         message: '',
         image: null
     });
+    useEffect(() => {
+        fetchData1()
+
+    }, []);
+    const fetchData1 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.role;
+                setSaleTeamData(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
         return re.test(String(email).toLowerCase());
@@ -193,21 +217,23 @@ function RegistersP(onLogout) {
                                                     </div>
                                                 </div>
 
+                                             
                                                 <div class="mb-3">
-                                                    <label for="exampleFormControlSelect2" class="form-label">Roles</label>
-                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="roleName" value={formData.roleName} onChange={handleChange}>
-                                                        <option value="">Select</option>
-                                                        <option value="Admin">Admin</option>
-                                                        <option value="Instructor">Instructor</option>
-                                                        <option value="Student">Student</option>
-                                                        <option value="Guest/Viewer">Guest/Viewer</option>
-                                                        <option value="Sale Team">Sale Team</option>
-                                                        <option value="Telecaller Department">Telecaller Department</option>
-                                                        <option value="Front Desk">Front Desk</option>
-                                                        <option value="Receptions Desk">Receptions Desk</option>
-                                                        <option value="Counselor Department">Counselor Department</option>
-                                                        <option value="Account Department">Account Department</option>
+                                                    <label class="form-label" for="modalEditUserStatus"></label>
+                                                    <select
+                                                        id="modalEditUserStatus"
+                                                        className="form-select"
+                                                        name="departmentId"
+                                                        onChange={handleChange}
+                                                        value={formData.departmentId}
+
+
+                                                    >
+                                                        {roleData.map((option) => (
+                                                            <option key={option.id} value={option.id}>{option.Name}</option>
+                                                        ))}
                                                     </select>
+
                                                 </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-icon-default-message">Message</label>
