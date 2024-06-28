@@ -13,7 +13,6 @@ const SignUp = () => {
         roleName: '',
         phoneNumber: '',
         message: '',
-        image: null,
         departmentId: '',
     });
 
@@ -34,20 +33,13 @@ const SignUp = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        for (const key in formData) {
-            data.append(key, formData[key]);
-        }
-
         try {
             const token = localStorage.getItem('token');
-
+console.log(formData)
             if (token) {
                 const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
                     headers: {
-                        'Content-Type': 'multipart/form-data', // Important for file upload
                          Authorization: `Bearer ${token}`
-
                     }
                 });
                 window.location.href = `/complete-profile/${response.data.users.id}`;
@@ -64,53 +56,59 @@ const SignUp = () => {
 
     return(
         <div>
-  <section className='sticy-header logo-size'>
-        <Navbarmenu />
-      </section>
+            <section className='sticy-header logo-size'>
+                <Navbarmenu />
+            </section>
 
 
     <div className="login-registration-wrapper">
         <div className="container">
             <div className="row g-0">
             <div class="col-lg-6">
-                    <div class="login-page-form-area">
-                        <h4 class="title">Sign Up to Your Account👋</h4>
+                    <div className="login-page-form-area">
+                        <h4 className="title">Sign Up to Your Account👋</h4>
                         <form action="POST" onSubmit={handleSubmit}>
-                            <div class="single-input-wrapper">
-                                <label for="name">Your Name*</label>
-                                <input  onChange={handleChange} value={formData.name}  name="name" id="name" type="text" placeholder="Enter Your Name" required=""/>
-                            </div>
-                            <div class="half-input-wrapper">
-                                <div class="single-input-wrapper">
-                                    <label for="username">User Name</label>
-                                    <input  onChange={handleChange} value={formData.userName}  name="userName" id="username" type="text" placeholder="Enter User Name" required=""/>
-                                </div>
-                                <div class="single-input-wrapper">
-                                    <label for="email">Email*</label>
-                                    <input  onChange={handleChange} value={formData.email}  name="email" id="email" type="email" placeholder="Enter Your Email" required=""/>
-                                </div>
-                            </div>
-                            <div class="half-input-wrapper">
-                                <div class="single-input-wrapper">
-                                    <label for="password">Your Password</label>
-                                    <input onChange={handleChange} value={formData.password}  name="password" id="password" type="password" placeholder="Password" required=""/>
-                                </div>
-                                <div class="single-input-wrapper">
-                                    <label for="passwords">Instructor/Student</label>
-                                    <select id="departmentId" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
-                                        <option value="3">Instructor</option>
-                                        <option value="4">Student</option>
-                                                
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="single-checkbox-filter">
-                                <div class="check-box">
-                                    <input type="checkbox" id="type-1"/>
-                                    <label for="type-1">Accept the Terms and Privacy Policy</label><br/>
-                                </div>
-                            </div>
-                            <button type="submit"  class="rts-btn btn-primary">Signup</button>
+                                    <div className="half-input-wrapper">
+                                        <div className="single-input-wrapper">
+                                            <label for="name">Your Name*</label>
+                                            <input onChange={handleChange} value={formData.name} name="name" id="name" type="text" placeholder="Enter Your Name" required="" />
+                                        </div>
+                                        <div className="single-input-wrapper">
+                                            <label for="phoneNumber">Contact*</label>
+                                            <input onChange={handleChange} value={formData.phoneNumber} name="phoneNumber" id="phoneNumber" type="number" placeholder="Enter Phone Number" required="" />
+                                        </div>
+                                    </div>
+                                    <div className="half-input-wrapper">
+                                        <div className="single-input-wrapper">
+                                            <label for="username">User Name</label>
+                                            <input onChange={handleChange} value={formData.userName} name="userName" id="username" type="text" placeholder="Enter User Name" required="" />
+                                        </div>
+                                        <div className="single-input-wrapper">
+                                            <label for="email">Email*</label>
+                                            <input onChange={handleChange} value={formData.email} name="email" id="email" type="email" placeholder="Enter Your Email" required="" />
+                                        </div>
+                                    </div>
+                                    <div className="half-input-wrapper">
+                                        <div className="single-input-wrapper">
+                                            <label for="password">Your Password</label>
+                                            <input onChange={handleChange} value={formData.password} name="password" id="password" type="password" placeholder="Password" required="" />
+                                        </div>
+                                        <div className="single-input-wrapper">
+                                            <label for="passwords">Instructor/Student</label>
+                                            <select id="departmentId" name="departmentId" className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                                <option value="3">Instructor</option>
+                                                <option value="4">Student</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className="single-checkbox-filter">
+                                        <div className="check-box">
+                                            <input type="checkbox" id="type-1" />
+                                            <label for="type-1">Accept the Terms and Privacy Policy</label><br />
+                                        </div>
+                                    </div>
+                            <button type="submit"  className="rts-btn btn-primary">Signup</button>
                          
                            
                         </form>
