@@ -360,14 +360,14 @@ function Topic() {
                                                                     <td>        <div class="d-flex flex-column justify-content-center">
                                                                                
                                                                                 <span class="text-muted text-truncate mb-0 d-none d-sm-block">
-                                                                                    <small>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (
+                                                                                    <small>
                                                                                         <td className="left">
                                                                                             <div className='flex-row d-flex'>
                                                                                                 <div className='ques1'>
-                                                                                                    {topic.name}
+                                                                                                {item.Topic && item.Topic.name}
                                                                                                 </div>
                                                                                             </div>
-                                                                                        </td>))}</small>
+                                                                                        </td></small>
                                                                                 </span>
                                                                             </div></td>
                                                                     <td>{item.Course && item.Course.Category && item.Course.Category.name}</td>
