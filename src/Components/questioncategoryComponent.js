@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function QuestionsCategory() {
 
@@ -32,7 +32,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/questionscategory`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -54,7 +54,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/questionscategory/${questionscategoryId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -87,7 +87,7 @@ function QuestionsCategory() {
 
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.post('http://localhost:3000/api/questionscategory', formData, {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/questionscategory`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -105,7 +105,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/questionscategory/${questionscategoryId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -127,7 +127,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/questionscategory/${questionscategoryId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/questionscategory/${questionscategoryId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

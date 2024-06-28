@@ -3,7 +3,7 @@ import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function ListUse() {
     const [countryTable, setCountryTable] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
@@ -22,6 +22,7 @@ function ListUse() {
     const [TeacherType, setTeacherType] = useState('')
     const [Username, setUsername] = useState('')
     const [YourIntroducationAndSkills, setYourIntroducationAndSkills] = useState('')
+    const { REACT_APP_API_ENDPOINT } = process.env;
     const handleCountryChange = (e) => {
         const selectedCountryId = parseInt(e.target.value);
         const selectedCountry = countryTable.find(country => country.id === selectedCountryId);
@@ -53,7 +54,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcountry`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -97,7 +98,7 @@ function ListUse() {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/addteachers', formData, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

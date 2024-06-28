@@ -4,6 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function CoursesP() {
     const { coursesId } = useParams();
     const navigate = useNavigate();
@@ -37,7 +38,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses/${coursesId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses/${coursesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -60,7 +61,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -82,7 +83,7 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -266,14 +267,14 @@ function CoursesP() {
                                                                                     <button className="btn btn-sm btn-icon">
                                                                                         <i className="bx bx-check"></i>
                                                                                     </button>
-                                                                                    View Course
+                                                                                    View Class
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
                                                                                 <Link to={`/addcoursecontent/${item.id}`} className="dropdown-item">
                                                                                     <button className="btn btn-sm btn-icon">
                                                                                         <i className="bx bx-check"></i>
-                                                                                    </button>Organize Course Content
+                                                                                    </button>Organize Content
                                                                                 </Link>
                                                                             </li>
                                                                             <li>
@@ -299,7 +300,7 @@ function CoursesP() {
                                                 </tbody>
                                             </table>
                                             <div class="row mx-2 mt-5px">
-                                                <div class="col-sm-12 col-md-6" style={{ paddingTop: "20px" }}> <h5>Total Courese <b>({JSON.stringify(coursesCount, null, 2)})</b></h5></div>
+                                                <div class="col-sm-12 col-md-6" style={{ paddingTop: "20px" }}> <h5>Total Class <b>({JSON.stringify(coursesCount, null, 2)})</b></h5></div>
                                                 <div class="col-sm-12 col-md-6" style={{ paddingTop: "20px" }}> <h5>Total Student <b>({JSON.stringify(totalstudent, null, 2)})</b></h5></div>
                                             </div>
                                             <div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 50 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>

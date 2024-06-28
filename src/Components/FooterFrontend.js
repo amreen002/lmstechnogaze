@@ -8,7 +8,7 @@ const Footer = () => {
      <div className="footer-callto-action-area bg-light-1">
        
         <div className="container-fluid">
-            <div className="row  ptb--100">
+            <div className="row  ptb--50">
                 <div className="col-lg-12">
                   
                     <div className="footer-one-main-wrapper">
@@ -26,7 +26,7 @@ const Footer = () => {
                                 </p>
                                 <ul className="wrapper-list">
                                     <li><i className="fa-regular fa-location-dot"></i>Bhopal, Madhya Pradesh</li>
-                                    <li><i className="fa-regular fa-phone"></i><a href="tel:+4733378901">+(91)- 0987654321</a></li>
+                                    <li><i className="fa-regular fa-phone"></i><a href="tel:+4733378901">+(91)- 9926602832</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -46,20 +46,7 @@ const Footer = () => {
                             </div>
                         </div>
                      
-                        <div className="footer-singl-wized">
-                            <div className="head">
-                                <h6 className="title">Explore</h6>
-                            </div>
-                            <div className="body">
-                                <ul className="menuu">
-                                    <li><a href="course-one.html">Course One</a></li>
-                                    <li><a href="course-two.html">Course Two</a></li>
-                                    <li><a href="create-course.html">Create Course</a></li>
-                                    <li><a href="lesson-details.html">Lesson Details</a></li>
-                                    <li><a href="instructor.html">Instructor</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                     
              
                         <div className="footer-singl-wized input-area">
                             <div className="head">
@@ -85,12 +72,15 @@ const Footer = () => {
                 </div>
             </div>
         </div>
-        <div className="copyright-area-one-border">
+      
+    </div>
+    <section className='foot_copy'>
+    <div className="copyright-area-one-border">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="copyright-area-one">
-                            <p>Copyright © 2024 All Rights Reserved by The Student Go</p>
+                            <p>Copyright © 2024 All Rights Reserved by The Good Student Co.</p>
                             <div className="social-copyright">
                              <span>Design & Developed By <a href='https://technogaze.com/'>TECHNOGAZE SOLUTIONS PRIVATE LIMITED</a></span>
                             </div>
@@ -99,8 +89,9 @@ const Footer = () => {
                 </div>
             </div>
         </div>
+    </section>
     </div>
-    </div>
+
   );
 };
 

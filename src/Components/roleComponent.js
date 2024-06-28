@@ -5,7 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Modal } from 'bootstrap';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function AddRoleForm() {
     const [Name, setName] = useState('');
     const [Create, setCreate] = useState(''); // State to manage permissions
@@ -39,7 +39,7 @@ function AddRoleForm() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -63,7 +63,7 @@ function AddRoleForm() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole/${roleId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole/${roleId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -171,7 +171,7 @@ function AddRoleForm() {
             const token = localStorage.getItem('token');
             if (token) {
 
-                let response = await fetch('http://localhost:3000/api/addrole', {
+                let response = await fetch(`${REACT_APP_API_ENDPOINT}/addrole`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -204,7 +204,7 @@ function AddRoleForm() {
                 permission: permissions
             };
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewsrole/${roleId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsrole/${roleId}`, updatedUserData, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 
 function QuestionsCategory() {
 
@@ -32,7 +32,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -54,7 +54,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/categories/${categoriesId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -87,13 +87,13 @@ function QuestionsCategory() {
 
             const token = localStorage.getItem('token');
             if (token) {
-                const response = await axios.post('http://localhost:3000/api/categories', formData, {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/categories`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.href = "/coursecategory";
-                alert('Course Category SuccessFully Create');
+                alert('Category SuccessFully Create');
             }
         } catch (error) {
             alert('Failed to send message.');
@@ -105,7 +105,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/categories/${categoriesId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -127,14 +127,15 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/categories/${categoriesId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
                 fetchData2(categoriesId)
-                alert("Course Category Is Updated Successfully!");
+                alert("Category Is Updated Successfully!");
+                window.location.href = "/coursecategory";
             }
         } catch (error) {
             console.error('Error updating:', error);
@@ -288,7 +289,7 @@ function QuestionsCategory() {
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Id</th>
 
-                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Name</th>
+                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">Board</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="145px;" aria-label="Actions">Actions</th>
 
                                                     </tr>
@@ -327,8 +328,8 @@ function QuestionsCategory() {
                                                 <div class="card-body row">
 
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="add-user-fullname">Name</label>
-                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+                                                        <label class="form-label" for="add-user-fullname">Board Categories </label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="Board Categories" name='name'
                                                             onChange={(e) => setname(e.target.value)}
                                                             value={name} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
@@ -370,8 +371,8 @@ function QuestionsCategory() {
                                              
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
                                                     <div class="col-12 col-md-12 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Name</label>
-                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+                                                        <label class="form-label" for="add-user-fullname">Board Categories</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="Board Categories" name='name'
                                                             onChange={(e) => setname(e.target.value)}
                                                             value={name} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>

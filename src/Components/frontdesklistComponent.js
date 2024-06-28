@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function FrontListUse() {
     const [table, setTable] = useState([]);
     const [remark, setRemark] = useState('')
@@ -66,7 +66,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/listfrontdesk', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listfrontdesk`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -86,7 +86,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listfrontdesk/${frontdeskId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listfrontdesk/${frontdeskId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -121,7 +121,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -141,7 +141,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcountry`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -163,7 +163,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`http://localhost:3000/api/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

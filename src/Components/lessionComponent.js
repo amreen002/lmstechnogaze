@@ -5,6 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+const { REACT_APP_API_ENDPOINT } = process.env;
 function Topic() {
     const { lessionId } = useParams();
     const navigate = useNavigate();
@@ -20,29 +21,6 @@ function Topic() {
         fetchData2();
         fetchData3()
     }, []);
-    /*     const handleCourseChange = (e) => {
-            const selectedCoursesId = parseInt(e.target.value);
-            const selectedCourses = courses.find(course => course.id === selectedCoursesId)
-            setCoursesId(selectedCoursesId);
-            setSelectedCourses(selectedCourses);
-            setTopicId(''); // Reset district selection
-        };
-     */
-
-    /*     const handleCourseChange = (e) => {
-            const selectedCoursesId = parseInt(e.target.value);
-            const selectedCourses = courses.find(course => course.id === selectedCoursesId);
-            setFormData({
-                ...formData,
-                CoursesId: selectedCoursesId,
-                TopicId: '' // Reset topic selection
-            });
-            setCoursesId(selectedCoursesId);
-            setSelectedCourses(selectedCourses);
-            setTopicId(''); // Reset district selection
-            // Fetch topics based on selected course
-            fetchData2(selectedCoursesId);
-        }; */
 
 
     const handleCourseChange = async (e) => {
@@ -62,12 +40,12 @@ function Topic() {
         try {
 
             if (!lessionId) {
-                console.log("lessionId is undefined");
+                console.log("moduleId is undefined");
                 return;
             }
             const token = localStorage.getItem('token');
             if (token) {
-                const lessonResponse = await axios.get(`http://localhost:3000/api/lession/${lessionId}`, {
+                const lessonResponse = await axios.get(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -96,7 +74,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/lession`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/lession`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -116,7 +94,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -136,7 +114,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/topic`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -178,7 +156,7 @@ function Topic() {
 
             if (token) {
 
-                await axios.post('http://localhost:3000/api/lession', data, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/lession`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -186,7 +164,7 @@ function Topic() {
                 });
 
                 window.location.href = "/lession";
-                alert('Lession Successfully Create');
+                alert('Module Successfully Create');
 
             }
         } catch (error) {
@@ -197,7 +175,7 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`http://localhost:3000/api/lession/${lessionId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -220,15 +198,15 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.put(`http://localhost:3000/api/lession/${lessionId}`, data, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(lessionId)
-                alert("Lesson updated successfully!");
-                navigate("/lession");
+                alert("Module updated successfully!");
+                window.location.href = "/lession";;
             }
         } catch (error) {
             console.error('Error updating lesson:', error);
@@ -266,23 +244,23 @@ function Topic() {
                                             <div class="card-body">
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
-                                                        <h3>Add Lession</h3>
+                                                        <h3>Add Module</h3>
                                                         <div class=" mx-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LessionTitle'
+                                                                    <label class="form-label" for="add-user-fullname">Module Name</label>
+                                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="Module" name='LessionTitle'
                                                                         value={formData.LessionTitle} aria-label="John Doe" onChange={handleChange} />
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                                 </div>
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
-                                                                        <option value="">Select</option>
+                                                                        <option value="Select">Select</option>
                                                                         {courses.map((option) => (
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
@@ -291,7 +269,7 @@ function Topic() {
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formData.TopicId} onChange={handleChange}>
                                                                         <option value="">Select</option>
                                                                         {selectedCourses && selectedCourses.Topics.map(topic => (
@@ -300,7 +278,7 @@ function Topic() {
                                                                     </select>
                                                                 </div>
                                                                 <div class="mb-3">
-                                                                <label for="exampleFormControlSelect2" class="form-label">Upload Lession PDF | Docx | Doc</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF | Docx | Doc</label>
                                                                     <div class="input-group">
                                                                         <input
                                                                             type="file"
@@ -346,7 +324,7 @@ function Topic() {
                                     <div className="col-sm-9 col-xl-9 col-lg-9 col-md-9">
                                         <div className="card">
                                             <div class="card-header border-bottom">
-                                                <h5 class="card-title">List All Lession</h5>
+                                                <h5 class="card-title">List All Modules</h5>
                                                 <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
                                                     <div class="col-md-4 user_role"><select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Admin">Admin</option><option value="Author">Author</option><option value="Editor">Editor</option><option value="Maintainer">Maintainer</option><option value="Subscriber">Subscriber</option></select></div>
                                                     <div class="col-md-4 user_plan"><select id="UserPlan" class="form-select text-capitalize"><option value=""> Select Plan </option><option value="Basic">Basic</option><option value="Company">Company</option><option value="Enterprise">Enterprise</option><option value="Team">Team</option></select></div>
@@ -360,10 +338,10 @@ function Topic() {
                                                             <tr>
                                                                 <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
                                                                 <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Id</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="270px;" aria-label="Role: activate to sort column ascending">Name</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Courese</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Topic</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Level</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="270px;" aria-label="Role: activate to sort column ascending">Module</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Class</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Subject</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Board</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="50px;" aria-label="Role: activate to sort column ascending">Duration</th>
                                                                 <th class="sorting_disabled" rowspan="1" colspan="1" width="100px;" aria-label="Actions">Actions</th>
 
@@ -378,7 +356,20 @@ function Topic() {
                                                                     <td>{index + 1}</td>
                                                                     <td>{item.LessionTitle}</td>
                                                                     <td>{item.Course && item.Course.name}</td>
-                                                                    <td>{item.Course && item.Course.Topics && item.Course.Topics.map((topic, index) => (topic.name))}</td>
+                                                                    
+                                                                    <td>        <div class="d-flex flex-column justify-content-center">
+                                                                               
+                                                                                <span class="text-muted text-truncate mb-0 d-none d-sm-block">
+                                                                                    <small>
+                                                                                        <td className="left">
+                                                                                            <div className='flex-row d-flex'>
+                                                                                                <div className='ques1'>
+                                                                                                {item.Topic && item.Topic.name}
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </td></small>
+                                                                                </span>
+                                                                            </div></td>
                                                                     <td>{item.Course && item.Course.Category && item.Course.Category.name}</td>
                                                                     <td><Link to={'#'}>{item.Course && item.Course.CourseDuration} Days</Link></td>
                                                                     <td>
@@ -421,16 +412,16 @@ function Topic() {
                                                 <form id="editUserForm" className="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LessionTitle'
-                                                            disabled="false" aria-label="John Doe"
+                                                        <label class="form-label" for="add-user-fullname">Module Name</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="Module" name='LessionTitle'
+
                                                             value={formData.LessionTitle}
                                                             onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId"
                                                             value={formData.CoursesId}
                                                             onChange={handleCourseChange}>
@@ -441,10 +432,8 @@ function Topic() {
                                                         </select>
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Topic</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId"
-                                                            value={formData.TopicId} onChange={(e) => setFormData({ ...formData, TopicId: e.target.value })}
-                                                        >
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Subject</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TopicId" value={formData.TopicId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {selectedCourses && selectedCourses.Topics.map(topic => (
                                                                 <option key={topic.id} value={topic.id}>{topic.name}</option>
@@ -475,7 +464,7 @@ function Topic() {
                                                             initialValue="Welcome to TinyMCE!"
                                                         />
                                                     </div>
-                                                    <div class="col-12 text-center">
+                                                    <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                     </div>

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG } = process.env;
 function ListUse() {
     const [table, setTable] = useState([]);
     const { usersId } = useParams();
@@ -25,7 +25,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get('http://localhost:3000/api/users', {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -43,7 +43,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listrole`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -119,7 +119,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
             let response
             if (token) {
-                response = await axios.post('http://localhost:3000/api/users', formData, {
+                response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -138,7 +138,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`http://localhost:3000/api/users/${usersId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -323,7 +323,7 @@ function ListUse() {
                                                             <td class="sorting_1">
                                                                 <div class="d-flex justify-content-start align-items-center user-name">
                                                                     <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
-                                                                        <img src={`http://localhost:3000/uploads/${item.image}`} alt="Avatar" class="rounded-circle" />
+                                                                        <img src={`http://localhost:8080/uploads/${item.image}`} alt="Avatar" class="rounded-circle" />
                                                                     </div>
                                                                     </div>
                                                                     <div class="d-flex flex-column">

@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 
 function TelecalTeam() {
@@ -87,7 +87,7 @@ function TelecalTeam() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/usertelecallerteam`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/usertelecallerteam`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -118,7 +118,7 @@ function TelecalTeam() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listsaleteam/${saleteamId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listsaleteam/${saleteamId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -156,7 +156,7 @@ function TelecalTeam() {
                 const formData = { name, age, phoneNumber, email, workingStatus, leadPlatform, date, status, remark, visitDate, roleId };
                 if (window.confirm('Are you sure you want to Lead Forwarded ?')) {
                     // Save it! 
-                    await axios.post('http://localhost:3000/api/addtelecallerteam', formData, {
+                    await axios.post(`${REACT_APP_API_ENDPOINT}/addtelecallerteam`, formData, {
                         headers: {
                             Authorization: `Bearer ${token}`
 
@@ -173,7 +173,7 @@ function TelecalTeam() {
 
             const promises = Object.entries(createdItems).map(([telecallerteamId, isChecked]) => {
                 const updatedUserData = { TelecallerCheckbox: isChecked };
-                return axios.put(`http://localhost:3000/api/viewssaleteam/${telecallerteamId}`, updatedUserData, {
+                return axios.put(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${telecallerteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

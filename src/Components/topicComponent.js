@@ -4,6 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Topic() {
     const { topicId } = useParams();
     const navigate = useNavigate();
@@ -26,13 +27,13 @@ function Topic() {
     const fetchData = async (topicId) => {
         try {
             if (!topicId) {
-                console.log("topicId is undefined");
+                console.log("SubjectId is undefined");
                 return;
             }
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/topic/${topicId}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -54,7 +55,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/topic`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -73,7 +74,7 @@ function Topic() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -94,14 +95,14 @@ function Topic() {
 
             if (token) {
                 let formData = { name, CoursesId }
-                await axios.post('http://localhost:3000/api/topic', formData, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
 
                 window.location.href = "/topic";
-                alert('Topic Successfully Create');
+                alert('Subject Successfully Create');
 
             }
         } catch (error) {
@@ -112,7 +113,7 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`http://localhost:3000/api/topic/${topicId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -132,14 +133,14 @@ function Topic() {
             const token = localStorage.getItem('token');
             if (token) {
                 const updatedUserData = { name, CoursesId }
-                await axios.put(`http://localhost:3000/api/topic/${topicId}`, updatedUserData, {
+                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(topicId)
-                alert("Topic updated successfully!");
-                /*    window.location.href = "/courses"; */
+                alert("Subject updated successfully!");
+                window.location.href = "/topic";
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -179,20 +180,20 @@ function Topic() {
                                             <div class="card-body">
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
-                                                        <h3>Add Topic</h3>
+                                                        <h3>Add Subject</h3>
                                                         <div class="offcanvas-body mx-0 flex-grow-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
+                                                                    <label class="form-label" for="add-user-fullname">Subject Name</label>
+                                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
                                                                         value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" defaultValue={CoursesId} onChange={(e) => setCoursesId(e.target.value)}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (
@@ -224,7 +225,7 @@ function Topic() {
 
                                 <div class="card">
                                     <div class="card-header border-bottom">
-                                        <h5 class="card-title">List All Topic</h5>
+                                        <h5 class="card-title">List All Subjectes</h5>
                                         <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
                                             <div class="col-md-4 user_role"><select id="UserRole" class="form-select text-capitalize"><option value=""> Select Role </option><option value="Admin">Admin</option><option value="Author">Author</option><option value="Editor">Editor</option><option value="Maintainer">Maintainer</option><option value="Subscriber">Subscriber</option></select></div>
                                             <div class="col-md-4 user_plan"><select id="UserPlan" class="form-select text-capitalize"><option value=""> Select Plan </option><option value="Basic">Basic</option><option value="Company">Company</option><option value="Enterprise">Enterprise</option><option value="Team">Team</option></select></div>
@@ -238,8 +239,8 @@ function Topic() {
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">S.NO</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Full Name</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Courese</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Subject</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Classes</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="Role: activate to sort column ascending">Price</th>                                                    
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="100px;" aria-label="Actions">Actions</th>
 
@@ -289,14 +290,14 @@ function Topic() {
 
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Full Name</label>
-                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
-                                                            disabled="false" value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
+                                                        <label class="form-label" for="add-user-fullname">Subject Name</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
+                                                           value={name}onChange={(e) => setName(e.target.value)} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Courses</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={(e) => setCoursesId(e.target.value)}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (

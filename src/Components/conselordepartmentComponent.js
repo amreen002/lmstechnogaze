@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-
+const { REACT_APP_API_ENDPOINT } = process.env;
 function ConselorDepartmentUse() {
     const [table, setTable] = useState([]);
     const [counselordepartment, setCounselorDepartment] = useState([]);
@@ -53,7 +53,7 @@ function ConselorDepartmentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listfrontdesk?search=${search}`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listfrontdesk?search=${search}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -73,7 +73,7 @@ function ConselorDepartmentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`http://localhost:3000/api/listcounselordepartment`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcounselordepartment`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -210,7 +210,7 @@ function ConselorDepartmentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.post('http://localhost:3000/api/addcounselordepartment', formData, {
+                await axios.post(`${REACT_APP_API_ENDPOINT}/addcounselordepartment`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -222,7 +222,7 @@ function ConselorDepartmentUse() {
             const promises = Object.entries(createdItems).map(async ([frontdeskId, isChecked]) => {
                 const updatedUserData = { TelecallerCheckbox: isChecked };
                 try {
-                    const updateResponse = await axios.patch(`http://localhost:3000/api/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
+                    const updateResponse = await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
                         headers: {
                             Authorization: `Bearer ${token}`,
                             'Content-Type': 'application/json',
