@@ -1,9 +1,11 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect,useState, useContext } from 'react';
 import axios from 'axios';
+import { CartContext } from '../Context/CartContext';
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
 const { REACT_APP_API_ENDPOINT,REACT_APP_API_IMG } = process.env;
 const Home = () => {
+    const { addToCart } = useContext(CartContext);
     const [animate5, setAnimate5] = useState(false);
 
         useEffect(() => {
@@ -15,9 +17,9 @@ const Home = () => {
         useEffect(() => {
           setAnimate2(true);
         }, []);
-
+       
     const [courses, setCourse] = useState([]);
-    const [totalLessionCount, settotalLessionCount] = useState(null);
+   const [totalLessionCount, settotalLessionCount] = useState(null);
     const [totalStudentCount, settotalStudentCount] = useState(null);
     useEffect(() => {
         fetchData();
@@ -311,7 +313,7 @@ const Home = () => {
                                                     </div>
                                                     <div className="tags-area-wrapper" style={{ justifyContent: 'space-between' }}>
                                                         <div className='btns'>
-                                                            <a className="btnm flex-row d-flex">
+                                                            <a className="btnm flex-row d-flex" onClick={() => addToCart(item)}>
                                                                 <div className='icon' style={{ marginRight: '7px' }}>
                                                                     <i className="fa-sharp fa-light fa-cart-arrow-down"></i>
                                                                 </div>
@@ -319,7 +321,7 @@ const Home = () => {
                                                             </a>
                                                         </div>
                                                         <div className='btns'>
-                                                            <a className=" flex-row d-flex" href={`/coursedetails/${item.id}`}>
+                                                            <a className=" flex-row d-flex view_details" href={`/coursedetails/${item.id}`}>
                                                                 <div className='icon' style={{ marginRight: '7px' }}>
                                                                     <i className="fa-sharp fa-light fa-eye"></i>
                                                                 </div>

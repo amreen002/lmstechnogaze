@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
 import CartItemComponent from './cartitemComponent';
 import SearchComponent from './searchComponent';
 import axios from 'axios';
 const { REACT_APP_API_ENDPOINT } = process.env;
+import { CartContext } from '../Context/CartContext';
+
 function Navbarmenu() {
+  const { cartCount } = useContext(CartContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [isSearch, setIsSearch] = useState(false);
   const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
@@ -166,15 +169,18 @@ function Navbarmenu() {
                   {(coursedatafetch?.Role?.Name === "Instructor" || coursedatafetch?.Role?.Name === "Student" || loggedIn) ? (
                     <div className="buttons-area">
                       <Link onClick={handleLogout} className="rts-btn btn-border">Logout</Link>
+                    <div className="cart cart-icon">
+                    <Link to="/cart"> <i className="fa-regular fa-cart-shopping" ></i> <span className='p_cunt'>{cartCount}</span></Link>
                     </div>
-                  ) : (
+                    </div>
+                  ) : 
                     loggedIn === false && (
                       <div className="buttons-area">
                         <Link to="/login" className="rts-btn btn-border">Log In</Link>
                         <Link to="/signup" className="rts-btn btn-primary">Sign Up</Link>
                       </div>
                     )
-                  )}
+                  }
 
                   <div className="menu-btn" id="menu-btn">
                     <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg">
