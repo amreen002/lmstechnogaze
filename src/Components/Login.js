@@ -32,12 +32,11 @@ const Login = ({ onLogin }) => {
         navigate('/dashboard');
       }
     } catch (error) {
-      setError('An error occurred while logging in');
+      setError(error.response?.data?.message);
     }
   };
 
   const handleGoogleLoginSuccess = (credentialResponse) => {
-    console.log(credentialResponse);
     // Assuming we have a way to determine if this is a sign-up or sign-in
     const isSignUp = true; // Replace with actual logic to determine this
 
@@ -100,6 +99,7 @@ const Login = ({ onLogin }) => {
                   </div> */}
                   {/* Add your other login options here */}
                 </div>
+                {error && <span style={{ color: 'red' }}>{error}</span>}
                 <p>Don't Have an account? <a href="signup">Registration</a></p>
               </div>
             </div>

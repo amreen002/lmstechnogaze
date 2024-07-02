@@ -148,6 +148,7 @@ function TelecalTeam() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        console.log(e)
         try {
 
 

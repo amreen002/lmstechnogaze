@@ -7,6 +7,7 @@ const Sidebar = () => {
         try {
             await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
             localStorage.removeItem('token'); // Remove token from local storage or state
+            localStorage.removeItem('datatoken');
             window.location.href = "/"
         } catch (error) {
             console.error('Logout failed:', error);
@@ -37,6 +38,22 @@ const Sidebar = () => {
                                 <p>Dashboard</p>
                             </Link>
 
+                            <Link to={`/user-my-profile/${table.id}`} className="single-item">
+                                <i className="fa-regular fa-user"></i>
+                                <p>My Profile</p>
+                            </Link>
+
+                            {/* <a href="enroll-course.html" className="single-item">
+                                <i className="fa-light fa-graduation-cap"></i>
+                                <p>Enrolled Class</p>
+                            </a> */}
+
+                           
+
+                            <a href="#" className="single-item">
+                                <i className="fa-regular fa-star"></i>
+                                <p>Reviews</p>
+                            </a>
                             <Link to={`/instructor/addquize`} className="single-item">
                                 <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
                                 <p>My Quiz Add</p>
@@ -47,7 +64,7 @@ const Sidebar = () => {
                                 <p>Question & Answer</p>
                             </Link>
 
-                            <a href="calender.html" className="single-item">
+                            <a href="#" className="single-item">
                                 <i className="fa-light fa-calendar-days"></i>
                                 <p>Calendar</p>
                             </a>
@@ -66,6 +83,13 @@ const Sidebar = () => {
                                 <i className="fa-regular fa-page"></i>
                                 <p>Assignments</p>
                             </a>
+
+                            <a href="announcement.html" className="single-item">
+                                <i className="fa-solid fa-megaphone"></i>
+                                <p>Announcements</p>
+                            </a>
+
+              
                         </div>
 
                         <div className="dashboard-left-single-wrapper bbnone mt--40">
@@ -92,6 +116,11 @@ const Sidebar = () => {
                             <Link to={`/dashboard`} className="single-item active">
                                 <i className="fa-light fa-house"></i>
                                 <p>Dashboard</p>
+                            </Link>
+                            
+                            <Link to={`/user-my-profile/${table.id}`} className="single-item">
+                                <i className="fa-regular fa-user"></i>
+                                <p>My Profile</p>
                             </Link>
 
                             <Link to={`/student/addquestion`} className="single-item">

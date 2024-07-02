@@ -54,7 +54,7 @@ import Lsa from './Routers/Lsa.js';
 import {CartProvider} from './Context/CartContext';
 import CartComponent from './Components/Cart.js';
 import CheckoutPage from './Components/CheckoutComponemt.js';
-
+import UsersMyProfileRouter from './Routers/userprofileRouter.js'
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -81,18 +81,16 @@ function App() {
       localStorage.setItem('datatoken', JSON.stringify(datatokendata));
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
-  
       // Redirect after setting the loggedIn state
-      if (datatokendata?.Role?.Name === 'Student' || datatokendata?.Role?.Name === 'Instructor') {
-        window.location.href = '/dashboard';
-      } else if (['Administrator', 'Super Admin', 'Admin', 'Telecaller Department', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatokendata?.Role?.Name)) {
-        window.location.href = '/dashboard/admin';
-      } else {
-        window.location.href = '/login';
-      }
+        if (datatokendata?.Role?.Name === 'Student' || datatokendata?.Role?.Name === 'Instructor') {
+          window.location.href = '/dashboard';
+        } else if (['Administrator', 'Super Admin', 'Admin', 'Telecaller Department', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatokendata?.Role?.Name)) {
+          window.location.href = '/dashboard/admin';
+        } else {
+          window.location.href = '/login';
+        }
     } catch (error) {
-      alert(error.message);
-      console.error(error);
+      throw error
     }
   };
   
@@ -356,6 +354,9 @@ function App() {
         <Route
           path="/student/addquestion"
           element={loggedIn === true ? ( <StudentAddquestionRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
+        <Route
+          path="/user-my-profile/:usersId"
+          element={loggedIn === true ? ( <UsersMyProfileRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
 
       </Routes>
     </BrowserRouter>

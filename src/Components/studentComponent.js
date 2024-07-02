@@ -247,12 +247,12 @@ function StudentUse() {
         }
     };
 
-    const handleDelete = async (teachersId) => {
+    const handleDelete = async (studentsId) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletestudents/${teachersId}`, {
+                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletestudents/${studentsId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -305,14 +305,8 @@ function StudentUse() {
         // Clear input fields after update
 
     };
-    //Dropdown Navigation
-    /*  const [activeService, setOpenDropdown] = useState(null);
- 
-     // Function to toggle a specific dropdown
-     const toggleDropdown = (serviceName) => {
-         setOpenDropdown(activeService === serviceName ? '' : serviceName);
-     }; */
 
+console.log(CoursesId)
     return (
         <>
             {/*     <!-- Layout wrapper --> */}
@@ -442,9 +436,7 @@ function StudentUse() {
                                                     aria-expanded="false">
                                                     <span><i class="bx bx-export me-1"></i>Export</span>
                                                     </button>
-                                                  
                                                     <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
-                                                   
                                                     <span><i class="bx bx-plus me-0 me-sm-1"></i>Student</span>
                                                     </button>
                                                  </div>
@@ -693,7 +685,7 @@ function StudentUse() {
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-email">Student City</label>
-                                                        <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
+                                                        <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
                                                             onChange={(e) => setCity(e.target.value)}
                                                             value={City} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -738,13 +730,13 @@ function StudentUse() {
                                                         <label class="form-label" for="add-user-fullname">Student Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
                                                             onChange={(e) => setName(e.target.value)}
-                                                            defaultValue={Name} aria-label="John Doe" />
+                                                            value={Name} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Student Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={(e) => setLastName(e.target.value)}
-                                                            defaultValue={LastName} aria-label="John Doe" />
+                                                            value={LastName} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-email">Student Email</label>
@@ -806,13 +798,11 @@ function StudentUse() {
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">Student District</label>
-                                                        <select
-                                                            id="exampleFormControlSelect2"
+                                                        <select id="exampleFormControlSelect2"
                                                             className="select2 form-select"
                                                             name="DistrictId"
                                                             value={DistrictId}
-                                                            onChange={(e) => setDistrictId(e.target.value)}
-                                                        >
+                                                            onChange={(e) => setDistrictId(e.target.value)}>
                                                             <option value="">Select</option>
                                                             {selectedState && selectedState.Cities.map(city => (
                                                                 <option key={city.id} value={city.id}>{city.name}</option>
@@ -828,6 +818,27 @@ function StudentUse() {
                                                             value={City} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
+                                                            <option value="">Select</option>
+                                                            {courses.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={(e) => setBatchId(e.target.value)}>
+                                                            <option value="">Select</option>
+                                                            {selectedCourses && selectedCourses.Batches.map(batch => (
+                                                                <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-email">Student Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
@@ -835,6 +846,7 @@ function StudentUse() {
                                                             value={Address} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>

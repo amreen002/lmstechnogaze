@@ -12,61 +12,40 @@ const SignUp = () => {
         password: '',
         roleName: '',
         phoneNumber: '',
-        message: '',
-        image: null,
         departmentId: '',
     });
 
     const handleChange = (e) => {
-        const { name, files } = e.target;
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0]  // Handle files differently
-            });
-        } else {
             setFormData({
                 ...formData,
                 [e.target.name]: e.target.value
-            });
-        }
+            });      
     };
 
+  
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const data = new FormData();
-        for (const key in formData) {
-            data.append(key, formData[key]);
-        }
-
         try {
-            const token = localStorage.getItem('token');
 
-            if (token) {
-                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data', // Important for file upload
-                         Authorization: `Bearer ${token}`
+            let response = await axios.post(`${REACT_APP_API_ENDPOINT}/signup`, formData, {
+            });
+            window.location.href = `/complete-profile/${response.data.users.id}`;
+            alert('Users SuccessFully Create');
 
-                    }
-                });
-                window.location.href = `/complete-profile/${response.data.users.id}`;
-                alert('User Successfully Create');
-            
-            }
         } catch (error) {
             alert('Failed to send message.');
         }
-    
-
-    
     };
+
+       
+    
+   
 
     return(
         <div>
-  <section className='sticy-header logo-size'>
-        <Navbarmenu />
-      </section>
+            <section className='sticy-header logo-size'>
+                <Navbarmenu />
+            </section>
 
 
     <div className="login-registration-wrapper">
@@ -98,6 +77,7 @@ const SignUp = () => {
                                 <div class="single-input-wrapper">
                                     <label for="passwords">Instructor/Student</label>
                                     <select id="departmentId" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                        <option value=" ">---Select---</option>
                                         <option value="3">Instructor</option>
                                         <option value="4">Student</option>
                                                 
