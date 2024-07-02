@@ -62,9 +62,9 @@ function Navbarmenu() {
   const handleLogout = async () => {
     try {
       await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
-      setLoggedIn(false);
       localStorage.removeItem('token'); 
       localStorage.removeItem('datatoken'); 
+      setLoggedIn(false);
       window.location.href = '/'
     } catch (error) {
       console.error('Logout failed:', error);

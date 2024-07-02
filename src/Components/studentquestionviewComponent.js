@@ -148,11 +148,12 @@ function InstructorviewquizComponent(token) {
                                                             <button className="btn btn-primary" onClick={() => toggleVisibility(`${item.id}`)}>
                                                                 {isVisible === `${item.id}` ? (
                                                                     <>
-                                                                        <i className="fa fa-eye-slash"></i> Hide Answer
+                                                                             <i className="fa fa-eye"></i> Show Answer
+                                                                  
                                                                     </>
                                                                 ) : (
                                                                     <>
-                                                                        <i className="fa fa-eye"></i> Show Answer
+                                                                             <i className="fa fa-eye-slash"></i> Hide Answer
                                                                     </>
                                                                 )}
                                                             </button>

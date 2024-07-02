@@ -3,6 +3,7 @@ import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidateCreate from '../validation/addteachervalidations'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function ListUse() {
     const [countryTable, setCountryTable] = useState([]);
@@ -23,6 +24,24 @@ function ListUse() {
     const [Username, setUsername] = useState('')
     const [YourIntroducationAndSkills, setYourIntroducationAndSkills] = useState('')
     const { REACT_APP_API_ENDPOINT } = process.env;
+    const [errors, setErrors] = useState({});
+    const formData = {
+        Name,
+        LastName,
+        Email,
+        Password,
+        DOB,
+        TeacherType,
+        Username,
+        PhoneNumber,
+        YourIntroducationAndSkills,
+        AddressType: 'Current Address',
+        Address,
+        StateId,
+        CountryId,
+        DistrictId,
+        City,
+    }
     const handleCountryChange = (e) => {
         const selectedCountryId = parseInt(e.target.value);
         const selectedCountry = countryTable.find(country => country.id === selectedCountryId);
@@ -69,31 +88,23 @@ function ListUse() {
         }
     };
 
-
-
-
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = {...formData,[name]:value };
+      if (updatedFormData) {
+            setName(updatedFormData.Name)
+            setLastName(updatedFormData.LastName)
+            setEmail(updatedFormData.Email)
+        }else{
+            console.log(updatedFormData)
+            const validationErrors = ValidateCreate(updatedFormData);
+            setErrors(validationErrors);
+        } 
+      };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            let formData = {
-                Name,
-                LastName,
-                Email,
-                Password,
-                DOB,
-                TeacherType,
-                Username,
-                PhoneNumber,
-                YourIntroducationAndSkills,
-                AddressType: 'Current Address',
-                Address,
-                StateId,
-                CountryId,
-                DistrictId,
-                City,
-            }
             const token = localStorage.getItem('token');
 
             if (token) {
@@ -239,39 +250,41 @@ function ListUse() {
 
                                                             <label class="form-label" for="add-user-fullname">Frist Name</label>
                                                             <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
-                                                                onChange={(e) => setName(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={Name} aria-label="John Doe" />
+                                                                 {errors.Name && <span style={{ color: 'red' }}>{errors.Name}</span>}
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                         <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-fullname">Last Name</label>
                                                             <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
-                                                                onChange={(e) => setLastName(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={LastName} aria-label="John Doe" />
+                                                                 {errors.LastName && <span style={{ color: 'red' }}>{errors.LastName}</span>}
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                             <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-email">Email</label>
                                                             <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
-                                                                onChange={(e) => setEmail(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={Email} />
-
+                                                              {errors.Email && <span style={{ color: 'red' }}>{errors.Email}</span>}
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                             <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-contact">Contact</label>
                                                             <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
-                                                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={PhoneNumber} />
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user">User Name</label>
                                                             <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
-                                                                onChange={(e) => setUsername(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={Username} />
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
 
                                                             <label class="form-label" for="basic-icon-default-password">Password</label>
                                                             <input type="Password"
-                                                                onChange={(e) => setPassword(e.target.value)}
+                                                                onChange={handleChange}
                                                                 name='Password'
                                                                 value={Password}
                                                                 class="form-control password-mask"
@@ -284,7 +297,7 @@ function ListUse() {
 
                                                             <label class="form-label" for="basic-icon-default-password">DOB</label>
                                                             <input type="date"
-                                                                onChange={(e) => setDOB(e.target.value)}
+                                                                onChange={handleChange}
                                                                 name='DOB'
                                                                 value={DOB}
                                                                 class="form-control DOB-mask"
@@ -295,7 +308,7 @@ function ListUse() {
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
                                                             <label for="exampleFormControlSelect2" class="form-label">Teacher Type</label>
-                                                            <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={(e) => setTeacherType(e.target.value)}>
+                                                            <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={handleChange}>
                                                                 <option value="">Select</option>
                                                                 <option value="Online">Online</option>
                                                                 <option value="Offline">Offline</option>
@@ -339,7 +352,7 @@ function ListUse() {
                                                                 className="select2 form-select"
                                                                 name="DistrictId"
                                                                 value={DistrictId}
-                                                                onChange={(e) => setDistrictId(e.target.value)}
+                                                                onChange={handleChange}
                                                             >
                                                                 <option value="">Select</option>
                                                                 {selectedState && selectedState.Cities.map(city => (
@@ -351,14 +364,14 @@ function ListUse() {
                                                         <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-email">Address</label>
                                                             <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
-                                                                onChange={(e) => setAddress(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={Address} />
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-email">City</label>
                                                             <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
-                                                                onChange={(e) => setCity(e.target.value)}
+                                                                onChange={handleChange}
                                                                 value={City} />
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                         </div>
@@ -374,7 +387,7 @@ function ListUse() {
                                                                     placeholder="Hi, Do you have a moment to talk Joe?"
                                                                     aria-label="Hi, Do you have a moment to talk Joe?"
                                                                     aria-describedby="basic-icon-default-message2"
-                                                                    name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
+                                                                    name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={handleChange}></textarea>
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 d-flex">

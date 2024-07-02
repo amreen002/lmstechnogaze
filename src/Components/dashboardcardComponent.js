@@ -39,6 +39,7 @@ function DashboardCard(token) {
     useEffect(() => {
         fetchData1()
     }, []);
+
     // Function to toggle a specific dropdown
     const toggleDropdown = () => {
         setOpenDropdown(!activeService);

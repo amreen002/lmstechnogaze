@@ -3,22 +3,23 @@ import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationTopic from '../validation/topicvalidation';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Topic() {
     const { topicId } = useParams();
     const navigate = useNavigate();
-    const [name, setName] = useState('');
-    const [CoursePrice, setCoursePrice] = useState('');
-    const [CourseCategoryId, setCourseCategoryId] = useState('');
     const [userData, setUserData] = useState("");
-    const [CoursesId, setCoursesId] = useState("");
     const [courses, setCourse] = useState([]);
-
+    const [formData, setFormData] = useState({ name: '', CoursesId: '' });
+    const [errors, setErrors] = useState({});
+    const token = localStorage.getItem('token');
     const [table, setTopic] = useState([]);
+
     useEffect(() => {
         fetchData(topicId);
     }, [topicId]);
+
     useEffect(() => {
         fetchData1();
         fetchData2();
@@ -41,8 +42,10 @@ function Topic() {
                 });
                 const userData = response.data.topic;
                 setUserData(userData);
-                setName(userData.name);
-                setCoursesId(userData.CoursesId);
+                setFormData({
+                    name: userData.name,
+                    CoursesId: userData.CoursesId,
+                })
 
             }
 
@@ -88,52 +91,77 @@ function Topic() {
             console.error('Error fetching data:', error);
         }
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const token = localStorage.getItem('token');
 
-            if (token) {
-                let formData = { name, CoursesId }
-                await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        setFormData(updatedFormData);
+    
+        // Validate the updated form data
+        const validationErrors = ValidationTopic(updatedFormData);
+        setErrors(validationErrors);
+      };
 
-                window.location.href = "/topic";
-                alert('Subject Successfully Create');
 
-            }
-        } catch (error) {
-            alert('Failed to send message.');
+    const handleFormSubmit = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+    
+        // Perform client-side validation
+        const validationErrors = ValidationTopic(formData );
+        if (Object.keys(validationErrors).length > 0) {
+          setErrors(validationErrors);
+          return;
         }
-    }
+    
+        try {
+            if (window.confirm('Subject Successfully Create')) {
+          // Make the API request
+          await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formData, {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          });
+          // Clear the form and errors upon successful submission
+          setFormData({ name: '', CoursesId: '' });
+          setErrors({});
+          window.location.href = "/topic";
+        }else{
+            alert('Information Cancel it,s Successfully');
+        }
+        } catch (error) {
+          console.error(error);
+          setErrors({ api: error.response?.data?.message || 'An error occurred while creating the topic.' });
+          
+        }
+      };
+    
     const handleDelete = async (topicId) => {
         try {
             const token = localStorage.getItem('token');
+
             if (token) {
                 await axios.delete(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData(topicId);
+                fetchData();
+                window.location.href = "/topic";
                 alert('Data successfully deleted');
-
             }
         } catch (error) {
             console.error('Error deleting data:', error);
             alert('An error occurred while deleting data');
         }
-    }
+    };
+    
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                const updatedUserData = { name, CoursesId }
-                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, updatedUserData, {
+              
+                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -182,30 +210,37 @@ function Topic() {
                                                     <div class="content-left">
                                                         <h3>Add Subject</h3>
                                                         <div class="offcanvas-body mx-0 flex-grow-0">
-                                                            <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
+                                                            <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleFormSubmit} novalidate="novalidate">
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label class="form-label" for="add-user-fullname">Subject Name</label>
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
-                                                                        value={name} aria-label="John Doe" onChange={(e) => setName(e.target.value)} />
+                                                                        value={formData.name} aria-label="John Doe"
+                                                                        onChange={handleChange}
+                                                             />
+                                                                      {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
+                                                                  
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                               
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
-                                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" defaultValue={CoursesId} onChange={(e) => setCoursesId(e.target.value)}>
+                                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId"  value={formData.CoursesId}  onChange={handleChange}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.CoursesId && <span style={{ color: 'red' }}>{errors.CoursesId}</span>}
                                                                 </div>
                                                                 <div class="mb-3 fv-plugins-icon-container col-lg-3">
                                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
 
                                                                 </div>
                                                                 <input type="hidden" /></form>
+                                                                {errors.api && <span style={{ color: 'red' }}>{errors.api}</span>}
 
                                                         </div>
                                                     </div>
@@ -292,13 +327,13 @@ function Topic() {
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Subject Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
-                                                           value={name}onChange={(e) => setName(e.target.value)} />
+                                                           value={formData.name}onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={(e) => setCoursesId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>

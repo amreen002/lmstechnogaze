@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG } = process.env;
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function ListUse() {
     const [table, setTable] = useState([]);
     const { usersId } = useParams();
@@ -12,9 +12,53 @@ function ListUse() {
     const [emailerror, setEmail] = useState(null);
     const [password, setPassword] = useState("Abc@123");
     const [roleData, setSaleTeamData] = useState([]);
+    const [countryTable, setCountryTable] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedState, setSelectedState] = useState('');
+    const [selectedCourses, setSelectedCourses] = useState('');
+    const [formData, setFormData] = useState({
+        name: '',
+        userName: '',
+        email: '',
+        password: '',
+        roleName: '',
+        phoneNumber: '',
+        image: null,
+        AddressType: '',
+        Address: '',
+        StateId: '',
+        CountryId: '',
+        DistrictId: '',
+        City: '',
+      });
+
+      const handleCountryChange = (e) => {
+        const selectedCountryId = parseInt(e.target.value, 10);
+        const selectedCountry = countryTable.find((country) => country.id === selectedCountryId);
+        setFormData({
+          ...formData,
+          CountryId: selectedCountryId,
+          StateId: '',
+          DistrictId: '',
+        });
+        setSelectedCountry(selectedCountry);
+        setSelectedState('');
+      };
+    
+      const handleStateChange = (e) => {
+        const selectedStateId = parseInt(e.target.value, 10);
+        const selectedState = selectedCountry ? selectedCountry.Staties.find((state) => state.id === selectedStateId) : '';
+        setFormData({
+          ...formData,
+          StateId: selectedStateId,
+          DistrictId: '',
+        });
+        setSelectedState(selectedState);
+      };
     useEffect(() => {
         fetchData();
         fetchData1()
+        fetchData2()
     }, []);
     const validateEmail = (email) => {
         const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -58,17 +102,25 @@ function ListUse() {
         }
     };
 
-    const [formData, setFormData] = useState({
-        name: '',
-        userName: '',
-        email: '',
-        password: '',
-        departmentId: '',
-        phoneNumber: '',
-        message: '',
-        image: null
-    });
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
 
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.country;
+                setCountryTable(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
 
     const handleChange = (e) => {
         const { name, files } = e.target;
@@ -282,28 +334,28 @@ function ListUse() {
                                             <option value="10">10</option>
                                             <option value="25">25</option>
                                             <option value="50">50</option><option value="100">100</option>
-                                            </select></label>
-                                            </div></div></div>
+                                        </select></label>
+                                        </div></div></div>
                                             <div class="col-md-10">
                                                 <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center 
                                                 justify-content-end flex-md-row flex-column mb-3 mb-md-0">
                                                     <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label>
-                                            </div>
-                                            <div class="btn-group d-flex flex-row">
-                                                    <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex" 
-                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" 
-                                                    aria-expanded="false">
-                                                    <span><i class="bx bx-export me-1"></i>Export</span>
-                                                    </button>
-                                                  
-                                                    <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
-                                                   
-                                                    <span><i class="bx bx-plus me-0 me-sm-1"></i>User</span>
-                                                    </button>
-                                                 </div>
-                                                        
-                                                        </div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                                        <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label>
+                                                    </div>
+                                                    <div class="btn-group d-flex flex-row">
+                                                        <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex"
+                                                            tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
+                                                            aria-expanded="false">
+                                                            <span><i class="bx bx-export me-1"></i>Export</span>
+                                                        </button>
+
+                                                        <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+
+                                                            <span><i class="bx bx-plus me-0 me-sm-1"></i>User</span>
+                                                        </button>
+                                                    </div>
+
+                                                </div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label=""></th>
@@ -318,19 +370,19 @@ function ListUse() {
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    {table.map((item ,index) => (
+                                                    {table.map((item, index) => (
                                                         <tr key={item.id}>
                                                             <td class="sorting_1">
                                                                 <div class="d-flex justify-content-start align-items-center user-name">
                                                                     <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
-                                                                        <img src={`http://localhost:8080/uploads/${item.image}`} alt="Avatar" class="rounded-circle" />
+                                                                        <img src={`${REACT_APP_API_IMG}/uploads/${item.image}`} alt="Avatar" class="rounded-circle" />
                                                                     </div>
                                                                     </div>
                                                                     <div class="d-flex flex-column">
                                                                     </div>
                                                                 </div>
                                                             </td>
-                                                            <td>{index +1}</td>
+                                                            <td>{index + 1}</td>
                                                             <td>{item.name}</td>
                                                             <td>{item.userName}</td>
                                                             <td>{item.phoneNumber}</td>
@@ -343,7 +395,7 @@ function ListUse() {
                                                                 <button class="btn btn-sm btn-icon delete-record" onClick={() => handleDelete(item.id)}>
                                                                     <i class="bx bx-trash"></i>
                                                                 </button>
-                                                                
+
                                                                 {activeService === 'dropdownprofile' && (<div classNmae="dropdown-menu dropdown-menu-end m-0">
                                                                     <Link to={`/userviews/${item.id}`} classNmae="dropdown-item">View</Link></div>)}</div></td>
 
@@ -360,35 +412,44 @@ function ListUse() {
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
-                                            <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
-                                                <div class="mb-3 fv-plugins-icon-container">
+                                            <form class="add-new-user row g-3 pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
+                                           
+                                            
+                                                <div class="col-12 col-md-6">
                                                     {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
                                                     <label class="form-label" for="add-user-fullname">Full Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
                                                         onChange={handleChange}
                                                         value={formData.name} aria-label="John Doe" />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                <div class="mb-3 fv-plugins-icon-container">
+                                                 <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                
+                                                
+                                                <div class="col-12 col-md-6">
                                                     <label class="form-label" for="add-user-fullname">User Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='userName'
                                                         onChange={handleChange}
                                                         value={formData.userName} aria-label="John Doe" />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                <div class="mb-3 fv-plugins-icon-container">
+                                                
+                                                
+                                                <div class="col-12 col-md-6">
                                                     <label class="form-label" for="add-user-email">Email</label>
-                                                    <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com"  name='email'
+                                                    <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='email'
                                                         onChange={handleChange}
                                                         value={formData.email} />
 
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                <div class="mb-3">
+                                               
+                                               
+                                                <div class="col-12 col-md-6">
                                                     <label class="form-label" for="add-user-contact">Contact</label>
-                                                    <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11"  name="phoneNumber"
+                                                    <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="phoneNumber"
                                                         onChange={handleChange}
                                                         value={formData.phoneNumber} />
                                                 </div>
-                                                <div class="mb-3">
-
+                                               
+                                               
+                                                <div class="col-12 col-md-6">
                                                     <label class="form-label" for="basic-icon-default-password">Password</label>
                                                     <input type="password"
                                                         onChange={handleChange}
@@ -400,10 +461,9 @@ function ListUse() {
                                                         aria-describedby="basic-default-password2" />
                                                     {error && <div style={{ color: 'red' }}>{error}</div>}
                                                 </div>
-                                                <div class="mb-3">
+                                                
+                                                <div class="col-12 col-md-6">
                                                     <label for="exampleFormControlSelect2" class="form-label">Roles</label>
-
-                                                    <label class="form-label" for="modalEditUserStatus"></label>
                                                     <select
                                                         id="modalEditUserStatus"
                                                         className="form-select"
@@ -418,12 +478,72 @@ function ListUse() {
 
                                                 </div>
 
-                                                <div class="mb-3">
+                                                <div class="col-lg-6 p-t-20">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="CountryId"
+                                                            value={formData.CountryId}
+                                                            onChange={handleCountryChange}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {countryTable.map(option => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-lg-6 p-t-20">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="StateId"
+                                                            value={formData.StateId}
+                                                            onChange={handleStateChange}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {selectedCountry && selectedCountry.Staties.map(state => (
+                                                                <option key={state.id} value={state.id}>{state.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-lg-6 p-t-20">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="DistrictId"
+                                                            value={formData.DistrictId}
+                                                            onChange={handleChange}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {selectedState && selectedState.Cities.map(city => (
+                                                                <option key={city.id} value={city.id}>{city.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="col-lg-6 p-t-20">
+                                                        <label class="form-label" for="add-user-email"> City</label>
+                                                        <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
+                                                            onChange={handleChange}
+                                                            value={formData.City} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user-email"> Address</label>
+                                                        <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
+                                                            onChange={handleChange}
+                                                            value={formData.Address} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+
+                                                <div class="col-12">
                                                     <label class="form-label" for="basic-icon-default-message">Message</label>
                                                     <div class="input-group input-group-merge">
-                                                        <span id="basic-icon-default-message2" class="input-group-text"
-                                                        ><i class="bx bx-comment"></i
-                                                        ></span>
                                                         <textarea
                                                             id="basic-icon-default-message"
                                                             class="form-control"
@@ -433,7 +553,8 @@ function ListUse() {
                                                             name="message" value={formData.message} onChange={handleChange}></textarea>
                                                     </div>
                                                 </div>
-                                                <div class="mb-3">
+
+                                                <div class="col-12">
                                                     <div class="input-group">
                                                         <input
                                                             type="file"
@@ -445,14 +566,14 @@ function ListUse() {
                                                             accept="image/png, image/jpeg"
                                                             value={formData.image} onChange={handleChange}
                                                         />
-                                                        <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Button</button>
+                                                        
                                                     </div>
                                                 </div>
                                                 <div className='d-flex'>
-                                                <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
-                                                <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                    <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                    <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                 </div>
-                                                
+
                                                 <input type="hidden" /></form>
                                         </div>
                                     </div>

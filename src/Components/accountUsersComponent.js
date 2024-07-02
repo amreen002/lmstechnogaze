@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState ,useEffect} from 'react';
 import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 const { REACT_APP_API_ENDPOINT } = process.env;
 function AccountP() {
-
+    const [error, setError] = useState(null);
+    const [roleData, setSaleTeamData] = useState([]);
+    const [countryTable, setCountryTable] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedState, setSelectedState] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
@@ -14,9 +18,79 @@ function AccountP() {
         roleName: '',
         phoneNumber: '',
         message: '',
-        image: null
+        image: null,
+        AddressType: "Current Address",
+        Address:'',
+        StateId:'',
+        CountryId:'',
+        DistrictId:'',
+        City:'',
     });
+    const [StateId, setStateId] = useState('')
+    const [CountryId, setCountryId] = useState('')
+    const [Address, setAddress] = useState('')
+    const [City, setCity] = useState('')
+    const [DistrictId, setDistrictId] = useState('')
+    const handleCountryChange = (e) => {
+        const selectedCountryId = parseInt(e.target.value);
+        const selectedCountry = countryTable.find(country => country.id === selectedCountryId);
+        setCountryId(selectedCountryId);
+        setSelectedCountry(selectedCountry);
+        setStateId(''); // Reset state and district selections
+        setSelectedState('');
+        setDistrictId('');
+    };
 
+
+    const handleStateChange = (e) => {
+        const selectedStateId = parseInt(e.target.value);
+        const selectedState = selectedCountry ? selectedCountry.Staties.find(state => state.id === selectedStateId) : '';
+        setStateId(selectedStateId);
+        setSelectedState(selectedState);
+        setDistrictId(''); // Reset district selection
+    };
+    useEffect(() => {
+        fetchData1()
+        fetchData2()
+    }, []);
+    const fetchData1 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listrole`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.role;
+                setSaleTeamData(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.country;
+                setCountryTable(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     const handleChange = (e) => {
         const { name, files } = e.target;
         if (files) {
@@ -41,17 +115,16 @@ function AccountP() {
 
         try {
             const token = localStorage.getItem('token');
-
+            let response
             if (token) {
-                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
+                response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
                     headers: {
-                        'Content-Type': 'multipart/form-data', // Important for file upload
-                         Authorization: `Bearer ${token}`
-
+                        'Content-Type': 'multipart/form-data',
+                        Authorization: `Bearer ${token}`
                     }
                 });
-                console.log(response.data);
-                alert('Message sent!');
+                window.location.href = "/userlist";
+                alert('Users SuccessFully Create');
             }
         } catch (error) {
             alert('Failed to send message.');
@@ -196,22 +269,83 @@ function AccountP() {
                                                         />
                                                     </div>
                                                     <div class="mb-3 col-md-6">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Roles</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="roleName" value={formData.roleName} onChange={handleChange}>
+                                                    <label class="form-label" for="modalEditUserStatus"></label>
+                                                    <select
+                                                        id="modalEditUserStatus"
+                                                        className="form-select"
+                                                        name="departmentId"
+                                                        onChange={handleChange}
+                                                        value={formData.departmentId}
+
+
+                                                    >
+                                                        {roleData.map((option) => (
+                                                            <option key={option.id} value={option.id}>{option.Name}</option>
+                                                        ))}
+                                                    </select>
+
+                                                </div>
+                                                    <div class="mb-3">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="CountryId"
+                                                            value={CountryId}
+                                                            onChange={handleCountryChange}
+                                                        >
                                                             <option value="">Select</option>
-                                                            <option value="Admin">Admin</option>
-                                                            <option value="Instructor">Instructor</option>
-                                                            <option value="Student">Student</option>
-                                                            <option value="Guest/Viewer">Guest/Viewer</option>
-                                                            <option value="Sale Team"> Sale Team</option>
-                                                            <option value="Telecaller Department">Telecaller Department</option>
-                                                            <option value="Telecaller Team">Telecaller Team</option>
-                                                            <option value="Receptions Desk Or Visitor">Receptions Desk Or Visitor</option>
-                                                            <option value="Receptions Desk">Receptions Desk</option>
-                                                            <option value="Counselor Department">Counselor Department</option>
-                                                            <option value="Account Department">Account Department</option>
-                                                            <option value="Counseling Department">Counseling Department</option>
+                                                            {countryTable.map(option => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
                                                         </select>
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="StateId"
+                                                            value={StateId}
+                                                            onChange={handleStateChange}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {selectedCountry && selectedCountry.Staties.map(state => (
+                                                                <option key={state.id} value={state.id}>{state.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
+                                                        <select
+                                                            id="exampleFormControlSelect2"
+                                                            className="select2 form-select"
+                                                            name="DistrictId"
+                                                            value={DistrictId}
+                                                            onChange={(e) => setDistrictId(e.target.value)}
+                                                        >
+                                                            <option value="">Select</option>
+                                                            {selectedState && selectedState.Cities.map(city => (
+                                                                <option key={city.id} value={city.id}>{city.name}</option>
+                                                            ))}
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user-email"> City</label>
+                                                        <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
+                                                            onChange={(e) => setCity(e.target.value)}
+                                                            value={City} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user-email"> Address</label>
+                                                        <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
+                                                            onChange={(e) => setAddress(e.target.value)}
+                                                            value={Address} />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-icon-default-message">Message</label>

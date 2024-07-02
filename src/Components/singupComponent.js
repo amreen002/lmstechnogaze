@@ -12,47 +12,34 @@ const SignUp = () => {
         password: '',
         roleName: '',
         phoneNumber: '',
-        message: '',
         departmentId: '',
     });
 
     const handleChange = (e) => {
-        const { name, files } = e.target;
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0]  // Handle files differently
-            });
-        } else {
             setFormData({
                 ...formData,
                 [e.target.name]: e.target.value
-            });
-        }
+            });      
     };
 
+  
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const token = localStorage.getItem('token');
-console.log(formData)
-            if (token) {
-                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/users`, formData, {
-                    headers: {
-                         Authorization: `Bearer ${token}`
-                    }
-                });
-                window.location.href = `/complete-profile/${response.data.users.id}`;
-                alert('User Successfully Create');
-            
-            }
+
+            let response = await axios.post(`${REACT_APP_API_ENDPOINT}/signup`, formData, {
+            });
+            window.location.href = `/complete-profile/${response.data.users.id}`;
+            alert('Users SuccessFully Create');
+
         } catch (error) {
             alert('Failed to send message.');
         }
-    
-
-    
     };
+
+       
+    
+   
 
     return(
         <div>
@@ -65,50 +52,45 @@ console.log(formData)
         <div className="container">
             <div className="row g-0">
             <div class="col-lg-6">
-                    <div className="login-page-form-area">
-                        <h4 className="title">Sign Up to Your Account👋</h4>
+                    <div class="login-page-form-area">
+                        <h4 class="title">Sign Up to Your Account👋</h4>
                         <form action="POST" onSubmit={handleSubmit}>
-                                    <div className="half-input-wrapper">
-                                        <div className="single-input-wrapper">
-                                            <label for="name">Your Name*</label>
-                                            <input onChange={handleChange} value={formData.name} name="name" id="name" type="text" placeholder="Enter Your Name" required="" />
-                                        </div>
-                                        <div className="single-input-wrapper">
-                                            <label for="phoneNumber">Contact*</label>
-                                            <input onChange={handleChange} value={formData.phoneNumber} name="phoneNumber" id="phoneNumber" type="number" placeholder="Enter Phone Number" required="" />
-                                        </div>
-                                    </div>
-                                    <div className="half-input-wrapper">
-                                        <div className="single-input-wrapper">
-                                            <label for="username">User Name</label>
-                                            <input onChange={handleChange} value={formData.userName} name="userName" id="username" type="text" placeholder="Enter User Name" required="" />
-                                        </div>
-                                        <div className="single-input-wrapper">
-                                            <label for="email">Email*</label>
-                                            <input onChange={handleChange} value={formData.email} name="email" id="email" type="email" placeholder="Enter Your Email" required="" />
-                                        </div>
-                                    </div>
-                                    <div className="half-input-wrapper">
-                                        <div className="single-input-wrapper">
-                                            <label for="password">Your Password</label>
-                                            <input onChange={handleChange} value={formData.password} name="password" id="password" type="password" placeholder="Password" required="" />
-                                        </div>
-                                        <div className="single-input-wrapper">
-                                            <label for="passwords">Instructor/Student</label>
-                                            <select id="departmentId" name="departmentId" className="form-select" value={formData.departmentId} onChange={handleChange}>
-                                                <option value="3">Instructor</option>
-                                                <option value="4">Student</option>
-
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div className="single-checkbox-filter">
-                                        <div className="check-box">
-                                            <input type="checkbox" id="type-1" />
-                                            <label for="type-1">Accept the Terms and Privacy Policy</label><br />
-                                        </div>
-                                    </div>
-                            <button type="submit"  className="rts-btn btn-primary">Signup</button>
+                            <div class="single-input-wrapper">
+                                <label for="name">Your Name*</label>
+                                <input  onChange={handleChange} value={formData.name}  name="name" id="name" type="text" placeholder="Enter Your Name" required=""/>
+                            </div>
+                            <div class="half-input-wrapper">
+                                <div class="single-input-wrapper">
+                                    <label for="username">User Name</label>
+                                    <input  onChange={handleChange} value={formData.userName}  name="userName" id="username" type="text" placeholder="Enter User Name" required=""/>
+                                </div>
+                                <div class="single-input-wrapper">
+                                    <label for="email">Email*</label>
+                                    <input  onChange={handleChange} value={formData.email}  name="email" id="email" type="email" placeholder="Enter Your Email" required=""/>
+                                </div>
+                            </div>
+                            <div class="half-input-wrapper">
+                                <div class="single-input-wrapper">
+                                    <label for="password">Your Password</label>
+                                    <input onChange={handleChange} value={formData.password}  name="password" id="password" type="password" placeholder="Password" required=""/>
+                                </div>
+                                <div class="single-input-wrapper">
+                                    <label for="passwords">Instructor/Student</label>
+                                    <select id="departmentId" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                        <option value=" ">---Select---</option>
+                                        <option value="3">Instructor</option>
+                                        <option value="4">Student</option>
+                                                
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="single-checkbox-filter">
+                                <div class="check-box">
+                                    <input type="checkbox" id="type-1"/>
+                                    <label for="type-1">Accept the Terms and Privacy Policy</label><br/>
+                                </div>
+                            </div>
+                            <button type="submit"  class="rts-btn btn-primary">Signup</button>
                          
                            
                         </form>

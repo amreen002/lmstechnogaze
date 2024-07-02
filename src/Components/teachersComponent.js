@@ -138,7 +138,7 @@ function ListUse() {
                 setDOB(userData.DOB)
                 setTeacherType(userData.TeacherType)
                 setCountryId(userData.Address.CountryId)
-                setStateId(userData.Address.setStateId)
+                setStateId(userData.Address.StateId)
                 setDistrictId(userData.Address.DistrictId)
                 setAddress(userData.Address.Address)
                 setCity(userData.Address.City)

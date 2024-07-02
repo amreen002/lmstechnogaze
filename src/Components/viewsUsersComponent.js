@@ -11,14 +11,64 @@ function VieweUsersP() {
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     const [roleData, setSaleTeamData] = useState([]);
+    const [countryTable, setCountryTable] = useState([]);
+    const [selectedCountry, setSelectedCountry] = useState('');
+    const [selectedState, setSelectedState] = useState('');
+    const [formData, setFormData] = useState({
+      name: '',
+      userName: '',
+      email: '',
+      password: '',
+      roleName: '',
+      phoneNumber: '',
+      image: null,
+      AddressType: '',
+      Address: '',
+      StateId: '',
+      CountryId: '',
+      DistrictId: '',
+      City: '',
+    });
+  
     useEffect(() => {
-
+      if (usersId) {
         fetchData(usersId);
+      }
     }, [usersId]);
+  
     useEffect(() => {
-        fetchData1()
-
+      fetchData1();
+      fetchData2()
     }, []);
+  
+
+    
+  const handleCountryChange = (e) => {
+    const selectedCountryId = parseInt(e.target.value, 10);
+    const selectedCountry = countryTable.find((country) => country.id === selectedCountryId);
+    setFormData({
+      ...formData,
+      CountryId: selectedCountryId,
+      StateId: '',
+      DistrictId: '',
+    });
+    setSelectedCountry(selectedCountry);
+    setSelectedState('');
+  };
+
+  const handleStateChange = (e) => {
+    const selectedStateId = parseInt(e.target.value, 10);
+    const selectedState = selectedCountry ? selectedCountry.Staties.find((state) => state.id === selectedStateId) : '';
+    setFormData({
+      ...formData,
+      StateId: selectedStateId,
+      DistrictId: '',
+    });
+    setSelectedState(selectedState);
+  };
+
+
+
     const fetchData = async (usersId) => {
         try {
             if (!usersId) {
@@ -37,15 +87,19 @@ function VieweUsersP() {
                 const userData = response.data.users;
                 setUserData(userData)
                 setFormData({
-                    name: userData.name,
-                    userName: userData.userName,
-                    email: userData.email,
-                    departmentId: userData.departmentId,
-                    phoneNumber: userData.phoneNumber,
-                    message: userData.message,
+                    name: userData?.name || '',
+                    userName: userData?.userName || '',
+                    email: userData?.email || '',
+                    departmentId: userData?.departmentId || '',
+                    phoneNumber: userData?.phoneNumber || '',
                     image: null,
+                    CountryId: userData?.Address?.CountryId || '',
+                    StateId: userData?.Address?.StateId || '',
+                    DistrictId: userData?.Address?.DistrictId || '',
+                    Address: userData?.Address?.Address || '',
+                    City: userData?.Address?.City || '',
+                    AddressType: userData?.Address?.AddressType || '',
                 });
-              
 
             }
 
@@ -72,17 +126,26 @@ function VieweUsersP() {
             console.error('Error fetching data:', error);
         }
     };
-    const [formData, setFormData] = useState({
-        name: '',
-        userName:'',
-        userData: '',
-        departmentId: '',
-        phoneNumber: '',
-        message: '',
-        image: null,
-    });
 
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
 
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcountry`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.country;
+                setCountryTable(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     const handleChange = (e) => {
         const { name, files, value } = e.target;
         setFormData(formData => ({
@@ -449,7 +512,7 @@ function VieweUsersP() {
                                                         name="departmentId"
                                                         onChange={handleChange}
                                                         value={formData.departmentId}
-
+                                                        disabled="false"
 
                                                     >
                                                         {roleData.map((option) => (
