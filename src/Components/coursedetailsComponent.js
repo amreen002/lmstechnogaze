@@ -13,7 +13,7 @@ function CoursedetailsComponent() {
         dots: false,
         infinite: true,
         autoplay: true, // to enable automatic sliding
-        autoplaySpeed: 500, // speed of autoplay
+        autoplaySpeed: 3500, // speed of autoplay
         slidesToShow: 4,
         slidesToScroll: 4,
         centerMode: true, // to enable center mode
@@ -129,7 +129,7 @@ function CoursedetailsComponent() {
                 <Navbarmenu />
             </section>
 
-            <div className="course-details-breadcrumb-1 bg_image rts-section-gap">
+            <div className="course-details-breadcrumb-1 bg_image rts-section-gap pt--110 pb--105">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
@@ -287,367 +287,13 @@ function CoursedetailsComponent() {
                                                     </div>
                                                 </div>
                                             )}
-
-
                                         </div>
                                         {/* <!-- course content accordion area end --> */}
                                     </div>
                                 </div>
-                                {/* 
-                                <div className="tab-pane fade " disabled="false" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                 
-                                    <div className="single-instructor-area-details" disabled="false">
-                                        <a href="#" className="thumbnail">
-                                            <img src="assets/fontend/images/instructor/10.jpg" alt="instructor" />
-                                        </a>
-                                        <div className="inner-instrustor-area">
-                                            <h5 className="title">William U.</h5>
-                                            <span className="deg">Advanced Educator</span>
-                                            <div className="stars-area-wrapper">
-                                                <div className="stars-area">
-                                                    <span>4.5</span>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-regular fa-star"></i>
-                                                </div>
-                                                <div className="users-area">
-                                                    <i className="fa-light fa-users"></i>
-                                                    <span>1350 Students</span>
-                                                </div>
-                                                <div className="users-area">
-                                                    <i className="fa-light fa-video"></i>
-                                                    <span>26 Courses</span>
-                                                </div>
-                                            </div>
-                                            <p className="disc">
-                                                William U. Peña, MBA, CISSP No. 349867, is a former college professor and the lead instructor at Dion Training Solutions.
-                                            </p>
-                                            <div className="follow-us">
-                                                <span>Follow</span>
-                                                <ul>
-                                                    <li><a href="#"><i className="fa-brands fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-instagram"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-linkedin"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-pinterest"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="single-instructor-area-details">
-                                        <a href="#" className="thumbnail">
-                                            <img src="assets/fontend/images/instructor/11.jpg" alt="instructor" />
-                                        </a>
-                                        <div className="inner-instrustor-area">
-                                            <h5 className="title">William U.</h5>
-                                            <span className="deg">Advanced Educator</span>
-                                            <div className="stars-area-wrapper">
-                                                <div className="stars-area">
-                                                    <span>4.5</span>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-regular fa-star"></i>
-                                                </div>
-                                                <div className="users-area">
-                                                    <i className="fa-light fa-users"></i>
-                                                    <span>1350 Students</span>
-                                                </div>
-                                                <div className="users-area">
-                                                    <i className="fa-light fa-video"></i>
-                                                    <span>26 Courses</span>
-                                                </div>
-                                            </div>
-                                            <p className="disc">
-                                                William U. Peña, MBA, CISSP No. 349867, is a former college professor and the lead instructor at Dion Training Solutions.
-                                            </p>
-                                            <div className="follow-us">
-                                                <span>Follow</span>
-                                                <ul>
-                                                    <li><a href="#"><i className="fa-brands fa-facebook"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-instagram"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-linkedin"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-pinterest"></i></a></li>
-                                                    <li><a href="#"><i className="fa-brands fa-youtube"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div> */}
-
-                                {/*   <div className="tab-pane fade " disabled="false" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
-                                    <div className="rating-main-wrapper" disabled="false">
-
-                                        <div className="rating-top-main-wrapper">
-
-                                            <div className="rating-area-main-wrapper">
-                                                <h2 className="title">4.5</h2>
-                                                <div className="stars-wrapper">
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-solid fa-star"></i>
-                                                    <i className="fa-regular fa-star"></i>
-                                                </div>
-                                                <span>Total 2 Ratings</span>
-                                            </div>
-
-                                            <div className="progress-wrapper-main">
-                                                <div className="single-progress-area-h" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                    <div className="progress-top">
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="parcent">
-                                                            5
-                                                        </span>
-                                                    </div>
-                                                    <div className="progress">
-                                                        <div className="progress-bar wow fadeInLeft bg--primary" role="progressbar" style={{ width: "100%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                    <div className="end">
-                                                        <span>25 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div className="single-progress-area-h" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                    <div className="progress-top">
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="parcent">
-                                                            4
-                                                        </span>
-                                                    </div>
-                                                    <div className="progress">
-                                                        <div className="progress-bar wow fadeInLeft bg--primary" role="progressbar" style={{ width: "80%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                    <div className="end">
-                                                        <span>20 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div className="single-progress-area-h" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                    <div className="progress-top">
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="parcent">
-                                                            3
-                                                        </span>
-                                                    </div>
-                                                    <div className="progress">
-                                                        <div className="progress-bar wow fadeInLeft bg--primary" role="progressbar" style={{ width: "60%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                    <div className="end">
-                                                        <span>5 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div className="single-progress-area-h" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                    <div className="progress-top">
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="parcent">
-                                                            2
-                                                        </span>
-                                                    </div>
-                                                    <div className="progress">
-                                                        <div className="progress-bar wow fadeInLeft bg--primary" role="progressbar" sstyle={{ width: "40%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                    <div className="end">
-                                                        <span>2 Rating</span>
-                                                    </div>
-                                                </div>
-                                                <div className="single-progress-area-h" data-sal-delay="150" data-sal="slide-up" data-sal-duration="800">
-                                                    <div className="progress-top">
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="parcent">
-                                                            1
-                                                        </span>
-                                                    </div>
-                                                    <div className="progress">
-                                                        <div className="progress-bar wow fadeInLeft bg--primary" role="progressbar" style={{ width: "20%" }} aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-                                                        </div>
-                                                    </div>
-                                                    <div className="end">
-                                                        <span>1 Rating</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div className="indevidual-rating-area">
-
-                                            <div className="author-area">
-                                                <img src="assets/images/instructor/12.jpg" alt="instructor" />
-                                                <div className="information">
-                                                    <span>William U.</span>
-                                                    <div className="stars">
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="ml--30">a week ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <p className="disc">
-                                                I still have a lot of studying to do using this course and the other practice exams, but so far it's been great! I have not taken my Security+ exam as well, so I'll update this at a later time.
-                                            </p>
-                                            <div className="like-love-area">
-                                                <a href="#">
-                                                    <i className="fa-sharp fa-light fa-thumbs-up"></i>
-                                                </a>
-                                                <a href="#">
-                                                    <i className="fa-regular fa-heart"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-
-                                        <div className="indevidual-rating-area">
-
-                                            <div className="author-area">
-                                                <img src="assets/fontend/images/instructor/13.jpg" alt="instructor" />
-                                                <div className="information">
-                                                    <span>William U.</span>
-                                                    <div className="stars">
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-solid fa-star"></i>
-                                                        <i className="fa-regular fa-star"></i>
-                                                        <span className="ml--30">a week ago</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-          
-                                            <p className="disc">
-                                                I still have a lot of studying to do using this course and the other practice exams, but so far it's been great! I have not taken my Security+ exam as well, so I'll update this at a later time.
-                                            </p>
-                                            <div className="like-love-area">
-                                                <a href="#">
-                                                    <i className="fa-sharp fa-light fa-thumbs-up"></i>
-                                                </a>
-                                                <a href="#">
-                                                    <i className="fa-regular fa-heart"></i>
-                                                </a>
-                                            </div>
-                                        </div>
-        
-                                    </div>
-                                </div> */}
+                              
                             </div>
-                            {/*   <div className="wrapper-bottom-course-details-page g-5 row mt--50 pr--60 pr_sm--0 pl_sm--0">
-                                <div className="title-between-area pr--150">
-                                    <h5 className="title mb-0">More Courses by William U.</h5>
-                                    <a href="#" className="rts-btn with-arrow p-0">View All Course <i className="fa-light fa-arrow-right"></i></a>
-                                </div>
-                                <div className="col-lg-5 col-md-6 col-sm-12">
-                                    <div className="rts-single-course">
-                                        <a href="single-course.html" className="thumbnail">
-                                            <img src="assets/fontend/images/course/02.jpg" alt="course" />
-                                        </a>
-                                        <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
-                                            <i className="fa-sharp fa-light fa-bookmark"></i>
-                                        </div>
-                                        <div className="tags-area-wrapper">
-                                            <div className="single-tag">
-                                                <span>Marketing</span>
-                                            </div>
-                                            <div className="single-tag">
-                                                <span>Finance</span>
-                                            </div>
-                                        </div>
-                                        <div className="lesson-studente">
-                                            <div className="lesson">
-                                                <i className="fa-light fa-calendar-lines-pen"></i>
-                                                <span>22 Lessons</span>
-                                            </div>
-                                            <div className="lesson">
-                                                <i className="fa-light fa-user-group"></i>
-                                                <span>60 Students</span>
-                                            </div>
-                                        </div>
-                                        <a href="single-course.html">
-                                            <h5 className="title">How to Write the Ultimate 1 Page
-                                                Strategic Business Plan</h5>
-                                        </a>
-                                        <p className="teacher">William U. Peña, MBA</p>
-                                        <div className="rating-and-price">
-                                            <div className="rating-area">
-                                                <span>4.5</span>
-                                                <div className="stars">
-                                                    <ul>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-regular fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="price-area">
-                                                <div className="price">
-                                                    $79.99
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-lg-5 col-md-6 col-sm-12">
-                                    <div className="rts-single-course">
-                                        <a href="single-course.html" className="thumbnail">
-                                            <img src="assets/fontend/images/course/03.jpg" alt="course" />
-                                        </a>
-                                        <div className="save-icon" data-bs-toggle="modal" data-bs-target="#exampleModal-login">
-                                            <i className="fa-sharp fa-light fa-bookmark"></i>
-                                        </div>
-                                        <div className="tags-area-wrapper">
-                                            <div className="single-tag">
-                                                <span>Marketing</span>
-                                            </div>
-                                            <div className="single-tag">
-                                                <span>Finance</span>
-                                            </div>
-                                        </div>
-                                        <div className="lesson-studente">
-                                            <div className="lesson">
-                                                <i className="fa-light fa-calendar-lines-pen"></i>
-                                                <span>22 Lessons</span>
-                                            </div>
-                                            <div className="lesson">
-                                                <i className="fa-light fa-user-group"></i>
-                                                <span>60 Students</span>
-                                            </div>
-                                        </div>
-                                        <a href="single-course.html">
-                                            <h5 className="title">How to Write the Ultimate 1 Page
-                                                Strategic Business Plan</h5>
-                                        </a>
-                                        <p className="teacher">William U. Peña, MBA</p>
-                                        <div className="rating-and-price">
-                                            <div className="rating-area">
-                                                <span>4.5</span>
-                                                <div className="stars">
-                                                    <ul>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-solid fa-star"></i></li>
-                                                        <li><i className="fa-sharp fa-regular fa-star"></i></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="price-area">
-                                                <div className="price">
-                                                    $79.99
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> */}
+                         
                         </div>
                         <div className="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  rts-sticky-column-item">
                             {/* <!-- right- sticky bar area --> */}
@@ -657,44 +303,18 @@ function CoursedetailsComponent() {
 
                                     <div className="thumbnail">
                                         <img src={`${REACT_APP_API_IMG}/${CoureseFindOne.CourseUplod}`} alt="course" />
-                                        {/*     {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
-
-                                            CoureseFindOne.topics.map((topic) => (
-                                                <div className="vedio-icone" key={topic.id}>
-                                                    {topic.videos && Array.isArray(topic.videos) && topic.videos.length > 0 ? (
-    <a href="#" className="video-play-button play-video popup-video" onClick={() => openModal(topic.videos && topic.videos[0].id)}>
-    <div className="left">
-        <i className="fa-light fa-circle-play"></i>
-        <span>{topic.videos && topic.videos[0].Title}</span>
-    </div>
-    <div className="right">
-        <span className="play">Preview</span>
-        <span>9 min</span>
-    </div>
-</a>
-
-<div className="video-overlay">
-<a className="video-overlay-close">×</a>
-</div>
-                                                    )
-                                            
-
-                                            
-                                                
-                                                 </div>
-                                            )): ''}
-                                        )} */}
+                                     
                                     </div>
 
                                     <div className="price-area">
-                                        <h3 className="title">{CoureseFindOne.CoursePrice}
+                                        <h3 className="title"><i class="fa-indian-rupee fa-light"></i> {CoureseFindOne.CoursePrice}
                                         </h3>
 
-                                        <i class="fa-indian-rupee fa-light"></i>
+                                        
                                     </div>
 
-                                    <a href="#" className="rts-btn btn-primary">Add To Cart</a>
-                                    <a href="#" className="rts-btn btn-border">Buy Now</a>
+                                    <a href="#" className="rts-btn btn-primary" >Add To Cart</a>
+                                    {/* <a href="#" className="rts-btn btn-border">Buy Now</a> */}
 
                                     <div className="what-includes">
 
@@ -737,17 +357,14 @@ function CoursedetailsComponent() {
                                         </div>
                                     </div>
                                 </div>
-                                {/* <!-- single course-sidebar end --> */}
+                             
                             </div>
-                            {/* <!-- right- sticky bar area end --> */}
-                            {/* <!-- right- sticky bar area --> */}
-
-                            {/* <!-- right- sticky bar area end --> */}
+                          
                         </div>
                     </div>
                 </div>
             </div>
-            {/* <!-- course details area end --> */}
+          
 
             <div className="rts-section-gapBottom  rts-feature-course-area">
                 <div className="container">
@@ -774,16 +391,16 @@ function CoursedetailsComponent() {
                                         return (
                                             <div class="swiper-slide ">
                                                 <div class="single-course-style-three" style={{ marginLeft: '15px' }}>
-                                                    <a href="#" class="thumbnail">
+                                                    <a href={`/coursedetails/${course.id}`} class="thumbnail">
                                                         <img src={`${REACT_APP_API_IMG}/${course.CourseUplod}`} alt="course" />
                                                         <div class="tag-thumb">
                                                             <span>{course.Category && course.Category.name}</span>
                                                         </div>
-                                                    </a>
+                                                 
                                                     <div class="body-area">
                                                         <div class="course-top">
                                                             <div class="tags">Best Seller</div>
-                                                            <div class="price">$49.50</div>
+                                                            <div class="price">{course.CoursePrice}</div>
                                                         </div>
                                                         <a href="#">
                                                             <h5 class="title">{course.name}</h5>
@@ -799,13 +416,14 @@ function CoursedetailsComponent() {
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    </a>
                                                 </div>
                                             </div>)
                                     } else {
                                         return null
                                     }
                                 })}
-                                {/* Add more slides as needed */}
+                              
                             </Slider>
 
 
