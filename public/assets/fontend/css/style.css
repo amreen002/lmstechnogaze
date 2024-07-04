@@ -20907,6 +20907,10 @@ nav ul li a {
   .why-choose-main-wrapper-1 {
     gap: 10px;
   }
+  .join_st {
+    padding: 20px 0px;
+    box-shadow: 0px 3px 6px 0px #ccc;
+}
 }
 
 .single-choose-reason-1 {
