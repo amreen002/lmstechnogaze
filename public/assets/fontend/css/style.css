@@ -1259,6 +1259,23 @@ ol ul {
     font-size: 26px;
     line-height: 30px;
   }
+  .good {
+    font-size: 16px !important;
+    font-family: "Barlow Semi Condensed", sans-serif !important;
+    font-weight: 700 !important;
+    font-style: normal !important;
+    -webkit-text-stroke: 1px #FF9E5E !important;
+    color: #ffffff !important;
+    text-transform: uppercase !important;
+}
+.join {
+  font-size: 16px !important;
+  font-family: "Barlow", sans-serif;
+  font-weight: 700 !important;
+  font-style: normal;
+  line-height: 85px;
+  padding-right: 0px !important;
+}
 }
 
 @media only screen and (max-width: 1199px) {
