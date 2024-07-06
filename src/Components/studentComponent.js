@@ -154,36 +154,42 @@ function StudentUse() {
     const fetchData3 = async (studentsId) => {
         try {
             const token = localStorage.getItem('token');
-
+            console.log('Fetching data for student ID:', studentsId);
+    
             if (token) {
                 const response = await axios.get(`${REACT_APP_API_ENDPOINT}/liststudents/${studentsId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
-
                     }
                 });
-                const userData = response.data.students;
-                setFindOneInstructor(userData)
-                setName(userData.Name)
-                setLastName(userData.LastName)
-                setEmail(userData.Email)
-                setPhoneNumber(userData.PhoneNumber)
-                setUsername(userData.Username)
-                setCountryId(userData.Address.CountryId)
-                setStateId(userData.Address.setStateId)
-                setDistrictId(userData.Address.DistrictId)
-                setAddress(userData.Address.Address)
-                setCity(userData.Address.City)
-                setDate(userData.Date)
-                setCoursesId(userData.CoursesId)
-                setBatchId(userData.BatchId)
+    
+                if (response.data && response.data.students) {
+                    const userData = response.data.students;
+                    setFindOneInstructor(userData);
+                    setName(userData.Name);
+                    setLastName(userData.LastName);
+                    setEmail(userData.Email);
+                    setPhoneNumber(userData.PhoneNumber);
+                    setUsername(userData.Username);
+                    setCountryId(userData.Address.CountryId);
+                    setStateId(userData.Address.StateId);
+                    setDistrictId(userData.Address.DistrictId);
+                    setAddress(userData.Address.Address);
+                    setCity(userData.Address && userData.Address.City);
+                    setDate(userData.Date && userData.Date);
+                    setCoursesId(userData.CoursesId);
+                    setBatchId(userData.BatchId);
+                } else {
+                    console.error('No student data found in response');
+                }
+            } else {
+                console.error('No token found');
             }
-
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
-
+    
 
 
 
@@ -305,8 +311,7 @@ function StudentUse() {
         // Clear input fields after update
 
     };
-
-console.log(CoursesId)
+console.log(Address)
     return (
         <>
             {/*     <!-- Layout wrapper --> */}
@@ -763,8 +768,7 @@ console.log(CoursesId)
                                                             onChange={(e) => setDate(e.target.value)}
                                                             value={Date} />
                                                     </div>
-
-
+                                             
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">Student Country</label>
                                                         <select

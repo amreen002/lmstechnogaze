@@ -92,51 +92,61 @@ function UserMyProfile(token) {
         setSelectedState(selectedState);
     };
 
+    const setTeacherFormData = (userData) => ({
+        name: userData?.name || '',
+        userName: userData?.userName || '',
+        email: userData?.email || '',
+        departmentId: userData?.departmentId || '',
+        phoneNumber: userData?.phoneNumber || '',
+        image: null,
+        CountryId: userData?.Address?.CountryId || '',
+        StateId: userData?.Address?.StateId || '',
+        DistrictId: userData?.Address?.DistrictId || '',
+        Address: userData?.Address?.Address || '',
+        City: userData?.Address?.City || '',
+        DOB: userData?.Teachers[0]?.DOB || '',
+        YourIntroducationAndSkills: userData?.Teachers[0]?.YourIntroducationAndSkills || '',
+        TeacherType: userData?.Teachers[0]?.TeacherType || ''
+    });
+
+    const setStudentFormData = (userData) => ({
+        name: userData?.name || '',
+        userName: userData?.userName || '',
+        email: userData?.email || '',
+        departmentId: userData?.departmentId || '',
+        phoneNumber: userData?.phoneNumber || '',
+        image: null,
+        CountryId: userData?.Address?.CountryId || '',
+        StateId: userData?.Address?.StateId || '',
+        DistrictId: userData?.Address?.DistrictId || '',
+        Address: userData?.Address?.Address || '',
+        City: userData?.Address?.City || '',
+        Date: userData?.Students[0]?.Date || '',
+        CoursesId: userData?.Students[0]?.CoursesId || '',
+        BatchId: userData?.Students[0]?.BatchId || ''
+    });
+
     const fetchData = async (usersId) => {
         try {
-            if (!usersId) {
-                console.log("userId is undefined");
-                return;
+          if (!usersId) {
+            console.log("userId is undefined");
+            return;
+          }
+            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`);
+            const userData = response.data.users;
+            setUserData(userData)
+            
+            if (userData?.departmentId === 3) {
+                setFormData(setTeacherFormData(userData));
+            } else if (userData?.departmentId === 4) {
+                setFormData(setStudentFormData(userData));
             }
-            const token = localStorage.getItem('token');
+            
 
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userData = response.data.users;
-                setUserData(userData)
-              
-                setFormData({
-                    name: userData?.name || '',
-                    userName: userData?.userName || '',
-                    email: userData?.email || '',
-                    departmentId: userData?.departmentId || '',
-                    phoneNumber: userData?.phoneNumber || '',
-                    image: null,
-                    CountryId: userData?.Address?.CountryId || '',
-                    StateId: userData?.Address?.StateId || '',
-                    DistrictId: userData?.Address?.DistrictId || '',
-                    Address: userData?.Address?.Address || '',
-                    City: userData?.Address?.City || '',
-                    Date: userData?.Students[0]?.Date|| '',
-                    CoursesId:userData?.Students[0]?.CoursesId,
-                    BatchId: userData?.Students[0]?.BatchId || '',
-                    DOB:userData?.Teachers[0]?.DOB || '',
-                    YourIntroducationAndSkills:userData?.Teachers[0]?.YourIntroducationAndSkills || '',
-                    TeacherType:userData?.Teachers[0]?.TeacherType || '',
-
-                });
-
-            }
-
-        } catch (err) {
-            console.log(err.response);
+          } catch (err) {
+            console.error('Error fetching user data:', err.response);
+          }
         }
-    }
     const fetchData1 = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -181,12 +191,7 @@ function UserMyProfile(token) {
     const fetchData3 = async () => {
         try {
       
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
                 const userDatas = response.data.courses;
                 setCourses(userDatas)
             
@@ -242,6 +247,7 @@ function UserMyProfile(token) {
 
 
     };
+    console.log(userData.id)
     return (
         <div>
             <section>
@@ -511,7 +517,7 @@ function UserMyProfile(token) {
 
                                                 </div>
                                             </div>
-                                            <div class="col-12 text-center">
+                                            <div class="col-12 text-center d-flex">
                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                             </div>

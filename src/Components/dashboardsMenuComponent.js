@@ -427,7 +427,7 @@ function DashBoardMenu(onLogout) {
                                     </Link>
                                 </li>
                                 <li className="menu-item">
-                                    <Link to="#" className="menu-link">
+                                    <Link to="/addquestions" className="menu-link">
                                         <i className='menu-icon bx bxs-add-to-queue'></i>
                                         <div data-i18n="Without menu">Add Question</div>
                                     </Link>

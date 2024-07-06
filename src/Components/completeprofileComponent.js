@@ -6,7 +6,11 @@ import { useParams } from 'react-router-dom';
 const { REACT_APP_API_ENDPOINT } = process.env;
 const CompleteProfile = () => {
 
-  const { usersId } = useParams();
+  const [roleData, setSaleTeamData] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState('');
+  const [courses, setCourses] = useState([])
+  const [batches,setBatches]= useState([])
+  const {usersId } = useParams();
   const [userData, setUserData] = useState({});
   const [countryTable, setCountryTable] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
@@ -25,7 +29,13 @@ const CompleteProfile = () => {
     CountryId: '',
     DistrictId: '',
     City: '',
-  });
+    Date: '',
+    DOB:'',
+    YourIntroducationAndSkills:'',
+    TeacherType:'',
+    CoursesId:'',
+    BatchId:''
+});
 
   useEffect(() => {
     if (usersId) {
@@ -35,6 +45,8 @@ const CompleteProfile = () => {
 
   useEffect(() => {
     fetchData1();
+    fetchData2()
+    fetchData3()
   }, []);
 
 
@@ -65,13 +77,68 @@ const CompleteProfile = () => {
 
   const fetchData1 = async () => {
     try {
-        const response = await axios.get(`${REACT_APP_API_ENDPOINT}/country`);
-        const userData = response.data.country;
-        setCountryTable(userData)
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/country`);
+      const userData = response.data.country;
+      setCountryTable(userData)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+  const fetchData2 = async () => {
+    try {
+
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
+      const userDatas = response.data.courses;
+      setCourses(userDatas)
+
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  const fetchData3 = async () => {
+    try {
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/batches`);
+      const userData = response.data.batchs;
+      setBatches(userData)
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  const setTeacherFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || '',
+    DOB: userData?.Teachers[0]?.DOB || '',
+    YourIntroducationAndSkills: userData?.Teachers[0]?.YourIntroducationAndSkills || '',
+    TeacherType: userData?.Teachers[0]?.TeacherType || ''
+  });
+
+  const setStudentFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || '',
+    Date: userData?.Students[0]?.Date || '',
+    CoursesId: userData?.Students[0]?.CoursesId || '',
+    BatchId: userData?.Students[0]?.BatchId || ''
+  });
 
   const fetchData = async (usersId) => {
     try {
@@ -79,28 +146,21 @@ const CompleteProfile = () => {
         console.log("userId is undefined");
         return;
       }
-        const response = await axios.get(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`);
-        const userData = response.data.users;
-   
-        setUserData(userData);
-        setFormData({
-          name: userData?.name || '',
-          userName: userData?.userName || '',
-          email: userData?.email || '',
-          departmentId: userData?.departmentId || '',
-          phoneNumber: userData?.phoneNumber || '',
-          image: null,
-          CountryId: userData?.Address?.CountryId || '',
-          StateId: userData?.Address?.StateId || '',
-          DistrictId: userData?.Address?.DistrictId || '',
-          Address: userData?.Address?.Address || '',
-          City: userData?.Address?.City || '',
-          AddressType: userData?.Address?.AddressType || '',
-        });
-      } catch (err) {
-        console.error('Error fetching user data:', err.response);
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`);
+      const userData = response.data.users;
+      setUserData(userData)
+
+      if (userData?.departmentId === 3) {
+        setFormData(setTeacherFormData(userData));
+      } else if (userData?.departmentId === 4) {
+        setFormData(setStudentFormData(userData));
       }
+
+
+    } catch (err) {
+      console.error('Error fetching user data:', err.response);
     }
+  }
 
 
 
@@ -249,6 +309,66 @@ const CompleteProfile = () => {
                   <input type="text" className='form-control'  name="Address" value={formData.Address} onChange={handleChange} placeholder="Address" />
                   <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                 </div>
+
+                {userData.departmentId === 4 && (
+                  <>
+                    <div class="col-12">
+                      <label class="form-label" for="add-user-contact">Student Date</label>
+                      <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
+                        onChange={handleChange}
+                        disabled="false" value={formData.Date} />
+                    </div>
+                    <div class="col-12">
+                      <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                      <select id="exampleFormControlSelect2"  class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
+                        <option value="">Select</option>
+                        {courses.map((option) => (
+                          <option key={option.id} value={option.id}>{option.name}</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div class="col-12">
+                      <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                      <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
+                        <option value="">Select</option>
+                        {batches.map(batch => (
+                          <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                        ))}
+                      </select>
+                    </div>
+                  </>
+
+                )}
+                {userData.departmentId === 3 && (<>
+                  <div class="col-12">
+                    <label class="form-label" for="add-user-email">DOB</label>
+                    <input type="date" className='form-control' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                  </div>
+                  <div class="col-12">
+                    <label for="exampleFormControlSelect2" class="form-label">Type</label>
+                    <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={formData.TeacherType} onChange={handleChange}>
+                      <option value="">Select</option>
+                      <option value="Online">Online</option>
+                      <option value="Offline">Offline</option>
+                    </select>
+                  </div>
+                  <div class="col-12">
+                    <label class="form-label" for="basic-icon-default-message">Introducation & Skills</label>
+                    <div class="input-group input-group-merge">
+
+                      <textarea
+                        id="basic-icon-default-message"
+                        class="form-control"
+                        rows="8"
+                        placeholder="Hi, Your Introducation And Skills?"
+                        aria-label="Hi, Your Introducation And Skills?"
+                        aria-describedby="basic-icon-default-message2"
+                        name="YourIntroducationAndSkills" value={formData.YourIntroducationAndSkills} onChange={handleChange}></textarea>
+                    </div>
+                  </div>
+                </>
+                )}
                 <div className='pb-3'>
                   <label>Profile</label>
                   <input

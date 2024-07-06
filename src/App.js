@@ -55,6 +55,7 @@ import {CartProvider} from './Context/CartContext';
 import CartComponent from './Components/Cart.js';
 import CheckoutPage from './Components/CheckoutComponemt.js';
 import UsersMyProfileRouter from './Routers/userprofileRouter.js'
+import AddQuestionsRouter from './Routers/addquestionsRouter.js'
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -357,6 +358,9 @@ function App() {
         <Route
           path="/user-my-profile/:usersId"
           element={loggedIn === true ? ( <UsersMyProfileRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
+        <Route
+          path="/addquestions"
+          element={loggedIn === true ? ( <AddQuestionsRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
 
       </Routes>
     </BrowserRouter>

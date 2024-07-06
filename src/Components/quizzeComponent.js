@@ -38,6 +38,8 @@ function Quizze() {
         setTotalMarks(parseInt(EasyQuestions) * 1 + parseInt(MediumQuestions) * 2 + parseInt(HardQuestions) * 4);
     }, [EasyQuestions, MediumQuestions, HardQuestions]);
 
+
+
     useEffect(() => {
         fetchData3(quizzeId)
     }, [quizzeId]);
@@ -545,7 +547,7 @@ function Quizze() {
                                                         />
 
                                                     </div>
-                                                    <div class="col-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzCategoryId" value={QuizzCategoryId} onChange={(e) => setQuizzCategoryId(e.target.value)}>
                                                             <option value="">Select</option>
@@ -554,7 +556,7 @@ function Quizze() {
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="col-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container mb-3 ">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseId" value={CourseId} onChange={(e) => setCourseId(e.target.value)}>
                                                             <option value="">Select</option>
@@ -563,7 +565,7 @@ function Quizze() {
                                                             ))}
                                                         </select>
                                                     </div>
-                                                    <div class="mb-3 d-flex mt-3">
+                                                    <div class="mb-3 d-flex mt-5">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />

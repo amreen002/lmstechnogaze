@@ -32048,9 +32048,21 @@ border-top: 1px solid #d5d5d561;
 }
 .crl{
 padding-right: 14px;
+padding-left: 0px;
   font-size: 12px;
 }
+.choose_btn{
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.chkbx{
+
+    margin-left: 63px !important;
+}
+.cstmradio{
+  margin-left: 54px !important;
+}
 .bnt i:active{
   background-color: #09A24F;
   color: #fff;
@@ -32262,7 +32274,7 @@ width: 40%;
   padding: 5px;
   cursor: pointer;
   position: relative;
-  margin-left: 120px;
+  margin-left: 95px;
 
 }
 
