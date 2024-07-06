@@ -52,23 +52,30 @@ const Home = () => {
                     <div className="col-lg-6 order-xl-1 order-lg-1 order-sm-2 order-2">
                         <div className="banner-content-one">
                             <div className={`inner pt-3 ${animate2 ? 'fade-in' : ''}`}>
-                                <div className="pre-title-banner">
-                                    <img src="assets/fontend/images/banner/bulb.png" width="22" alt="icon" />
-                                    <span className='school'>Hey there, Middle Schoolers!</span>
-                                </div>
+                            <div className="pre-title-banner sliding-text-container">
+                                
+                                
+                                <span className='school sliding-text'>Discover!</span>
+                                <span className='school sliding-text'>Blast off to success</span>
+                                <span className='school sliding-text'>Explore your LS!</span>
+                                <span className='school sliding-text'>Unlock endless possibilities!</span>
+                                
+                            </div>
                                 <h1 className="title-banner">
                                     Discover your learning <br />style,
 
                                     and <span>ace your grades!</span>
                                     <img src="assets/fontend/images/banner/02.png" alt="banner" />
                                 </h1>
-                                <p className="disc">Are you ready to embark on an exciting learning journey tailored just for you?
+                            
+                                <p className="disc">
+                                Hey there, Middle Schoolers!<br />
+Are you ready to embark on an exciting learning journey tailored just for you? 
 
-                                    Welcome to The Good Student Co., where we believe every student has the potential to shine bright like a star in the galaxy of knowledge!</p>
-                                <div className="banner-btn-author-wrapper">
-                                    <a href="course-five.html" className="rts-btn btn-primary with-arrow">View All Course <i className="fa-regular fa-arrow-right"></i></a>
+Welcome to The Good Student Co., where we believe every student has the potential to shine bright like a star in the galaxy of knowledge!
 
-                                </div>
+                                </p>
+                                    <div class="banner-btn-author-wrapper"><a href="signup" class="rts-btn btn-primary with-arrow">SignUp Now <i class="fa-regular fa-arrow-right"></i></a></div>
                             </div>
                         </div>
                     </div>
@@ -88,7 +95,7 @@ const Home = () => {
                 <div className="row align-items-center">
                     <div className='col-12 col-md-6 col-lg-6 col-xl-6'>
                         <div className="about-one-left-image">
-                            <img src="assets/fontend/images/about/6.png" alt="about" style={{ width: "25%" }} />
+                           
                             <div className="second-order pb-2">
                                 <img src="assets/fontend/images/about/5.png" alt="about" />
                                 <div className="vedio-icone">
@@ -105,7 +112,7 @@ const Home = () => {
                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 '>
                         <div className="title-area-left-style">
 
-                            <h2 className="title">Blast Off To Success</h2>
+                            <h2 className="title">Soar Off To Success</h2>
                             <hr />
                             <p className="post-title">
                                 At The Good Student Co., we don't just teach, we empower! We understand that every learner is unique, with their own special way of soaking up knowledge like a sponge. That's why we're here to help you uncover your super-powered learning style and unleash your full potential</p>
@@ -122,7 +129,7 @@ const Home = () => {
             <div className="container-fluid">
                 <div className="row align-items-center">
                     <div className="col-lg-6">
-                        <div className="why-choose-us-area-image pb--50">
+                        <div className="why-choose-us-area-image">
                             <img className="one" src="assets/fontend/images/why-choose/2.png" alt="why-choose" />
 
                             <div className="circle-animation">
@@ -142,16 +149,15 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="col-lg-6 pl--90 pl_md--15 mt_md--50 pl_sm--15 pt_sm--50">
-                        <div className="title-area-left-style mt-5">
-                            <div className="pre-title">
-                                <img src="assets/fontend/images/banner/bulb-2.png" alt="icon" />
-                                <span>Explore</span>
-                            </div>
-                            <h2 className="title">YOUR LEARNING STYLE</h2>
+                        <div className="title-area-left-style">
+                        <div class="owText" >
+                        <span class="text">Explore</span>
+                        </div>
+                            <h2 className="title2">YOUR LEARNING STYLE</h2>
                             <p className="post-title">Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who learns best by doing, touching, and moving?</p>
                             <p className='post-title'>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
                         </div>
-                        <div className="why-choose-main-wrapper-1">
+                        {/* <div className="why-choose-main-wrapper-1">
 
                             <div className="single-choose-reason-1">
                                 <div className="icon">
@@ -190,14 +196,11 @@ const Home = () => {
 
 
 
-                        </div>
+                        </div> */}
                     </div>
                 </div>
             </div>
-            <div className="shape-image">
-                <div className="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/" alt="" /></div>
-                <div className="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/16.png" alt="" /></div>
-            </div>
+          
         </div>
 
 
@@ -205,33 +208,31 @@ const Home = () => {
             <div class="container-fluid">
                 <div class="row">
 
-                    <div class="col-lg-12" >
-                        <div class="title-area-center-style who">
-                            <div class="pre-title mt--100"><img src="assets/fontend/images/banner/bulb.png" alt="icon" /><span className='exploress'>Explore</span></div>
-                            <h2 class="title ">Who Loves To Doodle Diagrams?</h2>
-                            <p class="post-title">YOUR LEARNING STYLE</p>
-                        </div>
-
-                    </div>
                 </div>
                 <div class="row">
-                    <div className='col-lg-3'></div>
-                    <div class="col-lg-6">
+                    <div class="col-lg-6 pt--160">
+                    <div class="title-area-center-style who">
+                           
+                           <h2 class="title ">UNLOCK ENDLESS POSSIBILITIES</h2>
+                          
+                       </div>
                         <div className='explore_text'>
-                            <p>Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado
-                                who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who
-                                learns best by doing, touching, and moving?</p>
-                            <p>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
+                            <p>
+                            Once we've cracked the code to your unique learning style, get ready to dive into a treasure trove of resources specially curated to suit you. From interactive games and videos to hands-on activities and personalized study plans, our platform is your one-stop shop for academic excellence!
+                            </p>
                         </div>
+                    </div>
+                    <div className='col-md-6'>
+                        <img src='assets/fontend/images/about/join.png' className='img-fluid' style={{width:'80%'}} />
                     </div>
 
                 </div>
             </div>
-            <div class="shape-image">
+            {/* <div class="shape-image">
                 <div class="shape one" data-speed="0.04" data-revert="true"><img src="assets/fontend/images/banner/15.png" alt="" /></div>
                 <div class="shape two" data-speed="0.04"><img src="assets/fontend/images/banner/shape/banner-shape0.svg" alt="" /></div>
                 <div class="shape three" data-speed="0.04"><img src="assets/fontend/images/banner/shape/categoryy.gif" alt="" /></div>
-            </div>
+            </div> */}
         </div>
 
         <div className="course-area-start pb-5">
@@ -239,13 +240,13 @@ const Home = () => {
                 <div className="row">
                     <div className="col-lg-12">
                         <div className="title-between-area">
-                            <div className="title-area-left-style">
+                            {/* <div className="title-area-left-style">
                                 <div className="pre-title">
                                     <img src="assets/fontend/images/banner/bulb.png" alt="icon" />
                                     <span>Courses Content</span>
                                 </div>
                                 <p className="post-title">You'll find something to spark your curiosity and enhance</p>
-                            </div>
+                            </div> */}
                             <div className="button-group filters-button-group">
                                 <button className="button is-checked" data-filter="*">All Courses</button>
                                 <button className="button" data-filter=".creative"> Class 6</button>

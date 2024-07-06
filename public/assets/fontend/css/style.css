@@ -1,4 +1,71 @@
 /**/
+/*explore start*/
+
+.text {
+  transform: translate(50%, -50%);
+  text-transform: uppercase;
+  font-family: verdana;
+  font-weight: 700;
+  text-shadow: 9px 0px 5px #000000;
+  color: #307fbd !important;
+  font-size: 69px !important;
+  -webkit-text-stroke: 3px #f8f1e8;
+}
+.title-area-left-style p {
+  color: #000 !important;
+  font-size: 18px;
+  line-height: 26px;
+}
+.title2 {
+  color: #3e3e3e !important;
+  font-weight: 600;
+}
+
+
+/*slide Home page section one text*/
+.sliding-text {
+  position: absolute;
+  width: 100%;
+  font-size: 2em; /* Adjust the font size as needed */
+  animation: slide 12s infinite;
+  opacity: 0;
+}
+
+.sliding-text:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.sliding-text:nth-child(2) {
+  animation-delay: 3s;
+}
+
+.sliding-text:nth-child(3) {
+  animation-delay: 6s;
+}
+
+.sliding-text:nth-child(4) {
+  animation-delay: 9s;
+}
+
+@keyframes slide {
+  0% { transform: translateX(100%); opacity: 0; }
+  10% { transform: translateX(0); opacity: 1; }
+  30% { transform: translateX(0); opacity: 1; }
+  40% { transform: translateX(-100%); opacity: 0; }
+  100% { transform: translateX(-100%); opacity: 0; }
+}
+/*End*/
+
+
+/*explore end*/
+body{
+  background-color: #fffaf2 !important;
+}
+body p {
+  font-family: "Scope One", serif;
+  font-weight: 600;
+  font-style: normal;
+}
 .cartinfo h1 {
   font-size: 20px;
   text-transform: uppercase;
@@ -545,38 +612,42 @@ section.py-5.about-fourth {
 
 /* Dropdown menu styles */
 .std-dropdown-menu {
+  display: none;
   position: absolute;
   top: 100%;
   left: 0;
-  display: none;
-  background-color: #fff;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  background-color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  min-width: 150px;
 }
 
-.dropdown:hover .std-dropdown-menu {
+.nested {
+  left: 100%;
+  top: 0;
+}
+
+.dropdown:hover > .std-dropdown-menu {
   display: block;
 }
 
-.std-dropdown-menu li {
-  list-style: none;
-}
-
-.std-dropdown-menu li a.dropdown-item {
-  color: #333;
-  text-decoration: none;
-  padding: 10px 20px;
+.dropdown-item {
   display: block;
+  width: 100%;
+  padding: 0.532rem 1.25rem;
+  clear: both;
+  color: #000000 !important;
+  text-align: inherit;
+  white-space: nowrap;
+  background-color: transparent;
+  border: 0;
+  font-weight: 600 !important;
+  font-size:14px;
 }
 
-.std-dropdown-menu li a.dropdown-item:hover {
-  background-color: #f8f8f8;
+.dropdown-item:hover {
+  background-color: #f1f1f1;
 }
-
-.std-dropdown-menu li a {
-  font-size: 14px;
-}
-
 /*========================================*/
 /* Default  */
 @import url("https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&amp;display=swap");
@@ -692,7 +763,7 @@ body {
   text-align: center;
 }
 .joingood {
-  background-color: #000000;
+  background-color: #fffaf2;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   body {
@@ -15564,7 +15635,7 @@ nav ul li a {
   display: block;
   width: 100%;
   box-shadow: none;
-  background: #ffffff;
+  background: #F8F1E8;
   z-index: 999;
   margin: auto;
   align-items: center;
@@ -15614,9 +15685,9 @@ nav ul li a {
 .main-nav-one ul li {
   position: relative;
 }
-.main-nav-one ul li > a {
+/* .main-nav-one ul li > a {
   padding: 19px 15px;
-}
+} */
 .main-nav-one ul li a.nav-link {
   color: #1F1F25;
   font-size: 16px;
@@ -20718,9 +20789,9 @@ nav ul li a {
   gap: 15px;
 }
 
-.bg-choose-us-one {
+/* .bg-choose-us-one {
   background-image: url(../images/why-choose/01.jpg);
-}
+} */
 
 .btn-primary.rts-btn.hov--white:hover {
   background: #fff !important;
@@ -32446,10 +32517,10 @@ width: 40%;
   color: #ffffff;
   text-transform: uppercase;
 }
-.bg-blue .title-area-left-style span {
+/* .bg-blue .title-area-left-style span {
     color: #fff;
     font-size: 23px !important;
-}
+} */
 .school{
 font-size: 20px !important;
 }
