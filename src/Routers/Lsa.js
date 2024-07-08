@@ -145,116 +145,57 @@ const Lsa = () => {
             </div>
       </section>
 
-      <section>
+      <section class="py-5">
         <div className='container'>
             <div className='row'>
+                <div className='col-12 col-xl-4 col-lg-4 col-md-4'>
+                    <div className='benift'>
+                     
+                      <div className='benifits'>
+                      <h2 className='benifites'>BENEFITS</h2>
+                           <ul className='list-unstyled'>
+                              <li> <span >&#128073;</span> Understanding learning style</li>
+                              <li> <span >&#128073;</span> Comprehension and analysis</li>
+                              <li><span >&#128073;</span> Mental and emotional health</li>
+                              <li><span >&#128073;</span> Self-awareness</li>
+                              <li><span >&#128073;</span> Personal management</li>
+                           </ul>
+                       </div>
+                    </div>
+                </div>
 
-<div className='col-12 col-xl-12 col-lg-12 col-md-12'>
-<div className='tab_lsa'>
-   <table className='table table-responsive text-center'>
-      <thead>
-        <tr>
-            <td><span className='benifites'>BENEFITS</span></td>
-            <td><span className='frstd'>FOR STUDENT</span></td>
-            <td><span className='forparnt'>FOR PARENTS/GUARDIANS</span></td>
-        </tr>
-      </thead>
-   </table>
-
-
-
-<div className='tab_bg'>
-<ul class="mb-3 nav nav-pills row-cols-3" id="pills-tab" role="tablist">
-  <li class="nav-item tab_one" role="presentation">
-    <a class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" 
-    role="tab" aria-controls="pills-home" aria-selected="true">BENEFITS</a>
-  </li>
-  <li class="nav-item tab_two" role="presentation">
-    <a class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" 
-    role="tab" aria-controls="pills-profile" aria-selected="false">FOR STUDENT</a>
-  </li>
-  <li class="nav-item tab_three" role="presentation">
-    <a class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" 
-    role="tab" aria-controls="pills-contact" aria-selected="false">FOR PARENTS/GUARDIANS</a>
-  </li>
+                <div className='col-12 col-xl-4 col-lg-4 col-md-4'>
+                    <div className='benift'>
+                    
+                    <div className='benifits'>
+                    <h2 className='frstd'>FOR STUDENT</h2>
+<ul className='list-unstyled'>
+    <li><span >&#128073;</span> Identifies best approach for academic success</li>
+    <li><span >&#128073;</span> <a href='' class="">Improves academic excellence</a></li>
+    <li><span >&#128073;</span> Note taking strategies for improved learning </li>
+    <li><span >&#128073;</span> Customised notes tailored to unique learning styles</li>
+    <li><span >&#128073;</span> Continuous monitoring and evaluation of performance</li>
 </ul>
-
 </div>
+                    </div>
+                </div>
 
-
-<div class="tab-content" id="pills-tabContent">
-  <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
-    <div className='row'>
-        <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-            <div className='bene'>
-              <img src='assets/fontend/images/about/3.png' className='img-fluid' />
-            </div>
-        </div>
-        <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-        <div className='benifits'>
-                           
-                            <ul className='list-unstyled pt-4'>
-                               <li> <span >&#128073;</span> Understanding learning style</li>
-                               <li> <span >&#128073;</span> Comprehension and analysis</li>
-                               <li><span >&#128073;</span> Mental and emotional health</li>
-                               <li><span >&#128073;</span> Self-awareness</li>
-                               <li><span >&#128073;</span> Personal management</li>
-                            </ul>
-                        </div>
-        </div>
-    </div>
-  </div>
-  <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-                                      <div className='row'>
-                                       
-                                              <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-                                                  <div className='benifits'>
-
-                                                      <ul className='list-unstyled pt-4'>
-                                                          <li><span >&#128073;</span> Identifies best approach for academic success</li>
-                                                          <li><span >&#128073;</span> <a href=''>Improves academic excellence</a></li>
-                                                          <li><span >&#128073;</span> Note taking strategies for improved learning </li>
-                                                          <li><span >&#128073;</span> Customised notes tailored to unique learning styles</li>
-                                                          <li><span >&#128073;</span> Continuous monitoring and evaluation of performance</li>
-                                                      </ul>
-                                                  </div>
-                                              </div>
-                                              <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-            <div className='bene'>
-              <img src='assets/fontend/images/about/4.png' className='img-fluid' />
-            </div>
-        </div>
-                                          
-
-                                      </div>
-  </div>
-  <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-  <div className='row'>
-                                        
-                                              <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-                                                  <div className='benifits'>
-
-                                                  <ul className='list-unstyled pt-4'>
-                               <li><span >&#128073;</span> Helps child excel academically and personally</li>
-                               <li><span >&#128073;</span> Enhanced comprehension and analytical abilities</li>
-                               <li><span >&#128073;</span> Better mental and emotional health</li>
-                               <li><span >&#128073;</span> Increased self awareness - “what works best for them”</li>
-                               <li><span >&#128073;</span> Enhanced personal management </li>
-                            </ul>
-                                                  </div>
-                                              
-                                             
-                                          </div>
-                                          <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-            <div className='bene'>
-              <img src='assets/fontend/images/about/4.png' className='img-fluid' />
-            </div>
-        </div>
-                                      </div>
-  </div>
+                <div className='col-12 col-xl-4 col-lg-4 col-md-4'>
+                    
+                  
+                    <div className='benifits'>
+                    <h2 className='forparnt'>FOR PARENTS/GUARDIANS</h2>
+<ul className='list-unstyled'>
+<li><span >&#128073;</span> Helps child excel academically and personally</li>
+<li><span >&#128073;</span> Enhanced comprehension and analytical abilities</li>
+<li><span >&#128073;</span> Better mental and emotional health</li>
+<li><span >&#128073;</span> Increased self awareness - “what works best for them”</li>
+<li><span >&#128073;</span> Enhanced personal management </li>
+</ul>
 </div>
-</div>
-</div>
+                  
+                </div>
+
 
           
                     

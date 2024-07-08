@@ -12,6 +12,30 @@ span.benifites {
   font-weight: 700;
   color: #000;
 }
+
+h2.benifites {
+  background-color: white;
+  padding: 12px 20px;
+  font-size: 22px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+h2.frstd {
+  background-color: white;
+  padding: 12px 20px;
+  font-size: 22px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+h2.forparnt {
+  background-color: white;
+  padding: 12px 20px;
+  font-size: 22px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
 .unloclk img {
   padding: 62px 16px;
 }
@@ -258,12 +282,18 @@ section.py-5.whatlearning {
 }
 
 .benifits {
-  padding: 72px 0px;
-  background-color: #fff;
+  background-color: #f8f1e8;
   border-radius: 8px;
-  text-align: center;
+  box-shadow: 2px 1px 3px #ccc;
+  padding: 1px 0px;
 }
-
+.benifits ul li {
+  font-size: 14px;
+  font-family: "Scope One", serif;
+  font-weight: 600;
+  font-style: normal;
+  padding: 4px 20px;
+}
 /*Lsa */
 
 .cus_head h2 {
