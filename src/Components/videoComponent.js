@@ -5,6 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+import ValidationVideo from '../validation/videovalidation'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Video() {
     const { videoId } = useParams();
@@ -146,6 +147,8 @@ function Video() {
         VideoIframe: '',
     });
 
+    const [errors ,setErrors] =useState({})
+
     const handleFileChange = (event) => {
         setSelectedFiles(event.target.files);
     };
@@ -155,6 +158,12 @@ function Video() {
             ...formData,
             [name] : value
         }));
+        const updatedFormData = { ...formData, [name]: value };
+        setFormData(updatedFormData);
+    
+        // Validate the updated form data
+        const validationErrors = ValidationVideo(updatedFormData);
+        setErrors(validationErrors);
     };
 
     const handleSubmit = async (e) => {
@@ -276,6 +285,7 @@ function Video() {
                                                                     <label class="form-label" for="add-user-fullname">Content Name</label>
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
                                                                         value={formData.Title} aria-label="John Doe" onChange={handleChange} />
+                                                                        {errors.Title && <div className='errors'>{errors.Title}</div>}
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                                 </div>
 
@@ -288,6 +298,7 @@ function Video() {
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
@@ -298,6 +309,7 @@ function Video() {
                                                                             <option key={topic.id} value={topic.id}>{topic.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.TopicId && <div className='errors'>{errors.TopicId}</div>}
                                                                 </div>
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Video</label>
@@ -311,7 +323,7 @@ function Video() {
                                                                         <option value="gallery">Video URL</option>
                                                                         <option value="upload">Choose From Gallery</option>
                                                                     </select>
-
+                                                                    {errors.videoselect && <div className='errors'>{errors.videoselect}</div>}
 
 
                                                                     {selectedvideo === 'upload' ? (<div class="mb-3">
@@ -324,6 +336,8 @@ function Video() {
                                                                             aria-describedby="inputGroupFileAddon04"
                                                                             aria-label="Upload"
                                                                             multiple onChange={handleFileChange} />
+                                                                    {errors.file && <div className='errors'>{errors.file}</div>}
+                                         
 
 
                                                                         </div>

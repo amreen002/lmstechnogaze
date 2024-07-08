@@ -78,7 +78,7 @@ function DashboardCard(token) {
                                         </div>
                                         <div className="single">
                                             <i className="fa-regular fa-video"></i>
-                                            <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Course</span>
+                                            <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Class</span>
                                         </div>
                                     </div>
                                 </div>

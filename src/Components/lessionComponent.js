@@ -5,6 +5,8 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+import ValidationLession from '../validation/lessionvalidation'
+
 const { REACT_APP_API_ENDPOINT } = process.env;
 function Topic() {
     const { lessionId } = useParams();
@@ -136,7 +138,7 @@ function Topic() {
         TopicId: "",
         LessionUpload: [],
     });
-
+    const [errors,setErrors] =useState({})
 
     const handleChange = (e) => {
         const { name,value} = e.target;
@@ -145,6 +147,12 @@ function Topic() {
             [name]: value,
 
         }));
+        const updatedFormData = { ...formData, [name]: value };
+        setFormData(updatedFormData);
+    
+        // Validate the updated form data
+        const validationErrors = ValidationLession(updatedFormData);
+        setErrors(validationErrors);
 
     };
 
@@ -282,6 +290,7 @@ function Topic() {
                                                                     <label class="form-label" for="add-user-fullname">Module Name</label>
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="Module" name='LessionTitle'
                                                                         value={formData.LessionTitle} aria-label="John Doe" onChange={handleChange} />
+                                                                        {errors.LessionTitle && <div className='errors'>{errors.LessionTitle}</div>}
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                                 </div>
 
@@ -294,6 +303,7 @@ function Topic() {
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                                 </div>
 
 
@@ -305,6 +315,7 @@ function Topic() {
                                                                             <option key={topic.id} value={topic.id}>{topic.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.TopicId && <div className='errors'>{errors.TopicId}</div>}
                                                                 </div>
 
                                                                 <div class="mb-3">
@@ -316,7 +327,10 @@ function Topic() {
                                                                             id="inputGroupFile04"
                                                                             aria-describedby="inputGroupFileAddon04"
                                                                             aria-label="Upload"
+                                                                            name="file"
                                                                             multiple onChange={handleFileChange} />
+                                                                         {errors.file && <div className='errors'>{errors.file}</div>}
+                                                                           
 
                                                                     </div>
                                                                 </div>

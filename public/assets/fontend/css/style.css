@@ -16084,7 +16084,7 @@ nav ul li a {
   display: flex;
   overflow: hidden;
   position: relative;
-  max-width: 1920px;
+
   margin: auto;
   z-index: 1;
 }
@@ -32472,8 +32472,40 @@ background-color: #fffaf2;
 
 
 }
+.profile{
+  justify-content: space-between;
+      border: 1px solid #ddd8f9;
+    background-color: #F9F8FF;
+    padding: 12px;
+}
+.my-single-portfolio-dashed{
+background-color: #F9F8FF;
+padding: 15px !important;
+margin-top: 12px;
+}
+.calender-dash-wrapper .container-calendar{
+  border: 1px solid #ddd8f9;
+}
+.day{
+  border: 1px solid #ddd8f9;
+  background-color: #F9F8FF;
+}
+.paswrd{
+  position: relative;
+}
+.paswrd i{
+  position: absolute;
+  top: 63%;
+  right: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
-
+.errors {
+  border-radius: 4px !important;
+  color: #ea868f !important;
+  display: inline-block !important;
+}
 /* About css */
 .unorderlist li{
   font-size: 16px !important;

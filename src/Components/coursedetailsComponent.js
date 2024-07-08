@@ -404,9 +404,9 @@ function CoursedetailsComponent() {
                                         {/* <!-- course content accordion area end --> */}
                                     </div>
                                 </div>
-                              
+   
                             </div>
-                         
+                          
                         </div>
                         <div className="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  rts-sticky-column-item">
                             {/* <!-- right- sticky bar area --> */}
@@ -416,7 +416,6 @@ function CoursedetailsComponent() {
 
                                     <div className="thumbnail">
                                         <img src={`${REACT_APP_API_IMG}/${CoureseFindOne.CourseUplod}`} alt="course" />
-                                     
                                     </div>
 
                                     <div className="price-area">
