@@ -15221,7 +15221,7 @@ xclip
   padding-right: 15px;
   position: relative;
 }
-.header-right-area-one .actions-area .search-btn::after {
+/* .header-right-area-one .actions-area .search-btn::after {
   content: "";
   position: absolute;
   width: 1px;
@@ -15231,7 +15231,7 @@ xclip
   right: 0;
   transform: translateY(-50%);
   opacity: 0.5;
-}
+} */
 .header-right-area-one .actions-area .search-btn i {
   color: #000;
 }
