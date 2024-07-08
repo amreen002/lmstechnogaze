@@ -356,12 +356,15 @@ Welcome to The Good Student Co., where we believe every student has the potentia
 
                                 <div className='join_text'>
                                     <h4>
-                                        <span >&#9997; <a href="signup"> Ready to join </a> </span><span>&#128072;</span> the ranks of the next generation of super scholars? </h4>
+                                        Ready to join the ranks of the next generation of super scholars? </h4>
 
-                                    <p>Sign up now and become part of our vibrant community of learners! With regular challenges, contests, and rewards, there's never a dull moment at
-
-                                        The Good Student Co.
+                                    <p> <a href="signup">Sign up now</a> and become part of our vibrant community of learners! With regular challenges, contests, and rewards, there's never a dull moment at
                                     </p>
+                                    <span className='company'>
+                                    The Good Student Co.
+                                    </span>
+                                       
+                                    
                                 </div>
                             </div>
 
@@ -415,7 +418,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                     <div className='uncl'>
                                         <div class="title-area-center-style">
                                             <div class="pre-title mr--90">
-                                                <img src="assets/fontend/images/banner/bulb.png" alt="icon" />
+                                              
                                                 <span className='exploress'>UNLOCK ENDLESS POSSIBILITIES</span>
                                             </div>
 
@@ -445,12 +448,12 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                             <div class="title-area-center-style">
 
 <p class="post-title">
-<span style={{color:'#000'}}>&#128073;</span> At The Good Student Co., we're not just about grades – we're about nurturing a lifelong love for learning.
+ At The Good Student Co., we're not just about grades – we're about nurturing a lifelong love for learning.
 </p>
 <p class="post-title">
-<span style={{color:'#000'}}>&#128073;</span> So come on, grab your backpack and join us on an adventure through the fascinating world of knowledge. </p>
+ So come on, grab your backpack and join us on an adventure through the fascinating world of knowledge. </p>
 <p class="post-title">
-<span style={{color:'#000'}}>&#128073;</span> Together, let's unlock the secrets of the universe and become the best versions of ourselves!
+ Together, let's unlock the secrets of the universe and become the best versions of ourselves!
 </p>
 </div>
 

@@ -135,8 +135,8 @@ span.p_cunt {
 }
 
 .lsa_bx {
-  background-color: #000;
-  color: #fff;
+  background-color: #f8f1e8;
+  color: #000;
   padding: 40px 36px 87px 40px;
   margin-top: 56px;
   margin-left: -56px;
@@ -147,7 +147,7 @@ span.p_cunt {
 }
 
 .about_head h1 {
-  color: #fff !important;
+  color: #000 !important;
   font-size: 28px;
   font-weight: 600;
   padding-top: 5px;
@@ -157,9 +157,7 @@ span.p_cunt {
   font-size: 16px;
   font-weight: 600;
 }
-.about_cnt p {
-  color: #fff;
-}
+
 .custom_lsa {
   background-color: #fffbf2 !important;
   color: #000 !important;
@@ -209,7 +207,7 @@ section.py-5.whatlearning {
   font-size: 75px !important;
 }
 .about_last h3 {
-  font-size: 85px !important;
+  font-size: 64px !important;
   text-align: center;
   font-weight: 100 !important;
   font-family: cursive;
@@ -439,7 +437,6 @@ section.py-5.about-fourth {
   margin-bottom: 8px;
   font-weight: 700;
   letter-spacing: .9px;
-  color: #fff !important;
 }
 .headtwo h2 {
   font-size: 36px;
@@ -448,9 +445,7 @@ section.py-5.about-fourth {
   letter-spacing: .9px;
   color: #000000;
 }
-.perathree p {
-  color: #fff;
-}
+
 
 .bx_img img {
   margin-top: -102px;
@@ -461,7 +456,7 @@ section.py-5.about-fourth {
                                 background-color: #fff;
                             }
                             span.whyy {
-                              font-size: 19px;
+                              font-size: 21px;
                               font-weight: 700;
                               color: #000;
                           }
@@ -522,7 +517,6 @@ section.py-5.about-fourth {
 
 .box_one {
   box-shadow: 0px 4px 5px 2px #d4d4d4cc;
-  background-color: #54428a;
   border-top-right-radius: 214px;
   /* text-align: center; */
   padding: 66px 337px 37px 40px;
@@ -540,7 +534,7 @@ section.py-5.about-fourth {
 
 .box_three {
   box-shadow: 0px 4px 5px 2px #d4d4d4cc;
-  background-color: #bb6609;
+
   border-top-left-radius: 214px;
   /* text-align: center; */
   padding: 66px 200px 35px 70px;
@@ -549,15 +543,12 @@ section.py-5.about-fourth {
 .cnthre {
   padding: 13px 70px;
 }
-.peraone p {
-  color: #fff;
-}
+
 .headthree h2 {
   font-size: 36px;
   margin-bottom: 0;
   font-weight: 700;
   letter-spacing: .9px;
-  color: #ffffff !important;
 }
 @keyframes bounceLeft {
   0%, 20%, 50%, 80%, 100% {
@@ -592,16 +583,13 @@ section.py-5.about-fourth {
   border-radius: 10px;
   padding: 30px 35px;
   text-align: justify;
-  background-color: #161202;
 }
 .abt_cnt h2 {
-  color: #fff !important;
   font-weight: 500;
   text-transform: uppercase;
 }
 
 .abt_cnt p {
-  color: #fff;
   font-size: 16px;
 }
 
@@ -771,8 +759,7 @@ body {
   }
 
   .lsa_bx {
-    background-color: #000;
-    color: #fff;
+    color: #000 !important;
     padding: 30px 35px 30px 40px;
     margin-top: -44px;
     margin-left: -56px;
@@ -783,7 +770,6 @@ body {
 }
 .lsa_bx2 {
   background-color: #fff4c7;
-  color: #fff;
   padding: 35px 20px 17px 30px;
   margin-top: -48px;
   border-top-right-radius: 8px;
@@ -792,6 +778,9 @@ body {
   border-bottom-left-radius: 8px;
   margin-right: -60px;
   position: relative;
+}
+.lsabx{
+  color: #000;
 }
 
 }
@@ -32558,6 +32547,38 @@ background-color: #fffaf2;
 .unorderlist li{
   font-size: 16px !important;
 }
+
+.company {
+  font-family: "Scope One", serif;
+  font-weight: 400;
+  color: #000;
+}
+.wrapper-list li a{
+  font-family: "Scope One", serif;
+
+}
+.qucik{
+  font-size: 18px;
+}
+.new{
+  font-family: "Scope One", serif;
+}
+
+@media  (min-width: 480px) and (max-width: 570px){
+
+  .join_st{
+    padding: 10px !important;
+  }
+  .good {
+    font-size: 25px;
+    -webkit-text-stroke: 1px #FF9E5E;
+}
+.join {
+  font-size: 22.3px;
+ 
+}
+
+}
 @media (min-width: 570px) and (max-width:991px){
 .unlock img{
   width: 12% ;
@@ -32572,8 +32593,15 @@ background-color: #fffaf2;
 .sun1 img{
 width: 15% !important;
 }
+.join_st{
+  padding: 20px !important;
+}
 .good {
-  font-size: 47.9px;
+  font-size: 30.9px;
+  -webkit-text-stroke: 1px #FF9E5E;
+}
+.join {
+  font-size: 16.3px;
 }
 }
 
@@ -32584,6 +32612,14 @@ width: 15% !important;
     font-weight: 600;
     width: 100px;
   }
+  .join_st{
+    padding:20px !important
+  }
+  .good {
+    font-size: 58.9px;}
+    
+.join {
+  font-size: 28.3px;}
 
   nav ul {
     display: -webkit-inline-box;
@@ -32642,7 +32678,22 @@ font-size: 18px;
 }
 .unlock img{
   width: 12% ;
-
+}
+.lsa_img2 {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 81px 100px;
 }
 
 }
+@media  (min-width: 1040px) and (max-width: 1440px){
+  .join_st{
+    padding:20px !important
+  }
+  .good {
+    font-size: 58.9px;}
+    
+.join {
+  font-size: 28.3px;}  
+}
+

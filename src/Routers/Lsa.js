@@ -59,11 +59,11 @@ const Lsa = () => {
                     </div>
                 </div>
                  <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
-                    <div className={`lsa_bx  ${animate1 ? 'bounce-in-right' : ''}`}>
-                              <div className='about_head'>
-                                <span>Learning Style Assesments</span>
+                    <div className='bounce-in-right '>
+                              <div className='about_head lsa_bx'>
+                              
                                   <h1>UNDERSTANDING LEARNING STYLES</h1>
-                              </div>
+                              
                               <div className='about_cnt'>
                                   <p>
                                       Learning styles are the unique ways in which individuals engage with learning. </p>
@@ -76,7 +76,8 @@ const Lsa = () => {
                                       learning style is key to optimizing your educational experience.
 
                                   </p>
-                                  <a href="signup" className='btn btn-primary custom_lsa'>Ready to Join</a>
+                                  <a href="signup" className='btn btn-primary custom_lsa'>Know your learning style now</a>
+                              </div>
                               </div>
                     </div>
                   
@@ -92,7 +93,7 @@ const Lsa = () => {
                       <div className='col-12 col-xl-5 col-lg-5 col-md-5'>
                           <div className='lsa_bx2'>
                               <div className='about_hd'>
-                                <span>WHY LSA</span>
+                            
                                   <h1>
                                       WHY LEARNING STYLE MATTERS?
                                   </h1>
@@ -128,18 +129,18 @@ const Lsa = () => {
         </div>
       </section>
 
-      <section className='pt--155 pb--155 whatlearning'  >
+      <section className='py-5  whatlearning'  >
             <div className='container'>
                 <div className='row'>
-                   <div className='col-12 col-xl-2 col-lg-2 col-md-2'></div>
-                    <div className='col-12 col-xl-8 col-lg-8 col-md-8'>
+                   
+                    <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                         <div className={`about_last ${animate3 ? 'bounce-down' : ''}`}>
                             <h3>
                                 What Learning Style Assessment Offers You?
                             </h3>
                         </div>
                     </div>
-                    <div className='col-12 col-xl-2 col-lg-2 col-md-2'></div>
+                  
                 </div>
             </div>
       </section>
