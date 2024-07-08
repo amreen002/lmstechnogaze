@@ -52,7 +52,7 @@ const About = () => {
           <section class="cmpny">
               <div class="container">
                   <div class="row" >
-                      <div className="col-12 col-xl-6 col-lg-6 col-md-6">
+                      <div className="col-12 col-xl-8 col-lg-8 col-md-8">
                          <div className={` content ${animate1 ? 'bounce-in-right' : ''}`}>
                          <div class="section-sub-head dd">
                                  
@@ -94,9 +94,9 @@ child's needs. Our platform assesses their learning style and offers customised 
 
                           </div>
                       </div>
-                      <div className={`col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1 ${animate3 ? 'bounce-down' : ''}`}>
+                      <div className={`col-lg-4 order--xl-2 order-lg-2 order-sm-1 order-1 ${animate3 ? 'bounce-down' : ''}`}>
                           <div className="banner-right-img">
-                              <img src="assets/fontend/images/about/join.png" alt="banner" />
+                              <img src="assets/fontend/images/about/11.png" alt="banner" />
                           </div>
                       </div>
                      
@@ -107,9 +107,10 @@ child's needs. Our platform assesses their learning style and offers customised 
 <section className='py-5 cust_aboutbox'>
     <div className="container">
         <div className='row'>
-            <div className='col-12 col-xl-12 col-lg-12 col-md-12 box_one mt--40'>
+            <div className='col-12 col-xl-12 col-lg-12 col-md-12 box_one'>
                 <div className='row'>
-                              <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
+               
+                              <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                                   <div className={` cntt content ${animate1 ? 'bounce-in-right' : ''}`}>
 
                                       <div class="section-sub-head headone">
@@ -128,23 +129,15 @@ child's needs. Our platform assesses their learning style and offers customised 
 
                                   </div>
                               </div>
-                          <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
-                            <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/3.png" className='img-fluid' />
-                            </div>
-                          </div>
+                              
                 </div>
                 
             </div>
 
-            <div className='col-12 col-xl-12 col-lg-12 col-md-12 box_two mt--40'>
+            <div className='col-12 col-xl-12 col-lg-12 col-md-12 box_two mt--20'>
                 <div className='row'>
-                 <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
-                 <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/5.png" className='img-fluid' />
-                            </div>
-                 </div>
-                 <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
+                 
+                 <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                  <div className= {` content cnty ${animate4 ? 'bounce-left' : ''}`}>
                
                <div class="section-sub-head headtwo">
@@ -166,9 +159,9 @@ child's needs. Our platform assesses their learning style and offers customised 
                
             </div>
 
-            <div className='col-12 col-xl-12 col-lg-12 col-md-12  box_three mt--40'>
+            <div className='col-12 col-xl-12 col-lg-12 col-md-12  box_three mt--20'>
                 <div className='row'>
-                              <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
+                              <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                                   <div className={`cnthre content ${animate1 ? 'bounce-in-right' : ''}`}>
 
                                       <div class="section-sub-head headthree">
@@ -186,11 +179,7 @@ child's needs. Our platform assesses their learning style and offers customised 
 
                                   </div>
                               </div>
-                              <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
-                              <div className= {`bx_img ${animate3 ? 'bounce-down' : ''}`}>
-                                <img src="assets/fontend/images/about/4.png" className='img-fluid' />
-                            </div>
-                              </div>
+                             
                 </div>
                
             </div>

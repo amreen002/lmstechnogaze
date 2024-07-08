@@ -1,6 +1,26 @@
 /**/
 /*explore start*/
-
+span.benifites {
+  font-weight: 700;
+  color: #000;
+}
+.frstd{
+  font-weight: 700;
+  color: #000;
+}
+.forparnt{
+  font-weight: 700;
+  color: #000;
+}
+.unloclk img {
+  padding: 62px 16px;
+}
+.student_parent_img img {
+  padding: 45px 0px;
+}
+.uncl {
+  padding-top: 23px;
+}
 .text {
   transform: translate(50%, -50%);
   text-transform: uppercase;
@@ -210,7 +230,6 @@ section.py-5.whatlearning {
   font-size: 64px !important;
   text-align: center;
   font-weight: 100 !important;
-  font-family: cursive;
   color: #000 !important;
 }
 .whatlearning {
@@ -287,8 +306,8 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   color: #000000 !important;
 }
 .shape.two.sun1 img {
-  width: 70%;
-  margin: 39px 52px;
+  width: 30%;
+ padding-top:8px;
 }
 .uncld {
   box-shadow: 0px 0px 4px 0px #ccc;
@@ -297,9 +316,7 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   border-top-right-radius: 295px;
   border-bottom-left-radius: 340px;
 }
-.uncl {
-  padding: 80px 36px;
-}
+
 .unclde{
   box-shadow: 0px 0px 4px 0px #ccc;
   background-color: #fff;
@@ -452,11 +469,11 @@ section.py-5.about-fourth {
   float: right;
   margin-right: 43px;
 }
-                              .cmpny {
-                                background-color: #fff;
-                            }
+.cmpny {
+  background-color: #fffcf8;
+}
                             span.whyy {
-                              font-size: 21px;
+                              font-size: 30px;
                               font-weight: 700;
                               color: #000;
                           }
@@ -515,33 +532,32 @@ section.py-5.about-fourth {
   }
 
 
-.box_one {
-  box-shadow: 0px 4px 5px 2px #d4d4d4cc;
-  border-top-right-radius: 214px;
-  /* text-align: center; */
-  padding: 66px 337px 37px 40px;
-  border: 1px solid #31040240;
+  .box_one {
+    box-shadow: 0px 4px 5px 2px #d4d4d4cc;
+    border-top-right-radius: 214px;
+    text-align: left;
+    padding: 20px 0px;
+    border: 1px solid #e7e7e7;
+    background-color: #f8f1e8;
 }
 .box_two {
   box-shadow: 0px 4px 5px 2px #d4d4d4cc;
   background-color: #fff;
-  /* text-align: center; */
-  padding: 66px 60px 44px 337px;
+   text-align: right; 
+   padding: 20px 0px;
   border: 1px solid #31040240;
-  text-align: left;
+  
   border-radius: 8px;
 }
 
 .box_three {
   box-shadow: 0px 4px 5px 2px #d4d4d4cc;
-
   border-top-left-radius: 214px;
-  /* text-align: center; */
-  padding: 66px 200px 35px 70px;
+  padding: 32px 0px;
   border: 1px solid #31040240;
 }
 .cnthre {
-  padding: 13px 70px;
+  padding: 15px 108px;
 }
 
 .headthree h2 {
@@ -566,10 +582,11 @@ section.py-5.about-fourth {
   animation: bounceLeft 2s ease-in-out;
 }
 .cntt {
-  padding: 2px 50px;
+  padding: 10px 108px;
 }
 .cnty {
-  padding: 0px 80px 0px 0px;
+  padding: 0px 108px 0px 108px;
+ 
 }
 
 .invest{
@@ -1208,12 +1225,10 @@ ol ul {
   margin-top: 15px;
   margin: 5px 8px !important;
 }
-.unloclk img {
-  margin: 55px 0px;
-}
+
 .shape.two.sun1 img {
-  width: 100%;
-  margin: 82px 4px;
+  width: 66%;
+  margin: 20px 4px;
 }
 .unclde {
   box-shadow: 0px 0px 4px 0px #ccc;
@@ -1221,7 +1236,7 @@ ol ul {
   padding: 0px 139px !important;
   border-top-left-radius: 295px;
   border-bottom-right-radius: 340px;
-  margin-top: 25px;
+  margin-top: 25px !important;
 }
 
 }
@@ -25903,9 +25918,8 @@ edit .quantity-edit button {
 }
 
 .bg-light-1 {
-  background: #ffffff;
+  background: #F8F1E8;
 }
-
 .section-title-w-style-center {
   text-align: center;
 }
@@ -32712,9 +32726,9 @@ font-size: 18px;
 .second-order img{
   width: 70% !important;
 }
-.pre-title span{
+.pre-title span {
   font-size: 19px;
-
+  font-weight: 600 !important;
 }
 .btns {
   

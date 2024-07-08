@@ -151,6 +151,18 @@ const Lsa = () => {
 
 <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
 <div className='tab_lsa'>
+   <table className='table table-responsive text-center'>
+      <thead>
+        <tr>
+            <td><span className='benifites'>BENEFITS</span></td>
+            <td><span className='frstd'>FOR STUDENT</span></td>
+            <td><span className='forparnt'>FOR PARENTS/GUARDIANS</span></td>
+        </tr>
+      </thead>
+   </table>
+
+
+
 <div className='tab_bg'>
 <ul class="mb-3 nav nav-pills row-cols-3" id="pills-tab" role="tablist">
   <li class="nav-item tab_one" role="presentation">
