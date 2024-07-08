@@ -1,4 +1,41 @@
 /**/
+.cartinfo h1 {
+  font-size: 20px;
+  text-transform: uppercase;
+}
+
+.cartinfo {
+  background-color: #fff;
+  padding: 16px 20px;
+}
+.cartinfo h1 {
+  font-size: 20px;
+  text-transform: uppercase;
+  background-color: #6e80ff;
+  padding: 12px 15px;
+  color: #fff !important;
+  margin: -16px -20px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+}
+
+.ttl_amt h2 {
+  font-size: 16px;
+  text-align: right;
+  font-weight: 600;
+}
+.ttl_amt h2 i {
+ 
+  color: green !important;
+}
+
+.ttl_amt h2 span {
+  font-size: 22px;
+  text-align: right;
+  color: green !important;
+}
+
+
 .view_details {
   color: #fff;
 }
@@ -20037,10 +20074,11 @@ nav ul li a {
 }
 
 .single-course-style-three {
-  padding: 24px;
+  padding: 21px 22px;
   border-radius: 6px;
-  border: 1px solid #DDD8F9;
+  border: 1px solid #4f4f4f;
   position: relative;
+  background-color: #fff;
 }
 .single-course-style-three:hover .thumbnail img {
   transform: scale(1.1);
@@ -25108,6 +25146,7 @@ input[type=checkbox]:checked ~ label::after, input[type=radio]:checked ~ label::
   -webkit-transition: all 500ms ease;
   transition: all 500ms ease;
   z-index: 1000;
+  overflow-y: scroll;
 }
 @media only screen and (max-width: 767px) {
   .cart-bar {
@@ -25212,7 +25251,7 @@ input[type=checkbox]:checked ~ label::after, input[type=radio]:checked ~ label::
 
 .cart-bar .product-detail .product-thumb {
   margin-right: 15px;
-  max-width: 75px;
+  max-width: 185px;
 }
 
 .cart-bar .cart-edit .quantity-edit {
@@ -25277,7 +25316,7 @@ edit .quantity-edit button {
 
 .cart-bar .cart-edit .quantity-edit input {
   text-align: center;
-  max-width: 26px;
+  max-width: 52px;
   padding: 0;
 }
 
@@ -26313,7 +26352,7 @@ edit .quantity-edit button {
   border: 1px solid #DDD8F9;
 }
 .course-content-wrapper-main .accordion .accordion-item .accordion-body {
-  padding: 20px;
+  padding: 6px 27px;
 }
 .course-content-wrapper-main .accordion .accordion-item .accordion-body .play-vedio-wrapper {
   display: flex;
@@ -26328,9 +26367,14 @@ edit .quantity-edit button {
   color: #553CDF;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
   line-height: 26px;
-  text-decoration-line: underline;
+  padding: 0px 8px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.single-include span {
+  padding: 0px 6px;
 }
 .course-content-wrapper-main .accordion .accordion-item .accordion-body .play-vedio-wrapper .right .play {
   color: #553CDF;
@@ -32004,9 +32048,21 @@ border-top: 1px solid #d5d5d561;
 }
 .crl{
 padding-right: 14px;
+padding-left: 0px;
   font-size: 12px;
 }
+.choose_btn{
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.chkbx{
+
+    margin-left: 63px !important;
+}
+.cstmradio{
+  margin-left: 54px !important;
+}
 .bnt i:active{
   background-color: #09A24F;
   color: #fff;
@@ -32218,7 +32274,7 @@ width: 40%;
   padding: 5px;
   cursor: pointer;
   position: relative;
-  margin-left: 120px;
+  margin-left: 95px;
 
 }
 

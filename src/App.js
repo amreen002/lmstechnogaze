@@ -51,10 +51,11 @@ import StudentAddquestionRouter  from  './Routers/studentquizattemptRouter.js'
 import SignupRouter from './Routers/signupRouter.js';
 import Lsa from './Routers/Lsa.js';
 
-import { CartProvider } from './Context/CartContext.js';
+import {CartProvider} from './Context/CartContext';
 import CartComponent from './Components/Cart.js';
 import CheckoutPage from './Components/CheckoutComponemt.js';
 import UsersMyProfileRouter from './Routers/userprofileRouter.js'
+
 import StudentwishlistRouter from './Routers/studenwishlistRouter.js';
 import CalenderRouter from './Routers/calenderRouter.js'
 import AssignmentRouter from './Routers/assignmentRouter.js'
@@ -63,6 +64,8 @@ import StudentsettingRouters from './Routers/studentsettingRouter.js'
 import AssignmentdetailRouter from './Routers/assignmentdetailRouter.js'
 import AnnouncementdetailRouter from './Routers/announcmentdetailRouter.js'
 import StudentaddreviewRouter from './Routers/studentaddreviewRouter.js'
+import AddQuestionsRouter from './Routers/addquestionsRouter.js'
+
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -123,7 +126,7 @@ function App() {
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
         <Route path="/cart" element={<CartComponent />} />
-        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/checkout" element={<CheckoutPage />} />
         <Route path="/login" element={<Login onLogin={handleLogin} />} />
 
         <Route
@@ -365,6 +368,9 @@ function App() {
         <Route
           path="/user-my-profile/:usersId"
           element={loggedIn === true ? ( <UsersMyProfileRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
+        <Route
+          path="/addquestions"
+          element={loggedIn === true ? ( <AddQuestionsRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
 
           <Route
             path="/studentwishlist"
