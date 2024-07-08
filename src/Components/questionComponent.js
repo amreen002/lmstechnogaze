@@ -4,7 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
+import ValidationaddQuestion from '../validation/addquestionValidation'
+const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function Questions() {
 
@@ -172,6 +173,60 @@ function Questions() {
             console.error('Error fetching data:', error);
         }
     };
+
+    const[errors,setErrors]=useState({})
+
+    const formData = {
+        Questions,
+        Type,
+        CategoryId,
+        QuizzeId,
+        Options1,
+        Options2,
+        Options3,
+        Options4,
+        Answer,
+
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationaddQuestion(updatedFormData);
+        setErrors(validationErrors);
+        setQuestions(updatedFormData.Questions || '');
+        setType(updatedFormData.Type || '');
+        setCategoryId(updatedFormData.CategoryId || '');
+        setQuizzeId(updatedFormData.QuizzeId || '');
+        setOptions1(updatedFormData.Options1 || '');
+        setOptions2(updatedFormData.Options2 || '');
+        setOptions3(updatedFormData.Options3 || '');
+        setOptions4(updatedFormData.Options4 || '');
+        setAnswer(updatedFormData.Answer || '');
+      
+    }
+
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        try {
+           
+
+            const token = localStorage.getItem('token');
+            if (token) {
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/question`, formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                window.location.href = "/question";
+                alert('Quizze SuccessFully Create');
+            }
+        } catch (error) {
+            alert('Failed to send message.');
+        }
+    };
+
     const handleDelete = async (questionId) => {
         try {
             const token = localStorage.getItem('token');
@@ -425,6 +480,108 @@ function Questions() {
                                                 </tbody>
                                             </table>
                                             <div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 50 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                                    </div>
+
+
+                                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
+                                        <div class="offcanvas-header">
+                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Question</h5>
+                                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                        </div>
+                                        <div class="offcanvas-body mx-0 flex-grow-0">
+                                            <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
+                                                <div class="card-body row">
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user-fullname">Questions</label>
+                                                        <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Questions'
+                                                            onChange={handleChange}
+                                                            value={Questions} />
+                                                            {errors.Questions &&<div className='errors'>{errors.Questions}</div>}
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+
+                                                    <div class="mb-3">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Type" value={Type} onChange={handleChange}>
+                                                            <option value="">Select</option>
+                                                            <option value="Easy">Easy</option>
+                                                            <option value="Medium">Medium</option>
+                                                            <option value="Hard">Hard</option>
+                                                        </select>
+                                                        {errors.Type &&<div className='errors'>{errors.Type}</div>}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user">Options 1</label>
+                                                        <input type="text" id="add-user" class="form-control" placeholder="Options 1" name="Options1"
+                                                            onChange={handleChange}
+                                                            value={Options1} />
+                                                               {errors.Options1 &&<div className='errors'>{errors.Options1}</div>}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user">Options 2</label>
+                                                        <input type="text" id="add-user" class="form-control" placeholder="Options 2" name="Options2"
+                                                            onChange={handleChange}
+                                                            value={Options2} />
+                                                               {errors.Options2 &&<div className='errors'>{errors.Options2}</div>}
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user">Options 3</label>
+                                                        <input type="text" id="add-user" class="form-control" placeholder="Options 3" name="Options3"
+                                                            onChange={handleChange}
+                                                            value={Options3} />
+                                                               {errors.Options3 &&<div className='errors'>{errors.Options3}</div>}
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user">Options 4</label>
+                                                        <input type="text" id="add-user" class="form-control" placeholder="Options 4" name="Options4"
+                                                            onChange={handleChange}
+                                                            value={Options4} />
+                                                               {errors.Options4 &&<div className='errors'>{errors.Options4}</div>}
+                                                    </div>
+                                                    <div class="mb-3">
+                                                        <label class="form-label" for="add-user">Answer</label>
+                                                        <input type="text" id="add-user" class="form-control" placeholder="Answer" name="Answer"
+                                                            onChange={handleChange}
+                                                            value={Answer} />
+                                                               {errors.Answer &&<div className='errors'>{errors.Answer}</div>}
+                                                    </div>
+
+                                                    <div class="col-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Quizze</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzeId" value={QuizzeId} onChange={handleChange}>
+                                                            <option value="">Select</option>
+                                                            {quizze.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.id} {option.QuizzName}</option>
+                                                            ))}
+                                                        </select>
+                                                        {errors.QuizzeId &&<div className='errors'>{errors.QuizzeId}</div>}
+                                                    </div>
+                                                    <div class="col-6 fv-plugins-icon-container">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Questions Category</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CategoryId" value={CategoryId} onChange={handleChange}>
+                                                            <option value="">Select</option>
+                                                            {category.map((option) => (
+                                                                <option key={option.id} value={option.id}>{option.name}</option>
+                                                            ))}
+                                                        </select>
+                                                        {errors.CategoryId &&<div className='errors'>{errors.CategoryId}</div>}
+                                                    </div>
+                                                    <div class="mb-3 d-flex">
+                                                        <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                        <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                        <input type="hidden" />
+                                                    </div>
+
+
+
+                                                </div>
+                                                {message && <p style={{ color: 'green' }}>{message}</p>}
+                                                {error && <p style={{ color: 'red' }}>{error}</p>}
+                                            </form>
+                                        </div>
                                     </div>
 
                                 </div>

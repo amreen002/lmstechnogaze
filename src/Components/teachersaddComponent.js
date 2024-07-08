@@ -14,7 +14,7 @@ function ListUse() {
     const [Email, setEmail] = useState('');
     const [DOB, setDOB] = useState('');
     const [PhoneNumber, setPhoneNumber] = useState('');
-    const [Password, setPassword] = useState("Abc@123");
+    const [Password, setPassword] = useState("");
     const [StateId, setStateId] = useState('')
     const [CountryId, setCountryId] = useState('')
     const [Address, setAddress] = useState('')
@@ -90,17 +90,24 @@ function ListUse() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        const updatedFormData = {...formData,[name]:value };
-      if (updatedFormData) {
-            setName(updatedFormData.Name)
-            setLastName(updatedFormData.LastName)
-            setEmail(updatedFormData.Email)
-        }else{
-            console.log(updatedFormData)
-            const validationErrors = ValidateCreate(updatedFormData);
-            setErrors(validationErrors);
-        } 
-      };
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidateCreate(updatedFormData);
+        setErrors(validationErrors);
+        setName(updatedFormData.Name || '');
+        setLastName(updatedFormData.LastName || '');
+        setEmail(updatedFormData.Email || '');
+        setPhoneNumber(updatedFormData.PhoneNumber || '');
+        setUsername(updatedFormData.Username || '');
+        setPassword(updatedFormData.Password || '');
+        setDOB(updatedFormData.DOB || '');
+        setTeacherType(updatedFormData.TeacherType || '');
+        setCountryId(updatedFormData.CountryId || '');
+        setStateId(updatedFormData.StateId || '');
+        setDistrictId(updatedFormData.DistrictId || '');
+        setAddress(updatedFormData.Address || '');
+        setCity(updatedFormData.City || '');
+        setYourIntroducationAndSkills(updatedFormData.YourIntroducationAndSkills || '');
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -122,7 +129,11 @@ function ListUse() {
         }
     };
 
+    const [show, setShow] = useState(false)
 
+    const handleshow=()=>{
+      setShow(show ? false : true)
+    }
 
     //Dropdown Navigation
 
@@ -270,20 +281,22 @@ function ListUse() {
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                             <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user-contact">Contact</label>
-                                                            <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
+                                                            <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                                 onChange={handleChange}
                                                                 value={PhoneNumber} />
+                                                                 {errors.PhoneNumber && <span style={{ color: 'red' }}>{errors.PhoneNumber}</span>}
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
                                                             <label class="form-label" for="add-user">User Name</label>
                                                             <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                                 onChange={handleChange}
                                                                 value={Username} />
+                                                                 {errors.Username && <span style={{ color: 'red' }}>{errors.Username}</span>}
                                                         </div>
-                                                        <div class="col-lg-6 p-t-20">
+                                                        <div class="col-lg-6 p-t-20 paswrd">
 
                                                             <label class="form-label" for="basic-icon-default-password">Password</label>
-                                                            <input type="Password"
+                                                            <input  type={show ? "text" : "password"} 
                                                                 onChange={handleChange}
                                                                 name='Password'
                                                                 value={Password}
@@ -291,6 +304,8 @@ function ListUse() {
                                                                 id="basic-default-password12"
                                                                 placeholder="Abc@123"
                                                             />
+                                                               <i className={`far ${show ? 'fa-eye' : 'fa-eye-slash'}`} onClick={handleshow}></i>
+                                                             {errors.Password && <span style={{ color: 'red' }}>{errors.Password}</span>}
 
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
@@ -304,6 +319,7 @@ function ListUse() {
                                                                 id="basic-default-DOB"
                                                                 placeholder="DOB"
                                                                 aria-describedby="basic-default-DOB" />
+                                                                 {errors.DOB && <span style={{ color: 'red' }}>{errors.DOB}</span>}
 
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
@@ -313,6 +329,7 @@ function ListUse() {
                                                                 <option value="Online">Online</option>
                                                                 <option value="Offline">Offline</option>
                                                             </select>
+                                                            {errors.TeacherType && <span style={{ color: 'red' }}>{errors.TeacherType}</span>}
                                                         </div>
                                                         <div class="col-lg-4 p-t-20">
                                                             <label htmlFor="exampleFormControlSelect2" className="form-label">Country</label>
@@ -328,6 +345,7 @@ function ListUse() {
                                                                     <option key={option.id} value={option.id}>{option.name}</option>
                                                                 ))}
                                                             </select>
+                                                            {errors.CountryId && <span style={{ color: 'red' }}>{errors.CountryId}</span>}
                                                         </div>
                                                         <div class="col-lg-4 p-t-20">
                                                             <label htmlFor="exampleFormControlSelect2" className="form-label">State</label>
@@ -343,6 +361,7 @@ function ListUse() {
                                                                     <option key={state.id} value={state.id}>{state.name}</option>
                                                                 ))}
                                                             </select>
+                                                            {errors.StateId && <span style={{ color: 'red' }}>{errors.StateId}</span>}
                                                         </div>
 
                                                         <div class="col-lg-4 p-t-20">
@@ -359,6 +378,7 @@ function ListUse() {
                                                                     <option key={city.id} value={city.id}>{city.name}</option>
                                                                 ))}
                                                             </select>
+                                                            {errors.DistrictId && <span style={{ color: 'red' }}>{errors.DistrictId}</span>}
                                                         </div>
 
                                                         <div class="col-lg-6 p-t-20">
@@ -366,6 +386,7 @@ function ListUse() {
                                                             <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                                 onChange={handleChange}
                                                                 value={Address} />
+                                                                 {errors.Address && <span style={{ color: 'red' }}>{errors.Address}</span>}
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                         </div>
                                                         <div class="col-lg-6 p-t-20">
@@ -373,6 +394,7 @@ function ListUse() {
                                                             <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
                                                                 onChange={handleChange}
                                                                 value={City} />
+                                                                 {errors.City && <span style={{ color: 'red' }}>{errors.City}</span>}
                                                             <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                         </div>
                                                         <div class="mb-3">
@@ -387,7 +409,8 @@ function ListUse() {
                                                                     placeholder="Hi, Do you have a moment to talk Joe?"
                                                                     aria-label="Hi, Do you have a moment to talk Joe?"
                                                                     aria-describedby="basic-icon-default-message2"
-                                                                    name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={handleChange}></textarea>
+                                                                    name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={handleChange}/>
+                                                                     {errors.YourIntroducationAndSkills && <span style={{ color: 'red' }}>{errors.YourIntroducationAndSkills}</span>}
                                                             </div>
                                                         </div>
                                                         <div class="mb-3 d-flex">

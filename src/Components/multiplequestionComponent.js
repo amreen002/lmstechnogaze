@@ -209,59 +209,7 @@ function MultiplequestionComponent(token) {
         }
     };
 
-    /*         const handleDelete = async (questionId) => {
-                try {
-                    const token = localStorage.getItem('token');
-        
-                    if (token) {
-                        await axios.delete(`http://localhost:3000/api/question/${questionId}`, {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-                            }
-                        });
-                        fetchDataQuestionFindOne();
-                        alert('Data successfully deleted');
-                    }
-                } catch (error) {
-                    console.error('Error deleting data:', error);
-                    alert('An error occurred while deleting data');
-                }
-            };
-            const handleUpdate = async (e) => {
-                e.preventDefault();
-                try {
-                    let updatedUserData = {
-                        Questions,
-                        Type,
-                        CategoryId,
-                        QuizzeId,
-                        Options1,
-                        Options2,
-                        Options3,
-                        Options4,
-                        Answer,
-                    }
-                    const token = localStorage.getItem('token');
-        
-                    if (token) {
-                        await axios.put(`http://localhost:3000/api/question/${questionId}`, updatedUserData, {
-                            headers: {
-                                Authorization: `Bearer ${token}`
-        
-                            }
-                        });
-                        fetchDataQuestionFindOne(questionId)
-                        alert("Question Is Updated Successfully!");
-                    }
-                } catch (error) {
-                    console.error('Error updating:', error);
-                    alert('An error occurred while updating');
-                }
-        
-                // Clear input fields after update
-        
-            };
-         */
+
     return (
         <div>
             <section>

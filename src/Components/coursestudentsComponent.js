@@ -193,28 +193,7 @@ function StudentCourses() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        /* 
-                let new_pass = e.target.value;
-                setPassword(new_pass);
-                let newname = e.target.value;
-                setPassword(newname);
-        
-                if (!validateEmail(Email)) {
-                    setError('Invalid Email', error);
-                    return;
-                }
-                var lowerCase = /[a-z]/g;
-                var upperCase = /[A-Z]/g;
-                var numbers = /[0-9]/g;
-                if (Password.length < 8 || !new_pass.match(lowerCase) || !new_pass.match(upperCase) || !new_pass.match(numbers)) {
-                    setError('Password must be at least 8 chars long Abc.@678', error);
-                    return;
-                }
-                if (Name == null) {
-                    setemail('Invalid Form, First Name can not be empty', emailerror)
-                    return
-                }
-                setError(null); */
+   
         try {
             let formData = {
                 Name,
@@ -304,17 +283,7 @@ function StudentCourses() {
             alert('An error occurred while updating');
         }
 
-        // Clear input fields after update
-
     };
-
-    //Dropdown Navigation
-    /*  const [activeService, setOpenDropdown] = useState(null);
- 
-     // Function to toggle a specific dropdown
-     const toggleDropdown = (serviceName) => {
-         setOpenDropdown(activeService === serviceName ? '' : serviceName);
-     }; */
 
     return (
         <>

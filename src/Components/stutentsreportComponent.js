@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationStudentReport from '../validation/studentreportvalidation'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function StudentUse() {
     const [table, setTable] = useState([]);
@@ -15,11 +16,11 @@ function StudentUse() {
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
     const [selectedCourses, setSelectedCourses] = useState('');
-    const [Name, setName] = useState('');
+    const [Name, setName] = useState(''); 
     const [LastName, setLastName] = useState('');
     const [Email, setEmail] = useState('');
     const [PhoneNumber, setPhoneNumber] = useState('');
-    const [Password, setPassword] = useState("Abc@123");
+    const [Password, setPassword] = useState("");
     const [StateId, setStateId] = useState('')
     const [CountryId, setCountryId] = useState('')
     const [Address, setAddress] = useState('')
@@ -183,10 +184,47 @@ function StudentUse() {
             console.error('Error fetching data:', error);
         }
     };
+    const [errors,setErrors] =useState({})
+
+const formData = {
+        Name,
+        LastName,
+        Email,
+        Password,
+        Username,
+        PhoneNumber,
+        AddressType: 'AddressType',
+        Address,
+        StateId,
+        CountryId,
+        DistrictId,
+        City,
+        Date,
+        CoursesId,
+        BatchId
+    }
 
 
-
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationStudentReport(updatedFormData);
+        setErrors(validationErrors);
+        setName(updatedFormData.Name || '');
+        setLastName(updatedFormData.LastName || '');
+        setEmail(updatedFormData.Email || '');
+        setPhoneNumber(updatedFormData.PhoneNumber || '');
+        setUsername(updatedFormData.Username || '');
+        setPassword(updatedFormData.Password || '');
+        setDate(updatedFormData.Date || '');
+        setCoursesId(updatedFormData.CoursesId || '');
+        setBatchId(updatedFormData.BatchId || '');
+        setCountryId(updatedFormData.CountryId || '');
+        setStateId(updatedFormData.StateId || '');
+        setDistrictId(updatedFormData.DistrictId || '');
+        setCity(updatedFormData.City || '');
+        setAddress(updatedFormData.Address || '');
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -213,23 +251,7 @@ function StudentUse() {
                 }
                 setError(null); */
         try {
-            let formData = {
-                Name,
-                LastName,
-                Email,
-                Password,
-                Username,
-                PhoneNumber,
-                AddressType: 'AddressType',
-                Address,
-                StateId,
-                CountryId,
-                DistrictId,
-                City,
-                Date,
-                CoursesId,
-                BatchId
-            }
+           
             const token = localStorage.getItem('token');
             let response
             if (token) {
@@ -305,13 +327,6 @@ function StudentUse() {
         // Clear input fields after update
 
     };
-    //Dropdown Navigation
-    /*  const [activeService, setOpenDropdown] = useState(null);
- 
-     // Function to toggle a specific dropdown
-     const toggleDropdown = (serviceName) => {
-         setOpenDropdown(activeService === serviceName ? '' : serviceName);
-     }; */
 
     return (
         <>
@@ -561,52 +576,59 @@ function StudentUse() {
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
                                                         <label class="form-label" for="add-user-fullname">Student Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
-                                                            onChange={(e) => setName(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Name} aria-label="John Doe" />
+                                                             {errors.Name && <div className='errors'>{errors.Name}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user-fullname">Student Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
-                                                            onChange={(e) => setLastName(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={LastName} aria-label="John Doe" />
+                                                             {errors.LastName && <div className='errors'>{errors.LastName}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-email">Student Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
-                                                            onChange={(e) => setEmail(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Email} />
+                                                             {errors.Email && <div className='errors'>{errors.Email}</div>}
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-contact">Student Contact</label>
                                                         <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
-                                                            onChange={(e) => setPhoneNumber(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={PhoneNumber} />
+                                                             {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Student User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
-                                                            onChange={(e) => setUsername(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Username} />
+                                                             {errors.Username && <div className='errors'>{errors.Username}</div>}
                                                     </div>
                                                     <div class="mb-3">
 
                                                         <label class="form-label" for="basic-icon-default-password">Student Password</label>
                                                         <input type="Password"
-                                                            onChange={(e) => setPassword(e.target.value)}
+                                                            onChange={handleChange}
                                                             name='Password'
                                                             value={Password}
                                                             class="form-control password-mask"
                                                             id="basic-default-password12"
                                                             placeholder="Abc@123"
                                                         />
+                                                         {errors.Password && <div className='errors'>{errors.Password}</div>}
                                                         {error && <div style={{ color: 'red' }}>{error}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-contact">Student Date</label>
                                                         <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
-                                                            onChange={(e) => setDate(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Date} />
+                                                             {errors.Date && <div className='errors'>{errors.Date}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
@@ -616,15 +638,17 @@ function StudentUse() {
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.CoursesId && <div className='errors'>{errors.CountryId}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={(e) => setBatchId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {selectedCourses && selectedCourses.Batches.map(batch => (
                                                                 <option key={batch.id} value={batch.id}>{batch.Title}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.BatchId && <div className='errors'>{errors.BatchId}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">Student Country</label>
@@ -640,6 +664,7 @@ function StudentUse() {
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.CountryId && <div className='errors'>{errors.CountryId}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">Student State</label>
@@ -655,6 +680,7 @@ function StudentUse() {
                                                                 <option key={state.id} value={state.id}>{state.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.StateId && <div className='errors'>{errors.StateId}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
@@ -664,28 +690,31 @@ function StudentUse() {
                                                             className="select2 form-select"
                                                             name="DistrictId"
                                                             value={DistrictId}
-                                                            onChange={(e) => setDistrictId(e.target.value)}
+                                                            onChange={handleChange}
                                                         >
                                                             <option value="">Select</option>
                                                             {selectedState && selectedState.Cities.map(city => (
                                                                 <option key={city.id} value={city.id}>{city.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.DistrictId && <div className='errors'>{errors.DistrictId}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-email">Student City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
-                                                            onChange={(e) => setCity(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={City} />
+                                                             {errors.City && <div className='errors'>{errors.City}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-email">Student Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
-                                                            onChange={(e) => setAddress(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Address} />
+                                                             {errors.Address && <div className='errors'>{errors.Address}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 

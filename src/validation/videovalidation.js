@@ -1,16 +1,16 @@
 const ValidationVideo = (formData) => {
     let error = {}
     if (!formData.Title) {
-        error.Title = "Title is require"
+        error.Title = "Content Name is require"
     }
     if (!formData.CoursesId) {
-        error.CoursesId = "Course is require"
+        error.CoursesId = "Select Class is require"
     }
     if (!formData.TopicId) {
-        error.TopicId = "Topic is require"
+        error.TopicId = "Select Subject is require"
     }
     if (!formData.videoselect) {
-        error.videoselect = "Select video type is require"
+        error.videoselect = "Select Video type is require"
     }
 
     return error
