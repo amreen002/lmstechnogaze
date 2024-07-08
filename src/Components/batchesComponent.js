@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationBatch from '../validation/batchvalidation'
 const { REACT_APP_API_ENDPOINT } = process.env;
 function BatchesUse() {
 
@@ -128,27 +129,44 @@ function BatchesUse() {
             console.error('Error fetching data:', error);
         }
     };
+    
+    const [errors,setErrors] = useState({})
+    const formData = {
+        Title,
+        InstructorId,
+        CoursesId,
+        BatchDuration,
+        BatchStartTime,
+        BatchEndTime,
+        BatchsInWeek,
+        StartedAtWeek,
+        BatchStatus,
+        BatchDatails
+    }
 
 
-
-
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationBatch(updatedFormData);
+        setErrors(validationErrors);
+        setTitle(updatedFormData.Title || '');
+        setInstructorId(updatedFormData.InstructorId || '');
+        setCoursesId(updatedFormData.CoursesId || '');
+        setStartedAtWeek(updatedFormData.StartedAtWeek || '');
+        setBatchStatus(updatedFormData.BatchStatus || '');
+        setBatchsInWeek(updatedFormData.BatchsInWeek || '');
+        setBatchStartTime(updatedFormData.BatchStartTime || '');
+        setBatchDuration(updatedFormData.BatchDuration || '');
+        setBatchDatails(updatedFormData.BatchDatails || '');
+        setBatchEndTime(updatedFormData.BatchEndTime || '');
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            let formData = {
-                Title,
-                InstructorId,
-                CoursesId,
-                BatchDuration,
-                BatchStartTime,
-                BatchEndTime,
-                BatchsInWeek,
-                StartedAtWeek,
-                BatchStatus,
-                BatchDatails
-            }
+           
             const token = localStorage.getItem('token');
             let response
             if (token) {
@@ -221,13 +239,6 @@ function BatchesUse() {
         // Clear input fields after update
 
     };
-    //Dropdown Navigation
-    /*  const [activeService, setOpenDropdown] = useState(null);
- 
-     // Function to toggle a specific dropdown
-     const toggleDropdown = (serviceName) => {
-         setOpenDropdown(activeService === serviceName ? '' : serviceName);
-     }; */
 
     return (
         <>
@@ -424,18 +435,20 @@ function BatchesUse() {
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-fullname">Batche Title</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
-                                                            onChange={(e) => setTitle(e.target.value)}
+                                                            onChange={handleChange}
                                                             defaultValue={Title} aria-label="John Doe" />
+                                                            {errors.Title && <div className='errors'>{errors.Title}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Instructor</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="InstructorId" defaultValue={InstructorId} onChange={(e) => setInstructorId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="InstructorId" defaultValue={InstructorId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {teachers.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.Name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.InstructorId && <div className='errors'>{errors.InstructorId}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
@@ -445,18 +458,19 @@ function BatchesUse() {
                                                             className="select2 form-select"
                                                             name="CoursesId"
                                                             value={CoursesId}
-                                                            onChange={(e) => setCoursesId(e.target.value)}
+                                                            onChange={handleChange}
                                                         >
                                                             <option value="">Select</option>
                                                             {courses.map(option => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Batch Duration</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Education" defaultValue={BatchDuration} onChange={(e) => setBatchDuration(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Education" defaultValue={BatchDuration} onChange={handleChange}>
                                                             <option value="">Batch Duration</option>
                                                             <option value="15"> 15 Days</option>
                                                             <option value="30"> 30 Days</option>
@@ -467,23 +481,26 @@ function BatchesUse() {
                                                             <option value="180"> 180 Days</option>
                                                             <option value="360"> 360 Days</option>
                                                         </select>
+                                                        {errors.Education && <div className='errors'>{errors.Education}</div>}
 
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-contact">Batch Start Time</label>
                                                         <input type="time" id="add-user-contact" class="form-control phone-mask" placeholder="Batch Start Time" name="BatchStartTime"
-                                                            onChange={(e) => setBatchStartTime(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={BatchStartTime} />
+                                                            {errors.BatchStartTime && <div className='errors'>{errors.BatchStartTime}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Batch End Time</label>
                                                         <input type="time" id="add-user" class="form-control" placeholder="Batch End Time" name="BatchEndTime"
-                                                            onChange={(e) => setBatchEndTime(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={BatchEndTime} />
+                                                            {errors.BatchEndTime && <div className='errors'>{errors.BatchEndTime}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Batchs In Week</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchsInWeek" defaultValue={BatchsInWeek} onChange={(e) => setBatchsInWeek(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchsInWeek" defaultValue={BatchsInWeek} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             <option value="1 Day">1 Day</option>
                                                             <option value="2 Days">2 Days</option>
@@ -495,25 +512,30 @@ function BatchesUse() {
                                                             <option value="MON-SAT">MON-SAT</option>
                                                             <option value="Alternate Days">Alternate Days</option>
 
-                                                        </select></div>
+                                                        </select>
+                                                        {errors.BatchsInWeek && <div className='errors'>{errors.BatchsInWeek}</div>}
+                                                        </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Started At Week</label>
                                                         <input type="date" id="add-user" class="form-control" placeholder="Started At Week" name="StartedAtWeek"
-                                                            onChange={(e) => setStartedAtWeek(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={StartedAtWeek} />
+                                                            {errors.StartedAtWeek && <div className='errors'>{errors.StartedAtWeek}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Batch Status</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchStatus" defaultValue={BatchStatus} onChange={(e) => setBatchStatus(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchStatus" defaultValue={BatchStatus} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             <option value="Open">Open</option>
                                                             <option value="Close">Close</option>
-                                                        </select></div>
+                                                        </select>
+                                                        {errors.BatchStatus && <div className='errors'>{errors.BatchStatus}</div>}</div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Batch Datails</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Batch Datails" name="BatchDatails"
-                                                            onChange={(e) => setBatchDatails(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={BatchDatails} />
+                                                            {errors.BatchDatails && <div className='errors'>{errors.BatchDatails}</div>}
                                                     </div>
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>

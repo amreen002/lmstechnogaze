@@ -246,64 +246,6 @@ function InstructoreaddquizeComponent(token) {
     };
     
 
-    
-
-    /*    const handleDelete = async (quizzeId) => {
-           try {
-               const token = localStorage.getItem('token');
-   
-               if (token) {
-                   await axios.delete(`http://localhost:3000/api/quizze/${quizzeId}`, {
-                       headers: {
-                           Authorization: `Bearer ${token}`
-                       }
-                   });
-                   fetchDataFindOne();
-                   alert('Data successfully deleted');
-               }
-           } catch (error) {
-               console.error('Error deleting data:', error);
-               alert('An error occurred while deleting data');
-           }
-       };
-       const handleUpdate = async (e) => {
-           e.preventDefault();
-           try {
-               let updatedUserData = {
-                   QuizzName,
-                   QuizzStartTime,
-                   QuizzEndTime,
-                   QuizzTestDuration,
-                   EasyQuestions,
-                   MediumQuestions,
-                   HardQuestions,
-                   TotalQuestions,
-                   TotalMarks,
-                   Instructions,
-                   BatchId,
-                   QuizzCategoryId,
-                   CourseId
-               }
-               const token = localStorage.getItem('token');
-   
-               if (token) {
-                   await axios.put(`http://localhost:3000/api/quizze/${quizzeId}`, updatedUserData, {
-                       headers: {
-                           Authorization: `Bearer ${token}`
-                       }
-                   });
-                   fetchDataFindOne(quizzeId)
-                   alert("Quizze Is Updated Successfully!");
-               }
-           } catch (error) {
-               console.error('Error updating:', error);
-               alert('An error occurred while updating');
-           }
-   
-           // Clear input fields after update
-   
-       };
-    */
 
     return (
         <div>

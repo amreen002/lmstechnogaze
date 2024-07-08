@@ -55,6 +55,14 @@ import { CartProvider } from './Context/CartContext.js';
 import CartComponent from './Components/Cart.js';
 import CheckoutPage from './Components/CheckoutComponemt.js';
 import UsersMyProfileRouter from './Routers/userprofileRouter.js'
+import StudentwishlistRouter from './Routers/studenwishlistRouter.js';
+import CalenderRouter from './Routers/calenderRouter.js'
+import AssignmentRouter from './Routers/assignmentRouter.js'
+import AnnouncementRouter from './Routers/annoucmentRouter.js';
+import StudentsettingRouters from './Routers/studentsettingRouter.js'
+import AssignmentdetailRouter from './Routers/assignmentdetailRouter.js'
+import AnnouncementdetailRouter from './Routers/announcmentdetailRouter.js'
+import StudentaddreviewRouter from './Routers/studentaddreviewRouter.js'
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -358,6 +366,35 @@ function App() {
           path="/user-my-profile/:usersId"
           element={loggedIn === true ? ( <UsersMyProfileRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
 
+          <Route
+            path="/studentwishlist"
+            element={<StudentwishlistRouter />} />
+              <Route
+            path="/studentaddreview"
+            element={<StudentaddreviewRouter/>} />
+
+
+          <Route
+            path="/calender"
+            element={<CalenderRouter />} />
+          <Route
+            path="/assignment"
+            element={<AssignmentRouter />} />
+
+          <Route
+            path="/announcement"
+            element={<AnnouncementRouter />} />
+
+          <Route
+            path="/studentsetting"
+            element={<StudentsettingRouters />} />
+
+          <Route
+            path="/assignmentdetail"
+            element={<AssignmentdetailRouter />} />
+          <Route
+            path="/announcementdetails"
+            element={<AnnouncementdetailRouter />} />
       </Routes>
     </BrowserRouter>
     </CartProvider>

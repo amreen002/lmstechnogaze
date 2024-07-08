@@ -4,7 +4,8 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+import ValidationaddInstructor from '../validation/instructoraddvalidation';
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function ListUse() {
     const [table, setTable] = useState([]);
     const { teachersId } = useParams();
@@ -19,7 +20,7 @@ function ListUse() {
     const [Email, setEmail] = useState('');
     const [DOB, setDOB] = useState('');
     const [PhoneNumber, setPhoneNumber] = useState('');
-    const [Password, setPassword] = useState("Abc@123");
+    const [Password, setPassword] = useState("");
     const [StateId, setStateId] = useState('')
     const [CountryId, setCountryId] = useState('')
     const [Address, setAddress] = useState('')
@@ -53,10 +54,7 @@ function ListUse() {
         fetchData1()
         fetchData2()
     }, []);
-    const validateEmail = (Email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(Email).toLowerCase());
-    }
+
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -154,51 +152,54 @@ function ListUse() {
 
 
 
+    const [errors, setErrors] = useState({})
+    
+    const formData = {
+        Name,
+        LastName,
+        Email,
+        Password,
+        DOB,
+        TeacherType,
+        Username,
+        PhoneNumber,
+        YourIntroducationAndSkills,
+        AddressType: 'Current Address',
+        Address,
+        StateId,
+        CountryId,
+        DistrictId,
+        City,
 
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationaddInstructor(updatedFormData);
+        setErrors(validationErrors); 
+        setName(updatedFormData.Name || '');
+        setLastName(updatedFormData.LastName || '');
+        setEmail(updatedFormData.Email || '');
+        setPassword(updatedFormData.Password || '');
+        setDOB(updatedFormData.DOB || '');
+        setTeacherType(updatedFormData.TeacherType || '');
+        setUsername(updatedFormData.Username || '');
+        setPhoneNumber(updatedFormData.PhoneNumber || '');
+        setAddress(updatedFormData.Address || '')
+        setStateId(updatedFormData.StateId || '')
+        setYourIntroducationAndSkills(updatedFormData.YourIntroducationAndSkills || '');
+        setCountryId(updatedFormData.CountryId || '')
+        setDistrictId(updatedFormData.DistrictId || '')
+        setCity(updatedFormData.City || '')
+
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        /* 
-                let new_pass = e.target.value;
-                setPassword(new_pass);
-                let newname = e.target.value;
-                setPassword(newname);
-        
-                if (!validateEmail(Email)) {
-                    setError('Invalid Email', error);
-                    return;
-                }
-                var lowerCase = /[a-z]/g;
-                var upperCase = /[A-Z]/g;
-                var numbers = /[0-9]/g;
-                if (Password.length < 8 || !new_pass.match(lowerCase) || !new_pass.match(upperCase) || !new_pass.match(numbers)) {
-                    setError('Password must be at least 8 chars long Abc.@678', error);
-                    return;
-                }
-                if (Name == null) {
-                    setemail('Invalid Form, First Name can not be empty', emailerror)
-                    return
-                }
-                setError(null); */
+
         try {
-            let formData = {
-                Name,
-                LastName,
-                Email,
-                Password,
-                DOB,
-                TeacherType,
-                Username,
-                PhoneNumber,
-                YourIntroducationAndSkills,
-                AddressType: 'Current Address',
-                Address,
-                StateId,
-                CountryId,
-                DistrictId,
-                City,
-                DistrictId
-            }
+
             const token = localStorage.getItem('token');
+
             let response
             if (token) {
 
@@ -274,14 +275,12 @@ function ListUse() {
         // Clear input fields after update
 
     };
-    //Dropdown Navigation
-    /*  const [activeService, setOpenDropdown] = useState(null);
- 
-     // Function to toggle a specific dropdown
-     const toggleDropdown = (serviceName) => {
-         setOpenDropdown(activeService === serviceName ? '' : serviceName);
-     }; */
 
+    const [show, setShow] = useState(false)
+
+    const handleshow = () => {
+        setShow(show ? false : true)
+    }
     return (
         <>
             {/*     <!-- Layout wrapper --> */}
@@ -403,26 +402,26 @@ function ListUse() {
                                     <div class="card-datatable table-responsive">
                                         <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10">
                                             <div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
-                                            <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div>
-                                            <div class="dt-buttons btn-group flex-wrap">
-                                                 <div class="btn-group d-flex flex-row">
-                                                    <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex" 
-                                                    tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog" 
-                                                    aria-expanded="false">
-                                                    <span><i class="bx bx-export me-1"></i>Export</span>
-                                                    </button>
-                                                  
-                                                    <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
-                                                   
-                                                    <span><i class="bx bx-plus me-0 me-sm-1"></i>Instructor</span>
-                                                    </button>
-                                                 </div>
-                                              
-                                                     </div>
-                                                     </div>
-                                                     </div >
-                                                     </div>
-                                                     <table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
+                                                <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" /></label></div>
+                                                <div class="dt-buttons btn-group flex-wrap">
+                                                    <div class="btn-group d-flex flex-row">
+                                                        <button class="btn buttons-collection dropdown-toggle btn-label-secondary mx-3 d-flex"
+                                                            tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="dialog"
+                                                            aria-expanded="false">
+                                                            <span><i class="bx bx-export me-1"></i>Export</span>
+                                                        </button>
+
+                                                        <button class="btn btn-secondary add-new btn-primary d-flex cus_Add" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasAddUser">
+
+                                                            <span><i class="bx bx-plus me-0 me-sm-1"></i>Instructor</span>
+                                                        </button>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div >
+                                        </div>
+                                            <table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label=""></th>
@@ -481,66 +480,77 @@ function ListUse() {
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
                                                         <label class="form-label" for="add-user-fullname">Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
-                                                            onChange={(e) => setName(e.target.value)}
+                                                            onChange={handleChange}
+                                                            autoComplete={false}
                                                             value={Name} aria-label="John Doe" />
+                                                        {errors.Name && <div className='errors'>{errors.Name}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user-fullname">Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
-                                                            onChange={(e) => setLastName(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={LastName} aria-label="John Doe" />
+                                                        {errors.LastName && <div className='errors'>{errors.LastName}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user-email">Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
-                                                            onChange={(e) => setEmail(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Email} />
+                                                        {errors.Email && <div className='errors'>{errors.Email}</div>}
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user-contact"> Contact</label>
-                                                        <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
-                                                            onChange={(e) => setPhoneNumber(e.target.value)}
+                                                        <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
+                                                            onChange={handleChange}
                                                             value={PhoneNumber} />
+                                                        {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user"> User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
-                                                            onChange={(e) => setUsername(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Username} />
+                                                        {errors.Username && <div className='errors'>{errors.Username}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6 p-t-20 paswrd">
 
                                                         <label class="form-label" for="basic-icon-default-password">Password</label>
-                                                        <input type="Password"
-                                                            onChange={(e) => setPassword(e.target.value)}
+                                                        <input type={show ? "text" : "password"}
+                                                            onChange={handleChange}
                                                             name='Password'
                                                             value={Password}
                                                             class="form-control password-mask"
                                                             id="basic-default-password12"
                                                             placeholder="Abc@123"
                                                         />
+                                                        <i className={`far ${show ? 'fa-eye' : 'fa-eye-slash'}`} onClick={handleshow}></i>
                                                         {error && <div style={{ color: 'red' }}>{error}</div>}
+                                                        {errors.Password && <div className='errors'>{errors.Password}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="basic-icon-default-password">DOB</label>
                                                         <input type="date"
-                                                            onChange={(e) => setDOB(e.target.value)}
+                                                            onChange={handleChange}
                                                             name='DOB'
                                                             value={DOB}
                                                             class="form-control DOB-mask"
                                                             id="basic-default-DOB"
                                                             placeholder="DOB"
                                                             aria-describedby="basic-default-DOB" />
+                                                        {errors.DOB && <div className='errors'>{errors.DOB}</div>}
 
                                                     </div>
+
                                                     <div class="col-lg-6 p-t-20">
                                                         <label for="exampleFormControlSelect2" class="form-label">Type</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={(e) => setTeacherType(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             <option value="Online">Online</option>
                                                             <option value="Offline">Offline</option>
                                                         </select>
+                                                        {errors.TeacherType && <div className='errors'>{errors.TeacherType}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">Country</label>
@@ -556,6 +566,7 @@ function ListUse() {
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.CountryId && <div className='errors'>{errors.CountryId}</div>}
                                                     </div>
                                                     <div class="col-lg-6 p-t-20">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">State</label>
@@ -571,6 +582,7 @@ function ListUse() {
                                                                 <option key={state.id} value={state.id}>{state.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.StateId && <div className='errors'>{errors.StateId}</div>}
                                                     </div>
 
                                                     <div class="col-lg-6 p-t-20">
@@ -580,35 +592,36 @@ function ListUse() {
                                                             className="select2 form-select"
                                                             name="DistrictId"
                                                             value={DistrictId}
-                                                            onChange={(e) => setDistrictId(e.target.value)}
+                                                            onChange={handleChange}
                                                         >
                                                             <option value="">Select</option>
                                                             {selectedState && selectedState.Cities.map(city => (
                                                                 <option key={city.id} value={city.id}>{city.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.DistrictId && <div className='errors'>{errors.DistrictId}</div>}
                                                     </div>
 
                                                     <div class="col-lg-6 p-t-20">
                                                         <label class="form-label" for="add-user-email">Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
-                                                            onChange={(e) => setAddress(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Address} />
+                                                        {errors.Address && <div className='errors'>{errors.Address}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-email">City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
-                                                            onChange={(e) => setCity(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={City} />
+                                                        {errors.City && <div className='errors'>{errors.City}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-icon-default-message">Introducation & Skills</label>
                                                         <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-message2" class="input-group-text"
-                                                            ><i class="bx bx-comment"></i
-                                                            ></span>
+
                                                             <textarea
                                                                 id="basic-icon-default-message"
                                                                 class="form-control"
@@ -616,8 +629,10 @@ function ListUse() {
                                                                 placeholder="Hi, Your Introducation And Skills?"
                                                                 aria-label="Hi, Your Introducation And Skills?"
                                                                 aria-describedby="basic-icon-default-message2"
-                                                                name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
+                                                                name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={handleChange} />
+                                                            {errors.YourIntroducationAndSkills && <div className='errors'>{errors.YourIntroducationAndSkills}</div>}
                                                         </div>
+
                                                     </div>
                                                     <div class="mb-3 d-flex flex-row">
 
@@ -640,17 +655,17 @@ function ListUse() {
                                         <div class="modal-content p-3 p-md-5">
                                             <div className='modal-header d-flex'>
                                                 <div className='d-flex'>
-                                                <h5 class="modal-title">Instructor Information</h5>
+                                                    <h5 class="modal-title">Instructor Information</h5>
                                                 </div>
                                                 <div className='d-flex'>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" 
-                                            aria-label="Close"></button>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                        aria-label="Close"></button>
                                                 </div>
-                                            
-                                             
+
+
                                             </div>
                                             <div class="modal-body">
-                                               
+
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}

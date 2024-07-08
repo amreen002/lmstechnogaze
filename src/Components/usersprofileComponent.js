@@ -68,19 +68,6 @@ function UserMyProfile(token) {
     };
 
 
-  /*   const handleCourseChange = (e) => {
-        const selectedCoursesId = parseInt(e.target.value,10);
-        const selectedCourses = courses.find(course => course.id === selectedCoursesId)
-        setFormData({
-            ...formData,
-            CoursesId: selectedCoursesId,
-            BatchId: '',
-        });
-       
-        setSelectedCourses(selectedCourses);
-
-    };
- */
     const handleStateChange = (e) => {
         const selectedStateId = parseInt(e.target.value, 10);
         const selectedState = selectedCountry ? selectedCountry.Staties.find((state) => state.id === selectedStateId) : '';
@@ -260,7 +247,7 @@ function UserMyProfile(token) {
                         <div class="col-lg-9  rts-sticky-column-item" >
 
                             {/* <form style={{ backgroundColor: "white" }} onSubmit={handleUpdate}> */}
-                            <div style={{ backgroundColor: "white" }} class="right-sidebar-my-profile-dash theiaStickySidebar pt--30">
+                               <div className='profile flex-row d-flex'>
                                 <h5 class="title">My Profile</h5>
                                 <div class="d-inline-block text-nowrap">
                                     <Link to={`/user-my-profile/${userData.id}`} className="navbar-brand" >  <button className="btn btn-sm btn-icon" data-bs-target="#edit" data-bs-toggle="modal">
@@ -268,7 +255,9 @@ function UserMyProfile(token) {
                                     </button>
                                     </Link>
                                 </div>
+                                </div>
                                 {/* <!-- single My portfolio start--> */}
+                                <div style={{ backgroundColor: "white" }} class="right-sidebar-my-profile-dash theiaStickySidebar pt--30">
 
                                 <div class="my-single-portfolio-dashed">
                                     <div class="name">Registration Date</div>
@@ -363,7 +352,7 @@ function UserMyProfile(token) {
                                             </div>
 
                                             <div class="col-12 col-md-6">
-                                                <label class="form-label" for="modalEditUserStatus"></label>
+                                                <label class="form-label" for="modalEditUserStatus">Role</label>
                                                 <select
                                                     id="modalEditUserStatus"
                                                     className="form-select"

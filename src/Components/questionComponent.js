@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationaddQuestion from '../validation/addquestionValidation'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function Questions() {
@@ -132,26 +133,43 @@ function Questions() {
         }
     };
 
+    const[errors,setErrors]=useState({})
 
+    const formData = {
+        Questions,
+        Type,
+        CategoryId,
+        QuizzeId,
+        Options1,
+        Options2,
+        Options3,
+        Options4,
+        Answer,
 
+    }
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationaddQuestion(updatedFormData);
+        setErrors(validationErrors);
+        setQuestions(updatedFormData.Questions || '');
+        setType(updatedFormData.Type || '');
+        setCategoryId(updatedFormData.CategoryId || '');
+        setQuizzeId(updatedFormData.QuizzeId || '');
+        setOptions1(updatedFormData.Options1 || '');
+        setOptions2(updatedFormData.Options2 || '');
+        setOptions3(updatedFormData.Options3 || '');
+        setOptions4(updatedFormData.Options4 || '');
+        setAnswer(updatedFormData.Answer || '');
+      
+    }
 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            let formData = {
-                Questions,
-                Type,
-                CategoryId,
-                QuizzeId,
-                Options1,
-                Options2,
-                Options3,
-                Options4,
-                Answer,
-
-            }
+           
 
             const token = localStorage.getItem('token');
             if (token) {
@@ -435,70 +453,79 @@ function Questions() {
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-fullname">Questions</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Questions'
-                                                            onChange={(e) => setQuestions(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Questions} />
+                                                            {errors.Questions &&<div className='errors'>{errors.Questions}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
                                                     <div class="mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Type</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Type" value={Type} onChange={(e) => setType(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="Type" value={Type} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             <option value="Easy">Easy</option>
                                                             <option value="Medium">Medium</option>
                                                             <option value="Hard">Hard</option>
                                                         </select>
+                                                        {errors.Type &&<div className='errors'>{errors.Type}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Options 1</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Options 1" name="Options1"
-                                                            onChange={(e) => setOptions1(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Options1} />
+                                                               {errors.Options1 &&<div className='errors'>{errors.Options1}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Options 2</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Options 2" name="Options2"
-                                                            onChange={(e) => setOptions2(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Options2} />
+                                                               {errors.Options2 &&<div className='errors'>{errors.Options2}</div>}
                                                     </div>
 
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Options 3</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Options 3" name="Options3"
-                                                            onChange={(e) => setOptions3(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Options3} />
+                                                               {errors.Options3 &&<div className='errors'>{errors.Options3}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Options 4</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Options 4" name="Options4"
-                                                            onChange={(e) => setOptions4(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Options4} />
+                                                               {errors.Options4 &&<div className='errors'>{errors.Options4}</div>}
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user">Answer</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="Answer" name="Answer"
-                                                            onChange={(e) => setAnswer(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={Answer} />
+                                                               {errors.Answer &&<div className='errors'>{errors.Answer}</div>}
                                                     </div>
 
                                                     <div class="col-6 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Select Quizze</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzeId" value={QuizzeId} onChange={(e) => setQuizzeId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzeId" value={QuizzeId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {quizze.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.id} {option.QuizzName}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.QuizzeId &&<div className='errors'>{errors.QuizzeId}</div>}
                                                     </div>
                                                     <div class="col-6 fv-plugins-icon-container">
                                                         <label for="exampleFormControlSelect2" class="form-label">Questions Category</label>
-                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CategoryId" value={CategoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CategoryId" value={CategoryId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {category.map((option) => (
                                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                                             ))}
                                                         </select>
+                                                        {errors.CategoryId &&<div className='errors'>{errors.CategoryId}</div>}
                                                     </div>
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>

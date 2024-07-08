@@ -2,7 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FooterFrontend from '../Components/FooterFrontend';
 import Navbarmenu from '../Components/Navbarmenu';
+import ValidationLogin from "../validation/loginvalidation";
 import { GoogleLogin } from '@react-oauth/google';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const Login = ({ onLogin }) => {
   const navigate = useNavigate();
@@ -19,37 +22,36 @@ const Login = ({ onLogin }) => {
     });
   };
 
+  const [errors,setErrors] = useState({})
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { email, password } = state;
-
+    setErrors(ValidationLogin(state))
     try {
       const response = await onLogin(email, password);
       if (!response.success) {
         setError(response.message);
+        console.log(response.message)
+        toast.error(error)
       } else {
         // Redirect to dashboard page
         navigate('/dashboard');
+        console.log(response.message)
       }
     } catch (error) {
       setError(error.response?.data?.message);
+   
     }
   };
 
-  const handleGoogleLoginSuccess = (credentialResponse) => {
-    // Assuming we have a way to determine if this is a sign-up or sign-in
-    const isSignUp = true; // Replace with actual logic to determine this
 
-    if (isSignUp) {
-      navigate('/complete-profile');
-    } else {
-      navigate('/dashboard');
-    }
-  };
+  const [show, setShow] = useState(false)
 
-  const handleGoogleLoginError = () => {
-    console.log('Login Failed');
-  };
+  const handleshow=()=>{
+    setShow(show ? false : true)
+  }
+
 
   return (
     <div>
@@ -64,29 +66,33 @@ const Login = ({ onLogin }) => {
               <div className="login-page-form-area">
                 <h4 className="title">Login to Your Account👋</h4>
                 <form onSubmit={handleSubmit}>
-                  <div className="single-input-wrapper">
+                  <div className="single-input-wrapper ">
                     <label htmlFor="email">Your Email</label>
                     <input 
                       id="email" 
                       type="email" 
                       placeholder="Enter Your Email" 
-                      required    
+                   
                       name="email"
                       value={state.email}
                       onChange={handleChange}
                     />
+                     {errors.email && <div className="error">{errors.email}</div>}
+                    
                   </div>
-                  <div className="single-input-wrapper">
+                  <div className="single-input-wrapper paswrd">
                     <label htmlFor="password">Your Password</label>
                     <input 
                       id="password" 
-                      type="password" 
+                      type={show ? "text" : "password"} 
                       placeholder="Password" 
-                      required
+                    
                       name="password"
                       value={state.password}
                       onChange={handleChange}
                     />
+                     <i className={`far ${show ? 'fa-eye' : 'fa-eye-slash'}`} onClick={handleshow}></i>
+                     {errors.password && <div className="error">{errors.password}</div>}
                   </div>
                   <button className="rts-btn btn-primary" type="submit">Login</button>
                 </form>

@@ -50,10 +50,10 @@ const Sidebar = () => {
 
                            
 
-                            <a href="#" className="single-item">
+                            <Link to={`/studentaddreview`} className="single-item">
                                 <i className="fa-regular fa-star"></i>
                                 <p>Reviews</p>
-                            </a>
+                            </Link>
                             <Link to={`/instructor/addquize`} className="single-item">
                                 <i className="fa-sharp fa-light fa-bullseye-pointer"></i>
                                 <p>My Quiz Add</p>
@@ -64,10 +64,10 @@ const Sidebar = () => {
                                 <p>Question & Answer</p>
                             </Link>
 
-                            <a href="#" className="single-item">
+                            <Link to={`/calender`} className="single-item">
                                 <i className="fa-light fa-calendar-days"></i>
                                 <p>Calendar</p>
-                            </a>
+                            </Link>
 
                         </div>
 
@@ -79,15 +79,15 @@ const Sidebar = () => {
                                 <p>My Class</p>
                             </Link>
 
-                            <a href="#" className="single-item">
+                            <Link to={`/assignment`} className="single-item">
                                 <i className="fa-regular fa-page"></i>
                                 <p>Assignments</p>
-                            </a>
+                            </Link>
 
-                            <a href="announcement.html" className="single-item">
+                            <Link to={`/announcement`} className="single-item">
                                 <i className="fa-solid fa-megaphone"></i>
                                 <p>Announcements</p>
-                            </a>
+                            </Link>
 
               
                         </div>
@@ -95,10 +95,10 @@ const Sidebar = () => {
                         <div className="dashboard-left-single-wrapper bbnone mt--40">
                             <h4 className="title mb--5">User</h4>
 
-                            <a href="#" className="single-item">
+                            <Link to={`/studentsetting`} className="single-item">
                                 <i className="fa-sharp fa-regular fa-gear"></i>
                                 <p>Settings</p>
-                            </a>
+                            </Link>
                             <a className="single-item" onClick={handleLogout}>
                                 <i className="fa-light fa-right-from-bracket"></i>
                                 <p>Logout</p>
