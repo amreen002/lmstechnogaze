@@ -347,7 +347,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
             <section className='py-5 the_good'>
                 <div className='container'>
                     <div className='row'>
-
+                    
                         <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                             <div className='join_st'>
                                 <div className='text-center'>
@@ -411,29 +411,36 @@ Welcome to The Good Student Co., where we believe every student has the potentia
             <div class="category-area-style-one shape-move py-5 bg_image">
                 <div class="container-fluid">
                     <div class="row">
-                        
-                        <div className='col-12 col-xl-12 col-lg-12 col-md-12 uncld'>
+                    <div className='col-12 col-xl-12 col-lg-12 col-md-12 uncld'>
                             <div className='row'>
                                 <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
                                     <div className='uncl'>
                                         <div class="title-area-center-style">
                                             <div class="pre-title mr--90">
                                               
-                                                <span className='exploress'>UNLOCK ENDLESS POSSIBILITIES</span>
+                                                <span className='exploress'>SHINE BRIGHT, STAY CURIOUS</span>
                                             </div>
 
-                                            <p class="post-title">Once we've cracked the code to your unique learning style, get ready to dive into a treasure trove of resources specially curated to suit you. From interactive games and videos to hands-on activities and personalized study plans, our platform is your one-stop shop for academic excellence!</p>
+                                            <p class="post-title">At The Good Student Co., we're not just about grades – we're 
+                                                about nurturing a lifelong love for learning.</p>
+                                                <p>
+                                                So come on, grab your backpack and join us on an adventure through the fascinating world of knowledge.
+                                                </p>
+                                                <p>
+                                                Together, let's unlock the secrets of the universe and become the best versions of ourselves!
+                                                </p>
                                         </div>
                                     </div>
                                 </div>
                                 <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
 
-                                    <div class="unloclk"><img src="assets/fontend/images/about/6.png" alt="" /></div>
+                                    <div class="unloclk"><img src="assets/fontend/images/banner/sun.png" alt=""  /></div>
 
                                 </div>
                             </div>
 
                         </div>
+                 
                         <div className='col-12 col-xl-12 col-lg-12 col-md-12 unclde'>
                             <div className='row'>
                                 <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
