@@ -5,6 +5,7 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
+import ValidationVideo from '../validation/videovalidation'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Video() {
     const { videoId } = useParams();
@@ -14,6 +15,7 @@ function Video() {
     const [Topic, setTopic] = useState([]);
     const [findOnevideo, setfindOnevido] = useState({})
     const [selectedCourses, setSelectedCourses] = useState('');
+    const [selectedFiles, setSelectedFiles] = useState(null);
     useEffect(() => {
         fetchData(videoId);
     }, [videoId]);
@@ -141,22 +143,38 @@ function Video() {
         Title: '',
         CoursesId: '',
         TopicId: '',
-        VideoUplod: null,
+        VideoUplod: [],
         VideoIframe: '',
     });
 
+    const [errors ,setErrors] =useState({})
 
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };
     const handleChange = (e) => {
-        const { name, files, value } = e.target;
+        const { name, value } = e.target;
         setFormData(formData => ({
             ...formData,
-            [name]: files ? files[0] : value
+            [name] : value
         }));
+        const updatedFormData = { ...formData, [name]: value };
+        setFormData(updatedFormData);
+    
+        // Validate the updated form data
+        const validationErrors = ValidationVideo(updatedFormData);
+        setErrors(validationErrors);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formData) {
             data.append(key, formData[key]);
         }
@@ -201,6 +219,12 @@ function Video() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formData) {
             data.append(key, formData[key]);
         }
@@ -261,6 +285,7 @@ function Video() {
                                                                     <label class="form-label" for="add-user-fullname">Content Name</label>
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Title'
                                                                         value={formData.Title} aria-label="John Doe" onChange={handleChange} />
+                                                                        {errors.Title && <div className='errors'>{errors.Title}</div>}
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                                 </div>
 
@@ -273,6 +298,7 @@ function Video() {
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
@@ -283,6 +309,7 @@ function Video() {
                                                                             <option key={topic.id} value={topic.id}>{topic.name}</option>
                                                                         ))}
                                                                     </select>
+                                                                    {errors.TopicId && <div className='errors'>{errors.TopicId}</div>}
                                                                 </div>
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Video</label>
@@ -296,21 +323,22 @@ function Video() {
                                                                         <option value="gallery">Video URL</option>
                                                                         <option value="upload">Choose From Gallery</option>
                                                                     </select>
-
+                                                                    {errors.videoselect && <div className='errors'>{errors.videoselect}</div>}
 
 
                                                                     {selectedvideo === 'upload' ? (<div class="mb-3">
                                                                         <label class="form-label">Upload Video</label>
                                                                         <div class="input-group">
-                                                                            <input
-                                                                                type="file"
-                                                                                class="form-control"
-                                                                                id="inputGroupFile04"
-                                                                                aria-describedby="inputGroupFileAddon04"
-                                                                                aria-label="Upload"
-                                                                                name="file"
-                                                                                value={formData.VideoUplod} onChange={handleChange}
-                                                                            />
+                                                                        <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            multiple onChange={handleFileChange} />
+                                                                    {errors.file && <div className='errors'>{errors.file}</div>}
+                                         
+
 
                                                                         </div>
                                                                     </div>) : selectedvideo === 'gallery' ? (
@@ -478,17 +506,13 @@ function Video() {
                                                     <div class="mb-3">
                                                         <label class="form-label">Upload Video</label>
                                                         <div class="input-group">
-                                                            <video src={`${REACT_APP_API_IMG}/${findOnevideo.VideoUplod}`} width="100%" controls="controls" autoplay muted>
-                                                            </video>
-
                                                             <input
                                                                 type="file"
                                                                 class="form-control"
                                                                 id="inputGroupFile04"
                                                                 aria-describedby="inputGroupFileAddon04"
                                                                 aria-label="Upload"
-                                                                name="file"
-                                                                value={formData.VideoUplod} onChange={handleChange}
+                                                                multiple onChange={handleFileChange}
                                                             />
 
                                                         </div>

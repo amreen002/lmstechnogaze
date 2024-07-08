@@ -67,7 +67,7 @@ function DashboardCard(token) {
                             </div>
                             <div className="author-profile-image-and-name">
                                 <div className="profile-pic">
-                                    <img src={`${REACT_APP_API_IMG}/uploads/${coursedatafetch.image}`} alt="dashboard" />
+                                    <img src={`${REACT_APP_API_IMG}/uploads/images/${coursedatafetch.image}`} alt="dashboard" />
                                 </div>
                                 <div className="name-desig">
                                     <h1 className="title">{coursedatafetch.name}</h1>
@@ -78,7 +78,7 @@ function DashboardCard(token) {
                                         </div>
                                         <div className="single">
                                             <i className="fa-regular fa-video"></i>
-                                            <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Course</span>
+                                            <span style={{ paddingLeft: "5px" }}>{totalVideoCount} Class</span>
                                         </div>
                                     </div>
                                 </div>

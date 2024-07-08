@@ -8,11 +8,11 @@ import axios from 'axios';
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 
-function Navbarmenu() {
+function Navbarmenu({Search}) {
   const { cartCount } = useContext(CartContext);
   const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const [isSearch, setIsSearch] = useState(false);
-
+  const [search, setIsSearch] = useState(false);
+  const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   const [isResourcesDropdownOpen, setIsResourcesDropdownOpen] = useState(false);
 
   const datatoken = useState(JSON.parse(localStorage.getItem('datatoken')) || {} );
@@ -44,7 +44,7 @@ const closebtn=()=>{
   setIsMenubtn(false)
 }
 
-const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
+
   const [isBoardDropdownOpen, setIsBoardDropdownOpen] = useState(false);
   const [isCbseDropdownOpen, setIsCbseDropdownOpen] = useState(false);
   const [isIcseDropdownOpen, setIsIcseDropdownOpen] = useState(false);
@@ -95,6 +95,14 @@ const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
   };
 
   
+  let  dashboards = '';
+  if (data?.Role?.Name === 'Student' || data?.Role?.Name === 'Instructor') {
+    dashboards = '/dashboard';
+  } else if (['Administrator', 'Super Admin', 'Admin', 'Telecaller Department', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(data?.Role?.Name)) {
+    dashboards = '/dashboard/admin';
+  } else {
+    dashboards = '/login';
+  }
   const handleLogout = async () => {
     try {
       await axios.post(`${REACT_APP_API_ENDPOINT}/logout`); // Send logout request to backend
@@ -246,7 +254,7 @@ const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
 
                    {/* {(loggedIn) ? (
                     <div className="buttons-area">
-                       <Link to="/dashboard" className="rts-btn btn-border">Dashboard</Link>
+                       <Link to={`${dashboards}`} className="rts-btn btn-border">Dashboard</Link>
                       <Link onClick={handleLogout} className="rts-btn btn-border">Logout</Link>
                     </div>
                   ) : !loggedIn && (
@@ -279,8 +287,21 @@ const [isServiceDropdownOpen, setIsServiceDropdownOpen] = useState(false);
           </div>
         </div>
       </header>
-       {isPopupOpen && <CartItemComponent closePopup={closePopup} />} 
-      {isSearch && <SearchComponent closeSearch={closeSearch} />}
+      {isPopupOpen && <CartItemComponent closePopup={closePopup} />}
+      {search && (
+        <>
+          <div class="search-input-area show">
+            <div class="container">
+              <div class="search-input-inner">
+                <div class="input-div">
+                  <input class="search-input autocomplete ui-autocomplete-input" type="search"  placeholder="Search by keyword or #" autocomplete="off" onChange={Search} />
+                  <button ><i class="far fa-search"></i></button>
+                </div>
+              </div>
+            </div>
+            <div id="close" class="search-close-icon"><i class="far fa-times" onClick={closeSearch}></i></div>
+          </div>
+        </>)}
       {isMenubtn && 
         <ResponsivenavbarComponent closebtn={closebtn}/>}
     </>

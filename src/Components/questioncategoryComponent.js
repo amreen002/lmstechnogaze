@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationCourse from '../validation/coursecategoryvalidation'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function QuestionsCategory() {
@@ -74,16 +75,24 @@ function QuestionsCategory() {
     };
 
 
+const [errors, setErrors] = useState({})
 
-
+    const formData = {
+        name,
+    }
+    const handleChange=(e)=>{
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors =ValidationCourse(updatedFormData);
+        setErrors(validationErrors);
+        setname(updatedFormData.name || '')
+    }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         try {
-            let formData = {
-                name,
-            }
+         
 
             const token = localStorage.getItem('token');
             if (token) {
@@ -327,8 +336,9 @@ function QuestionsCategory() {
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-fullname">Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
-                                                            onChange={(e) => setname(e.target.value)}
+                                                            onChange={handleChange}
                                                             value={name} />
+                                                            {errors.name && <div className='errors'>{errors.name}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
 

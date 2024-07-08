@@ -447,11 +447,7 @@ function AddRoleForm() {
                                                                     <th style={{ display: "none" }} class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="115px;" aria-label="User: activate to sort column ascending" aria-sort="descending"></th>
                                                                     <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="115px;" aria-label="User: activate to sort column ascending" aria-sort="descending">S.NO</th>
                                                                     <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" width="250px;" aria-label="">Department Name</th>
-                                                                    {/*                                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Plan: activate to sort column ascending">Create </th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Update</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Read</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Delete</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Status: activate to sort column ascending">Submit</th> */}
+                                                                 
 
                                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Plan: activate to sort column ascending">Action </th>
                                                                 </tr>
@@ -459,28 +455,7 @@ function AddRoleForm() {
                                                             <tbody>
                                                                 {saleTeamData.map((item, index) => (
                                                                     <tr key={item.id}>
-                                                                        {/*    <td className="sorting_1">
-                                                                            <input
-                                                                                type="checkbox"
-                                                                                checked={selectedItem && selectedItem.id === item.id}
-                                                                                onChange={(e) => handleCheckboxChange(e, item)}
-                                                                            />
-                                                                        </td> */}
-                                                                        {/*  <td style={{ display: "none" }}>
-                                                                            {selectedItem && selectedItem.id === item.id ? (
-                                                                                <input
-                                                                                    type="text"
-                                                                                    className="form-control"
-                                                                                    id="add-user-fullname"
-                                                                                    placeholder="John Doe"
-                                                                                    name='RoleId'
-                                                                                    value={RoleId}
-                                                                                    onChange={(e) => setRoleId(e.target.value)}
-                                                                                />
-                                                                            ) : (
-                                                                                <span>{item && item.id}</span>
-                                                                            )}
-                                                                        </td> */}
+                                                                      
                                                                         <td>{index + 1}</td>
                                                                         <td>{item.Name}</td>
                                                                         <td>

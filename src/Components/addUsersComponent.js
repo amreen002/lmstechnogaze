@@ -1,4 +1,4 @@
-import React, { useState ,useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
@@ -10,6 +10,8 @@ function RegistersP(onLogout) {
     const [countryTable, setCountryTable] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
+    const [courses, setCourses] = useState([])
+    const [batches,setBatches]= useState([])
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
@@ -20,11 +22,11 @@ function RegistersP(onLogout) {
         message: '',
         image: null,
         AddressType: "Current Address",
-        Address:'',
-        StateId:'',
-        CountryId:'',
-        DistrictId:'',
-        City:'',
+        Address: '',
+        StateId: '',
+        CountryId: '',
+        DistrictId: '',
+        City: '',
     });
     const [StateId, setStateId] = useState('')
     const [CountryId, setCountryId] = useState('')
@@ -272,7 +274,7 @@ function RegistersP(onLogout) {
                                                     </div>
                                                 </div>
 
-                                             
+
                                                 <div class="mb-3">
                                                     <label class="form-label" for="modalEditUserStatus"></label>
                                                     <select
@@ -291,67 +293,75 @@ function RegistersP(onLogout) {
 
                                                 </div>
                                                 <div class="mb-3">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
-                                                        <select
-                                                            id="exampleFormControlSelect2"
-                                                            className="select2 form-select"
-                                                            name="CountryId"
-                                                            value={CountryId}
-                                                            onChange={handleCountryChange}
-                                                        >
-                                                            <option value="">Select</option>
-                                                            {countryTable.map(option => (
-                                                                <option key={option.id} value={option.id}>{option.name}</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
-                                                        <select
-                                                            id="exampleFormControlSelect2"
-                                                            className="select2 form-select"
-                                                            name="StateId"
-                                                            value={StateId}
-                                                            onChange={handleStateChange}
-                                                        >
-                                                            <option value="">Select</option>
-                                                            {selectedCountry && selectedCountry.Staties.map(state => (
-                                                                <option key={state.id} value={state.id}>{state.name}</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
+                                                    <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                                                        <option value=" ">---Select---</option>
+                                                        <option value="Current Address">Current Address</option>
+                                                        <option value="Permanent Address">Permanent Address</option>
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
+                                                    <select
+                                                        id="exampleFormControlSelect2"
+                                                        className="select2 form-select"
+                                                        name="CountryId"
+                                                        value={CountryId}
+                                                        onChange={handleCountryChange}
+                                                    >
+                                                        <option value="">Select</option>
+                                                        {countryTable.map(option => (
+                                                            <option key={option.id} value={option.id}>{option.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
+                                                    <select
+                                                        id="exampleFormControlSelect2"
+                                                        className="select2 form-select"
+                                                        name="StateId"
+                                                        value={StateId}
+                                                        onChange={handleStateChange}
+                                                    >
+                                                        <option value="">Select</option>
+                                                        {selectedCountry && selectedCountry.Staties.map(state => (
+                                                            <option key={state.id} value={state.id}>{state.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
 
-                                                    <div class="mb-3">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
-                                                        <select
-                                                            id="exampleFormControlSelect2"
-                                                            className="select2 form-select"
-                                                            name="DistrictId"
-                                                            value={DistrictId}
-                                                            onChange={(e) => setDistrictId(e.target.value)}
-                                                        >
-                                                            <option value="">Select</option>
-                                                            {selectedState && selectedState.Cities.map(city => (
-                                                                <option key={city.id} value={city.id}>{city.name}</option>
-                                                            ))}
-                                                        </select>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
+                                                    <select
+                                                        id="exampleFormControlSelect2"
+                                                        className="select2 form-select"
+                                                        name="DistrictId"
+                                                        value={DistrictId}
+                                                        onChange={(e) => setDistrictId(e.target.value)}
+                                                    >
+                                                        <option value="">Select</option>
+                                                        {selectedState && selectedState.Cities.map(city => (
+                                                            <option key={city.id} value={city.id}>{city.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email"> City</label>
-                                                        <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
-                                                            onChange={(e) => setCity(e.target.value)}
-                                                            value={City} />
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="add-user-email"> City</label>
+                                                    <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
+                                                        onChange={(e) => setCity(e.target.value)}
+                                                        value={City} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email"> Address</label>
-                                                        <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
-                                                            onChange={(e) => setAddress(e.target.value)}
-                                                            value={Address} />
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                    </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label" for="add-user-email"> Address</label>
+                                                    <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
+                                                        onChange={(e) => setAddress(e.target.value)}
+                                                        value={Address} />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
                                                 <div class="mb-3">
                                                     <label class="form-label" for="basic-icon-default-message">Message</label>
                                                     <div class="input-group input-group-merge">

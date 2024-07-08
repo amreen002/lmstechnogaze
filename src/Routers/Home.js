@@ -7,26 +7,30 @@ const { REACT_APP_API_ENDPOINT,REACT_APP_API_IMG } = process.env;
 const Home = () => {
     const { addToCart } = useContext(CartContext);
     const [animate5, setAnimate5] = useState(false);
+    const [search ,setSearch]= useState('');
+    const Search = (e) => {
+        setSearch(e.target.value);
+    };
+    useEffect(() => {
+        setAnimate5(true);
+    }, []);
 
-        useEffect(() => {
-          setAnimate5(true);
-        }, []);
+    const [animate2, setAnimate2] = useState(false);
 
-        const [animate2, setAnimate2] = useState(false);
+    useEffect(() => {
+        setAnimate2(true);
+    }, []);
 
-        useEffect(() => {
-          setAnimate2(true);
-        }, []);
-       
     const [courses, setCourse] = useState([]);
-   const [totalLessionCount, settotalLessionCount] = useState(null);
+    const [totalLessionCount, settotalLessionCount] = useState(null);
     const [totalStudentCount, settotalStudentCount] = useState(null);
     useEffect(() => {
-        fetchData();
-    }, []);
-    const fetchData = async () => {
+        fetchData(search)
+    }, [search]);
+
+    const fetchData = async (search) => {
         try {
-            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
+            const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses?search=${search}`);
             const userDatas = response.data.courses;
             settotalLessionCount(response.data.totalLessionCount)
             settotalStudentCount(response.data.totalStudentCount)
@@ -43,7 +47,7 @@ const Home = () => {
 
         <div>
         <section className='sticy-header logo-size'>
-            <Navbarmenu />
+            <Navbarmenu  Search={Search}/>
         </section>
 
         <div className="banner-area-one shape-move">

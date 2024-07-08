@@ -285,6 +285,15 @@ function AccountP() {
                                                     </select>
 
                                                 </div>
+
+                                                    <div class="mb-3">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
+                                                        <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                                                            <option value=" ">---Select---</option>
+                                                            <option value="Current Address">Current Address</option>
+                                                            <option value="Permanent Address">Permanent Address</option>
+                                                        </select>
+                                                    </div>
                                                     <div class="mb-3">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
                                                         <select

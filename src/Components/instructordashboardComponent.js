@@ -79,7 +79,7 @@ function InstructorDashboard(token) {
                                                 <i class="fa-light fa-book-open-cover"></i>
                                             </div>
                                             <h5 class="title"><span class="counter">30</span></h5>
-                                            <p>Enrolled Courses</p>
+                                            <p>Enrolled Class</p>
                                         </div>
 
                                     </div>
@@ -90,7 +90,7 @@ function InstructorDashboard(token) {
                                                 <i class="fa-regular fa-graduation-cap"></i>
                                             </div>
                                             <h5 class="title"><span class="counter">10</span></h5>
-                                            <p>Active Courses</p>
+                                            <p>Active Class</p>
                                         </div>
 
                                     </div>
@@ -101,7 +101,7 @@ function InstructorDashboard(token) {
                                                 <i class="fa-light fa-trophy"></i>
                                             </div>
                                             <h5 class="title"><span class="counter">36</span></h5>
-                                            <p>Completed Courses</p>
+                                            <p>Completed Class</p>
                                         </div>
 
                                     </div>
@@ -123,7 +123,7 @@ function InstructorDashboard(token) {
                                                 <i class="fa-light fa-book"></i>
                                             </div>
                                             <h5 class="title"><span class="counter">{coursesCount}</span></h5>
-                                            <p>Total Courses</p>
+                                            <p>Total Class</p>
                                         </div>
 
                                     </div>
@@ -143,7 +143,7 @@ function InstructorDashboard(token) {
                                     <div class="col-lg-12">
 
                                         <div class="in-progress-course-wrapper">
-                                            <h5 class="title">In Progress Courses</h5>
+                                            <h5 class="title">In Progress Class</h5>
                                         </div>
 
                                         <div class="single-progress-course">
@@ -189,7 +189,7 @@ function InstructorDashboard(token) {
                                                     <span>(0)</span>
                                                 </div>
                                                 <a href="single-course.html">
-                                                    <h5 class="title">Front-End Course With Bootstrap 5</h5>
+                                                    <h5 class="title">Front-End Class With Bootstrap 5</h5>
                                                 </a>
                                                 <span class="comp">Completed Lessons: 5 of 7 lesson</span>
                                                 <div class="progress-wrapper-lesson-compleate">
@@ -218,7 +218,7 @@ function InstructorDashboard(token) {
                                                     <span>(0)</span>
                                                 </div>
                                                 <a href="single-course.html">
-                                                    <h5 class="title">PHP Basic to Advance Full Course In English</h5>
+                                                    <h5 class="title">PHP Basic to Advance Full Class In English</h5>
                                                 </a>
                                                 <span class="comp">Completed Lessons: 3 of 6 lesson</span>
                                                 <div class="progress-wrapper-lesson-compleate">
@@ -239,7 +239,7 @@ function InstructorDashboard(token) {
                                     <div class="col-lg-12">
 
                                         <div class="in-progress-course-wrapper  title-between-dashboard mb--10">
-                                            <h5 class="title">My Courses</h5>
+                                            <h5 class="title">My Class</h5>
                                             <a href="#" class="more">View All</a>
                                         </div>
 
@@ -247,7 +247,7 @@ function InstructorDashboard(token) {
 
                                             <div class="single-course-inroll-board head">
                                                 <div class="name">
-                                                    <p>My Course</p>
+                                                    <p>My Class</p>
                                                 </div>
                                                 <div class="enroll">
                                                     <p>Enrolled</p>
@@ -259,7 +259,7 @@ function InstructorDashboard(token) {
 
                                             <div class="single-course-inroll-board">
                                                 <div class="name">
-                                                    <p>New Course</p>
+                                                    <p>New Class</p>
                                                 </div>
                                                 <div class="enroll">
                                                     <p>2</p>
@@ -275,7 +275,7 @@ function InstructorDashboard(token) {
 
                                             <div class="single-course-inroll-board">
                                                 <div class="name">
-                                                    <p>My Course</p>
+                                                    <p>My Class</p>
                                                 </div>
                                                 <div class="enroll">
                                                     <p>0</p>
@@ -291,7 +291,7 @@ function InstructorDashboard(token) {
 
                                             <div class="single-course-inroll-board">
                                                 <div class="name">
-                                                    <p>Test New Course</p>
+                                                    <p>Test New Class</p>
                                                 </div>
                                                 <div class="enroll">
                                                     <p>2</p>
@@ -307,7 +307,7 @@ function InstructorDashboard(token) {
 
                                             <div class="single-course-inroll-board">
                                                 <div class="name">
-                                                    <p>New Course</p>
+                                                    <p>New Class</p>
                                                 </div>
                                                 <div class="enroll">
                                                     <p>2</p>

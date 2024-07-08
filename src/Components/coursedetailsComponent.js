@@ -106,16 +106,29 @@ function CoursedetailsComponent() {
             console.log(err.response);
         }
     }
-    const [isExpanded, setIsExpanded] = useState(null);
+
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [modalContent, setModalContent] = useState(null);
+    const [isModalOpenPDF, setIsModalOpenPDF] = useState(false);
+    const [modalContentPDF, setModalContentPDF] = useState(null);
+    const [isExpandedTopic, setIsExpandedTopic] = useState('');
+    const [isExpandedLesson, setIsExpandedLesson] = useState('');
+    const [isExpandedVideo, setIsExpandedVideo] = useState('');
 
-    const toggleDropdown = (id) => {
-        setIsExpanded(isExpanded === id ? null : id);
+    const toggleDropdownTopic = (id) => {
+        setIsExpandedTopic(isExpandedTopic === id ? '' : id);
     };
 
-    const openModal = (video) => {
-        setModalContent(video);
+    const toggleDropdownLesson = (id) => {
+        setIsExpandedLesson(isExpandedLesson === id ? '' : id);
+    };
+    const toggleDropdownVideo = (id) => {
+        setIsExpandedVideo(isExpandedVideo === id ? '' : id);
+    };
+
+
+    const openModal = (videofiles) => {
+        setModalContent(videofiles);
         setIsModalOpen(true);
     };
 
@@ -123,6 +136,16 @@ function CoursedetailsComponent() {
         setIsModalOpen(false);
         setModalContent(null);
     };
+    const openModalPDF= (file) => {
+        setModalContentPDF(file);
+        setIsModalOpenPDF(true);
+    };
+
+    const closeModalPDF = () => {
+        setIsModalOpenPDF(false);
+        setModalContentPDF(null);
+    };
+
     return (
         <>
             <section>
@@ -221,43 +244,107 @@ function CoursedetailsComponent() {
                                             <div className="accordion-item">
                                                 {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
                                                     CoureseFindOne.topics.map((topic) => (
-                                                        <div key={topic.id}>
-                                                            <h2 className="accordion-header" id="headingOne">
+                                                        <div key={topic.id} className="accordion-item">
+                                                            <h2 className="accordion-header" id={`heading${topic.id}`}>
                                                                 <button
                                                                     className="accordion-button"
-                                                                    onClick={() => toggleDropdown(`collapse${topic.id}`)}
+                                                                    onClick={() => toggleDropdownTopic(`collapse${topic.id}`)}
                                                                     type="button"
                                                                     data-bs-toggle="collapse"
                                                                     data-bs-target={`#collapse${topic.id}`}
-                                                                    aria-expanded={isExpanded === `collapse${topic.id}`}
+                                                                    aria-expanded={isExpandedTopic === `collapse${topic.id}`}
                                                                     aria-controls={`collapse${topic.id}`}
                                                                 >
                                                                     <span>{topic.name}</span>
                                                                     <span>{CoureseFindOne.lessionCount} Lectures . 9 min</span>
                                                                 </button>
-
                                                             </h2>
-                                                            {isExpanded === `collapse${topic.id}` && (
+                                                            {isExpandedTopic === `collapse${topic.id}` && (
                                                                 <div
                                                                     id={`collapse${topic.id}`}
                                                                     className="accordion-collapse collapse show"
-                                                                    aria-labelledby="headingOne"
+                                                                    aria-labelledby={`heading${topic.id}`}
                                                                     data-bs-parent="#accordionExample"
                                                                 >
                                                                     {topic.videos && Array.isArray(topic.videos) && topic.videos.map((video) => (
-                                                                        <div className="accordion-body" key={video.id}>
-                                                                            <a href="#" className="play-vedio-wrapper" onClick={() => openModal(video)}>
-                                                                                <div className="left">
-                                                                                    <i className="fa-light fa-circle-play"></i>
+
+                                                                        
+                                                                        <div key={video.id}>
+                                                                            <h2 className="accordion-header" id={`heading${video.id}`}>
+                                                                                <button
+                                                                                    className="accordion-button"
+                                                                                    onClick={() => toggleDropdownVideo(`collapse${video.id}`)}
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    data-bs-target={`#collapse${video.id}`}
+                                                                                    aria-expanded={isExpandedVideo === `collapse${video.id}`}
+                                                                                    aria-controls={`collapse${video.id}`}
+                                                                                >
                                                                                     <span>{video.Title}</span>
+                                                                                </button>
+                                                                            </h2>
+                                                                            {isExpandedVideo === `collapse${video.id}` && (
+                                                                                <div
+                                                                                    id={`collapse${video.id}`}
+                                                                                    className="accordion-collapse collapse show"
+                                                                                    aria-labelledby={`heading${video.id}`}
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                  {video.VideoUplod.map((videofiles) => (
+                                                                                   
+                                                                                    <div className="accordion-body" key={videofiles.id}>
+                                                                                        <a href="#" className="play-video-wrapper"  onClick={() => openModal(videofiles)}>
+                                                                                              <div className="left">
+                                                                                              
+                                                                                              <i class="fa-solid fa-share bx-tada-hover" style={{ color: "red" }}></i>
+                                                                                                  <i className="fa-light fa-circle-play"></i>
+                                                                                                  <span>{videofiles.name}</span>
+                                                                                              </div>
+                                                                                              <div className="right">
+                                                                                                  <span className="play">Preview</span>
+                                                                                                  <span>9 min</span>
+                                                                                              </div>
+                                                                                        </a>
+                                                                                    </div>))}
                                                                                 </div>
-                                                                                <div className="right">
-                                                                                    <span className="play">Preview</span>
-                                                                                    <span>9 min</span>
-
+                                                                            )}
+                                                                          
+                                                                        </div>
+                                                                    ))}
+                                                                    {topic.lessions && Array.isArray(topic.lessions) && topic.lessions.map((lession) => (
+                                                                        <div key={lession.id}>
+                                                                            <h2 className="accordion-header" id={`heading${lession.id}`}>
+                                                                                <button
+                                                                                    className="accordion-button"
+                                                                                    onClick={() => toggleDropdownLesson(`collapse${lession.id}`)}
+                                                                                    type="button"
+                                                                                    data-bs-toggle="collapse"
+                                                                                    data-bs-target={`#collapse${lession.id}`}
+                                                                                    aria-expanded={isExpandedLesson === `collapse${lession.id}`}
+                                                                                    aria-controls={`collapse${lession.id}`}
+                                                                                >
+                                                                                    <span>{lession.Title}</span>
+                                                                                </button>
+                                                                            </h2>
+                                                                            {isExpandedLesson === `collapse${lession.id}` && (
+                                                                                <div
+                                                                                    id={`collapse${lession.id}`}
+                                                                                    className="accordion-collapse collapse show"
+                                                                                    aria-labelledby={`heading${lession.id}`}
+                                                                                    data-bs-parent="#accordionExample"
+                                                                                >
+                                                                                  {lession.LessionUpload.map((file) => (
+                                                                                    <div className="accordion-body" key={file.id}>
+                                                                                        <a href="#" className="play-video-wrapper"  onClick={() => openModalPDF(file)}>
+                                                                                            <div className="left">
+                                                                                            <i class="fa-solid fa-share bx-tada-hover" style={{ color: "red" }}></i>
+                                                                                                <i className="fa-light fa-file-pdf" style={{ color: "red" }}></i>
+                                                                                                <span>{file.name}</span>
+                                                                                            </div>
+                                                                                        </a>
+                                                                                    </div>))}
                                                                                 </div>
-                                                                            </a>
-
+                                                                            )}
                                                                         </div>
                                                                     ))}
                                                                 </div>
@@ -266,6 +353,7 @@ function CoursedetailsComponent() {
                                                     ))
                                                 ) : ''}
                                             </div>
+
                                             {/* Modal */}
                                             {isModalOpen && modalContent && (
                                                 <div className=' modal-backdropss' tabindex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', paddingRight: '17px' }} aria-modal="true" role="dialog">
@@ -273,15 +361,40 @@ function CoursedetailsComponent() {
                                                         <div onClick={(e) => e.stopPropagation()}>
                                                             <div className="mt--130" style={{ position: 'relative' }}>
 
-
-                                                                <button class="btn-close cloes" onClick={closeModal} style={{ position: 'absolute' }}></button>
+                                                               <button class="btn-close cloes" onClick={closeModal} style={{ position: 'relative' ,float:'right'}}></button>
+                         
 
                                                                 <video width="100%" controls>
 
-                                                                    <source src={`${REACT_APP_API_IMG}/${modalContent.VideoUplod}`} type="video/mp4" />
+                                                                    <source src={`${REACT_APP_API_IMG}/${modalContent.path}`} type="video/mp4" />
                                                                     Your browser does not support the video tag.
                                                                 </video>
 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            {isModalOpenPDF && modalContentPDF && (
+
+                                                <div className='modal-backdropss' tabindex="-1" aria-labelledby="exampleModalLabel" style={{ display: 'block', paddingRight: '17px' }} aria-modal="true" role="dialog">
+                                                    <div className="modal" style={{ display: 'block' }} onClick={closeModalPDF}>
+                                                        <div className="modal-dialog" onClick={(e) => e.stopPropagation()}>
+                                                            <div className="modal-content">
+                                                                <div className="modal-header">
+                                                                    <button className="btn-close" onClick={closeModalPDF} style={{ position: 'relative', float: 'right' }}></button>
+                                                                </div>
+                                                                <div className="modal-body">
+                                                                    <iframe
+
+                                                                        src={`${process.env.REACT_APP_API_IMG}/${modalContentPDF.path}`}
+                                                                        width="100%"
+                                                                        height="600px"
+                                                                        style={{ border: 'none', marginBottom: '20px' }}
+
+                                                                    ></iframe>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -291,9 +404,9 @@ function CoursedetailsComponent() {
                                         {/* <!-- course content accordion area end --> */}
                                     </div>
                                 </div>
-                              
+   
                             </div>
-                         
+                          
                         </div>
                         <div className="col-lg-4 order-cl-2 order-lg-2 order-md-1 order-sm-1 order-1  rts-sticky-column-item">
                             {/* <!-- right- sticky bar area --> */}
@@ -303,7 +416,6 @@ function CoursedetailsComponent() {
 
                                     <div className="thumbnail">
                                         <img src={`${REACT_APP_API_IMG}/${CoureseFindOne.CourseUplod}`} alt="course" />
-                                     
                                     </div>
 
                                     <div className="price-area">

@@ -84,7 +84,7 @@ function Topic() {
                     }
                 });
                 const userDatas = response.data.courses;
-                setCourse(userDatas)
+                setCourse(userDatas) 
             }
 
         } catch (error) {

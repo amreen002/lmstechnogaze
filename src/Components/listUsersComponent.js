@@ -16,6 +16,14 @@ function ListUse() {
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
     const [selectedCourses, setSelectedCourses] = useState('');
+    const [courses, setCourses] = useState([])
+    const [batches,setBatches]= useState([])
+    
+    const [isVisible, setIsVisible] = useState(null);
+
+    const toggleVisibility = (id) => {
+        setIsVisible(isVisible === id ? null : id);
+    };
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
@@ -25,11 +33,18 @@ function ListUse() {
         phoneNumber: '',
         image: null,
         AddressType: '',
+        departmentId:'',
         Address: '',
         StateId: '',
         CountryId: '',
         DistrictId: '',
         City: '',
+        DOB: '',
+        YourIntroducationAndSkills:  '',
+        TeacherType: '',
+        Date: '',
+        CoursesId: '',
+        BatchId: ''
       });
 
       const handleCountryChange = (e) => {
@@ -59,11 +74,10 @@ function ListUse() {
         fetchData();
         fetchData1()
         fetchData2()
+        fetchData3()
+        fetchData4()
     }, []);
-    const validateEmail = (email) => {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+
     const fetchData = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -121,43 +135,55 @@ function ListUse() {
             console.error('Error fetching data:', error);
         }
     };
+  
+    const fetchData3 = async () => {
+        try {
+            const token = localStorage.getItem('token');
 
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.courses;
+                setCourses(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const fetchData4 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.batchs;
+                setBatches(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     const handleChange = (e) => {
-        const { name, files } = e.target;
-        let new_pass = e.target.value;
-        setPassword(new_pass);
-        let newname = e.target.value;
-        setPassword(newname);
-        if (files) {
-            setFormData({
-                ...formData,
-                [name]: files[0]  // Handle files differently
-            });
-        } else {
-            setFormData({
-                ...formData,
-                [e.target.name]: e.target.value
-            });
+        const { name, files, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: files ? files[0] : value
+        });
+        if (name === 'departmentId') {
+            toggleVisibility(value);
         }
-
-        if (!validateEmail(formData.email)) {
-            setError('Invalid Email', error);
-            return;
-        }
-        var lowerCase = /[a-z]/g;
-        var upperCase = /[A-Z]/g;
-        var numbers = /[0-9]/g;
-        if (formData.password.length < 8 || !new_pass.match(lowerCase) || !new_pass.match(upperCase) || !new_pass.match(numbers)) {
-            setError('Password must be at least 8 chars long Abc.@678', error);
-            return;
-        }
-        if (formData.name == null) {
-            setEmail('Invalid Form, First Name can not be empty', emailerror)
-            return
-        }
-
-
-        setError(null);
     };
 
 
@@ -211,6 +237,7 @@ function ListUse() {
     const toggleDropdown = (serviceName) => {
         setOpenDropdown(activeService === serviceName ? '' : serviceName);
     };
+
     return (
         <>
             {/*     <!-- Layout wrapper --> */}
@@ -375,7 +402,7 @@ function ListUse() {
                                                             <td class="sorting_1">
                                                                 <div class="d-flex justify-content-start align-items-center user-name">
                                                                     <div class="avatar-wrapper"><div class="avatar avatar-sm me-3">
-                                                                        <img src={`${REACT_APP_API_IMG}/uploads/${item.image}`} alt="Avatar" class="rounded-circle" />
+                                                                        <img src={`${REACT_APP_API_IMG}/uploads/images/${item.image}`} alt="Avatar" class="rounded-circle" />
                                                                     </div>
                                                                     </div>
                                                                     <div class="d-flex flex-column">
@@ -462,8 +489,8 @@ function ListUse() {
                                                     {error && <div style={{ color: 'red' }}>{error}</div>}
                                                 </div>
                                                 
-                                                <div class="col-12 col-md-6">
-                                                    <label for="exampleFormControlSelect2" class="form-label">Roles</label>
+                                                <div className="col-12 col-md-6">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label">Roles</label>
                                                     <select
                                                         id="modalEditUserStatus"
                                                         className="form-select"
@@ -472,12 +499,18 @@ function ListUse() {
                                                         onChange={handleChange}
                                                     >
                                                         {roleData.map((option) => (
-                                                            <option value={option.id}>{option.Name}</option>
+                                                            <option key={option.id} value={option.id}>{option.Name}</option>
                                                         ))}
                                                     </select>
-
                                                 </div>
-
+                                                <div class="col-lg-6 p-t-20">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
+                                                    <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                                                        <option value=" ">---Select---</option>
+                                                        <option value="Current Address">Current Address</option>
+                                                        <option value="Permanent Address">Permanent Address</option>
+                                                    </select>
+                                                </div>
                                                 <div class="col-lg-6 p-t-20">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
                                                         <select
@@ -525,7 +558,7 @@ function ListUse() {
                                                         </select>
                                                     </div>
 
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="mb-3">
                                                         <label class="form-label" for="add-user-email"> City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
                                                             onChange={handleChange}
@@ -540,6 +573,71 @@ function ListUse() {
                                                             value={formData.Address} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
+
+                                                {isVisible === '4' && (
+                                                    <>
+                                                        <div class="col-12">
+                                                            <label class="form-label" for="add-user-contact">Student Date</label>
+                                                            <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
+                                                                onChange={handleChange}
+                                                                value={formData.Date} />
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                                                            <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
+                                                                <option value="">Select</option>
+                                                                {courses.map((option) => (
+                                                                    <option key={option.id} value={option.id}>{option.name}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                                                            <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
+                                                                <option value="">Select</option>
+                                                                {batches.map(batch => (
+                                                                    <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                    </>
+
+                                                )}
+
+
+                                                {isVisible ===  '3' && (<>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label" for="add-user-email">DOB</label>
+                                                        <input type="date" className='form-control' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={formData.TeacherType} onChange={handleChange}>
+                                                            <option value="">Select</option>
+                                                            <option value="Online">Online</option>
+                                                            <option value="Offline">Offline</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label" for="basic-icon-default-message">Introducation & Skills</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <textarea
+                                                                id="basic-icon-default-message"
+                                                                class="form-control"
+                                                                rows="8"
+                                                                placeholder="Hi, Your Introducation And Skills?"
+                                                                aria-label="Hi, Your Introducation And Skills?"
+                                                                aria-describedby="basic-icon-default-message2"
+                                                                name="YourIntroducationAndSkills" value={formData.YourIntroducationAndSkills} onChange={handleChange}></textarea>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                )}
+
+
 
                                                 <div class="col-12">
                                                     <label class="form-label" for="basic-icon-default-message">Message</label>

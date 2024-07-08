@@ -1,6 +1,6 @@
 import React from "react";
 
-function SearchComponent({closeSearch}){
+function SearchComponent({closeSearch},{openSearch}){
 
     return(
         <>
@@ -8,7 +8,7 @@ function SearchComponent({closeSearch}){
         <div class="container">
             <div class="search-input-inner">
                 <div class="input-div">
-                    <input class="search-input autocomplete ui-autocomplete-input" type="text" placeholder="Search by keyword or #" autocomplete="off"/>
+                    <input class="search-input autocomplete ui-autocomplete-input"  value={openSearch} type="text" placeholder="Search by keyword or #" autocomplete="off"  onChange={openSearch}/>
                     <button ><i class="far fa-search"></i></button>
                 </div>
             </div>

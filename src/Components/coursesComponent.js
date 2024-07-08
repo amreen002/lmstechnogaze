@@ -3,6 +3,7 @@ import axios from 'axios';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
+import ValidationCourse from '../validation/coursevalidation';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 const { REACT_APP_API_ENDPOINT } = process.env;
 function CoursesP() {
@@ -81,7 +82,7 @@ function CoursesP() {
                         Authorization: `Bearer ${token}`
 
                     }
-                });
+                }); 
                 const userDatas = response.data.categories;
                 setCategory(userDatas)
             }
@@ -90,6 +91,7 @@ function CoursesP() {
             console.error('Error fetching data:', error);
         }
     };
+    const [errors, setErrors] =useState({})
     const [formData, setFormData] = useState({
         name:'' , CoursePrice:'', CourseCategoryId: '', CourseDuration:'',CourseUplod:null, AboutCourse: '',Description: '',
     });
@@ -99,6 +101,10 @@ function CoursesP() {
             ...formData,
             [name]: files ? files[0] : value
         }));
+        const updatedFormData = { ...formData, [name]: value };
+
+        const validationErrors = ValidationCourse(updatedFormData);
+        setErrors(validationErrors);
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -382,18 +388,21 @@ function CoursesP() {
                                                     <label class="form-label" for="add-user-fullname">Class Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="Class" name='name'
                                                         value={formData.name} aria-label="John Doe" onChange={handleChange} />
+                                                        {errors.name && <div className='errors'>{errors.name}</div>}
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Class Price</label>
                                                     <input type="number" class="form-control" id="add-user-fullname" placeholder="Class Price" name='CoursePrice'
                                                         value={formData.CoursePrice} onChange={handleChange} />
+                                                         {errors.CoursePrice && <div className='errors'>{errors.CoursePrice}</div>}
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Class Duration (Days)</label>
                                                     <input type="number" class="form-control" id="add-user-fullname" placeholder="Class Duration" name='CourseDuration'
                                                         value={formData.CourseDuration} onChange={handleChange} />
+                                                         {errors.CourseDuration && <div className='errors'>{errors.CourseDuration}</div>}
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
@@ -404,6 +413,7 @@ function CoursesP() {
                                                             <option key={option.id} value={option.id}>{option.name}</option>
                                                         ))}
                                                     </select>
+                                                    {errors.CourseCategoryId && <div className='errors'>{errors.CourseCategoryId}</div>}
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                 <label class="form-label">Upload Image</label>
@@ -416,18 +426,21 @@ function CoursesP() {
                                                             name="file"
                                                              value={formData.CourseUplod} onChange={handleChange}
                                                         />
+                                                         {errors.file && <div className='errors'>{errors.file}</div>}
 
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">About Class</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="About Class" name='AboutCourse'
                                                         value={formData.AboutCourse} onChange={handleChange} />
+                                                         {errors.AboutCourse && <div className='errors'>{errors.AboutCourse}</div>}
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div class="mb-3 fv-plugins-icon-container">
                                                     <label class="form-label" for="add-user-fullname">Description</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="Description" name='Description'
                                                         value={formData.Description}  onChange={handleChange} />
+                                                         {errors.Description && <div className='errors'>{errors.Description}</div>}
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
                                                 <div className='mt-3 d-flex'>

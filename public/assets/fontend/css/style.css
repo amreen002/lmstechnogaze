@@ -16161,7 +16161,7 @@ nav ul li a {
   display: flex;
   overflow: hidden;
   position: relative;
-  max-width: 1920px;
+
   margin: auto;
   z-index: 1;
 }
@@ -32129,9 +32129,21 @@ border-top: 1px solid #d5d5d561;
 }
 .crl{
 padding-right: 14px;
+padding-left: 0px;
   font-size: 12px;
 }
+.choose_btn{
+  display: flex;
+  justify-content: space-evenly;
+}
 
+.chkbx{
+
+    margin-left: 63px !important;
+}
+.cstmradio{
+  margin-left: 54px !important;
+}
 .bnt i:active{
   background-color: #09A24F;
   color: #fff;
@@ -32343,7 +32355,7 @@ width: 40%;
   padding: 5px;
   cursor: pointer;
   position: relative;
-  margin-left: 120px;
+  margin-left: 95px;
 
 }
 
@@ -32541,8 +32553,40 @@ background-color: #fffaf2;
 
 
 }
+.profile{
+  justify-content: space-between;
+      border: 1px solid #ddd8f9;
+    background-color: #F9F8FF;
+    padding: 12px;
+}
+.my-single-portfolio-dashed{
+background-color: #F9F8FF;
+padding: 15px !important;
+margin-top: 12px;
+}
+.calender-dash-wrapper .container-calendar{
+  border: 1px solid #ddd8f9;
+}
+.day{
+  border: 1px solid #ddd8f9;
+  background-color: #F9F8FF;
+}
+.paswrd{
+  position: relative;
+}
+.paswrd i{
+  position: absolute;
+  top: 63%;
+  right: 25px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
 
-
+.errors {
+  border-radius: 4px !important;
+  color: #ea868f !important;
+  display: inline-block !important;
+}
 /* About css */
 .unorderlist li{
   font-size: 16px !important;
