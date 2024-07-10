@@ -251,12 +251,12 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                 </div>
                                 <p className="post-title">You'll find something to spark your curiosity and enhance</p>
                             </div> */}
-                            <div className="button-group filters-button-group">
+                            {/* <div className="button-group filters-button-group">
                                 <button className="button is-checked" data-filter="*">All Courses</button>
                                 <button className="button" data-filter=".creative"> Class 6</button>
                                 <button className="button" data-filter=".design"> Class 7</button>
                                 <button className="button" data-filter=".photo"> Class 8</button>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -414,17 +414,23 @@ Welcome to The Good Student Co., where we believe every student has the potentia
 
             <div class="category-area-style-one shape-move py-5 bg_image">
                 <div class="container-fluid">
-                    <div class="row">
-                    <div className='col-12 col-xl-12 col-lg-12 col-md-12 uncld'>
-                            <div className='row'>
-                                <div className='col-12 col-xl-9 col-lg-9 col-md-9'>
+                    <div class="row uncld">
+                       
+                           <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+                           <div className='student_parent_img'>
+                                <img src="assets/fontend/images/about/12.jpg" className='img-fluid' />
+                            </div>
+                     
+                           </div>
+
+                           <div className='col-12 col-xl-6 col-lg-6 col-md-6'>
+                              
                                     <div className='uncl'>
                                         <div class="title-area-center-style">
                                             <div class="pre-title mr--90">
                                               
                                                 <span className='exploress'>SHINE BRIGHT, STAY CURIOUS</span>
                                             </div>
-
                                             <p class="post-title">At The Good Student Co., we're not just about grades – we're 
                                                 about nurturing a lifelong love for learning.</p>
                                                 <p>
@@ -437,35 +443,33 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                                     </div>
                                 </div>
                                 <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
+                         
+                            <div class="unloclk"><img src="assets/fontend/images/banner/sun.png" alt=""  /></div>
+                           </div>
 
-                                    <div class="unloclk"><img src="assets/fontend/images/banner/sun.png" alt=""  /></div>
-
-                                </div>
-                            </div>
-
-                        </div>
+                     
+                  
                  
                         <div className='col-12 col-xl-12 col-lg-12 col-md-12 unclde'>
                             <div className='row'>
-                                <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
-                                <div class="shape two sun1" ><img src="assets/fontend/images/banner/sun.png" alt=""  /></div>
+                            <div class="shape two sun1" >
+                               <center>
+                               <img src="assets/fontend/images/about/13.jpg" alt=""  /></center> 
                                 </div>
-                                <div className='col-12 col-xl-9 col-lg-9 col-md-9 ushine'>
+                                <div className='col-12 col-xl-12 col-lg-12 col-md-12 ushine'>
                                 <div class="title-area-center-style">
                                 <div class="pre-title">
-                                    <h2>SHINE BRIGHT, STAY CURIOUS</h2>
+                                    <h2>READY TO TAKE OFF?</h2>
                                 </div>
                             </div>
                             <div class="title-area-center-style">
 
 <p class="post-title">
- At The Good Student Co., we're not just about grades – we're about nurturing a lifelong love for learning.
+Click below to begin your epic learning quest with
+ The Good Student Co. 
+Let's make every day a great day to learn!
 </p>
-<p class="post-title">
- So come on, grab your backpack and join us on an adventure through the fascinating world of knowledge. </p>
-<p class="post-title">
- Together, let's unlock the secrets of the universe and become the best versions of ourselves!
-</p>
+
 </div>
 
                                 </div>

@@ -183,11 +183,11 @@ const closebtn=()=>{
                         onMouseEnter={handleIcseMouseEnter}
                         onMouseLeave={handleIcseMouseLeave}>
                       <Link className="dropdown-item" to="#">ICSE</Link>
-                      {isIcseDropdownOpen && (
+                      {/* {isIcseDropdownOpen && (
                         <ul className="std-dropdown-menu nested">
                           <li><Link className="dropdown-item" to="/icse/class1">Class 1</Link></li>
                         </ul>
-                      )}
+                      )} */}
                     </li>
                   </ul>
                 )}
@@ -294,7 +294,7 @@ const closebtn=()=>{
             <div class="container">
               <div class="search-input-inner">
                 <div class="input-div">
-                  <input class="search-input autocomplete ui-autocomplete-input" type="search"  placeholder="Search by keyword or #" autocomplete="off" onChange={Search} />
+                  <input class="autocomplete form-control search-input ui-autocomplete-input" type="search"  placeholder="Search by keyword or #" autocomplete="off" onChange={Search} />
                   <button ><i class="far fa-search"></i></button>
                 </div>
               </div>

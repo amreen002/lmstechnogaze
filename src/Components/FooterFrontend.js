@@ -36,10 +36,9 @@ const Footer = () => {
                             </div>
                             <div className="body">
                                 <ul className="menuu">
-                                    <li><a className='company' href="course-two.html"></a></li>
-                                    <li><a className='company' href="about.html"></a></li>
-                                    
-                                    <li><a className='company' href="pricing.html"></a></li>
+                                    <li><a className='company' href="/privacypolicy">Privacy Policies</a></li>
+                                    <li><a className='company' href="/signup">SignUp</a></li>
+                                    <li><a className='company' href="/login">Login</a></li>
                                 </ul>
                             </div>
                         </div>
