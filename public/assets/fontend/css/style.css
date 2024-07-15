@@ -74,7 +74,6 @@ h2.forparnt {
   animation: slide 12s infinite;
   opacity: 0;
 }
-
 .sliding-text:nth-child(1) {
   animation-delay: 0s;
 }
@@ -114,7 +113,6 @@ body p {
   font-size: 20px;
   text-transform: uppercase;
 }
-
 .cartinfo {
   background-color: #fff;
   padding: 16px 20px;
@@ -139,18 +137,14 @@ body p {
  
   color: green !important;
 }
-
 .ttl_amt h2 span {
   font-size: 22px;
   text-align: right;
   color: green !important;
 }
-
-
 .view_details {
   color: #fff;
 }
-
 span.p_cunt {
   right: -15px;
   bottom: -11px;
@@ -171,7 +165,6 @@ span.p_cunt {
 .about_one {
   background-color: #fff;
 }
-
 .lsa_img {
   border: 1px solid #ccc;
   border-radius: 8px;

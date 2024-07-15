@@ -6,13 +6,19 @@ import Navbarmenu from '../Components/Navbarmenu';
 const { REACT_APP_API_ENDPOINT,REACT_APP_API_IMG } = process.env;
 const Home = () => {
     const { addToCart } = useContext(CartContext);
-    const [animate5, setAnimate5] = useState(false);
+    
     const [search ,setSearch]= useState('');
     const Search = (e) => {
         setSearch(e.target.value);
     };
+    const [animate5, setAnimate5] = useState(false);
     useEffect(() => {
         setAnimate5(true);
+    }, []);
+
+    const [animate15, setAnimate15] = useState(false);
+    useEffect(() => {
+        setAnimate15(true);
     }, []);
 
     const [animate2, setAnimate2] = useState(false);
@@ -20,7 +26,11 @@ const Home = () => {
     useEffect(() => {
         setAnimate2(true);
     }, []);
+    const [animate4, setAnimate4] = useState(false);
 
+    useEffect(() => {
+      setAnimate4(true);
+    }, []);
     const [courses, setCourse] = useState([]);
     const [totalLessionCount, settotalLessionCount] = useState(null);
     const [totalStudentCount, settotalStudentCount] = useState(null);
@@ -85,7 +95,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                     </div>
                     <div className="col-lg-6 order--xl-2 order-lg-2 order-sm-1 order-1">
                         <div className={` banner-right-img content ${animate5 ? 'bounce-in-right' : ''}`} >
-                            <img src="assets/fontend/images/banner/1.png" alt="banner" />
+                            <img src="assets/fontend/images/banner/Banner-Icon-1.png" alt="banner" />
                         </div>
                     </div>
                 </div>
@@ -100,16 +110,9 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                     <div className='col-12 col-md-6 col-lg-6 col-xl-6'>
                         <div className="about-one-left-image">
                            
-                            <div className="second-order pb-2">
+                            <div className={` second-order pb-2 ${animate4 ? 'bounce-left' : ''}`}>
                                 <img src="assets/fontend/images/about/5.png" alt="about" />
-                                <div className="vedio-icone">
-                                    <a className="video-play-button play-video popup-video" href="https://www.youtube.com/watch?v=ezbJwaLmOeM">
-                                        <span></span>
-                                    </a>
-                                    <div className="video-overlay">
-                                        <a className="video-overlay-close">×</a>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </div>
                     </div>
@@ -132,26 +135,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
         <div className="why-choose-us bg-blue bg-choose-us-one bg_image pb-3  shape-move">
             <div className="container-fluid">
                 <div className="row align-items-center">
-                    <div className="col-lg-6">
-                        <div className="why-choose-us-area-image">
-                            <img className="one" src="assets/fontend/images/why-choose/2.png" alt="why-choose" />
-
-                            <div className="circle-animation">
-                                <a className="uni-circle-text uk-background-white dark:uk-background-gray-80 uk-box-shadow-large uk-visible@m" href="#view_in_opensea">
-                                    <svg className="uni-circle-text-path uk-text-secondary uni-animation-spin" viewBox="0 0 100 100" width="200" height="200">
-                                        {/* <defs>
-                                    <path id="circle" d="M 50, 50 m -37, 0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0">
-                                    </path>
-                                </defs>
-                                 <text font-size="11.2">
-                                    <textPath xlink:href="#circle">About Univercity • About Collage •</textPath>
-                                </text>  */}
-                                    </svg>
-                                    <i className="fa-regular fa-arrow-up-right"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
+                   
                     <div className="col-lg-6 pl--90 pl_md--15 mt_md--50 pl_sm--15 pt_sm--50">
                         <div className="title-area-left-style">
                         <div class="owText" >
@@ -161,46 +145,14 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                             <p className="post-title">Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who learns best by doing, touching, and moving?</p>
                             <p className='post-title'>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
                         </div>
-                        {/* <div className="why-choose-main-wrapper-1">
+                   
+                    </div>
 
-                            <div className="single-choose-reason-1">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/why-choose/icon/01.png" alt="icon" />
-                                </div>
-                                <h6 className="title">Board</h6>
-                            </div>
+                    <div className="col-lg-6">
+                        <div className="why-choose-us-area-image">
+                            <img className="one" src="assets/fontend/images/why-choose/2.png" alt="why-choose" />
 
-                            <div className="single-choose-reason-1">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/why-choose/icon/02.png" alt="icon" />
-                                </div>
-                                <h6 className="title">Class</h6>
-                            </div>
-
-                            <div className="single-choose-reason-1">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/why-choose/icon/03.png" alt="icon" />
-                                </div>
-                                <h6 className="title">Subject</h6>
-                            </div>
-
-                            <div className="single-choose-reason-1">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/why-choose/icon/04.png" alt="icon" />
-                                </div>
-                                <h6 className="title">Modules</h6>
-                            </div>
-
-                            <div className="single-choose-reason-1">
-                                <div className="icon">
-                                    <img src="assets/fontend/images/why-choose/icon/05.png" alt="icon" />
-                                </div>
-                                <h6 className="title">Content</h6>
-                            </div>
-
-
-
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,6 +166,9 @@ Welcome to The Good Student Co., where we believe every student has the potentia
 
                 </div>
                 <div class="row">
+                <div className={` col-md-6 ${animate15 ? 'bounce-in-right' : ''}`}>
+                        <img src='assets/fontend/images/about/join.png' className='img-fluid' style={{width:'80%'}} />
+                    </div>
                     <div class="col-lg-6 pt--160">
                     <div class="title-area-center-style who">
                            
@@ -226,9 +181,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                             </p>
                         </div>
                     </div>
-                    <div className='col-md-6'>
-                        <img src='assets/fontend/images/about/join.png' className='img-fluid' style={{width:'80%'}} />
-                    </div>
+                    
 
                 </div>
             </div>
@@ -418,7 +371,7 @@ Welcome to The Good Student Co., where we believe every student has the potentia
                        
                            <div className='col-12 col-xl-3 col-lg-3 col-md-3'>
                            <div className='student_parent_img'>
-                                <img src="assets/fontend/images/about/12.jpg" className='img-fluid' />
+                                <img src="assets/fontend/images/about/12.png" className='img-fluid' />
                             </div>
                      
                            </div>
