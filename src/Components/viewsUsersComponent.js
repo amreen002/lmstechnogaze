@@ -249,7 +249,7 @@ function VieweUsersP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, data, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
                         Authorization: `Bearer ${token}`

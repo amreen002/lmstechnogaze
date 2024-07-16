@@ -11,15 +11,17 @@ function InstructorviewquizComponent(token) {
     const [question, setQuestion] = useState([]);
 
     const [isVisible, setIsVisible] = useState(false);
-
+    const [student, setstudent] = useState('');
     const toggleVisibility = (id) => {
         setIsVisible(isVisible === id ? null : id);
     };
 
     useEffect(() => {
         fetchDataQuize()
-        fetchDataQuestion()
     }, []);
+    useEffect((student) => {
+        fetchDataQuestion(student)
+    }, [student]);
     const fetchDataQuize = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -39,12 +41,12 @@ function InstructorviewquizComponent(token) {
             console.error('Error fetching data:', error);
         }
     };
-    const fetchDataQuestion = async () => {
+    const fetchDataQuestion = async (student) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/question`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/question?student=true`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

@@ -258,7 +258,7 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

@@ -72,7 +72,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -365,7 +365,7 @@ const InstructorCourseadd = () => {
                                 <h1 className="title">Create Class</h1>
 
                                 <div className="pagination-wrapper">
-                                    <a href="index-2.html">Home</a>
+                                    <a href={`/`}>Home</a>
                                     <i className="fa-regular fa-chevron-right"></i>
                                     <a className="active" href="create-course.html">Create Class</a>
                                 </div>

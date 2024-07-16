@@ -262,7 +262,7 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

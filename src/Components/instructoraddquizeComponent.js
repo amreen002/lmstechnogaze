@@ -21,7 +21,7 @@ function InstructoreaddquizeComponent(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -85,8 +85,9 @@ function InstructoreaddquizeComponent(token) {
 
     // Format options for react-select
     const options = batch.map(option => ({
+      
         value: option.id,
-        label: option.Title
+        label: option.Title,
     }));
 
     // Handle change event
@@ -121,7 +122,7 @@ function InstructoreaddquizeComponent(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/batches`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -230,11 +231,12 @@ function InstructoreaddquizeComponent(token) {
                     Authorization: `Bearer ${token}`,
                 },
             });
+            const quizzesdata = response.data.quizze;
             alert('Quiz successfully created');
-            navigate('/instructor/question'); 
+            navigate(`/instructorquestion/${quizzesdata.id}`); 
             if (response.status === 200) {
                 alert('Quiz successfully created');
-                navigate('/instructor/question'); // Use navigate instead of window.location.href
+                navigate(`/instructorquestion/${quizzesdata.id}`); 
             } else {
                 console.error('Unexpected response status:', response.status);
                 alert('Failed to create quiz. Please try again.');

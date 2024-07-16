@@ -136,7 +136,7 @@ const [errors, setErrors] = useState({})
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/questionscategory/${questionscategoryId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/questionscategory/${questionscategoryId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

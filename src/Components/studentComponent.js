@@ -291,7 +291,7 @@ function StudentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -628,7 +628,7 @@ console.log(Address)
                                                              {errors.Date && <div className='errors'>{errors.Date}</div>}
                                                     </div>
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Student Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (
@@ -835,7 +835,7 @@ console.log(Address)
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Student Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (
