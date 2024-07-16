@@ -65,7 +65,7 @@ import AssignmentdetailRouter from './Routers/assignmentdetailRouter.js'
 import AnnouncementdetailRouter from './Routers/announcmentdetailRouter.js'
 import StudentaddreviewRouter from './Routers/studentaddreviewRouter.js'
 import AddQuestionsRouter from './Routers/addquestionsRouter.js'
-
+import EasyserviceRouter from './Routers/easyserviceRouter.js';
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
@@ -121,7 +121,9 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<AboutPages />} />
         <Route path="/lsa" element={<Lsa />} />
-       
+        <Route
+          path="/easyservice"
+          element={<EasyserviceRouter/>} />
         <Route path="/signup" element={<SignupRouter />} />
 
         <Route path="/createcourse/coursesId" element={<InstructorUpdateCourse />} />
@@ -402,6 +404,7 @@ function App() {
             path="/announcementdetails"
             element={<AnnouncementdetailRouter />} />
       </Routes>
+
     </BrowserRouter>
     </CartProvider>
   );

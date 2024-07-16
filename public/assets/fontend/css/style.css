@@ -1,4 +1,70 @@
 /**/
+/*easy service-page*/
+
+.strap-text {
+
+  margin-right: 20px;
+  background: #fff;
+  padding: 40px;
+  -webkit-box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .1);
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, .1);
+  }
+  .strap-text  h3{
+    font-size: 30px;
+    line-height: 4.5;
+  }
+
+.backimg{
+  background-image: url('../images/breadcrumb/03.jpg') ;
+ background-repeat: no-repeat;
+
+ width: 100%;
+
+ 
+}
+.unique{
+
+  padding: 90px;
+}
+.importants{
+  padding: 76px 30px 64px 30px;
+  background-color: #aa8acc24;
+  position: relative;
+  text-align: center;
+  border-radius: 13px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+}
+.strap-text{
+  font-weight: normal;
+  height: 67px;
+  letter-spacing: 0.1em;
+  left: 15px;
+  line-height: 47px;
+  margin: 0;
+  padding: 0 25px;
+  position: absolute;
+  text-transform: capitalize;
+  top: -38px;;
+}
+.choose_btn{
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.chkbx{
+
+    margin-left: 63px !important;
+}
+.cstmradio{
+  margin-left: 54px !important;
+}
+.backcolor{
+  background-color: #fff6f6;;
+}
+.unloclk img {
+  padding: 62px 16px;
+}
+/*end*/
 /*explore start*/
 span.benifites {
   font-weight: 700;
