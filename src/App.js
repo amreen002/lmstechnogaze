@@ -68,6 +68,7 @@ import AddQuestionsRouter from './Routers/addquestionsRouter.js'
 import QuizeResultRouter from './Routers/quizresultRouter.js'
 import AttempquestionRouter from './Routers/attemtedquestionRouter.js'
 import StudentMaterialesRouter from './Routers/studentmaterialesRouter.js'
+import EasyserviceRouter from './Routers/easyserviceRouter.js';
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
@@ -118,7 +119,7 @@ function App() {
     <CartProvider>
       <BrowserRouter>
         <Routes>
-
+          <Route path="/easyservice" element={<EasyserviceRouter />} />
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPages />} />
           <Route path="/lsa" element={<Lsa />} />

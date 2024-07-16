@@ -192,7 +192,7 @@ const closebtn=()=>{
                   </ul>
                 )}
               </li>
-              <li><Link className="dropdown-item" to="/essay-services">Essay Services</Link></li>
+              <li><Link className="dropdown-item" to="/easyservice">Essay Services</Link></li>
             </ul>
           )}
         </li>
