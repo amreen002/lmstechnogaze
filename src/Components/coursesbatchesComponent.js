@@ -210,7 +210,7 @@ function BatchesCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsbatches/${batchesId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsbatches/${batchesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

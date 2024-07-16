@@ -136,7 +136,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

@@ -222,7 +222,7 @@ function BatchesUse() {
                     BatchDatails
     
                 }
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsbatches/${batchesId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsbatches/${batchesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

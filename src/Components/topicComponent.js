@@ -161,7 +161,7 @@ function Topic() {
             const token = localStorage.getItem('token');
             if (token) {
               
-                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

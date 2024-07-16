@@ -174,7 +174,7 @@ function TelecalTeam() {
 
             const promises = Object.entries(createdItems).map(([telecallerteamId, isChecked]) => {
                 const updatedUserData = { TelecallerCheckbox: isChecked };
-                return axios.put(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${telecallerteamId}`, updatedUserData, {
+                return axios.patch(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${telecallerteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

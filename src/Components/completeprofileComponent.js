@@ -74,6 +74,22 @@ const CompleteProfile = () => {
     });
     setSelectedState(selectedState);
   };
+  const handleCourseChange = async (e) => {
+    const selectedCoursesId = parseInt(e.target.value);
+    const selectedCourse = courses.find(course => course.id === selectedCoursesId);
+    setFormData({
+        ...formData,
+        CoursesId: selectedCoursesId,
+        BatchId: '' // Reset topic selection
+    });
+
+    setSelectedCourses(selectedCourse);
+    if (selectedCourse) {
+        fetchData2(selectedCoursesId);
+
+    }
+
+};
 
   const fetchData1 = async () => {
     try {
@@ -181,7 +197,7 @@ const CompleteProfile = () => {
       data.append(key, formData[key]);
     }
     try {
-      await axios.put(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
+      await axios.patch(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
         },
@@ -293,6 +309,7 @@ const CompleteProfile = () => {
                 <div className='pb-3'>  
                 <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
                   <select  className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                  <option value="">---Select---</option>
                   <option value="Current Address">Current Address</option>
                   <option value="Permanent Address">Permanent Address</option>
                 </select>
@@ -316,11 +333,11 @@ const CompleteProfile = () => {
                       <label class="form-label" for="add-user-contact">Student Date</label>
                       <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
                         onChange={handleChange}
-                        disabled="false" value={formData.Date} />
+                        value={formData.Date} />
                     </div>
                     <div class="col-12">
-                      <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
-                      <select id="exampleFormControlSelect2"  class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
+                      <label for="exampleFormControlSelect2" class="form-label">Student Class</label>
+                      <select id="exampleFormControlSelect2"  class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
                         <option value="">Select</option>
                         {courses.map((option) => (
                           <option key={option.id} value={option.id}>{option.name}</option>
@@ -331,7 +348,7 @@ const CompleteProfile = () => {
                       <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
                       <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
                         <option value="">Select</option>
-                        {batches.map(batch => (
+                        {selectedCourses && selectedCourses.Batches.map(batch => (
                           <option key={batch.id} value={batch.id}>{batch.Title}</option>
                         ))}
                       </select>

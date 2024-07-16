@@ -235,7 +235,7 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`

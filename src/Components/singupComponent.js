@@ -11,7 +11,7 @@ const SignUp = () => {
         email: '',
         password: '',
         roleName: '',
-        phoneNumber: '',
+        phoneNumber: 0,
         departmentId: '',
     });
 
