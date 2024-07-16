@@ -88,7 +88,6 @@ const Home = () => {
                 <div className="row align-items-center">
                     <div className='col-12 col-md-6 col-lg-6 col-xl-6'>
                         <div className="about-one-left-image">
-                            <img src="assets/fontend/images/about/6.png" alt="about" style={{ width: "25%" }} />
                             <div className="second-order pb-2">
                                 <img src="assets/fontend/images/about/5.png" alt="about" />
                                 <div className="vedio-icone">
@@ -207,9 +206,8 @@ const Home = () => {
 
                     <div class="col-lg-12" >
                         <div class="title-area-center-style who">
-                            <div class="pre-title mt--100"><img src="assets/fontend/images/banner/bulb.png" alt="icon" /><span className='exploress'>Explore</span></div>
-                            <h2 class="title ">Who Loves To Doodle Diagrams?</h2>
-                            <p class="post-title">YOUR LEARNING STYLE</p>
+                            <div class="pre-title mt--100"></div>
+                            <h2 class="title ">UNLOCK ENDLESS POSSIBILITIES</h2>
                         </div>
 
                     </div>
@@ -218,10 +216,7 @@ const Home = () => {
                     <div className='col-lg-3'></div>
                     <div class="col-lg-6">
                         <div className='explore_text'>
-                            <p>Are you a visual virtuoso who loves to doodle diagrams? Perhaps you're an auditory aficionado
-                                who absorbs information through music and sound? Or maybe you're a kinesthetic king or queen who
-                                learns best by doing, touching, and moving?</p>
-                            <p>Whatever your learning style, we've got you covered! Our cutting-edge assessment tools will pinpoint your strengths and preferences, guiding us to tailor-make your learning experience just for you.</p>
+                            <p>Once we've cracked the code to your unique learning style, get ready to dive into a treasure trove of resources specially curated to suit you. From interactive games and videos to hands-on activities and personalized study plans, our platform is your one-stop shop for academic excellence!</p>
                         </div>
                     </div>
 

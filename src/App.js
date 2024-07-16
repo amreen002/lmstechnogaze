@@ -44,6 +44,8 @@ import CompleteProfile from './Routers/completeprofileRouters.js';
 import InstructoreaddquizeRouter from './Routers/instructoreaddquizeRouter.js'
 import InstructorviewquizRouter from './Routers/instructorviewquizRouters.js'
 import MultiplequestionRouter from './Routers/multiplequestionRouters.js'
+import EasyserviceRouter from './Routers/easyserviceRouter.js';
+
 
 import StudentQuestionViewRouter from './Routers/studentquestionviewRouters.js'
 import StudentAddquestionRouter  from  './Routers/studentquizattemptRouter.js'
@@ -357,6 +359,9 @@ function App() {
         <Route
           path="/user-my-profile/:usersId"
           element={loggedIn === true ? ( <UsersMyProfileRouter onLogout={handleLogout}/> ) : (<Login onLogin={handleLogin} />)} />
+           <Route
+          path="/easyservice"
+          element={<EasyserviceRouter/>} />
 
       </Routes>
     </BrowserRouter>
