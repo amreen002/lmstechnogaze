@@ -97,9 +97,9 @@ function App() {
       localStorage.setItem('token', response.data.token);
       setLoggedIn(true);
       // Redirect after setting the loggedIn state
-      if (datatokendata?.Role?.Name === 'Student' || datatokendata?.Role?.Name === 'Instructor') {
+      if (datatokendata?.Role?.Name === 'Student' || datatokendata?.Role?.Name === 'Instructor'||datatoken?.Role?.Name ==='Guest/Viewer') {
         window.location.href = '/dashboard';
-      } else if (['Administrator', 'Super Admin', 'Admin', 'Telecaller Department', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatokendata?.Role?.Name)) {
+      } else if (['Administrator', 'Super Admin', 'Admin', 'Telecaller Department', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatokendata?.Role?.Name)) {
         window.location.href = '/dashboard/admin';
       } else {
         window.location.href = '/login';
@@ -136,7 +136,7 @@ function App() {
           <Route
             path="/dashboard"
             element={
-              loggedIn && (datatoken?.Role?.Name === 'Student' || datatoken?.Role?.Name === 'Instructor') ? (
+              loggedIn && (datatoken?.Role?.Name === 'Student' || datatoken?.Role?.Name === 'Instructor'||datatoken?.Role?.Name ==='Guest/Viewer') ? (
                 <InstructorDashboard userData={datatoken} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" />
@@ -147,7 +147,7 @@ function App() {
           <Route
             path="/dashboard/admin"
             element={
-              loggedIn && ['Super Admin', 'Admin', 'Telecaller Department', 'Administrator', 'Guest/Viewer', 'Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatoken?.Role?.Name) ? (
+              loggedIn && ['Super Admin', 'Admin', 'Telecaller Department', 'Administrator','Sale Department', 'Telecaller Team', 'Front Desk', 'Counselor Department', 'Account Department'].includes(datatoken?.Role?.Name) ? (
                 <Dashboards userData={datatoken} onLogout={handleLogout} />
               ) : (
                 <Navigate to="/login" />
