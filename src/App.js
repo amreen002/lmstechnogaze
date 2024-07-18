@@ -69,6 +69,8 @@ import QuizeResultRouter from './Routers/quizresultRouter.js'
 import AttempquestionRouter from './Routers/attemtedquestionRouter.js'
 import StudentMaterialesRouter from './Routers/studentmaterialesRouter.js'
 import EasyserviceRouter from './Routers/easyserviceRouter.js';
+import QuizeUpdateRouter from './Routers/quizeupdateRouter.js';
+import UpdatequestionRouter from './Routers/questionupdateRouter.js';
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
@@ -408,6 +410,8 @@ function App() {
             element={<QuizeResultRouter />} />
           <Route path='/attemptquestion' element={<AttempquestionRouter />} />
           <Route path='/studentmateriales/:coursesId' element={<StudentMaterialesRouter />} />
+          <Route path='/quizeupdate/:quizzeId'   element={loggedIn === true ? (<QuizeUpdateRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
+          <Route path='/updatequestion/:quizzeId/:questionId' element={<UpdatequestionRouter />} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

@@ -415,7 +415,8 @@ function ListUse() {
                                                             <td>{item.phoneNumber}</td>
                                                             <td>{item.email}</td>
                                                             <td>{item.Role && item.Role.Name}</td>
-                                                            <td><div class="d-inline-block text-nowrap">
+                                                            <td>
+                                                                <div class="d-inline-block text-nowrap">
                                                                 <button class="btn btn-sm btn-icon" onClick={() => toggleDropdown('dropdownprofile')}>
                                                                     <i class="bx bx-edit"></i>
                                                                 </button>
@@ -423,8 +424,11 @@ function ListUse() {
                                                                     <i class="bx bx-trash"></i>
                                                                 </button>
 
-                                                                {activeService === 'dropdownprofile' && (<div classNmae="dropdown-menu dropdown-menu-end m-0">
-                                                                    <Link to={`/userviews/${item.id}`} classNmae="dropdown-item">View</Link></div>)}</div></td>
+                                                                {activeService === 'dropdownprofile' && (
+                                                                    <div classNmae="dropdown-menu dropdown-menu-end m-0">
+                                                                        <Link to={`/userviews/${item.id}`} classNmae="dropdown-item">View</Link></div>
+                                                                )}</div>
+                                                            </td>
 
                                                         </tr>
                                                     ))}
