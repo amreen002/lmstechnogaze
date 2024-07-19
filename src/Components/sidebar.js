@@ -26,7 +26,7 @@ const Sidebar = () => {
 
     return (
 
-        <div className="col-lg-3 rts-sticky-column-item">
+        <div className="col-lg-3 rts-sticky-column-item cus_sidebar">
 
             <div className="left-sindebar-dashboard theiaStickySidebar">
                 {table.Role && table.Role.Name === 'Instructor' && (

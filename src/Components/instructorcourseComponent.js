@@ -372,12 +372,12 @@ const InstructorCourseadd = () => {
                 <Navbarmenu />
             </section>
 
-            <div className="rts-bread-crumbarea-1 rts-section-gap bg_image">
+            <div className="rts-bread-crumbarea-1 rts-section-gap bg_image pt--110 pb--110">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb-main-wrapper">
-                                <h1 className="title">Create Class</h1>
+                                <h1 className="title ttl2">Add Class Details</h1>
 
                                 <div className="pagination-wrapper">
                                     <a href={`/`}>Home</a>

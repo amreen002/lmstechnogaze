@@ -47,12 +47,7 @@ const Lsa = () => {
                     <div className='lsa_img'>
                               <figure class="wpb_wrapper vc_figure">
                                   <div class="vc_single_image-wrapper   vc_box_border_grey">
-                                    <img fetchpriority="high" decoding="async" width="635" height="625" 
-                                    src="assets/fontend/images/about/1.png" class="vc_single_image-img attachment-full" alt="" title="into"
-                                     srcset="assets/fontend/images/about/1.png 635w, 
-                                     assets/fontend/images/about/1.png 600w, 
-                                     assets/fontend/images/about/1.png 300w"
-                                      sizes="(max-width: 635px) 100vw, 635px" />
+                                    <img src='assets/fontend/images/about/Banner-Icon-14.png' className='img-fluid' />
 
                                       </div>
                               </figure>
@@ -110,13 +105,8 @@ const Lsa = () => {
                       <div className='col-12 col-xl-7 col-lg-7 col-md-7'>
                           <div className='lsa_img2'>
                               <figure class="wpb_wrapper vc_figure">
-                                  <div class="vc_single_image-wrapper   vc_box_border_grey">
-                                      <img fetchpriority="high" decoding="async" width="635" height="625"
-                                          src="assets/fontend/images/about/2.png" class="vc_single_image-img attachment-full" alt="" title="into"
-                                          srcset="assets/fontend/images/about/2.png 635w, 
-                                     assets/fontend/images/about/2.png 600w, 
-                                     assets/fontend/images/about/2.png 300w"
-                                          sizes="(max-width: 635px) 100vw, 635px" />
+                                  <div class="">
+                                  <img src='assets/fontend/images/about/Banner-Icon-15.png' className='img-fluid' />
 
                                   </div>
                               </figure>

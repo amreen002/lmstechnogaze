@@ -1,7 +1,133 @@
 
 /**/
-/*easy service-page*/
+/*guest Lock Content*/
 
+/* .sociallocker {
+  background-color: #EEEEEE;
+  text-align: center;
+  position: relative;
+  max-width: 500px;
+  height: 310px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.sociallocker-overlay {
+	background-color: rgba(0,0,0,0.6);
+	font-size: 20px;
+	font-weight: bold;
+	color: #ffffff;
+	transition: all 0.2s ease;
+}
+.sociallocker-overlay i {
+  margin-right: 0px;
+  margin-top: -27px;
+}
+
+ .sociallocker-content a {
+	display: inline-block;
+	text-decoration: none;
+	padding: 10px 20px;
+	background-color: #777777;
+	color: #f9f9f9;
+	border-radius: 4px;
+	font-weight: bold;
+}
+.sociallocker-overlay, .sociallocker-content, .sociallocker-links {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  padding: 0px 50px;
+}
+.sociallocker-content {
+	background-color: #ccc;
+	transition: all 0.2s ease;
+}
+.social-1 {
+	text-decoration: none;
+    color: #ffffff;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+	margin-right: 5px;
+}
+.social-1 i {
+	display: flex;
+  	align-items: center;
+  	justify-content: center;
+    height: 100%;
+}  */
+
+/*end*/
+.box_avbt_img {
+  background: #fff url(../images/about/about-top.svg);
+  background-position: bottom;
+  background-repeat: no-repeat;
+  padding: 124px 0px;
+  background-size: cover;
+}
+h1,h2,h3,h4,h5,h6{
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.pre-title h2 {
+  font-family: "Bebas Neue", sans-serif;
+  color: #221859 !important;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 66px;
+  position: relative;
+
+}
+
+h2.title {
+  font-family: "Bebas Neue", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  color: #221859 !important;
+  font-size: 56px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 66px;
+
+  position: relative;
+
+}
+.title-area-left-style-2 {
+  text-align: center;
+}
+.title-area-left-style-11 {
+  margin-top: -228px;
+}
+.shinebr {
+  background: #ffffff url(../images/banner/home-bg-sec-8.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-height: 407px;
+}
+.cus_shinex {
+  padding-top: 8%;
+}
+.takeoff {
+  background: #fff url(../images/banner/home-bg-sec-9.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: cover;
+}
+/*easy service-page*/
+.cus_bg_explore {
+  background: #fffaf6 url(../images/banner/home-bg-sec3.svg);
+}
 .strap-text {
 
   margin-right: 20px;
@@ -20,9 +146,8 @@
  background-repeat: no-repeat;
 
  width: 100%;
-
- 
 }
+
 .unique{
 
   padding: 90px;
@@ -62,9 +187,9 @@
 .backcolor{
   background-color: #fff6f6;;
 }
-.unloclk img {
+/* .unloclk img {
   padding: 62px 16px;
-}
+} */
 /*end*/
 /*explore start*/
 span.benifites {
@@ -103,11 +228,24 @@ h2.forparnt {
   border-top-right-radius: 8px;
 }
 
-.unloclk img {
+/* .unloclk img {
   padding: 62px 16px;
-}
+} */
 .student_parent_img img {
-  padding: 45px 0px;
+  padding-top: 75%;
+}
+.takeoff {
+  background: #fff url(../images/banner/home-bg-sec-9.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  min-height: 568px;
+}
+.tkeofrdy p {
+  font-size: 30px;
+  line-height: 50px;
+}
+.unloclk img {
+  width: 40%;
 }
 .uncl {
   padding-top: 23px;
@@ -130,8 +268,9 @@ h2.forparnt {
 .title2 {
   color: #3e3e3e !important;
   font-weight: 600;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 36px;
 }
-
 
 /*slide Home page section one text*/
 .sliding-text {
@@ -168,9 +307,9 @@ h2.forparnt {
 
 
 /*explore end*/
-body{
+/* body{
   background-color: #fffaf2 !important;
-}
+} */
 body p {
   font-family: "Scope One", serif;
   font-weight: 600;
@@ -237,7 +376,10 @@ span.p_cunt {
   border-radius: 8px;
   padding: 48px 0px;
 }
-
+.vc_single_image-wrapper.vc_box_border_grey img {
+  width: 50%;
+  margin-left: 153px;
+}
 .lsa_bx {
   background-color: #f8f1e8;
   color: #000;
@@ -419,17 +561,22 @@ h6, .h6, h5, .h5, h4, .h4, h3, .h3, h2, .h2, h1, .h1 {
   padding: 50px 0px;
 }
 .course-area-start {
-  background-color: #fcfff2;
-  padding: 50px 0px;
+  background: #ffffff url(../images/banner/home-bg-sec-5.svg);
+  padding: 250px 0px;
+  background-repeat: no-repeat;
+  background-position: top;
 }
 .the_good {
-  background-color: white;
+  background: #ffffff url(../images//banner/home-bg-sec-6.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 489px;
 }
 
-.join_st {
+/* .join_st {
   padding: 20px 154px;
   box-shadow: 0px 3px 6px 0px #ccc;
-}
+} */
 .join_text a {
   color: #275bce;
   font-weight: 700;
@@ -533,11 +680,14 @@ section.py-5.about-fourth {
 
 
 .section-sub-head h2 {
-  font-size: 36px;
+  font-size: 27px;
   margin-bottom: 0;
   font-weight: 700;
-  letter-spacing: .9px;
-  color: #141414;
+  letter-spacing: 1px;
+  color: #0e2f46 !important;
+  text-transform: uppercase;
+  line-height: 36px;
+  font-family: "Bebas Neue", sans-serif;
 }
 .headone h2 {
   font-size: 36px;
@@ -560,17 +710,25 @@ section.py-5.about-fourth {
   margin-right: 43px;
 }
 .cmpny {
-  background-color: #fffcf8;
+  background: #ffffff url(../images/about/about-sec-3.svg);
+  background-repeat: no-repeat;
+  background-position: right bottom;
+  min-height: 724px;
 }
-                            span.whyy {
-                              font-size: 30px;
-                              font-weight: 700;
-                              color: #000;
-                          }
-
-  .dd {
-     padding-top: 13%;
-  }
+.cus_abtn {
+  
+  padding: 50px 18px;
+ 
+}
+span.whyy {
+  font-size: 26px;
+  font-weight: 700;
+  color: #0e2f46;
+  text-transform: uppercase;
+}
+                          .dd {
+                            padding-top: 15px;
+                        }
   @keyframes bounceInRight {
     0% {
       opacity: 0;
@@ -628,7 +786,7 @@ section.py-5.about-fourth {
     text-align: left;
     padding: 20px 0px;
     border: 1px solid #e7e7e7;
-    background-color: #f8f1e8;
+    background-color: #ffffff;
 }
 .box_two {
   box-shadow: 0px 4px 5px 2px #d4d4d4cc;
@@ -645,6 +803,7 @@ section.py-5.about-fourth {
   border-top-left-radius: 214px;
   padding: 32px 0px;
   border: 1px solid #31040240;
+  background-color: #fff;
 }
 .cnthre {
   padding: 15px 108px;
@@ -672,34 +831,62 @@ section.py-5.about-fourth {
   animation: bounceLeft 2s ease-in-out;
 }
 .cntt {
-  padding: 10px 108px;
+  padding: 10px 15px;
+}
+.image_abt1 img {
+  width: 400px;
+}
+.image_abt3 img {
+  width: 400px;
+}
+.peraone {
+  padding: 0px 30px;
+}
+.peratwo {
+  padding: 42px 30px;
+}
+.perathree {
+  padding: 20px 20px;
 }
 .cnty {
-  padding: 0px 108px 0px 108px;
- 
+  padding: 0px 15px 0px 15px;
 }
-
-.invest{
+.investt {
+  background: #fff url(../images/about/about-lastweb.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  height: 291px;
+  background-size: cover;
+}
+.invest {
   background-color: #fff;
-
+}
+.cust_aboutbox {
+  background-color: #f8f1e8;
 }
 .abt_cnt {
   -webkit-box-shadow: 0px 1px 5px 0px rgba(242, 242, 242, 1);
   -moz-box-shadow: 0px 1px 5px 0px rgba(242, 242, 242, 1);
   box-shadow: 0px 1px 5px 0px rgba(242, 242, 242, 1);
   border-radius: 10px;
-  padding: 30px 35px;
   text-align: justify;
+  border: 1px solid #f8f1e8;
 }
+
 .abt_cnt h2 {
   font-weight: 500;
   text-transform: uppercase;
+  font-family: "Bebas Neue", sans-serif;
+  background-color: #f8f1e8;
+  padding: 10px 15px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 }
 
 .abt_cnt p {
   font-size: 16px;
+  padding: 0px 20px;
 }
-
 /* Navbarmenu.css */
 .header-one-wrapper .main-nav-one .nav-link {
   cursor: pointer;
@@ -858,7 +1045,7 @@ body {
   text-align: center;
 }
 .joingood {
-  background-color: #fffaf2;
+  background: #ffffff url(../images/banner/home-bg-sec-7.svg);
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
   body {
@@ -16261,14 +16448,10 @@ nav ul li a {
 }
 
 .banner-area-one {
-  background: #fffaf2;
-  height: 500px;
-  display: flex;
-  overflow: hidden;
-  position: relative;
-
-  margin: auto;
-  z-index: 1;
+  background: #ffffff url(../images/banner/home_bg-sec1.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom center;
 }
 @media only screen and (max-width: 1199px) {
   .banner-area-one {
@@ -16293,6 +16476,7 @@ nav ul li a {
   line-height: 66px;
   margin-top: 35px;
   position: relative;
+  font-family: "Bebas Neue", sans-serif;
 }
 @media only screen and (max-width: 1199px) {
   .banner-area-one .title-banner {
@@ -16308,7 +16492,7 @@ nav ul li a {
 .banner-area-one .title-banner img {
   position: absolute;
   left: 41%;
-  bottom: 56px;
+  bottom: 70px;
 }
 @media only screen and (max-width: 575px) {
   .banner-area-one .title-banner img {
@@ -16453,7 +16637,7 @@ nav ul li a {
 .banner-content-one {
   display: flex;
   align-items: center;
-  padding: 40px 0;
+  padding: 40px 0px 137px 0px;
 }
 @media (max-width: 991px) {
   .banner-content-one {
@@ -18237,6 +18421,17 @@ nav ul li a {
   font-weight: 600;
   line-height: 54px;
 }
+.ttl2 {
+  color: #fff !important;
+  font-size: 28px !important;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 17px !important;
+  text-transform: uppercase;
+}
+.cus_course_desnote{
+  margin-top: -120px !important;
+}
 @media only screen and (max-width: 575px) {
   .breadcrumb-main-wrapper .title {
     font-size: 32px;
@@ -19157,12 +19352,9 @@ nav ul li a {
 }
 
 .category-area-style-one {
-  /* background-image: url(../images/bg/bg-1.jpg); */
-  position: relative;
-  z-index: 1;
-  max-width: 1920px;
-  margin: auto;
-  background-color: #fffaf2;
+  background: #fffaf6 url(../images/banner/home-bg-sec4.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 @media only screen and (max-width: 575px) {
   .category-area-style-one .shape-image {
@@ -20910,9 +21102,9 @@ nav ul li a {
 }
 
 .why-choose-us-area-image {
-  display: flex;
   align-items: flex-end;
   position: relative;
+  text-align: -webkit-right;
 }
 .why-choose-us-area-image img {
   border-radius: 6px;
@@ -29318,7 +29510,7 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
 }
 
 .create-course-area-main-wrapper-inner .accordion-item {
-  margin-bottom: 75px;
+  margin-bottom: 20px;
   border-color: #DDD8F9;
   border-radius: 6px;
 }
@@ -29327,14 +29519,15 @@ header.header-three .sub-dropdown .submenu.third-lvl.base {
   border: none;
 }
 .create-course-area-main-wrapper-inner .accordion-item .accordion-header button {
-  padding: 24px 30px;
+  padding: 17px 30px;
   border: 1px solid #DDD8F9;
   background: transparent;
   color: #110C2D;
-  font-size: 24px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 600;
   line-height: 24px;
+  text-transform: uppercase;
 }
 .create-course-area-main-wrapper-inner .accordion-item .accordion-header button::after {
   content: "\f055";
@@ -32646,8 +32839,11 @@ width: 40%;
 .school{
 font-size: 20px !important;
 }
-.about-area-start{
-background-color: #fffaf2;
+.about-area-start {
+  background: #ffffff url(../images/banner/home-bg-sec2.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
+  background-size: contain;
 }
 .exploress {
   font-size: calc(1.325rem + 0.9vw);
