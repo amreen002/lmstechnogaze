@@ -4,6 +4,8 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import ValidateCreate from '../validation/addteachervalidations'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function ListUse() {
     const [countryTable, setCountryTable] = useState([]);
@@ -112,20 +114,40 @@ function ListUse() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+          
             const token = localStorage.getItem('token');
 
             if (token) {
-
-                await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, formData, {
+                const response =  await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.href = "/teachers";
-                alert('Teachers SuccessFully Create');
+                toast.success(response.data.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     };
 
@@ -451,7 +473,7 @@ function ListUse() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

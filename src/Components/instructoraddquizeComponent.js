@@ -6,6 +6,9 @@ import Sidebar from "./sidebar";
 import Select, { StylesConfig } from 'react-select'
 import makeAnimated from 'react-select/animated';
 import DashboardCard from "./dashboardcardComponent";
+import ValidationInstructoraddquize from '../validation/instructoraddquizevalidation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 const animatedComponents = makeAnimated();
 function InstructoreaddquizeComponent(token) {
@@ -194,7 +197,41 @@ function InstructoreaddquizeComponent(token) {
     };
 
 
-
+    const [errors, setErrors] = useState({})
+    const formData = {
+        QuizzName,
+        QuizzStartTime,
+        QuizzEndTime,
+        QuizzTestDuration,
+        EasyQuestions,
+        MediumQuestions,
+        HardQuestions,
+        TotalQuestions,
+        TotalMarks,
+        Instructions,
+        BatchId,
+        QuizzCategoryId,
+        CourseId,
+    }
+    const handleChanges = (e) => {
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value };
+        const validationErrors = ValidationInstructoraddquize(updatedFormData);
+        setErrors(validationErrors);
+        setQuizzName(updatedFormData.QuizzName || '');
+        setQuizzStartTime(updatedFormData.QuizzStartTime || '');
+        setQuizzEndTime(updatedFormData.QuizzEndTime || '');
+        setQuizzTestDuration(updatedFormData.QuizzTestDuration || '');
+        setEasyQuestions(updatedFormData.EasyQuestions || '');
+        setMediumQuestions(updatedFormData.MediumQuestions || '');
+        setHardQuestions(updatedFormData.HardQuestions || '');
+        setTotalQuestions(updatedFormData.TotalQuestions || '');
+        setTotalMarks(updatedFormData.TotalMarks || '');
+        setInstructions(updatedFormData.Instructions || '');
+        setBatchId(updatedFormData.BatchId || '');
+        setQuizzCategoryId(updatedFormData.QuizzCategoryId || '');
+        setCourseId(updatedFormData.CourseId || '');
+    }
 
 
 
@@ -203,21 +240,7 @@ function InstructoreaddquizeComponent(token) {
 
     
         try {
-            const formData = {
-                QuizzName,
-                QuizzStartTime,
-                QuizzEndTime,
-                QuizzTestDuration,
-                EasyQuestions,
-                MediumQuestions,
-                HardQuestions,
-                TotalQuestions,
-                TotalMarks,
-                Instructions,
-                BatchId,
-                QuizzCategoryId,
-                CourseId,
-            };
+          
     
             const token = localStorage.getItem('token');
     
@@ -231,19 +254,60 @@ function InstructoreaddquizeComponent(token) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            const quizzesdata = response.data.quizze;
-            alert('Quiz successfully created');
-            navigate(`/instructorquestion/${quizzesdata.id}`); 
+            const userdata =  response.data.quizze
+
+            toast.success(userdata.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+             navigate(`/instructorquestion/${userdata.id}`); 
             if (response.status === 200) {
-                alert('Quiz successfully created');
-                navigate(`/instructorquestion/${quizzesdata.id}`); 
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+                 navigate(`/instructorquestion/${userdata.id}`); 
             } else {
                 console.error('Unexpected response status:', response.status);
-                alert('Failed to create quiz. Please try again.');
+                toast.error(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
             }
         } catch (error) {
             console.error('Error creating quiz:', error);
-            alert('Failed to create quiz. Please try again.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     };
     
@@ -270,66 +334,73 @@ function InstructoreaddquizeComponent(token) {
 
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6'>
                                         <label className='pb-2'>Name Quiz</label>
-                                        <input className='inputts' name='QuizzName' onChange={(e) => setQuizzName(e.target.value)} value={QuizzName} placeholder='Name Quiz' type='text' />
-
+                                        <input className='inputts' name='QuizzName' onChange={handleChanges} value={QuizzName} placeholder='Name Quiz' type='text' />
+                                        {errors.QuizzName && <div className='errors'>{errors.QuizzName}</div>}
                                     </div>
                                     <div className='col-12 col-md-3 col-lg-3 col-xl-3'>
                                         <label className='pb-2'>Start Time</label>
-                                        <input className='inputts' type="datetime-local" name="QuizzStartTime" onChange={(e) => setQuizzStartTime(e.target.value)} value={QuizzStartTime} />
-
+                                        <input className='inputts' type="datetime-local" name="QuizzStartTime" onChange={handleChanges} value={QuizzStartTime} />
+                                        {errors.QuizzStartTime && <div className='errors'>{errors.QuizzStartTime}</div>}
                                     </div>
                                     <div className='col-12 col-md-3 col-lg-3 col-xl-3'>
                                         <label className='pb-2'>End Time</label>
                                         <input className='inputts' type="datetime-local" name="QuizzEndTime"
-                                            onChange={(e) => setQuizzEndTime(e.target.value)}
+                                            onChange={handleChanges}
                                             value={QuizzEndTime} />
-
+                                        {errors.QuizzEndTime && <div className='errors'>{errors.QuizzEndTime}</div>}
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5'>
                                         <label className='pb-2'>Test Duration (in minits)</label>
                                         <input className='inputts' type='number' placeholder='Test Duration' name="QuizzTestDuration"
-                                            onChange={(e) => setQuizzTestDuration(e.target.value)}
+                                            onChange={handleChanges}
                                             value={QuizzTestDuration} />
+                                             {errors.QuizzTestDuration && <div className='errors'>{errors.QuizzTestDuration}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Number of Easy Questions (1 Mark)</label>
                                         <input className='inputts' type='number' placeholder='Number of easy questions' name="EasyQuestions"
-                                            onChange={(e) => setEasyQuestions(e.target.value)}
+                                            onChange={handleChanges}
                                             value={EasyQuestions} />
+                                             {errors.EasyQuestions && <div className='errors'>{errors.EasyQuestions}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Number of Medium Questions (2 Mark)</label>
                                         <input className='inputts' type='number' placeholder='Number of medium questions' name="MediumQuestions"
-                                            onChange={(e) => setMediumQuestions(e.target.value)}
+                                            onChange={handleChanges}
                                             value={MediumQuestions} />
+                                             {errors.MediumQuestions && <div className='errors'>{errors.MediumQuestions}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Number of Hard Questions (4 Mark)</label>
                                         <input className='inputts' type='number' placeholder='Number of hard questions' name="HardQuestions"
-                                            onChange={(e) => setHardQuestions(e.target.value)}
+                                            onChange={handleChanges}
                                             value={HardQuestions} />
+                                             {errors.HardQuestions && <div className='errors'>{errors.HardQuestions}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Total Questions</label>
-                                        <input className='inputts' type='number' placeholder='Total Questions' name="TotalQuestions"
+                                        <input className='inputts' type='number' placeholder='Total Questions' name="TotalQuestions"  onChange={handleChanges}
                                             value={TotalQuestions} />
+                                             {errors.TotalQuestions && <div className='errors'>{errors.TotalQuestions}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Total Marks</label>
-                                        <input className='inputts' type='number' placeholder='Total Marks' name="TotalMarks"
+                                        <input className='inputts' type='number' placeholder='Total Marks' name="TotalMarks"  onChange={handleChanges}
                                             value={TotalMarks} />
+                                             {errors.TotalMarks && <div className='errors'>{errors.TotalMarks}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Introduction</label>
                                         <input className='inputts' type='text' placeholder='Introduction' name="Instructions"
-                                            onChange={(e) => setInstructions(e.target.value)}
+                                            onChange={handleChanges}
                                             value={Instructions} />
+                                             {errors.Instructions && <div className='errors'>{errors.Instructions}</div>}
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
@@ -344,27 +415,31 @@ function InstructoreaddquizeComponent(token) {
                                             components={animatedComponents}
 
                                         />
+                                         {errors.BatchId && <div className='errors'>{errors.BatchId}</div>}
 
                                     </div>
 
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'>Course Category</label>
-                                        <select className='inputts' name="QuizzCategoryId" value={QuizzCategoryId} onChange={(e) => setQuizzCategoryId(e.target.value)}>
+                                        <select className='inputts' name="QuizzCategoryId" value={QuizzCategoryId} onChange={handleChanges}>
                                             <option value="">Select</option>
                                             {category.map((option) => (
                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                             ))}
                                         </select>
+                                        {errors.QuizzCategoryId && <div className='errors'>{errors.QuizzCategoryId}</div>}
+                                        
 
                                     </div>
                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
                                         <label className='pb-2'  >Courses</label>
-                                        <select className='inputts' name="CourseId" value={CourseId} onChange={(e) => setCourseId(e.target.value)}>
+                                        <select className='inputts' name="CourseId" value={CourseId} onChange={handleChanges}>
                                             <option value="">Select</option>
                                             {course.map((option) => (
                                                 <option key={option.id} value={option.id}>{option.name}</option>
                                             ))}
                                         </select>
+                                        {errors.CourseId && <div className='errors'>{errors.CourseId}</div>}
 
 
                                     </div>
@@ -383,7 +458,7 @@ function InstructoreaddquizeComponent(token) {
                     </div>
                 </div>
             </div>
-
+            <ToastContainer />
         </div>
     );
 }

@@ -5,6 +5,8 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import ValidationCourse from '../validation/coursevalidation';
 import { useNavigate, useParams, Link } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 function CoursesP() {
     const { coursesId } = useParams();
@@ -116,37 +118,78 @@ function CoursesP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
+             const response =   await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
-
+                const userdata = response.data
                 window.location.href = "/courses";
-                alert('Class Successfully Create');
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
 
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     const handleDelete = async (coursesId) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletecourses/${coursesId}`, {
+            const response =    await axios.delete(`${REACT_APP_API_ENDPOINT}/deletecourses/${coursesId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(coursesId);
-                alert('Data successfully deleted');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
 
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     const handleUpdate = async (e) => {
@@ -158,18 +201,39 @@ function CoursesP() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
+           const response =   await axios.patch(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(coursesId)
-                alert("Class updated successfully!");
+                const userdata  = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
                  window.location.href = "/courses";
             }
         } catch (error) {
             console.error('Error updating user:', error);
-            alert('An error occurred while updating user data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
 
 
@@ -542,7 +606,7 @@ function CoursesP() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

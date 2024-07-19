@@ -5,6 +5,8 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import ValidationaddInstructor from '../validation/instructoraddvalidation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function ListUse() {
     const [table, setTable] = useState([]);
@@ -197,41 +199,87 @@ function ListUse() {
         e.preventDefault();
 
         try {
-
+         
             const token = localStorage.getItem('token');
 
             let response
             if (token) {
-
+           
                 response = await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                window.location.href = "/teachers";
-                alert('Teachers SuccessFully Create');
+              
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+                 window.location.href = "/teachers";
             }
+          
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message ,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     };
 
     const handleDelete = async (teachersId) => {
-        try {
+        try { 
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/deleteteachers/${teachersId}`, {
+           
+                const response =   await axios.delete(`${REACT_APP_API_ENDPOINT}/deleteteachers/${teachersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userdata = response.data
                 fetchData();
-                alert('Data successfully deleted');
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     };
     const handleUpdate = async (e) => {
@@ -258,18 +306,39 @@ function ListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
+                const response =  await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userdata = response.data
                 fetchData3(teachersId);
                 window.location.href = "/teachers"
-                alert("Instructor Is Updated Successfully!");
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
             }
         } catch (error) {
             console.error('Error updating:', error);
-            alert('An error occurred while updating');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
 
         // Clear input fields after update
@@ -828,7 +897,7 @@ function ListUse() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }
