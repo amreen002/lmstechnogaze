@@ -24,22 +24,7 @@ const Lsa = () => {
 <section className='sticy-header logo-size'>
         <Navbarmenu />
       </section> 
-      <div class="breadcrumb-bar">
-              <div class="container">
-                  <div class="row">
-                      <div class="col-md-12 col-12">
-                          <h2 class="breadcrumb-title">Learning Style Assesments</h2>
-                          <nav aria-label="breadcrumb" class="page-breadcrumb">
-                              <ol class="breadcrumb">
-                                  <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                  <li class="breadcrumb-item" aria-current="page">LSA</li>
-                              </ol>
-                          </nav>
-                      </div>
-                  </div>
-              </div>
-          </div>
-
+    
       <section className='pt--110 pb--110  about_one'  >
         <div className='container'>
             <div className='row'>
@@ -119,25 +104,18 @@ const Lsa = () => {
         </div>
       </section>
 
-      <section className='py-5  whatlearning'  >
-            <div className='container'>
-                <div className='row'>
-                   
-                    <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
+     
+
+      <section class="py-5 lsa_cus_bg">
+        <div className='container'>
+            <div className='row'>
+            <div className='col-12 col-xl-12 col-lg-12 col-md-12'>
                         <div className={`about_last ${animate3 ? 'bounce-down' : ''}`}>
                             <h3>
                                 What Learning Style Assessment Offers You?
                             </h3>
                         </div>
                     </div>
-                  
-                </div>
-            </div>
-      </section>
-
-      <section class="py-5">
-        <div className='container'>
-            <div className='row'>
                 <div className='col-12 col-xl-4 col-lg-4 col-md-4'>
                     <div className='benift'>
                      
