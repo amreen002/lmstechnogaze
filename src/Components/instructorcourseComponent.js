@@ -11,12 +11,14 @@ const InstructorCourseadd = () => {
     const [category, setCategory] = useState([]);
     const [selectedCourses, setSelectedCourses] = useState('');
     const [selectedvideo, setselectedvideo] = useState('');
-
+    const [selectedFiles, setSelectedFiles] = useState(null);
     const handleSelectVideo = (e) => {
         const value = e.target.value;
         setselectedvideo(value);
     };
-
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };
     useEffect(() => {
         fetchData(coursesId);
     }, [coursesId]);
@@ -131,7 +133,7 @@ const InstructorCourseadd = () => {
         LessionTitle: "",
         CoursesId: "",
         TopicId: "",
-        LessionUpload: null,
+        LessionUpload: [],
 
     });
 
@@ -141,7 +143,7 @@ const InstructorCourseadd = () => {
         Title: '',
         CoursesId: '',
         TopicId: '',
-        VideoUplod: null,
+        VideoUplod: [],
         VideoIframe: '',
     });
 
@@ -190,10 +192,10 @@ const InstructorCourseadd = () => {
 
     // lession start handleChangeLession
     const handleChangeLession = (e) => {
-        const { name, files, value } = e.target;
+        const { name, value } = e.target;
         setFormDataLession(formDataLession => ({
             ...formDataLession,
-            [name]: files ? files[0] : value
+            [name]: value
         }));
     };
     // video start handleChangeVideo
@@ -283,6 +285,13 @@ const InstructorCourseadd = () => {
         e.preventDefault();
         // Assuming you have an API
         const data = new FormData();
+         // Append files to FormData
+         if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+                data.append('files', selectedFiles[i]);
+            }
+        }
+
         for (const key in formDataLession) {
             data.append(key, formDataLession[key]);
         }
@@ -321,6 +330,12 @@ const InstructorCourseadd = () => {
         e.preventDefault();
         // Assuming you have an API
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formDataVideo) {
             data.append(key, formDataVideo[key]);
         }
@@ -602,15 +617,14 @@ const InstructorCourseadd = () => {
                                                                 <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF | Docx | Doc</label>
 
                                                                 <div class="input-group">
-                                                                    <input
-                                                                        type="file"
-                                                                        class="form-control"
-                                                                        id="inputGroupFile04"
-                                                                        aria-describedby="inputGroupFileAddon04"
-                                                                        aria-label="Upload"
-                                                                        name="file"
-                                                                        value={formDataLession.LessionUpload} onChange={handleChangeLession}
-                                                                    />
+                                                                <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            name="file"
+                                                                            multiple onChange={handleFileChange} />
 
                                                                 </div>
                                                             </div>
@@ -703,15 +717,13 @@ const InstructorCourseadd = () => {
                                                                     <div className="single-input">
                                                                         <label className="form-label">Upload Video</label>
                                                                         <div className="input-group">
-                                                                            <input
-                                                                                type="file"
-                                                                                className="form-control"
-                                                                                id="inputGroupFile04"
-                                                                                aria-describedby="inputGroupFileAddon04"
-                                                                                aria-label="Upload"
-                                                                                name="file"
-                                                                                value={formDataVideo.VideoUplod} onChange={handleChangeVideo}
-                                                                            />
+                                                                        <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            multiple onChange={handleFileChange} />
                                                                         </div>
                                                                     </div>
                                                                 ) : selectedvideo === 'gallery' ? (

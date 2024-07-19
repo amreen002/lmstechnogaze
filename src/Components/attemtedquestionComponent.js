@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate,Link } from 'react-router-dom';
 import Navbarmenu from './Navbarmenu';
 import Sidebar from './sidebar';
 import DashboardCard from './dashboardcardComponent';
@@ -137,7 +137,6 @@ function AttemtedQuestionComponent() {
                 if (response.status === 200) {
                     setSeconds(0);
                     localStorage.removeItem('quizState');
-                    navigate('/quizresult');
                     localStorage.removeItem('quizStartTime');
                   
                 } else {
@@ -252,7 +251,7 @@ function AttemtedQuestionComponent() {
                                                                     </button>
                                                                 </div>
                                                                 <div className='prqust ml-50'>
-                                                                    <button type='submit' className="btn btn-primary">Submit</button>
+                                                                    <button type='submit' className="btn btn-primary"><Link to="/quizresult">Submit</Link></button>
                                                                 </div>
                                                             </div>
                                                         </form>

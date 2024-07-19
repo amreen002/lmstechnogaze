@@ -21,7 +21,7 @@ function LernerenrollcourseComponent(token) {
                 const datatoken =localStorage.getItem('datatoken');
                 const coursedatafetch = JSON.parse(datatoken)
                 let courseurl
-                coursedatafetch.Role.Name=="Student"? courseurl ="courses" : courseurl ="listcourses"
+                coursedatafetch.Role.Name=="Student"? courseurl ="studentcourses" : courseurl ="listcourses"
                 console.log(courseurl)
                 const response = await axios.get(`${REACT_APP_API_ENDPOINT}/${courseurl}`, {
                     headers: {

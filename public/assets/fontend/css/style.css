@@ -32907,7 +32907,27 @@ margin-top: 12px;
 .new{
   font-family: "Scope One", serif;
 }
-
+.profile_choose{
+  color: #000 !important;
+  background-color: #a1acb859;
+  border-color: #310402;
+  box-shadow: 0 0.125rem 0.25rem 0 rgba(105, 108, 255, 0.04);
+  padding: 10px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+.fieldes{
+  position: relative;
+}
+.field_name{
+  position: absolute;
+  top: 7px;
+  left: 32px;
+  background-color: #fff;
+  padding: 0px 12px 0px 12px;
+  font-size: 14px;
+  font-weight: 500 !important;
+}
 @media  (min-width: 480px) and (max-width: 570px){
 
   .join_st{
