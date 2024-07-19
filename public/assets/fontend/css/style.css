@@ -87,7 +87,8 @@ h1,h2,h3,h4,h5,h6{
   font-weight: 600;
   line-height: 66px;
   position: relative;
-
+  margin-bottom: -10px;
+  margin-top: 10px;
 }
 
 h2.title {
@@ -368,8 +369,13 @@ span.p_cunt {
 }
 /*end*/
 /*Lsa*/
-.about_one {
+.lsa_cus_bg {
   background-color: #fff;
+}
+.about_one {
+  background: #fff url(../images/about/las-sec-1bg.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 .lsa_img {
   border: 1px solid #ccc;
@@ -381,7 +387,7 @@ span.p_cunt {
   margin-left: 153px;
 }
 .lsa_bx {
-  background-color: #f8f1e8;
+  background-color: #ffffff;
   color: #000;
   padding: 40px 36px 87px 40px;
   margin-top: 56px;
@@ -390,12 +396,13 @@ span.p_cunt {
   border-bottom-left-radius: 80px;
   border-top-left-radius: 8px;
   border-bottom-right-radius: 8px;
+  box-shadow: 2px 2px 2px 2px #ccc;
 }
 
 .about_head h1 {
   color: #000 !important;
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 500;
   padding-top: 5px;
 }
 .about_head span {
@@ -435,12 +442,14 @@ span.p_cunt {
   font-weight: 600;
 }
 .about_two {
-  background-color: #f5fffc;
+  background: #ffffff url(../images/about/lsa-sec-2bg.svg);
+  background-repeat: no-repeat;
+  background-position: bottom;
 }
 .about_hd h1 {
   color: #040404 !important;
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 500;
   padding-top: 5px;
 }
 
@@ -453,10 +462,10 @@ section.py-5.whatlearning {
   font-size: 75px !important;
 }
 .about_last h3 {
-  font-size: 64px !important;
+  font-size: 54px !important;
   text-align: center;
-  font-weight: 100 !important;
   color: #000 !important;
+  font-weight: 500;
 }
 .whatlearning {
   background-color: #fff;
@@ -677,12 +686,14 @@ section.py-5.about-fourth {
   padding: 0;
 }
 
-
+section.py-5.cust_aboutbox {
+  margin-top: -120px;
+}
 
 .section-sub-head h2 {
   font-size: 27px;
   margin-bottom: 0;
-  font-weight: 700;
+  font-weight: 500;
   letter-spacing: 1px;
   color: #0e2f46 !important;
   text-transform: uppercase;
@@ -722,9 +733,10 @@ section.py-5.about-fourth {
 }
 span.whyy {
   font-size: 26px;
-  font-weight: 700;
+  font-weight: 500;
   color: #0e2f46;
   text-transform: uppercase;
+  font-family: "Bebas Neue", sans-serif;
 }
                           .dd {
                             padding-top: 15px;
@@ -1048,6 +1060,18 @@ body {
   background: #ffffff url(../images/banner/home-bg-sec-7.svg);
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px) {
+  .banner-right-img {
+     display: block !important; 
+    align-items: flex-end;
+    height: 100%;
+    margin-top: 85px;
+}
+  .takeoff {
+    background: #fff url(../images/banner/home-bg-sec-9.svg);
+    background-repeat: no-repeat;
+    background-position: bottom;
+    min-height: 852px;
+}
   .main-nav-one ul li a.nav-link {
     color: #1F1F25;
     font-size: 16px !important;

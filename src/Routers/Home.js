@@ -395,8 +395,8 @@ Welcome to The Good Student Co., where we believe every student has the potentia
     <div className='container'>
     <div className='row'>
         <div className='col-12 col-xl-2'></div>
-        <div className='col-12 col-xl-8 col-lg-8 col-md-8'>
-                            <div class="shape two sun1 " >
+        <div className='col-12 col-xl-8 col-lg-12 col-md-8'>
+                            <div class="pt--55 shape sun1 two " >
                                 <center>
                                     <img src="assets/fontend/images/about/13.png" alt="" /></center>
 
