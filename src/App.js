@@ -69,6 +69,7 @@ import QuizeResultRouter from './Routers/quizresultRouter.js'
 import AttempquestionRouter from './Routers/attemtedquestionRouter.js'
 import StudentMaterialesRouter from './Routers/studentmaterialesRouter.js'
 import EasyserviceRouter from './Routers/easyserviceRouter.js';
+
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
@@ -154,7 +155,7 @@ function App() {
           />
 
           <Route path="*" element={<Navigate to="/login" />} />
-
+         
           <Route
             path="/complete-profile/:usersId"
             element={<CompleteProfile />}
