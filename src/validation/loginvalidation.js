@@ -12,9 +12,9 @@ const ValidationLogin=(state)=>{
     }
     else if(state.password.length < 8){
         error.password='Password is minimum 8 charecter '
-      }
+      } 
       
  
-    return '';
+    return error;
 }
 export default ValidationLogin

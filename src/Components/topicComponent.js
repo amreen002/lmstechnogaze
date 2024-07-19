@@ -5,7 +5,9 @@ import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import ValidationTopic from '../validation/topicvalidation';
 import { useNavigate, useParams, Link } from 'react-router-dom';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function Topic() {
     const { topicId } = useParams();
     const navigate = useNavigate();
@@ -84,7 +86,7 @@ function Topic() {
                     }
                 });
                 const userDatas = response.data.courses;
-                setCourse(userDatas) 
+                setCourse(userDatas)
             }
 
         } catch (error) {
@@ -96,83 +98,166 @@ function Topic() {
         const { name, value } = e.target;
         const updatedFormData = { ...formData, [name]: value };
         setFormData(updatedFormData);
-    
+
         // Validate the updated form data
         const validationErrors = ValidationTopic(updatedFormData);
         setErrors(validationErrors);
-      };
+    };
 
 
     const handleFormSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
-    
+
         // Perform client-side validation
-        const validationErrors = ValidationTopic(formData );
+        const validationErrors = ValidationTopic(formData);
         if (Object.keys(validationErrors).length > 0) {
-          setErrors(validationErrors);
-          return;
+            setErrors(validationErrors);
+            return;
         }
-    
+
         try {
-            if (window.confirm('Subject Successfully Create')) {
-          // Make the API request
-          await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formData, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          });
-          // Clear the form and errors upon successful submission
-          setFormData({ name: '', CoursesId: '' });
-          setErrors({});
-          window.location.href = "/topic";
-        }else{
-            alert('Information Cancel it,s Successfully');
-        }
-        } catch (error) {
-          console.error(error);
-          setErrors({ api: error.response?.data?.message || 'An error occurred while creating the topic.' });
           
+            if (window.confirm('Are You Sure Information Check this Information')) {
+                // Make the API request
+                const response = await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formData, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                const userData = response.data
+                setUserData(response.data.topic)
+                // Clear the form and errors upon successful submission
+                setFormData({ name: '', CoursesId: '' });
+                setErrors({});
+
+                // Show success toast notification
+                toast.success(userData.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+
+                });
+                window.location.href = "/topic";
+            } else {
+                toast.error(userData.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                });
+            }
+        } catch (error) {
+            console.error(error);
+            setErrors({ api: error.response?.data?.message || 'An error occurred while creating the topic.' });
+            toast.error(error.response?.data?.message || 'An error occurred while creating the topic.', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+
+            });
+            throw error
         }
-      };
-    
+    };
+
     const handleDelete = async (topicId) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, {
+                const response = await axios.delete(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userdata = response.data
                 fetchData();
                 window.location.href = "/topic";
-                alert('Data successfully deleted');
+                toast.success(userdata.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+
+                });
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+
+            });
         }
     };
-    
+
     const handleUpdate = async (e) => {
         e.preventDefault();
         try {
+          
             const token = localStorage.getItem('token');
             if (token) {
-              
-                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formData, {
+
+
+                const response = await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userdata = response.data
+
                 fetchData(topicId)
-                alert("Subject updated successfully!");
+                toast.success(userdata.message, {
+                    position: "top-right",
+                    autoClose: 5000,
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+
+                });
                 window.location.href = "/topic";
             }
         } catch (error) {
             console.error('Error updating user:', error);
-            alert('An error occurred while updating user data');
+            toast.error(error.response.data.message, {
+                position: "top-right",
+                autoClose: 5000,
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+
+            });
         }
 
 
@@ -218,16 +303,16 @@ function Topic() {
                                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
                                                                         value={formData.name} aria-label="John Doe"
                                                                         onChange={handleChange}
-                                                             />
-                                                                      {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
-                                                                  
+                                                                    />
+                                                                    {errors.name && <span style={{ color: 'red' }}>{errors.name}</span>}
+
                                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                                                               
+
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
                                                                     <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
-                                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId"  value={formData.CoursesId}  onChange={handleChange}>
+                                                                    <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (
                                                                             <option key={option.id} value={option.id}>{option.name}</option>
@@ -240,7 +325,7 @@ function Topic() {
 
                                                                 </div>
                                                                 <input type="hidden" /></form>
-                                                                {errors.api && <span style={{ color: 'red' }}>{errors.api}</span>}
+                                                            {errors.api && <span style={{ color: 'red' }}>{errors.api}</span>}
 
                                                         </div>
                                                     </div>
@@ -276,7 +361,7 @@ function Topic() {
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">S.NO</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Subject</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Classes</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="Role: activate to sort column ascending">Price</th>                                                    
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="Role: activate to sort column ascending">Price</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="100px;" aria-label="Actions">Actions</th>
 
                                                     </tr>
@@ -289,8 +374,8 @@ function Topic() {
                                                             </td>
                                                             <td>{index + 1}</td>
                                                             <td>{item.name}</td>
-                                                            <td>{item.Course&&item.Course.name}</td>
-                                                            <td>{item.Course&&item.Course.CoursePrice}</td>
+                                                            <td>{item.Course && item.Course.name}</td>
+                                                            <td>{item.Course && item.Course.CoursePrice}</td>
                                                             <td>
                                                                 <div class="d-inline-block text-nowrap">
                                                                     <Link to={`/topic/${item.id}`} className="navbar-brand" >  <button class="btn btn-sm btn-icon" data-bs-target="#editUser" data-bs-toggle="modal">
@@ -327,7 +412,7 @@ function Topic() {
                                                     <div class="mb-3 fv-plugins-icon-container">
                                                         <label class="form-label" for="add-user-fullname">Subject Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="Subject" name='name'
-                                                           value={formData.name}onChange={handleChange} />
+                                                            value={formData.name} onChange={handleChange} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
@@ -365,7 +450,7 @@ function Topic() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

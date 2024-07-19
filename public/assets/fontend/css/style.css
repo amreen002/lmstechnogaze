@@ -32454,6 +32454,18 @@ margin-top: 12px;
 .unorderlist li{
   font-size: 16px !important;
 }
+.msg p{
+  font-size: 20px;
+}
+.Toastify__toast{
+  display: -webkit-box !important;
+}
+.Toastify__close-button {
+  margin-left: 50px !important;
+}
+.frm_select{
+  padding: 15px !important;
+}
 @media (min-width: 570px) and (max-width:991px){
 .unlock img{
   width: 12% ;

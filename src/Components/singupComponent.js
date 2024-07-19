@@ -3,6 +3,8 @@ import axios from 'axios';
 import FooterFrontend from '../Components/FooterFrontend';
 import { useNavigate } from 'react-router-dom';
 import Navbarmenu from '../Components/Navbarmenu';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 const SignUp = () => {
     const [formData, setFormData] = useState({
@@ -29,14 +31,40 @@ const SignUp = () => {
 
             let response = await axios.post(`${REACT_APP_API_ENDPOINT}/signup`, formData, {
             });
+            const userdata = response.data
             window.location.href = `/complete-profile/${response.data.users.id}`;
-            alert('Users SuccessFully Create');
+            toast.success(userdata.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
 
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response?.data?.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     };
 
+    const [show, setShow] = useState(false) 
+
+    const handleshow=()=>{
+      setShow(show ? false : true)
+    }
        
     
    
@@ -70,13 +98,14 @@ const SignUp = () => {
                                 </div>
                             </div>
                             <div class="half-input-wrapper">
-                                <div class="single-input-wrapper">
+                                <div class="single-input-wrapper paswrd">
                                     <label for="password">Your Password</label>
-                                    <input onChange={handleChange} value={formData.password}  name="password" id="password" type="password" placeholder="Password" required=""/>
+                                    <input onChange={handleChange} value={formData.password}  name="password" id="password" type={show ? "text" : "password"}  placeholder="Password" required=""/>
+                                    <i className={`far ${show ? 'fa-eye' : 'fa-eye-slash'}`} onClick={handleshow}></i>
                                 </div>
                                 <div class="single-input-wrapper">
                                     <label for="passwords">Instructor/Student</label>
-                                    <select id="departmentId" name="departmentId"   className="form-select" value={formData.departmentId} onChange={handleChange}>
+                                    <select id="departmentId" name="departmentId"   className="form-select frm_select" value={formData.departmentId} onChange={handleChange}>
                                         <option value=" ">---Select---</option>
                                         <option value="3">Instructor</option>
                                         <option value="4">Student</option>
@@ -106,6 +135,7 @@ const SignUp = () => {
     </div>
 
     <FooterFrontend />
+    <ToastContainer />
         </div>
     );
 };

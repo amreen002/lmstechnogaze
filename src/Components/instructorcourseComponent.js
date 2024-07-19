@@ -3,11 +3,14 @@ import axios from 'axios';
 import { useParams, } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import { Editor } from '@tinymce/tinymce-react';
+import ValidationInstructorcourse from '../validation/instructorcourseValidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 const InstructorCourseadd = () => {
     const { coursesId } = useParams();
     const [userData, setUserData] = useState({});
-    const [courses, setCourse] = useState([]);
+    const [courses, setCourse] = useState([]); 
     const [category, setCategory] = useState([]);
     const [selectedCourses, setSelectedCourses] = useState('');
     const [selectedvideo, setselectedvideo] = useState('');
@@ -155,6 +158,7 @@ const InstructorCourseadd = () => {
             ...formDataCourse,
             [name]: files ? files[0] : value
         }));
+       
     };
 
     const handleCourseChange = async (e) => {
@@ -209,6 +213,8 @@ const InstructorCourseadd = () => {
     // course start handleSubmitCourse
     const handleSubmitCourse = async (e) => {
         e.preventDefault();
+        const validationErrors = ValidationInstructorcourse(formDataCourse );
+
         const data = new FormData();
         for (const key in formDataCourse) {
             data.append(key, formDataCourse[key]);
@@ -219,27 +225,57 @@ const InstructorCourseadd = () => {
 
             if (token) {
 
-                await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
+              const userdata=  await axios.post(`${REACT_APP_API_ENDPOINT}/addcourses`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
-
-               
+           
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
                 if (window.confirm('Class Successfully Create')) {
-                    alert('Next Step Add Subject');
-                    window.location.href = '/createcourse'
+
+                      window.location.href = '/createcourse'
                 } else {
                     // Do nothing!
                     console.log('Class Forword Not To Subject');
-
+                    toast.error(userdata.message,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
                 }
 
             }
 
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error( error.response?.data?.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     // end course 
@@ -253,26 +289,57 @@ const InstructorCourseadd = () => {
 
             if (token) {
 
-                await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formDataTopic, {
+              const response=  await axios.post(`${REACT_APP_API_ENDPOINT}/topic`, formDataTopic, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.href = '/createcourse'
- 
+                const userdata = response.data
 
                 if (window.confirm('Subject Successfully Create')) {
-                    alert('Next Step Add Module');
+                    toast.success(userdata.response,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
                     window.location.href = '/createcourse'
                 } else {
                     // Do nothing!
                     console.log('Class Forword Not To Module');
+                    toast.error(userdata.response,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
 
                 }
 
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     // end topic 
@@ -298,19 +365,49 @@ const InstructorCourseadd = () => {
                 });
 
                 if (window.confirm('Module Successfully Create')) {
-                    alert('Next Step Add Module');
+                    toast.success(ddd.message,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
                     window.location.href = '/createcourse'
                 } else {
                     // Do nothing!
                     console.log('Class Forword Not To Lession');
-
+                    toast.error(ddd.message,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
                 }
 
             }
 
 
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     // end lession 
@@ -328,18 +425,39 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
             if (token) {
 
-                await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
+             const response =   await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
+                const userdata =response.data
                 if (window.confirm('Content Successfully Create')) {
-                    alert('Confirm All Step');
+                    toast.success(userdata.message,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
                     window.location.href = '/createcourse'
                 } else {
                     // Do nothing!
-                    console.log('Class Forword Not To Content');
+                    toast.error(userdata.message,{
+                        position: "top-right",
+                        autoClose: true,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "colored",
+                        
+                     });
 
                 }
 
@@ -347,7 +465,17 @@ const InstructorCourseadd = () => {
 
 
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
         }
     }
     // end lession 
@@ -467,7 +595,8 @@ const InstructorCourseadd = () => {
                                                                     aria-label="Upload"
                                                                     name="file"
                                                                     value={formDataCourse.CourseUplod} onChange={handleChangeCourse}
-                                                                /> </div>
+                                                                /> 
+                                                                </div>
                                                             <div className="single-input">
                                                                 <label class="form-label">About Class</label>
                                                                 <input
@@ -476,7 +605,8 @@ const InstructorCourseadd = () => {
                                                                     name="AboutCourse"
                                                                      placeholder="About Class Content"
                                                                     value={formDataCourse.AboutCourse} onChange={handleChangeCourse}
-                                                                /> </div>
+                                                                /> 
+                                                                </div>
                                                             <div className="single-input">
                                                                 <label class="form-label">Description</label>
                                                                 <input
@@ -485,7 +615,8 @@ const InstructorCourseadd = () => {
                                                                     name="Description"
                                                                       placeholder="Description Class Content"
                                                                     value={formDataCourse.Description} onChange={handleChangeCourse}
-                                                                /> </div>
+                                                                />
+                                                                </div>
                                                             <div class="col-3 col-lg-3 single-input d-flex">
                                                                 <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="#collapseOne" aria-label="Close">Cancel</button>
@@ -790,7 +921,9 @@ const InstructorCourseadd = () => {
                         </div>
                     </div>
                 </div>
+                <ToastContainer />
             </div>
+           
         </div>
     );
 }

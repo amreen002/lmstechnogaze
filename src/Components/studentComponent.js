@@ -5,6 +5,8 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import ValidationaddStudent from '../validation/addstudentvalidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function StudentUse() {
     const [table, setTable] = useState([]);
@@ -33,6 +35,11 @@ function StudentUse() {
     const [FindOneInstructor, setFindOneInstructor] = useState({})
     const [courses, setCourses] = useState([])
     const [activeService, setActiveService] = useState(null);
+    const [show, setShow] = useState(false)
+
+    const handleshow = () => {
+        setShow(show ? false : true)
+    }
 
     const toggleDropdown = (id) => {
         setActiveService(prevState => (prevState === id ? null : id));
@@ -228,19 +235,42 @@ function StudentUse() {
         try {
           
             const token = localStorage.getItem('token');
-            let response
+          
             if (token) {
 
-                response = await axios.post(`${REACT_APP_API_ENDPOINT}/addstudents`, formData, {
+             const   response = await axios.post(`${REACT_APP_API_ENDPOINT}/addstudents`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.href = "/students";
-                alert('Student SuccessFully Create');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
 
@@ -249,17 +279,40 @@ function StudentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/deletestudents/${studentsId}`, {
+              const response =  await axios.delete(`${REACT_APP_API_ENDPOINT}/deletestudents/${studentsId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData();
-                alert('Data successfully deleted');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
     const handleUpdate = async (e) => {
@@ -285,21 +338,45 @@ function StudentUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
+              const response=  await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData3(studentsId);
                 window.location.href = "/students"
-                alert("Student Is Updated Successfully!");
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
             console.error('Error updating:', error);
-            alert('An error occurred while updating');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
 
         // Clear input fields after update
+       
 
     };
 
@@ -601,19 +678,20 @@ console.log(CoursesId)
                                                             value={Username} />
                                                              {errors.Username && <div className='errors'>{errors.Username}</div>}
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="mb-3 paswrd">
 
                                                         <label class="form-label" for="basic-icon-default-password">Student Password</label>
-                                                        <input type="Password"
+                                                        <input type={show ? "text" : "password"}
                                                             onChange={handleChange}
                                                             name='Password'
                                                             value={Password}
                                                             class="form-control password-mask"
                                                             id="basic-default-password12"
                                                             placeholder="Abc@123"
-                                                        />
+                                                        /> <i className={`far ${show ? 'fa-eye' : 'fa-eye-slash'}`} onClick={handleshow}></i>
+                                                        
                                                          {errors.Password && <div className='errors'>{errors.Password}</div>}
-                                                        {error && <div style={{ color: 'red' }}>{error}</div>}
+                                                       
                                                     </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="add-user-contact">Student Date</label>
@@ -889,7 +967,7 @@ console.log(CoursesId)
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

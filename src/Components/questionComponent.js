@@ -3,8 +3,10 @@ import axios from 'axios';
 import { Link, useParams } from 'react-router-dom';
 import Footer from './footerComponent';
 import Navbar from './navComponemt';
-import DashBoardMenus from './dashboardsMenuComponent';
+import DashBoardMenus from './dashboardsMenuComponent'; 
 import ValidationaddQuestion from '../validation/addquestionValidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 
 function Questions() {
@@ -179,10 +181,33 @@ function Questions() {
                     }
                 });
                 window.location.href = "/question";
-                alert('Quizze SuccessFully Create');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
 
@@ -191,17 +216,40 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, {
+             const response =   await axios.delete(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData();
-                alert('Data successfully deleted');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
     const handleUpdate = async (e) => {
@@ -221,19 +269,42 @@ function Questions() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, updatedUserData, {
+              const response =  await axios.put(`${REACT_APP_API_ENDPOINT}/question/${questionId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
                 fetchData3(questionId)
-                alert("Question Is Updated Successfully!");
                 window.location.href = "/question";
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
             }
         } catch (error) {
             console.error('Error updating:', error);
-            alert('An error occurred while updating');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
 
         // Clear input fields after update
@@ -654,7 +725,7 @@ function Questions() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

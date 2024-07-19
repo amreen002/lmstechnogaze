@@ -3,6 +3,8 @@ import Navbarmenu from './Navbarmenu';
 import FooterFrontend from './FooterFrontend';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 const CompleteProfile = () => {
 
@@ -121,18 +123,38 @@ const CompleteProfile = () => {
       data.append(key, formData[key]);
     }
     try {
-      await axios.put(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
+    const response =  await axios.put(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
         },
       });
-
+      const userdata = response.data
       fetchData(usersId); // Refresh user data after update
-      alert("User data updated successfully!");
+      toast.success(userdata.message,{
+        position: "top-right",
+        autoClose: true,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        
+     });
        window.location.href = '/login'
     } catch (error) {
       console.error('Error updating user:', error);
-      alert('An error occurred while updating user data');
+      toast.error(error.response.data.message,{
+        position: "top-right",
+        autoClose: true,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+        
+     });
     }
   }
   return (
@@ -269,7 +291,7 @@ const CompleteProfile = () => {
             </div>
           </div>
 
-
+          <ToastContainer />
         </div>
       </section>
 
