@@ -24,7 +24,7 @@ function InstructoreaddquizeComponent(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -88,8 +88,9 @@ function InstructoreaddquizeComponent(token) {
 
     // Format options for react-select
     const options = batch.map(option => ({
+      
         value: option.id,
-        label: option.Title
+        label: option.Title,
     }));
 
     // Handle change event
@@ -124,7 +125,7 @@ function InstructoreaddquizeComponent(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/batches`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -253,7 +254,7 @@ function InstructoreaddquizeComponent(token) {
                     Authorization: `Bearer ${token}`,
                 },
             });
-            const userdata = response.data
+            const userdata =  response.data.quizze
 
             toast.success(userdata.message,{
                 position: "top-right",
@@ -266,7 +267,7 @@ function InstructoreaddquizeComponent(token) {
                 theme: "colored",
                 
              });
-            navigate('/instructor/question'); 
+             navigate(`/instructorquestion/${userdata.id}`); 
             if (response.status === 200) {
                 toast.success(userdata.message,{
                     position: "top-right",
@@ -279,7 +280,7 @@ function InstructoreaddquizeComponent(token) {
                     theme: "colored",
                     
                  });
-                navigate('/instructor/question'); // Use navigate instead of window.location.href
+                 navigate(`/instructorquestion/${userdata.id}`); 
             } else {
                 console.error('Unexpected response status:', response.status);
                 toast.error(userdata.message,{

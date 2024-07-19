@@ -41,6 +41,8 @@ function Quizze() {
         setTotalMarks(parseInt(EasyQuestions) * 1 + parseInt(MediumQuestions) * 2 + parseInt(HardQuestions) * 4);
     }, [EasyQuestions, MediumQuestions, HardQuestions]);
 
+
+
     useEffect(() => {
         fetchData3(quizzeId)
     }, [quizzeId]);
@@ -327,7 +329,7 @@ function Quizze() {
             const token = localStorage.getItem('token');
 
             if (token) {
-             const response =   await axios.put(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, updatedUserData, {
+                const response =  await axios.patch(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -650,7 +652,7 @@ function Quizze() {
                                                          {errors.BatchId && <div className='errors'>{errors.BatchId}</div>}
 
                                                     </div>
-                                                    <div class="col-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container mb-3">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses Category</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="QuizzCategoryId" value={QuizzCategoryId} onChange={handleChanges}>
                                                             <option value="">Select</option>
@@ -660,7 +662,7 @@ function Quizze() {
                                                         </select>
                                                         {errors.QuizzCategoryId && <div className='errors'>{errors.QuizzCategoryId}</div>}
                                                     </div>
-                                                    <div class="col-6 fv-plugins-icon-container">
+                                                    <div class="col-6 fv-plugins-icon-container mb-3 ">
                                                         <label for="exampleFormControlSelect2" class="form-label">Courses</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CourseId" value={CourseId} onChange={handleChanges}>
                                                             <option value="">Select</option>
@@ -670,7 +672,7 @@ function Quizze() {
                                                         </select>
                                                         {errors.CourseId && <div className='errors'>{errors.CourseId}</div>}
                                                     </div>
-                                                    <div class="mb-3 d-flex mt-3">
+                                                    <div class="mb-3 d-flex mt-5">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
                                                         <input type="hidden" />

@@ -195,7 +195,7 @@ function FrontUse() {
 
             const promises = Object.entries(createdItems).map(([telecallerteamId, isChecked]) => {
                 const updatedUserData = { TelecallerCheckbox: isChecked };
-                return axios.put(`${REACT_APP_API_ENDPOINT}/updatetelecallerteam/${telecallerteamId}`, updatedUserData, {
+                return axios.patch(`${REACT_APP_API_ENDPOINT}/updatetelecallerteam/${telecallerteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         'Content-Type': 'application/json',

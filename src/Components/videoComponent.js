@@ -17,6 +17,7 @@ function Video() {
     const [Topic, setTopic] = useState([]);
     const [findOnevideo, setfindOnevido] = useState({})
     const [selectedCourses, setSelectedCourses] = useState('');
+    const [selectedFiles, setSelectedFiles] = useState(null);
     useEffect(() => {
         fetchData(videoId);
     }, [videoId]);
@@ -144,17 +145,20 @@ function Video() {
         Title: '',
         CoursesId: '',
         TopicId: '',
-        VideoUplod: null,
+        VideoUplod: [],
         VideoIframe: '',
     });
 
     const [errors ,setErrors] =useState({})
 
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };
     const handleChange = (e) => {
-        const { name, files, value } = e.target;
+        const { name, value } = e.target;
         setFormData(formData => ({
             ...formData,
-            [name]: files ? files[0] : value
+            [name] : value
         }));
         const updatedFormData = { ...formData, [name]: value };
         setFormData(updatedFormData);
@@ -167,6 +171,12 @@ function Video() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formData) {
             data.append(key, formData[key]);
         }
@@ -257,6 +267,12 @@ function Video() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formData) {
             data.append(key, formData[key]);
         }
@@ -385,16 +401,17 @@ function Video() {
                                                                     {selectedvideo === 'upload' ? (<div class="mb-3">
                                                                         <label class="form-label">Upload Video</label>
                                                                         <div class="input-group">
-                                                                            <input
-                                                                                type="file"
-                                                                                class="form-control"
-                                                                                id="inputGroupFile04"
-                                                                                aria-describedby="inputGroupFileAddon04"
-                                                                                aria-label="Upload"
-                                                                                name="file"
-                                                                                value={formData.VideoUplod} onChange={handleChange}
-                                                                            />
+                                                                        <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            multiple onChange={handleFileChange} />
                                                                     {errors.file && <div className='errors'>{errors.file}</div>}
+                                         
+
+
                                                                         </div>
                                                                     </div>) : selectedvideo === 'gallery' ? (
                                                                         <div class="mb-3" data-quillbot-parent="oopPrLVIHzQ4Ey_EnMuDh">
@@ -561,17 +578,13 @@ function Video() {
                                                     <div class="mb-3">
                                                         <label class="form-label">Upload Video</label>
                                                         <div class="input-group">
-                                                            <video src={`${REACT_APP_API_IMG}/${findOnevideo.VideoUplod}`} width="100%" controls="controls" autoplay muted>
-                                                            </video>
-
                                                             <input
                                                                 type="file"
                                                                 class="form-control"
                                                                 id="inputGroupFile04"
                                                                 aria-describedby="inputGroupFileAddon04"
                                                                 aria-label="Upload"
-                                                                name="file"
-                                                                value={formData.VideoUplod} onChange={handleChange}
+                                                                multiple onChange={handleFileChange}
                                                             />
 
                                                         </div>

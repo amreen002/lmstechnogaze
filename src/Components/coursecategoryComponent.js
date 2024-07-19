@@ -180,7 +180,7 @@ function QuestionsCategory() {
             const token = localStorage.getItem('token');
 
             if (token) {
-          const response =   await axios.put(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, updatedUserData, {
+                const response =  await axios.patch(`${REACT_APP_API_ENDPOINT}/categories/${categoriesId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
 

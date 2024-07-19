@@ -204,7 +204,7 @@ function AddRoleForm() {
                 permission: permissions
             };
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsrole/${roleId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsrole/${roleId}`, updatedUserData, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: `Bearer ${token}`

@@ -26,7 +26,7 @@ const Sidebar = () => {
 
     return (
 
-        <div className="col-lg-3 rts-sticky-column-item">
+        <div className="col-lg-3 rts-sticky-column-item cus_sidebar">
 
             <div className="left-sindebar-dashboard theiaStickySidebar">
                 {table.Role && table.Role.Name === 'Instructor' && (
@@ -79,7 +79,7 @@ const Sidebar = () => {
                                 <p>My Class</p>
                             </Link>
 
-                            <Link to={`/assignment`} className="single-item">
+                            <Link to={`/instructor/assignment`} className="single-item">
                                 <i className="fa-regular fa-page"></i>
                                 <p>Assignments</p>
                             </Link>
@@ -128,11 +128,7 @@ const Sidebar = () => {
                                 <p>My Quiz Attempts</p>
                             </Link>
 
-                            <Link to={`/student/question`} className="single-item">
-                                <i className="fa-regular fa-circle-question"></i>
-                                <p>Question & Answer</p>
-                            </Link>
-
+                            
                         </div>
 
                         <div className="dashboard-left-single-wrapper mt--40">

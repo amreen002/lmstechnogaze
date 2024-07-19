@@ -349,3 +349,52 @@ div#listOnclick {
 .not-selected {
   color: red; /* Red color for incorrect answers */
 }
+.calendar-area-quizze {
+  padding: 20px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.calendar-area-quizze:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.quiz-name:hover {
+  text-decoration: underline;
+}
+.start-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+}
+
+.quiz-card {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 20px;
+  margin-bottom: 20px;
+}
+/* Add to your CSS file */
+.quiz-card.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+.quiz-card.disabled .start-button {
+  background-color: #6c757d; /* Bootstrap's secondary color */
+  cursor: not-allowed;
+}
+
+.quiz-name {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.start-button {
+  background-color: #007bff;
+  color: white;
+}
+

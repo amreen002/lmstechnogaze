@@ -137,7 +137,7 @@ function SaleTeamUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${saleteamId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewssaleteam/${saleteamId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

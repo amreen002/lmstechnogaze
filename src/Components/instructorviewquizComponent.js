@@ -61,6 +61,13 @@ function InstructorviewquizComponent(token) {
     };
 
 
+    //Dropdown Navigation
+    const [activeService, setOpenDropdown] = useState(null);
+
+    // Function to toggle a specific dropdown
+    const toggleDropdown = (serviceName) => {
+        setOpenDropdown(activeService === serviceName ? '' : serviceName);
+    };
 
 
 
@@ -87,30 +94,9 @@ function InstructorviewquizComponent(token) {
                                                 <div className='icon grips'>
                                                     <i class="fa-grip-vertical fa-light"></i>
                                                 </div>
-                                                <div className=' grips' style={{ marginLeft: '4px' }}>
-                                                    <div className='felx-row d-flex'>
-                                                        <div>
-                                                            <i class="fa-check fa-light icp"></i>
-                                                        </div>
-                                                        <spna> 1.Multiple Choice</spna>
-                                                    </div>
-                                                </div>
                                                 <div className='grips' style={{ marginLeft: '4px' }}>
                                                     <select>
-                                                        <option>30 seconds</option>
-                                                        <option>30 seconds</option>
-                                                        <option>30 seconds</option>
-                                                        <option>30 seconds</option>
-                                                        <option>30 seconds</option>
-                                                    </select>
-                                                </div>
-                                                <div className='grips' style={{ marginLeft: '4px' }}>
-                                                    <select>
-                                                        <option>1 point</option>
-                                                        <option>1 point</option>
-                                                        <option>1 point</option>
-                                                        <option>1 point</option>
-                                                        <option>1 point</option>
+                                                        <option>{item.Quize.QuizzTestDuration} Minutes</option>
                                                     </select>
                                                 </div>
                                                 <div className='grips' style={{ marginLeft: '285px' }}>
@@ -140,12 +126,16 @@ function InstructorviewquizComponent(token) {
                                                     </div>
                                                 </div>
                                                 <div className=' grips' style={{ marginLeft: '4px' }}>
-                                                    <button className='felx-row d-flex'>
+                                                    <button className='felx-row d-flex' onClick={() => toggleDropdown('dropdownprofile')}>
                                                         <div className=''>
                                                             <i class="fa-light fa-pen icp"></i>
                                                         </div>
                                                         Edit
                                                     </button>
+                                                    {activeService === 'dropdownprofile' && (
+                                                        <div classNmae="dropdown-menu dropdown-menu-end m-0">
+                                                            <Link to={`/quizeupdate/${item.Quize.id}`} classNmae="dropdown-item">View</Link></div>
+                                                    )}
                                                 </div>
                                                 <div className=' grips' style={{ marginLeft: '4px' }}>
                                                     <button className='felx-row d-flex'>

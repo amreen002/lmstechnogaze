@@ -3,7 +3,7 @@ import InstructorviewquizComponent from '../Components/instructorviewquizCompone
 function InstructorviewquizPage() {
   return (
     <div>
-<InstructorviewquizComponent/>
+      <InstructorviewquizComponent />
     </div>
   )
 }

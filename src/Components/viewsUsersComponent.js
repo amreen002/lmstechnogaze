@@ -4,7 +4,7 @@ import Footer from './footerComponent';
 import Navbar from './navComponemt';
 import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams } from 'react-router-dom';
-const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
+const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 
 function VieweUsersP() {
     const { usersId } = useParams();
@@ -14,61 +14,112 @@ function VieweUsersP() {
     const [countryTable, setCountryTable] = useState([]);
     const [selectedCountry, setSelectedCountry] = useState('');
     const [selectedState, setSelectedState] = useState('');
+    const [courses, setCourses] = useState([])
+    const [batches,setBatches]= useState([])
     const [formData, setFormData] = useState({
-      name: '',
-      userName: '',
-      email: '',
-      password: '',
-      roleName: '',
-      phoneNumber: '',
-      image: null,
-      AddressType: '',
-      Address: '',
-      StateId: '',
-      CountryId: '',
-      DistrictId: '',
-      City: '',
+        name: '',
+        userName: '',
+        email: '',
+        password: '',
+        roleName: '',
+        phoneNumber: '',
+        image: null,
+        AddressType: '',
+        Address: '',
+        StateId: '',
+        CountryId: '',
+        DistrictId: '',
+        City: '',
     });
-  
+
     useEffect(() => {
-      if (usersId) {
-        fetchData(usersId);
-      }
+        if (usersId) {
+            fetchData(usersId);
+        }
     }, [usersId]);
-  
+
     useEffect(() => {
-      fetchData1();
-      fetchData2()
+        fetchData1();
+        fetchData2()
+        fetchData3()
+        fetchData4()
     }, []);
-  
 
-    
-  const handleCountryChange = (e) => {
-    const selectedCountryId = parseInt(e.target.value, 10);
-    const selectedCountry = countryTable.find((country) => country.id === selectedCountryId);
-    setFormData({
-      ...formData,
-      CountryId: selectedCountryId,
-      StateId: '',
-      DistrictId: '',
+
+
+    const handleCountryChange = (e) => {
+        const selectedCountryId = parseInt(e.target.value, 10);
+        const selectedCountry = countryTable.find((country) => country.id === selectedCountryId);
+        setFormData({
+            ...formData,
+            CountryId: selectedCountryId,
+            StateId: '',
+            DistrictId: '',
+        });
+        setSelectedCountry(selectedCountry);
+        setSelectedState('');
+    };
+
+    const handleStateChange = (e) => {
+        const selectedStateId = parseInt(e.target.value, 10);
+        const selectedState = selectedCountry ? selectedCountry.Staties.find((state) => state.id === selectedStateId) : '';
+        setFormData({
+            ...formData,
+            StateId: selectedStateId,
+            DistrictId: '',
+        });
+        setSelectedState(selectedState);
+    };
+
+    const setTeacherFormData = (userData) => ({
+        name: userData?.name || '',
+        userName: userData?.userName || '',
+        email: userData?.email || '',
+        departmentId: userData?.departmentId || '',
+        phoneNumber: userData?.phoneNumber || '',
+        image: null,
+        CountryId: userData?.Address?.CountryId || '',
+        StateId: userData?.Address?.StateId || '',
+        DistrictId: userData?.Address?.DistrictId || '',
+        AddressType: userData?.Address?.AddressType || '',
+        Address: userData?.Address?.Address || '',
+        City: userData?.Address?.City || '',
+        DOB: userData?.Teachers[0]?.DOB || '',
+        YourIntroducationAndSkills: userData?.Teachers[0]?.YourIntroducationAndSkills || '',
+        TeacherType: userData?.Teachers[0]?.TeacherType || ''
     });
-    setSelectedCountry(selectedCountry);
-    setSelectedState('');
-  };
 
-  const handleStateChange = (e) => {
-    const selectedStateId = parseInt(e.target.value, 10);
-    const selectedState = selectedCountry ? selectedCountry.Staties.find((state) => state.id === selectedStateId) : '';
-    setFormData({
-      ...formData,
-      StateId: selectedStateId,
-      DistrictId: '',
+    const setStudentFormData = (userData) => ({
+        name: userData?.name || '',
+        userName: userData?.userName || '',
+        email: userData?.email || '',
+        departmentId: userData?.departmentId || '',
+        phoneNumber: userData?.phoneNumber || '',
+        image: null,
+        CountryId: userData?.Address?.CountryId || '',
+        StateId: userData?.Address?.StateId || '',
+        DistrictId: userData?.Address?.DistrictId || '',
+        AddressType: userData?.Address?.AddressType || '',
+        Address: userData?.Address?.Address || '',
+        City: userData?.Address?.City || '',
+        Date: userData?.Students[0]?.Date || '',
+        CoursesId: userData?.Students[0]?.CoursesId || '',
+        BatchId: userData?.Students[0]?.BatchId || ''
     });
-    setSelectedState(selectedState);
-  };
-
-
-
+    const setAllUsersFormData = (userData) => ({
+        name: userData?.name || '',
+        userName: userData?.userName || '',
+        email: userData?.email || '',
+        departmentId: userData?.departmentId || '',
+        phoneNumber: userData?.phoneNumber || '',
+        image: null,
+        CountryId: userData?.Address?.CountryId || '',
+        StateId: userData?.Address?.StateId || '',
+        DistrictId: userData?.Address?.DistrictId || '',
+        AddressType: userData?.Address?.AddressType || '',
+        Address: userData?.Address?.Address || '',
+        City: userData?.Address?.City || '',
+    })
     const fetchData = async (usersId) => {
         try {
             if (!usersId) {
@@ -86,21 +137,14 @@ function VieweUsersP() {
                 });
                 const userData = response.data.users;
                 setUserData(userData)
-                setFormData({
-                    name: userData?.name || '',
-                    userName: userData?.userName || '',
-                    email: userData?.email || '',
-                    departmentId: userData?.departmentId || '',
-                    phoneNumber: userData?.phoneNumber || '',
-                    image: null,
-                    CountryId: userData?.Address?.CountryId || '',
-                    StateId: userData?.Address?.StateId || '',
-                    DistrictId: userData?.Address?.DistrictId || '',
-                    Address: userData?.Address?.Address || '',
-                    City: userData?.Address?.City || '',
-                    AddressType: userData?.Address?.AddressType || '',
-                });
-
+                if (userData?.departmentId === 3) {
+                    setFormData(setTeacherFormData(userData));
+                } else if (userData?.departmentId === 4) {
+                    setFormData(setStudentFormData(userData));
+                }else{
+                    setFormData(setAllUsersFormData(userData));
+                }
+        
             }
 
         } catch (err) {
@@ -146,6 +190,47 @@ function VieweUsersP() {
             console.error('Error fetching data:', error);
         }
     };
+
+    
+    const fetchData3 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.courses;
+                setCourses(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
+
+    const fetchData4 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listbatches`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userData = response.data.batchs;
+                setBatches(userData)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    };
     const handleChange = (e) => {
         const { name, files, value } = e.target;
         setFormData(formData => ({
@@ -164,7 +249,7 @@ function VieweUsersP() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, data, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/users/${usersId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
                         Authorization: `Bearer ${token}`
@@ -216,7 +301,7 @@ function VieweUsersP() {
                                         <div class="card-body">
                                             <div class="user-avatar-section">
                                                 <div class=" d-flex align-items-center flex-column">
-                                                    <img class="img-fluid rounded my-4" src={`${REACT_APP_API_IMG}/uploads/${userData.image}`} height="110" width="110" alt="User avatar" />
+                                                    <img class="img-fluid rounded my-4" src={`${REACT_APP_API_IMG}/uploads/images/${userData.image}`} height="110" width="110" alt="User avatar" />
                                                     <div class="user-info text-center">
                                                         <h4 class="mb-2">{userData.name}</h4>
                                                         <span class="badge bg-label-secondary">{userData.userName}</span>
@@ -261,7 +346,7 @@ function VieweUsersP() {
                                                     </li>
                                                     <li class="mb-3">
                                                         <span class="fw-medium me-2">Department:</span>
-                                                       <span>{userData.Role && userData.Role.Name}</span> 
+                                                        <span>{userData.Role && userData.Role.Name}</span>
                                                     </li>
 
                                                     <li class="mb-3">
@@ -479,31 +564,32 @@ function VieweUsersP() {
                                                     <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
                                                         value={formData.name} onChange={handleChange}
                                                     />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                </div>
+
                                                 <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                     <label class="form-label" for="modalEditUserLastName">User Name</label>
                                                     <input type="text" id="modalEditUserLastName" name='userName'
                                                         onChange={handleChange}
                                                         value={formData.userName} class="form-control" placeholder="Doe" />
-                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label class="form-label" for="modalEditUserEmail">Email</label>
                                                     <input type="text" id="modalEditUserEmail" name='email'
-                                                       onChange={handleChange}
-                                                       value={formData.email} class="form-control" placeholder="example@domain.com" />
+                                                        onChange={handleChange}
+                                                        value={formData.email} class="form-control" placeholder="example@domain.com" />
                                                 </div>
 
                                                 <div class="col-12 col-md-6">
                                                     <label class="form-label" for="modalEditUserPhone">Phone Number</label>
                                                     <div class="input-group input-group-merge">
-                                                        <span class="input-group-text">+91</span>
                                                         <input type="text" id="modalEditUserPhone"
                                                             name='phoneNumber'
                                                             onChange={handleChange}
-                                                        value={formData.phoneNumber} class="form-control phone-number-mask" placeholder="202 555 0111" />
+                                                            value={formData.phoneNumber} class="form-control phone-number-mask" placeholder="+91 1021621222" />
                                                     </div>
                                                 </div>
+
                                                 <div class="col-12 col-md-6">
                                                     <label class="form-label" for="modalEditUserStatus"></label>
                                                     <select
@@ -512,21 +598,133 @@ function VieweUsersP() {
                                                         name="departmentId"
                                                         onChange={handleChange}
                                                         value={formData.departmentId}
-                                                        disabled="false"
-
-                                                    >
+                                                        disabled="false">
                                                         {roleData.map((option) => (
                                                             <option key={option.id} value={option.id}>{option.Name}</option>
                                                         ))}
                                                     </select>
 
                                                 </div>
+
                                                 <div class="col-12 col-md-6">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label" > Country</label>
+                                                    <select name="CountryId" className="select2 form-select" value={formData.CountryId} onChange={handleCountryChange}>
+                                                        <option value="">Select Country</option>
+                                                        {countryTable.map((country) => (
+                                                            <option key={country.id} value={country.id}>
+                                                                {country.name}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
+                                                    <select name="StateId" className="select2 form-select" value={formData.StateId} onChange={handleStateChange} disabled={!selectedCountry}>
+                                                        <option value="">Select State</option>
+                                                        {selectedCountry &&
+                                                            selectedCountry.Staties.map((state) => (
+                                                                <option key={state.id} value={state.id}>
+                                                                    {state.name}
+                                                                </option>
+                                                            ))}
+                                                    </select>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
+                                                    <select name="DistrictId" className="select2 form-select" value={formData.DistrictId} onChange={handleChange} disabled={!selectedState}>
+                                                        <option value="">Select District</option>
+                                                        {selectedState && selectedState.Cities.map(city => (
+                                                            <option key={city.id} value={city.id}>{city.name}</option>
+                                                        ))}
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12 col-md-6">
+                                                    <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
+                                                    <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                                                        <option value=" ">---Select---</option>
+                                                        <option value="Current Address">Current Address</option>
+                                                        <option value="Permanent Address">Permanent Address</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-12 col-md-6">
+                                                    <label class="form-label" for="add-user-email"> City</label>
+                                                    <input type="text" name="City" className='form-control' value={formData.City} onChange={handleChange} placeholder="City" />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+
+                                                <div class="col-12">
+                                                    <label class="form-label" for="add-user-email"> Address</label>
+                                                    <input type="text" className='form-control' name="Address" value={formData.Address} onChange={handleChange} placeholder="Address" />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                </div>
+
+                                                {userData.departmentId === 4 && (
+                                                    <>
+                                                        <div class="col-12">
+                                                            <label class="form-label" for="add-user-contact">Student Date</label>
+                                                            <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
+                                                                onChange={handleChange}
+                                                               value={formData.Date} />
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label for="exampleFormControlSelect2" class="form-label">Student Courses</label>
+                                                            <select id="exampleFormControlSelect2"  class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
+                                                                <option value="">Select</option>
+                                                                {courses.map((option) => (
+                                                                    <option key={option.id} value={option.id}>{option.name}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-12 col-md-6">
+                                                            <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                                                            <select id="exampleFormControlSelect2"  class="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
+                                                                <option value="">Select</option>
+                                                                {batches.map(batch => (
+                                                                    <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                                                                ))}
+                                                            </select>
+                                                        </div>
+                                                    </>
+
+                                                )}
+                                                {userData.departmentId === 3 && (<>
+                                                    <div class="col-12 col-md-6">
+                                                        <label class="form-label" for="add-user-email">DOB</label>
+                                                        <input type="date" className='form-control' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
+                                                        <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={formData.TeacherType} onChange={handleChange}>
+                                                            <option value="">Select</option>
+                                                            <option value="Online">Online</option>
+                                                            <option value="Offline">Offline</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <label class="form-label" for="basic-icon-default-message">Introducation & Skills</label>
+                                                        <div class="input-group input-group-merge">
+
+                                                            <textarea
+                                                                id="basic-icon-default-message"
+                                                                class="form-control"
+                                                                rows="8"
+                                                                placeholder="Hi, Your Introducation And Skills?"
+                                                                aria-label="Hi, Your Introducation And Skills?"
+                                                                aria-describedby="basic-icon-default-message2"
+                                                                name="YourIntroducationAndSkills" value={formData.YourIntroducationAndSkills} onChange={handleChange}></textarea>
+                                                        </div>
+                                                    </div>
+                                                </>
+                                                )}
+                                                <div class="col-12">
                                                     <label class="form-label" for="modalEditTaxID">Message</label>
                                                     <input type="text" id="modalEditTaxID" name="message" onChange={handleChange}
                                                         value={formData.message} class="form-control modal-edit-tax-id" placeholder="message" />
                                                 </div>
-                                                    <div class="col-12 col-md-6">
+                                                <div class="col-12">
                                                     <div class="input-group">
                                                         <input
                                                             type="file"
@@ -539,10 +737,10 @@ function VieweUsersP() {
                                                             onChange={handleChange}
                                                             value={formData.image}
                                                         />
-                                                        <button class="btn btn-outline-primary" type="button" id="inputGroupFileAddon04">Button</button>
+
                                                     </div>
-                                                </div> 
-                                                <div class="col-12 text-center">
+                                                </div>
+                                                <div class="col-12 text-center d-flex">
                                                     <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
                                                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                 </div>

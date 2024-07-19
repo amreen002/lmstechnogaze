@@ -223,7 +223,7 @@ const InstructorCourseUpdate = () => {
 
             if (token) {
 
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -247,7 +247,7 @@ const InstructorCourseUpdate = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formDataTopic, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/topic/${topicId}`, formDataTopic, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

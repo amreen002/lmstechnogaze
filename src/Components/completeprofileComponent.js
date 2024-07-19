@@ -8,6 +8,10 @@ import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
 const CompleteProfile = () => {
 
+  const [roleData, setSaleTeamData] = useState([]);
+  const [selectedCourses, setSelectedCourses] = useState('');
+  const [courses, setCourses] = useState([])
+  const [batches, setBatches] = useState([])
   const { usersId } = useParams();
   const [userData, setUserData] = useState({});
   const [countryTable, setCountryTable] = useState([]);
@@ -27,6 +31,12 @@ const CompleteProfile = () => {
     CountryId: '',
     DistrictId: '',
     City: '',
+    Date: '',
+    DOB: '',
+    YourIntroducationAndSkills: '',
+    TeacherType: '',
+    CoursesId: '',
+    BatchId: ''
   });
 
   useEffect(() => {
@@ -37,6 +47,8 @@ const CompleteProfile = () => {
 
   useEffect(() => {
     fetchData1();
+    fetchData2()
+    fetchData3()
   }, []);
 
 
@@ -64,16 +76,114 @@ const CompleteProfile = () => {
     });
     setSelectedState(selectedState);
   };
+  const handleCourseChange = async (e) => {
+    const selectedCoursesId = parseInt(e.target.value);
+    const selectedCourse = courses.find(course => course.id === selectedCoursesId);
+    setFormData({
+      ...formData,
+      CoursesId: selectedCoursesId,
+      BatchId: '' // Reset topic selection
+    });
+
+    setSelectedCourses(selectedCourse);
+    if (selectedCourse) {
+      fetchData2(selectedCoursesId);
+
+    }
+
+  };
 
   const fetchData1 = async () => {
     try {
-        const response = await axios.get(`${REACT_APP_API_ENDPOINT}/country`);
-        const userData = response.data.country;
-        setCountryTable(userData)
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/country`);
+      const userData = response.data.country;
+      setCountryTable(userData)
     } catch (error) {
       console.error('Error fetching data:', error);
     }
   };
+  const fetchData2 = async () => {
+    try {
+
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
+      const userDatas = response.data.courses;
+      setCourses(userDatas)
+
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  const fetchData3 = async () => {
+    try {
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/batches`);
+      const userData = response.data.batchs;
+      setBatches(userData)
+
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
+  const setTeacherFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || '',
+    DOB: userData?.Teachers[0]?.DOB || '',
+    YourIntroducationAndSkills: userData?.Teachers[0]?.YourIntroducationAndSkills || '',
+    TeacherType: userData?.Teachers[0]?.TeacherType || ''
+  });
+  const setUserFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || ''
+  });
+  const setStudentFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || '',
+    Date: userData?.Students[0]?.Date || '',
+    CoursesId: userData?.Students[0]?.CoursesId || '',
+    BatchId: userData?.Students[0]?.BatchId || ''
+  });
+  const setGestFormData = (userData) => ({
+    name: userData?.name || '',
+    userName: userData?.userName || '',
+    email: userData?.email || '',
+    departmentId: userData?.departmentId || '',
+    phoneNumber: userData?.phoneNumber || '',
+    image: null,
+    CountryId: userData?.Address?.CountryId || '',
+    StateId: userData?.Address?.StateId || '',
+    DistrictId: userData?.Address?.DistrictId || '',
+    Address: userData?.Address?.Address || '',
+    City: userData?.Address?.City || '',
+    studentId: 4,
+    teacherId:3
+  });
 
   const fetchData = async (usersId) => {
     try {
@@ -81,28 +191,26 @@ const CompleteProfile = () => {
         console.log("userId is undefined");
         return;
       }
-        const response = await axios.get(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`);
-        const userData = response.data.users;
-   
-        setUserData(userData);
-        setFormData({
-          name: userData?.name || '',
-          userName: userData?.userName || '',
-          email: userData?.email || '',
-          departmentId: userData?.departmentId || '',
-          phoneNumber: userData?.phoneNumber || '',
-          image: null,
-          CountryId: userData?.Address?.CountryId || '',
-          StateId: userData?.Address?.StateId || '',
-          DistrictId: userData?.Address?.DistrictId || '',
-          Address: userData?.Address?.Address || '',
-          City: userData?.Address?.City || '',
-          AddressType: userData?.Address?.AddressType || '',
-        });
-      } catch (err) {
-        console.error('Error fetching user data:', err.response);
+      const response = await axios.get(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`);
+      const userData = response.data.users;
+      setUserData(userData)
+
+      if (userData?.departmentId === 3) {
+        setFormData(setTeacherFormData(userData));
+      } else if (userData?.departmentId === 4) {
+        setFormData(setStudentFormData(userData));
+      } else if (userData?.departmentId === 5) {
+        setFormData(setGestFormData(userData));
+      } else {
+        setFormData(setUserFormData(userData));
       }
+
+
+
+    } catch (err) {
+      console.error('Error fetching user data:', err.response);
     }
+  }
 
 
 
@@ -123,7 +231,7 @@ const CompleteProfile = () => {
       data.append(key, formData[key]);
     }
     try {
-    const response =  await axios.put(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
+      const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
         },
@@ -157,6 +265,12 @@ const CompleteProfile = () => {
      });
     }
   }
+  const [showProfile, setShowProfile] = useState(false);
+
+  const handleProfile = (profiles) => {
+    setShowProfile(showProfile === profiles ? '' : profiles);
+  };
+
   return (
     <div>
       <Navbarmenu />
@@ -167,124 +281,263 @@ const CompleteProfile = () => {
 
               <form className="form-control llbl" onSubmit={handleUpdate}>
 
+
                 <div className='cus_head'>
                   <h2>Complete Your Profile</h2>
                 </div>
-                <div className='pb-3'>
-                  <label>Name</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className='form-control'
-                  />
-                </div>
-                <div className='pb-3'>
-                  <label>User Name</label>
-                  <input
-                    type="text"
-                    name="userName"
-                    value={formData.userName}
-                    onChange={handleChange}
-                    className='form-control'
-                  />
-                </div>
-                <div className='pb-3'>
-                  <label>Email</label>
-                  <input
-                    type="text"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    className='form-control'
-                  />
-                </div>
-                <div className='pb-3'>
-                  <label>Contact</label>
-                  <input
-                    type="text"
-                    name="phoneNumber"
-                    value={formData.phoneNumber}
-                    onChange={handleChange}
-                    className='form-control'
-                  />
-                </div>
-                <div className='pb-3'>
-                  <label>Instructor/Student</label>
-                  <select id="departmentId" name="departmentId" disabled="false" className="form-select" value={formData.departmentId} onChange={handleChange}>
-                    <option value="">--Select--</option>
-                    <option value="3">Instructor</option>
-                    <option value="4">Student</option>
+                <div className='row p-4'>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes' >
+                    <label className='field_name'>Name</label>
+                    <input
+                      type="text"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className='form-control'
+                    />
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label className='field_name'>User Name</label>
+                    <input
+                      type="text"
+                      name="userName"
+                      value={formData.userName}
+                      onChange={handleChange}
+                      className='form-control'
+                    />
+                  </div>
+                  <div className=' col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label className='field_name'>Email</label>
+                    <input
+                      type="text"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className='form-control'
+                    />
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label className='field_name'>Contact</label>
+                    <input
+                      type="text"
+                      name="phoneNumber"
+                      value={formData.phoneNumber}
+                      onChange={handleChange}
+                      className='form-control'
+                    />
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes' >
+                    <label className='field_name'>Instructor/Student/(Guest/Viewer)</label>
+                    <select id="departmentId" name="departmentId" disabled="false" className="form-select" value={formData.departmentId} onChange={handleChange}>
+                      <option value="">--Select--</option>
+                      <option value="3">Instructor</option>
+                      <option value="4">Student</option>
+                      <option value="5">Guest/Viewer</option>
 
-                  </select>
-                </div>
-                <div className='pb-3'>
-                  <label htmlFor="exampleFormControlSelect2" className="form-label" > Country</label>
-                  <select name="CountryId"  className="select2 form-select" value={formData.CountryId} onChange={handleCountryChange}>
-                    <option value="">Select Country</option>
-                    {countryTable.map((country) => (
-                      <option key={country.id} value={country.id}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div className='pb-3'>
-                  <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
-                  <select name="StateId"  className="select2 form-select" value={formData.StateId} onChange={handleStateChange} disabled={!selectedCountry}>
-                    <option value="">Select State</option>
-                    {selectedCountry &&
-                      selectedCountry.Staties.map((state) => (
-                        <option key={state.id} value={state.id}>
-                          {state.name}
+
+
+                    </select>
+
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label htmlFor="exampleFormControlSelect2" className="form-label field_name" > Country</label>
+                    <select name="CountryId" className="select2 form-select" value={formData.CountryId} onChange={handleCountryChange}>
+                      <option value="">Select Country</option>
+                      {countryTable.map((country) => (
+                        <option key={country.id} value={country.id}>
+                          {country.name}
                         </option>
                       ))}
-                  </select>
-                </div>
-                <div className='pb-3'>
-                  <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
-                  <select name="DistrictId"  className="select2 form-select" value={formData.DistrictId} onChange={handleChange} disabled={!selectedState}>
-                    <option value="">Select District</option>
-                    {selectedState && selectedState.Cities.map(city => (
-                      <option key={city.id} value={city.id}>{city.name}</option>
-                    ))}
-                  </select>
-                </div>
-               
-                <div className='pb-3'>  
-                <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
-                  <select  className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
-                  <option value="Current Address">Current Address</option>
-                  <option value="Permanent Address">Permanent Address</option>
-                </select>
-                </div>
+                    </select>
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label htmlFor="exampleFormControlSelect2" className="form-label field_name"> State</label>
+                    <select name="StateId" className="select2 form-select" value={formData.StateId} onChange={handleStateChange} disabled={!selectedCountry}>
+                      <option value="">Select State</option>
+                      {selectedCountry &&
+                        selectedCountry.Staties.map((state) => (
+                          <option key={state.id} value={state.id}>
+                            {state.name}
+                          </option>
+                        ))}
+                    </select>
+                  </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label htmlFor="exampleFormControlSelect2" className="form-label field_name"> District</label>
+                    <select name="DistrictId" className="select2 form-select" value={formData.DistrictId} onChange={handleChange} disabled={!selectedState}>
+                      <option value="">Select District</option>
+                      {selectedState && selectedState.Cities.map(city => (
+                        <option key={city.id} value={city.id}>{city.name}</option>
+                      ))}
+                    </select>
+                  </div>
 
-                <div className='pb-3'>
-                  <label class="form-label" for="add-user-email"> City</label>
-                  <input type="text" name="City" className='form-control' value={formData.City} onChange={handleChange} placeholder="City" />
-                  <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                </div>
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label htmlFor="exampleFormControlSelect2" className="form-label field_name"> Address Type</label>
+                    <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                      <option value="">---Select---</option>
+                      <option value="Current Address">Current Address</option>
+                      <option value="Permanent Address">Permanent Address</option>
+                    </select>
+                  </div>
 
-                <div className='pb-3'>
-                  <label class="form-label" for="add-user-email"> Address</label>
-                  <input type="text" className='form-control'  name="Address" value={formData.Address} onChange={handleChange} placeholder="Address" />
-                  <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
-                </div>
-                <div className='pb-3'>
-                  <label>Profile</label>
-                  <input
-                  type="file"
-                  class="form-control"
-                  id="inputGroupFile04"
-                  aria-describedby="inputGroupFileAddon04"
-                  aria-label="Upload"
-                  name="file"
-                  accept="image/png, image/jpeg"
-                  onChange={handleChange}
-                  value={formData.image}
-          
-                  />
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label class="form-label field_name" for="add-user-email"> City</label>
+                    <input type="text" name="City" className='form-control' value={formData.City} onChange={handleChange} placeholder="City" />
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                  </div>
+
+                  <div className='col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes'>
+                    <label class="form-label field_name" for="add-user-email"> Address</label>
+                    <input type="text" className='form-control' name="Address" value={formData.Address} onChange={handleChange} placeholder="Address" />
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                  </div>
+
+                  {userData.departmentId === 4 && (
+                    <>
+                      <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                        <label class="form-label field_name" for="add-user-contact">Student Date</label>
+                        <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
+                          onChange={handleChange}
+                          value={formData.Date} />
+                      </div>
+                      <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                        <label for="exampleFormControlSelect2" class="form-label field_name">Student Class</label>
+                        <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
+                          <option value="">Select</option>
+                          {courses.map((option) => (
+                            <option key={option.id} value={option.id}>{option.name}</option>
+                          ))}
+                        </select>
+                      </div>
+                      <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                        <label for="exampleFormControlSelect2" class="form-label field_name">Student Batch</label>
+                        <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
+                          <option value="">Select</option>
+                          {selectedCourses && selectedCourses.Batches.map(batch => (
+                            <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </>
+
+                  )}
+                  {userData.departmentId === 3 && (<>
+                    <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                      <label class="form-label field_name" for="add-user-email">DOB</label>
+                      <input type="date" className='form-control ' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
+                      <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                    </div>
+                    <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                      <label for="exampleFormControlSelect2" class="form-label field_name">Type</label>
+                      <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={formData.TeacherType} onChange={handleChange}>
+                        <option value="">Select</option>
+                        <option value="Online">Online</option>
+                        <option value="Offline">Offline</option>
+                      </select>
+                    </div>
+                    <div class="col-12 p-4">
+                      <label class="form-label field_name" for="basic-icon-default-message">Introducation & Skills</label>
+                      <div class="input-group input-group-merge">
+
+                        <textarea
+                          id="basic-icon-default-message"
+                          class="form-control"
+                          rows="8"
+                          placeholder="Hi, Your Introducation And Skills?"
+                          aria-label="Hi, Your Introducation And Skills?"
+                          aria-describedby="basic-icon-default-message2"
+                          name="YourIntroducationAndSkills" value={formData.YourIntroducationAndSkills} onChange={handleChange}></textarea>
+                      </div>
+                    </div>
+                  </>
+                  )}
+
+
+                  <div className='p-4 col-md-6 col-xl-6 col-lg-6 fieldes'>
+                    <label className='field_name'>Profile</label>
+                    <input
+                      type="file"
+                      class="form-control "
+                      id="inputGroupFile04"
+                      aria-describedby="inputGroupFileAddon04"
+                      aria-label="Upload"
+                      name="file"
+                      accept="image/png, image/jpeg"
+                      onChange={handleChange}
+                      value={formData.image}
+
+                    />
+                  </div>
+                  {userData.departmentId === 5 && (
+                    <div className='row p-3'>
+                      <div className='p-2'>
+                        <p>Choose role for complete profile</p>
+                      </div>
+                      <div className='col-12 col-md-6 col-xl-6 col-lg-6 fieldes'>
+                        <div className='flex-row d-flex prfiless'>
+                          <a className='profile_choose' onClick={() => handleProfile(formData.studentId)}>Student</a>
+                          <a className='profile_choose ml--10' onClick={() => handleProfile(formData.teacherId)}>Instructor</a>
+                        </div>
+                      </div>
+                      {showProfile === 4 ? (
+                        <div className='row mt-4'>
+                          <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label className="form-label field_name" htmlFor="add-user-contact">Student Date</label>
+                            <input type="date" id="add-user-contact" className="form-control phone-mask" placeholder="Date" name="Date" onChange={handleChange} value={formData.Date} />
+                          </div>
+                          <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label htmlFor="exampleFormControlSelect2" className="form-label field_name">Student Class</label>
+                            <select id="exampleFormControlSelect2" className="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
+                              <option value="">Select</option>
+                              {courses.map((option) => (
+                                <option key={option.id} value={option.id}>{option.name}</option>
+                              ))}
+                            </select>
+                          </div>
+                          <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label htmlFor="exampleFormControlSelect2" className="form-label field_name">Student Batch</label>
+                            <select id="exampleFormControlSelect2" className="select2 form-select" name="BatchId" value={formData.BatchId} onChange={handleChange}>
+                              <option value="">Select</option>
+                              {selectedCourses && selectedCourses.Batches.map(batch => (
+                                <option key={batch.id} value={batch.id}>{batch.Title}</option>
+                              ))}
+                            </select>
+                          </div>
+                        </div>
+                      ) : showProfile === 3 ? (
+                        <div className='row mt-4'>
+                          <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label className="form-label field_name" htmlFor="add-user-email">DOB</label>
+                            <input type="date" className='form-control' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
+                            <div className="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                          </div>
+                          <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label htmlFor="exampleFormControlSelect2" className="form-label field_name">Type</label>
+                            <select id="exampleFormControlSelect2" className="select2 form-select" name="TeacherType" value={formData.TeacherType} onChange={handleChange}>
+                              <option value="">Select</option>
+                              <option value="Online">Online</option>
+                              <option value="Offline">Offline</option>
+                            </select>
+                          </div>
+                          <div className="col-12 p-4 fieldes">
+                            <label className="form-label field_name" htmlFor="basic-icon-default-message">Introducation & Skills</label>
+                            <textarea
+                              id="basic-icon-default-message"
+                              className="form-control"
+                              rows="8"
+                              placeholder="Hi, Your Introducation And Skills?"
+                              aria-label="Hi, Your Introducation And Skills?"
+                              aria-describedby="basic-icon-default-message2"
+                              name="YourIntroducationAndSkills"
+                              value={formData.YourIntroducationAndSkills}
+                              onChange={handleChange}
+                            ></textarea>
+                          </div>
+                        </div>
+                      ) : null}
+                    </div>
+                  )}
                 </div>
                 <button type="submit" className=' btn btn-primary col-2 mt--20'>Complete Profile</button>
               </form>

@@ -21,27 +21,24 @@ const Footer = () => {
                             </div>
                             <div className="body">
                                 <p className="dsic">
-                                    We are passionate education dedicated to providing high-quality resources learners
-                                    all backgrounds.
+                                  
                                 </p>
                                 <ul className="wrapper-list">
                                     <li><i className="fa-regular fa-location-dot"></i>Bhopal, Madhya Pradesh</li>
-                                    <li><i className="fa-regular fa-phone"></i><a href="tel:+4733378901">+(91)- 9926602832</a></li>
+                                 
                                 </ul>
                             </div>
                         </div>
                  
                         <div className="footer-singl-wized">
                             <div className="head">
-                                <h6 className="title">Quick Links</h6>
+                                <h6 className="title qucik">Quick Links</h6>
                             </div>
                             <div className="body">
                                 <ul className="menuu">
-                                    <li><a href="course-two.html">Latest Courses</a></li>
-                                    <li><a href="about.html">Mission & Vision</a></li>
-                                    <li><a href="become-instructor.html">Join a Carrer</a></li>
-                                    <li><a href="zoom-meeting.html">Zoom Meeting</a></li>
-                                    <li><a href="pricing.html">Pricing Plan</a></li>
+                                    <li><a className='company' href="/privacypolicy">Privacy Policies</a></li>
+                                    <li><a className='company' href="/signup">SignUp</a></li>
+                                    <li><a className='company' href="/login">Login</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -50,7 +47,7 @@ const Footer = () => {
              
                         <div className="footer-singl-wized input-area">
                             <div className="head">
-                                <h6 className="title">Newsletter</h6>
+                                <h6 className="title new">Newsletter</h6>
                             </div>
                             <div className="body">
                                 <p className="disc">Subscribe Our newsletter get update our new course</p>

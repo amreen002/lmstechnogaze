@@ -14,12 +14,14 @@ const InstructorCourseadd = () => {
     const [category, setCategory] = useState([]);
     const [selectedCourses, setSelectedCourses] = useState('');
     const [selectedvideo, setselectedvideo] = useState('');
-
+    const [selectedFiles, setSelectedFiles] = useState(null);
     const handleSelectVideo = (e) => {
         const value = e.target.value;
         setselectedvideo(value);
     };
-
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };
     useEffect(() => {
         fetchData(coursesId);
     }, [coursesId]);
@@ -75,7 +77,7 @@ const InstructorCourseadd = () => {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listcourses`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
@@ -134,7 +136,7 @@ const InstructorCourseadd = () => {
         LessionTitle: "",
         CoursesId: "",
         TopicId: "",
-        LessionUpload: null,
+        LessionUpload: [],
 
     });
 
@@ -144,7 +146,7 @@ const InstructorCourseadd = () => {
         Title: '',
         CoursesId: '',
         TopicId: '',
-        VideoUplod: null,
+        VideoUplod: [],
         VideoIframe: '',
     });
 
@@ -194,10 +196,10 @@ const InstructorCourseadd = () => {
 
     // lession start handleChangeLession
     const handleChangeLession = (e) => {
-        const { name, files, value } = e.target;
+        const { name, value } = e.target;
         setFormDataLession(formDataLession => ({
             ...formDataLession,
-            [name]: files ? files[0] : value
+            [name]: value
         }));
     };
     // video start handleChangeVideo
@@ -350,6 +352,13 @@ const InstructorCourseadd = () => {
         e.preventDefault();
         // Assuming you have an API
         const data = new FormData();
+         // Append files to FormData
+         if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+                data.append('files', selectedFiles[i]);
+            }
+        }
+
         for (const key in formDataLession) {
             data.append(key, formDataLession[key]);
         }
@@ -418,6 +427,12 @@ const InstructorCourseadd = () => {
         e.preventDefault();
         // Assuming you have an API
         const data = new FormData();
+          // Append files to FormData
+          if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+              data.append('files', selectedFiles[i]);
+            }
+          }
         for (const key in formDataVideo) {
             data.append(key, formDataVideo[key]);
         }
@@ -485,15 +500,15 @@ const InstructorCourseadd = () => {
                 <Navbarmenu />
             </section>
 
-            <div className="rts-bread-crumbarea-1 rts-section-gap bg_image">
+            <div className="rts-bread-crumbarea-1 rts-section-gap bg_image pt--110 pb--110">
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="breadcrumb-main-wrapper">
-                                <h1 className="title">Create Class</h1>
+                                <h1 className="title ttl2">Add Class Details</h1>
 
                                 <div className="pagination-wrapper">
-                                    <a href="index-2.html">Home</a>
+                                    <a href={`/`}>Home</a>
                                     <i className="fa-regular fa-chevron-right"></i>
                                     <a className="active" href="create-course.html">Create Class</a>
                                 </div>
@@ -733,15 +748,14 @@ const InstructorCourseadd = () => {
                                                                 <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF | Docx | Doc</label>
 
                                                                 <div class="input-group">
-                                                                    <input
-                                                                        type="file"
-                                                                        class="form-control"
-                                                                        id="inputGroupFile04"
-                                                                        aria-describedby="inputGroupFileAddon04"
-                                                                        aria-label="Upload"
-                                                                        name="file"
-                                                                        value={formDataLession.LessionUpload} onChange={handleChangeLession}
-                                                                    />
+                                                                <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            name="file"
+                                                                            multiple onChange={handleFileChange} />
 
                                                                 </div>
                                                             </div>
@@ -834,15 +848,13 @@ const InstructorCourseadd = () => {
                                                                     <div className="single-input">
                                                                         <label className="form-label">Upload Video</label>
                                                                         <div className="input-group">
-                                                                            <input
-                                                                                type="file"
-                                                                                className="form-control"
-                                                                                id="inputGroupFile04"
-                                                                                aria-describedby="inputGroupFileAddon04"
-                                                                                aria-label="Upload"
-                                                                                name="file"
-                                                                                value={formDataVideo.VideoUplod} onChange={handleChangeVideo}
-                                                                            />
+                                                                        <input
+                                                                            type="file"
+                                                                            class="form-control"
+                                                                            id="inputGroupFile04"
+                                                                            aria-describedby="inputGroupFileAddon04"
+                                                                            aria-label="Upload"
+                                                                            multiple onChange={handleFileChange} />
                                                                         </div>
                                                                     </div>
                                                                 ) : selectedvideo === 'gallery' ? (

@@ -340,7 +340,7 @@ const formData = {
             const token = localStorage.getItem('token');
 
             if (token) {
-              const response =  await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
+               const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

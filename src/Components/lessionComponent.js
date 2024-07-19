@@ -17,6 +17,7 @@ function Topic() {
     const [table, setLession] = useState([]);
     const [Topic, setTopic] = useState([]);
     const [selectedCourses, setSelectedCourses] = useState('');
+    const [selectedFiles, setSelectedFiles] = useState(null);
     useEffect(() => {
         fetchData(lessionId);
     }, [lessionId]);
@@ -137,15 +138,16 @@ function Topic() {
         LessionTitle: "",
         CoursesId: "",
         TopicId: "",
-        LessionUpload: null,
+        LessionUpload: [],
     });
     const [errors,setErrors] =useState({})
 
     const handleChange = (e) => {
-        const { name, files, value } = e.target;
+        const { name,value} = e.target;
         setFormData(formData => ({
             ...formData,
-            [name]: files ? files[0] : value
+            [name]: value,
+
         }));
         const updatedFormData = { ...formData, [name]: value };
         setFormData(updatedFormData);
@@ -153,14 +155,31 @@ function Topic() {
         // Validate the updated form data
         const validationErrors = ValidationLession(updatedFormData);
         setErrors(validationErrors);
+
+    };
+
+  
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
         const data = new FormData();
-        for (const key in formData) {
-            data.append(key, formData[key]);
+
+        // Append files to FormData
+        if (selectedFiles) {
+          for (let i = 0; i < selectedFiles.length; i++) {
+            data.append('files', selectedFiles[i]);
+          }
         }
+    
+        // Append other form data
+        for (const key in formData) {
+          data.append(key, formData[key]);
+        }
+    
         try {
             const token = localStorage.getItem('token');
 
@@ -248,13 +267,23 @@ function Topic() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const data = new FormData();
+
+        // Append files to FormData
+        if (selectedFiles) {
+            for (let i = 0; i < selectedFiles.length; i++) {
+                data.append('files', selectedFiles[i]);
+            }
+        }
+
+        // Append other form data
         for (const key in formData) {
             data.append(key, formData[key]);
         }
+  
         try {
             const token = localStorage.getItem('token');
             if (token) {
-            const response =    await axios.put(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
+                const response =   await axios.patch(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -359,8 +388,9 @@ function Topic() {
                                                                     </select>
                                                                     {errors.TopicId && <div className='errors'>{errors.TopicId}</div>}
                                                                 </div>
+
                                                                 <div class="mb-3">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF | Docx | Doc</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Upload Module PDF</label>
                                                                     <div class="input-group">
                                                                         <input
                                                                             type="file"
@@ -369,9 +399,9 @@ function Topic() {
                                                                             aria-describedby="inputGroupFileAddon04"
                                                                             aria-label="Upload"
                                                                             name="file"
-                                                                            value={formData.LessionUpload} onChange={handleChange}
-                                                                        />
+                                                                            multiple onChange={handleFileChange} />
                                                                          {errors.file && <div className='errors'>{errors.file}</div>}
+                                                                           
 
                                                                     </div>
                                                                 </div>
@@ -531,9 +561,8 @@ function Topic() {
                                                                 id="inputGroupFile04"
                                                                 aria-describedby="inputGroupFileAddon04"
                                                                 aria-label="Upload"
-                                                                name="file"
-                                                                value={formData.LessionUpload} onChange={handleChange}
-                                                            />
+                                                                multiple onChange={handleFileChange} />
+
 
                                                         </div>
                                                     </div>

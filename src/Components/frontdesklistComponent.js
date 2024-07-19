@@ -163,7 +163,7 @@ function FrontListUse() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsfrontdesk/${frontdeskId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }

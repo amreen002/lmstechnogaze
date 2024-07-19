@@ -269,7 +269,7 @@ function StudentCourses() {
             const token = localStorage.getItem('token');
 
             if (token) {
-                await axios.put(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
+                await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
