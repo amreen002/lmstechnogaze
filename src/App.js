@@ -392,7 +392,7 @@ function App() {
             element={<CalenderRouter />} />
           <Route
             path="/instructor/assignment"
-            element={<AssignmentRouter />} />
+            element={loggedIn===true?(<AssignmentRouter onLogout={handleLogout}/>):(<Login onLogin={handleLogin}/>)} />
 
           <Route
             path="/announcement"
@@ -411,10 +411,10 @@ function App() {
           <Route
             path="/quizetresult"
             element={<QuizeResultRouter />} />
-          <Route path='/attemptquestion' element={<AttempquestionRouter />} />
-          <Route path='/studentmateriales/:coursesId' element={<StudentMaterialesRouter />} />
+          <Route path='/attemptquestion' element={loggedIn === true ? (<AttempquestionRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
+          <Route path='/studentmateriales/:coursesId' element={loggedIn === true ? (<StudentMaterialesRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/quizeupdate/:quizzeId'   element={loggedIn === true ? (<QuizeUpdateRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
-          <Route path='/updatequestion/:quizzeId/:questionId' element={<UpdatequestionRouter />} />
+          <Route path='/updatequestion/:quizzeId/:questionId'  element={loggedIn === true ? (<UpdatequestionRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
         </Routes>
       </BrowserRouter>
     </CartProvider>

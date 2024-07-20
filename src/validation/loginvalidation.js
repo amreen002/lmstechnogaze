@@ -10,9 +10,9 @@ const ValidationLogin=(state)=>{
     if(!state.password){
         error.password="Password is requier"
     }
-    else if(state.password.length < 8){
+ /*    else if(state.password.length < 8){
         error.password='Password is minimum 8 charecter '
-      } 
+      }  */
       
  
     return error;

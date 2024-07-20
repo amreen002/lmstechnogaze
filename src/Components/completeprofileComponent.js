@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT } = process.env;
+
 const CompleteProfile = () => {
 
   const [roleData, setSaleTeamData] = useState([]);
@@ -36,7 +37,8 @@ const CompleteProfile = () => {
     YourIntroducationAndSkills: '',
     TeacherType: '',
     CoursesId: '',
-    BatchId: ''
+    BatchId: '',
+    CousesId:''
   });
 
   useEffect(() => {
@@ -138,7 +140,9 @@ const CompleteProfile = () => {
     City: userData?.Address?.City || '',
     DOB: userData?.Teachers[0]?.DOB || '',
     YourIntroducationAndSkills: userData?.Teachers[0]?.YourIntroducationAndSkills || '',
-    TeacherType: userData?.Teachers[0]?.TeacherType || ''
+    CousesId: userData?.Teachers[0]?.CousesId || '',
+    TeacherType: userData?.Teachers[0]?.TeacherType || '',
+
   });
   const setUserFormData = (userData) => ({
     name: userData?.name || '',
@@ -169,21 +173,37 @@ const CompleteProfile = () => {
     CoursesId: userData?.Students[0]?.CoursesId || '',
     BatchId: userData?.Students[0]?.BatchId || ''
   });
-  const setGestFormData = (userData) => ({
-    name: userData?.name || '',
-    userName: userData?.userName || '',
-    email: userData?.email || '',
-    departmentId: userData?.departmentId || '',
-    phoneNumber: userData?.phoneNumber || '',
-    image: null,
-    CountryId: userData?.Address?.CountryId || '',
-    StateId: userData?.Address?.StateId || '',
-    DistrictId: userData?.Address?.DistrictId || '',
-    Address: userData?.Address?.Address || '',
-    City: userData?.Address?.City || '',
-    studentId: 4,
-    teacherId:3
-  });
+  const setGestFormData = (userData) => {
+    const baseData = {
+      name: userData?.name || '',
+      userName: userData?.userName || '',
+      email: userData?.email || '',
+      departmentId: userData?.departmentId || '',
+      phoneNumber: userData?.phoneNumber || '',
+      image: null,
+      CountryId: userData?.Address?.CountryId || '',
+      StateId: userData?.Address?.StateId || '',
+      DistrictId: userData?.Address?.DistrictId || '',
+      Address: userData?.Address?.Address || '',
+      City: userData?.Address?.City || ''
+    };
+  
+    if (userData?.studentId) {
+      baseData.Date = userData?.Students[0]?.Date || '';
+      baseData.CoursesId = userData?.Students[0]?.CoursesId || '';
+      baseData.BatchId = userData?.Students[0]?.BatchId || '';
+    }
+  
+    if (userData?.teacherId) {
+      baseData.CousesId = userData?.Teachers[0]?.CousesId || '';
+      baseData.DOB = userData?.Teachers[0]?.DOB || '';
+      baseData.YourIntroducationAndSkills = userData?.Teachers[0]?.YourIntroducationAndSkills || '';
+      baseData.TeacherType = userData?.Teachers[0]?.TeacherType || '';
+    }
+  
+    return baseData;
+  };
+  
 
   const fetchData = async (usersId) => {
     try {
@@ -231,7 +251,7 @@ const CompleteProfile = () => {
       data.append(key, formData[key]);
     }
     try {
-      const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
+     const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/signup/${usersId}`, data, {
         headers: {
           'Content-Type': 'multipart/form-data', // Set content type to multipart/form-data for file upload
         },
@@ -333,9 +353,6 @@ const CompleteProfile = () => {
                       <option value="3">Instructor</option>
                       <option value="4">Student</option>
                       <option value="5">Guest/Viewer</option>
-
-
-
                     </select>
 
                   </div>
@@ -423,6 +440,15 @@ const CompleteProfile = () => {
 
                   )}
                   {userData.departmentId === 3 && (<>
+                    <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                      <label htmlFor="exampleFormControlSelect2" className="form-label field_name">Class</label>
+                      <select id="exampleFormControlSelect2" className="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
+                        <option value="">Select</option>
+                        {courses.map((option) => (
+                          <option key={option.id} value={option.id}>{option.name}</option>
+                        ))}
+                      </select>
+                    </div>
                     <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                       <label class="form-label field_name" for="add-user-email">DOB</label>
                       <input type="date" className='form-control ' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
@@ -470,17 +496,8 @@ const CompleteProfile = () => {
                     />
                   </div>
                   {userData.departmentId === 5 && (
-                    <div className='row p-3'>
-                      <div className='p-2'>
-                        <p>Choose role for complete profile</p>
-                      </div>
-                      <div className='col-12 col-md-6 col-xl-6 col-lg-6 fieldes'>
-                        <div className='flex-row d-flex prfiless'>
-                          <a className='profile_choose' onClick={() => handleProfile(formData.studentId)}>Student</a>
-                          <a className='profile_choose ml--10' onClick={() => handleProfile(formData.teacherId)}>Instructor</a>
-                        </div>
-                      </div>
-                      {showProfile === 4 ? (
+                    <div>
+                      {userData.studentId ? (
                         <div className='row mt-4'>
                           <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                             <label className="form-label field_name" htmlFor="add-user-contact">Student Date</label>
@@ -505,8 +522,17 @@ const CompleteProfile = () => {
                             </select>
                           </div>
                         </div>
-                      ) : showProfile === 3 ? (
+                      ) : userData.teacherId ? (
                         <div className='row mt-4'>
+                            <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
+                            <label htmlFor="exampleFormControlSelect2" className="form-label field_name"> Class</label>
+                            <select id="exampleFormControlSelect2" className="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
+                              <option value="">Select</option>
+                              {courses.map((option) => (
+                                <option key={option.id} value={option.id}>{option.name}</option>
+                              ))}
+                            </select>
+                          </div>
                           <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                             <label className="form-label field_name" htmlFor="add-user-email">DOB</label>
                             <input type="date" className='form-control' name="DOB" value={formData.DOB} onChange={handleChange} placeholder="DOB" />
@@ -543,8 +569,8 @@ const CompleteProfile = () => {
               </form>
             </div>
           </div>
-
           <ToastContainer />
+
         </div>
       </section>
 
