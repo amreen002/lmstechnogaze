@@ -262,7 +262,7 @@ function Questions() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData();
+                fetchDataQuestionFindOne();
                 const userdata = response.data
                 toast.success(userdata.message,{
                     position: "top-right",
@@ -316,7 +316,7 @@ function Questions() {
 
                     }
                 });
-                fetchData3(questionId)
+                fetchDataQuestionFindOne(questionId)
                 window.location.href = "/question";
                 const userdata = response.data
                 toast.success(userdata.message,{
