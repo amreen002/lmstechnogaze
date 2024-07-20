@@ -142,20 +142,19 @@ h2.title {
     line-height: 4.5;
   }
 
-.backimg{
-  background-image: url('../images/breadcrumb/03.jpg') ;
- background-repeat: no-repeat;
-
- width: 100%;
+  .backimg {
+    background: #fff url(../images/about/easy-service-bg-img.svg);
+    background-repeat: no-repeat;
+    background-position: bottom;
 }
 
 .unique{
 
   padding: 90px;
 }
-.importants{
+.importants {
   padding: 76px 30px 64px 30px;
-  background-color: #aa8acc24;
+  background-color: #ffffff;
   position: relative;
   text-align: center;
   border-radius: 13px;
@@ -185,8 +184,8 @@ h2.title {
 .cstmradio{
   margin-left: 54px !important;
 }
-.backcolor{
-  background-color: #fff6f6;;
+.backcolor {
+  background-color: #f8f1e8;
 }
 /* .unloclk img {
   padding: 62px 16px;
@@ -245,9 +244,7 @@ h2.forparnt {
   font-size: 30px;
   line-height: 50px;
 }
-.unloclk img {
-  width: 40%;
-}
+
 .uncl {
   padding-top: 23px;
 }
@@ -376,6 +373,7 @@ span.p_cunt {
   background: #fff url(../images/about/las-sec-1bg.svg);
   background-repeat: no-repeat;
   background-position: bottom;
+  min-height: 800px;
 }
 .lsa_img {
   border: 1px solid #ccc;
