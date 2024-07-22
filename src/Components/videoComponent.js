@@ -6,6 +6,8 @@ import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import ValidationVideo from '../validation/videovalidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 const { REACT_APP_API_ENDPOINT ,REACT_APP_API_IMG} = process.env;
 function Video() {
     const { videoId } = useParams();
@@ -183,7 +185,7 @@ function Video() {
 
             if (token) {
 
-                await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
+             const response =   await axios.post(`${REACT_APP_API_ENDPOINT}/video`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
@@ -191,29 +193,75 @@ function Video() {
                 });
 
                 window.location.href = "/video";
-                alert('Video Successfully Create');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
 
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     }
     const handleDelete = async (videoId) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, {
+             const response =   await axios.delete(`${REACT_APP_API_ENDPOINT}/video/${videoId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 window.location.href = "/video";
-                alert('Data successfully deleted');
+                const userdata=response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
 
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     }
     const handleUpdate = async (e) => {
@@ -238,11 +286,35 @@ function Video() {
                     }
                 });
                 fetchData(videoId)
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
                 window.location.href = '/video'
             }
         } catch (error) {
             console.error('Error updating video:', error);
-            alert('An error occurred while updating the video.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
 
@@ -546,7 +618,7 @@ function Video() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

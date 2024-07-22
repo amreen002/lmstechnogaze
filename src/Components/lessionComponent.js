@@ -6,6 +6,8 @@ import DashBoardMenus from './dashboardsMenuComponent';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Editor } from '@tinymce/tinymce-react';
 import ValidationLession from '../validation/lessionvalidation'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css'
 
 const { REACT_APP_API_ENDPOINT } = process.env;
 function Topic() {
@@ -183,37 +185,83 @@ function Topic() {
 
             if (token) {
 
-                await axios.post(`${REACT_APP_API_ENDPOINT}/lession`, data, {
+             const response =   await axios.post(`${REACT_APP_API_ENDPOINT}/lession`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
 
-             //   window.location.href = "/lession";
-                alert('Module Successfully Create');
+                window.location.href = "/lession";
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
 
             }
         } catch (error) {
-            alert('Failed to send message.');
+            toast.error(error.response.data.message,{
+                position: "top-right",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     }
     const handleDelete = async (lessionId) => {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.delete(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
+              const response=  await axios.delete(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(lessionId)
-                alert('Data successfully deleted');
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-right",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
 
             }
         } catch (error) {
             console.error('Error deleting data:', error);
-            alert('An error occurred while deleting data');
+            toast.error(error.response.data.message,{
+                position: "top-center",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     }
     const handleUpdate = async (e) => {
@@ -235,19 +283,42 @@ function Topic() {
         try {
             const token = localStorage.getItem('token');
             if (token) {
-                await axios.patch(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
+                const response =   await axios.patch(`${REACT_APP_API_ENDPOINT}/lession/${lessionId}`, data, {
                     headers: {
                         'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(lessionId)
-                alert("Module updated successfully!");
+                const userdata = response.data
+                toast.success(userdata.message,{
+                    position: "top-center",
+                    autoClose: true,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "colored",
+                    
+                 });
+
                 window.location.href = "/lession";;
             }
         } catch (error) {
             console.error('Error updating lesson:', error);
-            alert('An error occurred while updating the lesson.');
+            toast.error(error.response.data.message,{
+                position: "top-center",
+                autoClose: true,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                
+             });
+
         }
     };
 
@@ -529,7 +600,7 @@ function Topic() {
                 {/* / Layout wrapper  */}
 
             </div >
-
+            <ToastContainer />
         </>
     )
 }

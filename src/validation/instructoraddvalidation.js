@@ -4,13 +4,13 @@ const ValidationaddInstructor =(formData) => {
     if (!formData.Name) {
       error.Name = 'First Name is required';
     } 
-    else if (!/^[a-zA-Z]+$/.test(formData.Name)) {
+    else if (!/^[a-zA-Z. ]+$/.test(formData.Name)) {
       error.Name = 'First Name should only contain alphabetic characters';
     }
     if (!formData.LastName) {
       error.LastName = 'Last Name is required';
     } 
-    else if (!/^[a-zA-Z]+$/.test(formData.LastName)) {
+    else if (!/^[a-zA-Z. ]+$/.test(formData.LastName)) {
       error.LastName = 'Last Name should only contain alphabetic characters';
     }
       if (!formData.Email) {
