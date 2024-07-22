@@ -134,10 +134,13 @@ function AttemtedQuestionComponent() {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                 window.location.href="/quizresult"
                 if (response.status === 200) {
                     setSeconds(0);
                     localStorage.removeItem('quizState');
+                    window.location.href="/quizresult"
                     localStorage.removeItem('quizStartTime');
+                  
                   
                 } else {
                     alert('Something went wrong');
@@ -217,12 +220,12 @@ function AttemtedQuestionComponent() {
                                                     <div className='mt-3'>
                                                         <form onSubmit={handleSubmit}>
                                                             <input
-                                                                /* type='hidden' */
+                                                                type='hidden' 
                                                                 name='QuizeId'
                                                                 value={quiz?.Quize?.id}
                                                             />
                                                             <input
-                                                                /* type='hidden' */
+                                                               type='hidden' 
                                                                 name='QuestionId'
                                                                 value={currentQuestion?.id}
                                                             />
@@ -251,7 +254,7 @@ function AttemtedQuestionComponent() {
                                                                     </button>
                                                                 </div>
                                                                 <div className='prqust ml-50'>
-                                                                    <button type='submit' className="btn btn-primary"><Link to="/quizresult">Submit</Link></button>
+                                                                    <button type='submit' className="btn btn-primary">Submit</button>
                                                                 </div>
                                                             </div>
                                                         </form>

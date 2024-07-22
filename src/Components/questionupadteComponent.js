@@ -52,13 +52,11 @@ function MultiplequestionComponent(token) {
     const handleOptionSelect = (option) => {
         if (selectedOptions.includes(option)) {          
             const newSelectedOptions = selectedOptions.filter(item => item !== option);
-            console.log(newSelectedOptions)
             setSelectedOptions(newSelectedOptions);
             setSingleOption(newSelectedOptions)
             setAnswer(newSelectedOptions);
         } else {
             const newSelectedOptions = [...selectedOptions, option];
-            console.log(newSelectedOptions)
             setSelectedOptions(newSelectedOptions);
             setSingleOption(newSelectedOptions)
             setAnswer(newSelectedOptions);
