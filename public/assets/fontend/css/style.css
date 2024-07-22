@@ -10637,7 +10637,16 @@ input[type=submit]:hover {
 iframe {
   width: 100%;
 }
-
+.dashboard-banner-area-start .author-profile-image-and-name .profile-pic {
+  /* padding: 10px; */
+  border-radius: 50% 50% !important;
+  background: #fff;
+  position: relative;
+  /* overflow: hidden; */
+  width: 27% !important;
+  margin-top: 16% !important;
+  height: auto !important; 
+}
 /*===============================
     Background Color 
 =================================*/
@@ -32731,6 +32740,85 @@ margin-top: 12px;
   padding: 0px 12px 0px 12px;
   font-size: 14px;
   font-weight: 500 !important;
+}
+.option_icon{
+  border: 1px solid #ccc;
+    padding: 5px;
+    background-color: #ddd8f991;
+}
+.choose_icons{
+  background-color: #ff00004f;
+  padding: 4px 9px 4px 9px;
+  border-radius: 20px;
+}
+.right_icons{
+  background-color: #0080004a;
+  padding: 5px 9px 4px 5px;
+  border-radius: 20px;
+}
+.topic_name{
+  font-weight: 600 !important;
+  font-size: 17px !important;
+}
+.timess{
+  font-size: 13px !important;
+}
+.ardion_btn{
+  border-bottom: 1px solid #ccc !important;
+}
+.videoes_play{
+  width: 40%;
+  height: 140px;
+}
+.chervn{
+  margin-top: -16px;
+
+}
+.video_aling{
+
+  padding: 10px;
+
+}
+.cicle_ply{
+margin-top:21px;
+}
+.acrdion_color{
+background-color: #03c3ec0a;
+}
+.vido_titl{
+border-bottom: 3px double;
+}
+.backa_color{
+  background-color: #ddd8f92b;
+}
+.acordin_space{
+  border-bottom: 1px solid #ddd8f9 !important;
+    border-radius: 6px;
+}
+.editess{
+  margin-top: -23px;
+}
+.editers i{
+  color: red;
+}
+.acordion_head{
+  border-bottom: 1px solid #ccc;
+}
+.create_course{
+  padding: 20px;
+  background-color: #fff;
+  border: 1px solid #ddd8f9;
+}
+.single-input input {
+  border-radius: 6px;
+  border: 1px solid #DDD8F9;
+  height: 50px;
+}
+.arrow_icon{
+font-weight: 600;
+}
+.modalss{
+  max-width: 535px !important;
 }
 @media  (min-width: 480px) and (max-width: 570px){
 
