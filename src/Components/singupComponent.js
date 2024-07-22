@@ -15,8 +15,8 @@ const SignUp = () => {
         roleName: '',
         phoneNumber: 0,
         departmentId: '',
-        studentId: null,
-        teacherId: null,
+        studentId: 0,
+        teacherId: 0,
         roleSelection: ''
     });
 
@@ -28,21 +28,21 @@ const SignUp = () => {
                     ...prevData,
                     roleSelection: value,
                     teacherId: 3,
-                    studentId: null
+                    studentId: 0
                 }));
             } else if (value === '4') {
                 setFormData((prevData) => ({
                     ...prevData,
                     roleSelection: value,
                     studentId: 4,
-                    teacherId: null
+                    teacherId: 0
                 }));
             } else {
                 setFormData((prevData) => ({
                     ...prevData,
                     roleSelection: value,
-                    studentId: null,
-                    teacherId: null
+                    studentId: 0,
+                    teacherId: 0
                 }));
             }
         } else {

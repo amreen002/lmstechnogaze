@@ -273,7 +273,7 @@ function UserMyProfile(token) {
 
                 fetchData(usersId); // Refresh user data after update
                 alert("User data updated successfully!");
-                //window.location.href = `/user-my-profile/${usersId}`;
+               window.location.href = `/user-my-profile/${usersId}`;
             }
         } catch (error) {
             console.error('Error updating user:', error);
@@ -282,7 +282,7 @@ function UserMyProfile(token) {
 
 
     };
-    console.log(userData.id)
+ 
     return (
         <div>
             <section>
@@ -457,6 +457,7 @@ function UserMyProfile(token) {
                                             <div class="col-12 col-md-6">
                                                 <label htmlFor="exampleFormControlSelect2" className="form-label"> Address Type</label>
                                                 <select className="select2 form-select" name="AddressType" value={formData.AddressType} onChange={handleChange}>
+                                                    <option value=" ">Select</option>
                                                     <option value="Current Address">Current Address</option>
                                                     <option value="Permanent Address">Permanent Address</option>
                                                 </select>
@@ -636,7 +637,7 @@ function UserMyProfile(token) {
                                                 </div>
                                             </div>
                                             <div class="col-12 text-center d-flex">
-                                                <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                                <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                 <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                             </div>
                                             <input type="hidden" /></form>

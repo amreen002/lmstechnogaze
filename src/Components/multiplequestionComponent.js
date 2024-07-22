@@ -245,7 +245,6 @@ function MultiplequestionComponent(token) {
         e.preventDefault();
         // Get an array of student IDs that are selected
         const selectedStudents = Object.keys(studentId).filter((id) => studentId[id]);
-        console.log(selectedStudents)
         try {
             let formData = {
                 Questions,

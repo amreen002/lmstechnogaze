@@ -410,7 +410,7 @@ function App() {
             element={<AnnouncementdetailRouter />} />
           <Route
             path="/quizetresult"
-            element={<QuizeResultRouter />} />
+            element={loggedIn === true ? (<QuizeResultRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/attemptquestion' element={loggedIn === true ? (<AttempquestionRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/studentmateriales/:coursesId' element={loggedIn === true ? (<StudentMaterialesRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/quizeupdate/:quizzeId'   element={loggedIn === true ? (<QuizeUpdateRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
