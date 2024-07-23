@@ -164,16 +164,18 @@ function AttemtedQuestionComponent() {
                             <div className="calendar-area">
                                 {quiz ? (
                                     <>
-                                        <div className='flex-row d-flex' style={{ justifyContent: 'space-between' }}>
-                                            <h5 className="title">Quiz: {quiz.Quize.QuizzName}</h5>
-                                            <div className='flex-row d-flex ml--50'>
+                                        <div className='flex-row d-flex quiz_timer'>
+                                            <h5 className="title quiz_title">Quiz: {quiz.Quize.QuizzName}</h5>
+                                            <div className='flex-row d-flex ml--50  quiz_title' >
                                                 <h5>Total Mark: {quiz?.Quize?.TotalMarks}</h5>
                                                 <br />
                                                 <h5>Timer: {Math.floor(seconds / 60)}:{('0' + (seconds % 60)).slice(-2)}</h5>
                                             </div>
                                         </div>
-                                        <div className='mt-2'>
-                                            <div className='row' style={{ backgroundColor: 'rgb(49 4 2 / 58%)', color: "#fff" }}>
+                                       
+                                        <div className='question_paper '>
+                                        <div className=''>
+                                            <div className='row' style={{ backgroundColor: '#bab0a65c' }}>
                                                 <div className='col-12 py-2'>
                                                     <div className='flex-row d-flex'>
                                                         <div className='qust'>
@@ -193,7 +195,6 @@ function AttemtedQuestionComponent() {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div>
                                             <div className='flex-row d-flex mt-5'>
                                                 <div className='questnum mr-20'>
                                                     <span>{currentQuestionIndex + 1}</span>
@@ -213,50 +214,57 @@ function AttemtedQuestionComponent() {
                                                 </div>
                                             </div>
                                             <div className='row ml-50'>
-                                                <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
+                                               
                                                     <div className='mt-3'>
-                                                        <form onSubmit={handleSubmit}>
-                                                            <input
+                                                    <form onSubmit={handleSubmit}>
+                                                        <div className='row'>
+                                                            <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
+                                                                           <input
                                                                 /* type='hidden' */
-                                                                name='QuizeId'
-                                                                value={quiz?.Quize?.id}
-                                                            />
-                                                            <input
+                                                                    name='QuizeId'
+                                                                    value={quiz?.Quize?.id}
+                                                                />
+                                                                <input
                                                                 /* type='hidden' */
-                                                                name='QuestionId'
-                                                                value={currentQuestion?.id}
-                                                            />
-                                                            {['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
-                                                                <div className='flex-row d-flex optiionss mt-2' key={index}>
-                                                                    <input
-                                                                        type='radio'
-                                                                        name='AnswersStudent'
-                                                                        style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
-                                                                        value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
-                                                                        checked={selectedAnswer === String.fromCharCode(97 + index)}
-                                                                        onChange={handleChange}
-                                                                    />
-                                                                    <p>{currentQuestion?.[option]}</p>
-                                                                </div>
-                                                            ))}
-                                                            <div className='flex-row d-flex mt-5'>
-                                                                <div className='prqust'>
-                                                                    <button type='button' onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
-                                                                        Previous question
-                                                                    </button>
-                                                                </div>
-                                                                <div className='prqust ml-40'>
-                                                                    <button type='button' onClick={handleNext} disabled={currentQuestionIndex >= (quiz?.Quize?.Questions.length - 1)}>
-                                                                        Next question
-                                                                    </button>
-                                                                </div>
-                                                                <div className='prqust ml-50'>
-                                                                    <button type='submit' className="btn btn-primary"><Link to="/quizresult">Submit</Link></button>
-                                                                </div>
+                                                                    name='QuestionId'
+                                                                    value={currentQuestion?.id}
+                                                                />
+                                                                {['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
+                                                                    <div className='flex-row d-flex optiionss mt-2' key={index}>
+                                                                        <input
+                                                                            type='radio'
+                                                                            name='AnswersStudent'
+                                                                            style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
+                                                                            value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
+                                                                            checked={selectedAnswer === String.fromCharCode(97 + index)}
+                                                                            onChange={handleChange}
+                                                                        />
+                                                                        <p>{currentQuestion?.[option]}</p>
+                                                                    </div>
+                                                                ))}
+                                                                
                                                             </div>
-                                                        </form>
+                                                        </div>
+                                                        <div className='flex-row d-flex justify-content-between mt-5'>
+                                                                    <div className='prqust'>
+                                                                        <button type='button' onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
+                                                                        <i class="fa-arrow-left fa-regular fa-sharp mr--10"></i>  Previous 
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className='prqust '>
+                                                                        <button type='button' onClick={handleNext} disabled={currentQuestionIndex >= (quiz?.Quize?.Questions.length - 1)}>
+                                                                            Next  <i class="fa-arrow-right fa-regular fa-sharp ml--10"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className=''>
+                                                                        {/* <button type='submit' className="btn btn-primary">Submit</button> */}
+                                                                        {/* <a class="btnrs" href="/quizetresult">Submit</a> */}
+                                                                        <Link class="btnrs" to={'/quizetresult'}>Submit</Link>
+                                                                    </div>
+                                                                </div>
+                                                    </form>
                                                     </div>
-                                                </div>
+                                                
                                             </div>
                                         </div>
                                     </>

@@ -97,15 +97,23 @@ function QuizresultComponent(token) {
                                                 <div className='text-center'>
                                                     <p>Your Answer</p>
                                                 </div>
-                                                {StutentResult.map((item, index) => (
-                                                <div className='row anslist mt-2' key={item.id}>
-                                                    <ul className='flex-row d-flex'>
-                                                        <li style={{ backgroundColor: item.Correct ? 'green' : item.Incorrect ? 'red' : 'black' }}>
-                                                            {item.id}
-                                                        </li>
+                                            <div className='row'>
+                                                <div className='anslist'>
+                                                <ul className='flex-row d-flex'>
+                                                    {StutentResult.map((item, index) => (
+
+                                                        <div className='  mt-2' key={item.id}>
+                                                            
+                                                                <li style={{ backgroundColor: item.Correct ? 'green' : item.Incorrect ? 'red' : 'black' }}>
+                                                                    {item.id}
+                                                                </li>
+                                                            
+                                                        </div>
+
+                                                    ))}
                                                     </ul>
                                                 </div>
-                                                ))}
+                                            </div>
                                                 <div className='flex-row d-flex mt-2' style={{ justifyContent: 'space-between', padding: '16px' }}>
                                                     <button className='viwsol'>
                                                         <Link to={`/student/question`} className="single-item">

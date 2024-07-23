@@ -572,13 +572,12 @@ function MultiplequestionComponent(token) {
                                                                             {isExpanded === "multiple" ? (
                                                                                 <div className='row mt-5'>
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                                                        <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
+                                                                                        <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                                        <div className='d-flex iconss' >
                                                                                             <div >
                                                                                                 <i class="fa-light fa-trash-alt crl"></i>
                                                                                             </div>
                                                                                             <div className='crls'>a</div>
-
-
                                                                                             <label className={`custom-checkbox ${selectedOptions.includes('a') ? 'selected' : ''}`}>
                                                                                                 <input
                                                                                                     type="checkbox"
@@ -595,8 +594,11 @@ function MultiplequestionComponent(token) {
                                                                                             onChange={(e) => setOptions1(e.target.value)}
                                                                                             value={Options1} />
                                                                                     </div>
+                                                                                        </div>
+                                                                                       
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                                                        <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
+                                                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                                        <div className='d-flex iconss'>
                                                                                             <div>
                                                                                                 <i class="fa-light fa-trash-alt crl"></i>
                                                                                             </div>
@@ -615,9 +617,11 @@ function MultiplequestionComponent(token) {
                                                                                         <input type='text' className='inputts ints ' placeholder='type answer here' name="Options2"
                                                                                             onChange={(e) => setOptions2(e.target.value)}
                                                                                             value={Options2} />
+                                                                                            </div>
                                                                                     </div>
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                                                        <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
+                                                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                                        <div className='d-flex iconss'>
                                                                                             <div>
                                                                                                 <i class="fa-light fa-trash-alt crl"></i>
                                                                                             </div>
@@ -637,9 +641,11 @@ function MultiplequestionComponent(token) {
                                                                                         <input type='text' className='inputts ints ' placeholder='type answer here' name="Options3"
                                                                                             onChange={(e) => setOptions3(e.target.value)}
                                                                                             value={Options3} />
+                                                                                            </div>
                                                                                     </div>
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3 '>
-                                                                                        <div className='d-flex' style={{ justifyContent: 'space-between', border: '1px solid #d5d5d561' }}>
+                                                                                    <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
+                                                                                        <div className='d-flex iconss'>
                                                                                             <div>
                                                                                                 <i class="fa-light fa-trash-alt crl"></i>
                                                                                             </div>
@@ -659,6 +665,7 @@ function MultiplequestionComponent(token) {
                                                                                         <input type='text' className='inputts ints ' placeholder='type answer here' name="Options4"
                                                                                             onChange={(e) => setOptions4(e.target.value)}
                                                                                             value={Options4} />
+                                                                                            </div>
                                                                                     </div>
                                                                                     <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
