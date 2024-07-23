@@ -36,7 +36,8 @@ function StudentUse() {
     const [courses, setCourses] = useState([])
     const [activeService, setActiveService] = useState(null);
     const [show, setShow] = useState(false)
-
+    const [image, setimage] = useState(null)
+    const [selectedFiles, setSelectedFiles] = useState(null);
     const handleshow = () => {
         setShow(show ? false : true)
     }
@@ -70,6 +71,10 @@ function StudentUse() {
         setSelectedCourses(selectedCourses);
         setBatchId(''); // Reset district selection
     };
+
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };  
 
     useEffect(() => {
         fetchData();
@@ -184,6 +189,7 @@ function StudentUse() {
                     setDate(userData.Date && userData.Date);
                     setCoursesId(userData.CoursesId);
                     setBatchId(userData.BatchId);
+                    setimage(userData.image);
                 } else {
                     console.error('No student data found in response');
                 }
@@ -211,7 +217,8 @@ function StudentUse() {
         City,
         Date,
         CoursesId,
-        BatchId
+        BatchId,
+        image
     }
 
     const handleChange = (e) => {
@@ -233,21 +240,29 @@ function StudentUse() {
         setDistrictId(updatedFormData.DistrictId || '');
         setCity(updatedFormData.City || '');
         setAddress(updatedFormData.Address || '');
+        setimage(updatedFormData.image || null)
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-       
+        const data = new FormData();
+        if (selectedFiles) {
+            data.append('file', selectedFiles[0]);
+        }
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
           
             const token = localStorage.getItem('token');
           
             if (token) {
 
-             const   response = await axios.post(`${REACT_APP_API_ENDPOINT}/addstudents`, formData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+             const   response = await axios.post(`${REACT_APP_API_ENDPOINT}/addstudents`, data, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    Authorization: `Bearer ${token}`
+                }
                 });
                 window.location.href = "/students";
                 const userdata = response.data
@@ -323,31 +338,21 @@ function StudentUse() {
     };
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        if (selectedFiles) {
+            data.append('file', selectedFiles[0]);
+        }
+        for (const key in formData) {
+            data.append(key, formData[key]);
+        }
         try {
-            let updatedUserData = {
-                Name,
-                LastName,
-                Email,
-                Date,
-                Password,
-                Username,
-                PhoneNumber,
-                AddressType: 'Current Address',
-                Address,
-                StateId,
-                CountryId,
-                DistrictId,
-                City,
-                CoursesId,
-                BatchId
-            }
             const token = localStorage.getItem('token');
-
             if (token) {
-               const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, updatedUserData, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
+               const response = await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsstudents/${studentsId}`, data, {
+                   headers: {
+                       'Content-Type': 'multipart/form-data',
+                       Authorization: `Bearer ${token}`
+                   }
                 });
                 fetchData3(studentsId);
                 window.location.href = "/students"
@@ -385,7 +390,7 @@ function StudentUse() {
        
 
     };
-console.log(Address)
+
     return (
         <>
             {/*     <!-- Layout wrapper --> */}
@@ -792,7 +797,19 @@ console.log(Address)
                                                              {errors.Address && <div className='errors'>{errors.Address}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label">Upload Image</label>
+                                                        <input
+                                                            type="file"
+                                                            class="form-control"
+                                                            id="inputGroupFile04"
+                                                            aria-describedby="inputGroupFileAddon04"
+                                                            aria-label="Upload"
+                                                             onChange={handleFileChange}
+                                                        />
+                                                        {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
 
+                                                    </div>
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
@@ -938,6 +955,19 @@ console.log(Address)
                                                             onChange={(e) => setAddress(e.target.value)}
                                                             value={Address} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                    </div>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label">Upload Image</label>
+                                                        <input
+                                                            type="file"
+                                                            class="form-control"
+                                                            id="inputGroupFile04"
+                                                            aria-describedby="inputGroupFileAddon04"
+                                                            aria-label="Upload"
+                                                             onChange={handleFileChange}
+                                                        />
+                                                        {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
+
                                                     </div>
 
                                                     <div class="mb-3 d-flex">

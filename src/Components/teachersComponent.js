@@ -37,7 +37,9 @@ function ListUse() {
     const [image, setimage] = useState(null)
     const [FindOneInstructor, setFindOneInstructor] = useState({})
     const [YourIntroducationAndSkills, setYourIntroducationAndSkills] = useState('')
+    const [options, setOptions] = useState([]);
     const [courses, setCourses] = useState([])
+    const [selectedFiles, setSelectedFiles] = useState(null);
     const handleCountryChange = (e) => {
         const selectedCountryId = parseInt(e.target.value);
         const selectedCountry = countryTable.find(country => country.id === selectedCountryId);
@@ -56,7 +58,9 @@ function ListUse() {
         setSelectedState(selectedState);
         setDistrictId(''); // Reset district selection
     };
-
+    const handleFileChange = (event) => {
+        setSelectedFiles(event.target.files);
+    };
     useEffect(() => {
         fetchData();
         fetchData1()
@@ -126,6 +130,11 @@ function ListUse() {
 
             const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
             const userDatas = response.data.courses;
+            const courses = response.data.courses.map(course => ({
+                value: course.id,
+                label: course.name
+            }));
+            setOptions(courses);
             setCourses(userDatas)
 
 
@@ -136,52 +145,55 @@ function ListUse() {
     useEffect(() => {
         fetchData3(teachersId)
     }, [teachersId]);
+    
     const fetchData3 = async (teachersId) => {
         try {
             const token = localStorage.getItem('token');
-
+    
             if (token) {
                 const response = await axios.get(`${REACT_APP_API_ENDPOINT}/listteachers/${teachersId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
-
                     }
                 });
                 const userData = response.data.teachers;
-                setFindOneInstructor(userData)
-                setName(userData.Name)
-                setLastName(userData.LastName)
-                setEmail(userData.Email)
-                setPhoneNumber(userData.PhoneNumber)
-                setUsername(userData.Username)
-                setDOB(userData.DOB)
-                setTeacherType(userData.TeacherType)
-                setCountryId(userData.Address.CountryId)
-                setStateId(userData.Address.StateId)
-                setDistrictId(userData.Address.DistrictId)
-                setAddress(userData.Address.Address)
-                setCity(userData.Address.City)
-                setYourIntroducationAndSkills(userData.YourIntroducationAndSkills)
-                setCousesId(userData.CousesId)
-
+    
+                setFindOneInstructor(userData);
+                setName(userData.Name);
+                setLastName(userData.LastName);
+                setEmail(userData.Email);
+                setPhoneNumber(userData.PhoneNumber);
+                setUsername(userData.Username);
+                setDOB(userData.DOB);
+                setTeacherType(userData.TeacherType);
+                setCountryId(userData.Address.CountryId);
+                setStateId(userData.Address.StateId);
+                setDistrictId(userData.Address.DistrictId);
+                setAddress(userData.Address.Address);
+                setCity(userData.Address.City);
+                setYourIntroducationAndSkills(userData.YourIntroducationAndSkills);
+                setimage(userData.image);
+                const coursesIdsArray = userData.CousesId ? userData.CousesId.split(',').map(id => parseInt(id, 10)) : [];
+                setCousesId(coursesIdsArray);  // Se/ Set the state with the array of course IDs
             }
-
+    
         } catch (error) {
             console.error('Error fetching data:', error);
         }
     };
+    
 
-    const options = courses.map(option => ({
+/*     const options = courses.map(option => ({
         value: option.id,
         label: option.name
     }));
-
+ */
     // Handle change event
     const handleNewChange = (selectedOptions) => {
-        const coursesIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
-        setCousesId(coursesIds);
+        const selectedIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
+        setCousesId(selectedIds);
     };
-
+    
 
 
     const [errors, setErrors] = useState({})
@@ -203,12 +215,12 @@ function ListUse() {
         DistrictId,
         City,
         CousesId,
-        image:null
+        image
 
     }
     const handleChange = (e) => {
-        const { name,files, value } = e.target;
-        const updatedFormData = { ...formData, [name]: files ? files[0] : value};
+        const { name, value } = e.target;
+        const updatedFormData = { ...formData, [name]: value};
         const validationErrors = ValidationaddInstructor(updatedFormData);
         setErrors(validationErrors); 
         setName(updatedFormData.Name || '');
@@ -232,8 +244,15 @@ function ListUse() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
-        for (const key in formData) {
-            data.append(key, formData[key]);
+        const formDataWithCoursesId = {
+            ...formData,
+            CousesId: formData.CousesId.join(',')  // Convert array to comma-separated string
+        };
+        if (selectedFiles) {
+            data.append('file', selectedFiles[0]);
+        }
+        for (const key in formDataWithCoursesId) {
+            data.append(key, formDataWithCoursesId[key]);
         }
         try {
          
@@ -244,6 +263,7 @@ function ListUse() {
            
                 response = await axios.post(`${REACT_APP_API_ENDPOINT}/addteachers`, data, {
                     headers: {
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
@@ -321,37 +341,30 @@ function ListUse() {
     };
     const handleUpdate = async (e) => {
         e.preventDefault();
+        const data = new FormData();
+        const formDataWithCoursesId = {
+            ...formData,
+            CousesId: formData.CousesId.join(',')  // Convert array to comma-separated string
+        };
+        if (selectedFiles) {
+            data.append('file', selectedFiles[0]);
+        }
+        for (const key in formDataWithCoursesId) {
+            data.append(key, formDataWithCoursesId[key]);
+        }
         try {
-            let updatedUserData = {
-                Name,
-                LastName,
-                Email,
-                Password,
-                DOB,
-                TeacherType,
-                Username,
-                PhoneNumber,
-                YourIntroducationAndSkills,
-                AddressType: 'Current Address',
-                Address,
-                StateId,
-                CountryId,
-                DistrictId,
-                City,
-                DistrictId,
-                CousesId
-            }
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response =  await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, updatedUserData, {
+                const response =  await axios.patch(`${REACT_APP_API_ENDPOINT}/viewsteachers/${teachersId}`, data, {
                     headers: {
+                        'Content-Type': 'multipart/form-data',
                         Authorization: `Bearer ${token}`
                     }
                 });
                 const userdata = response.data
                 fetchData3(teachersId);
-                window.location.href = "/teachers"
+ /*                window.location.href = "/teachers" */
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: 5000,
@@ -756,8 +769,7 @@ function ListUse() {
                                                             id="inputGroupFile04"
                                                             aria-describedby="inputGroupFileAddon04"
                                                             aria-label="Upload"
-                                                            name="file"
-                                                            value={image} onChange={handleChange}
+                                                             onChange={handleFileChange}
                                                         />
                                                         {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
 
@@ -925,6 +937,48 @@ function ListUse() {
                                                             value={City} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
+
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Class</label>
+                                                        <Select
+                                                            isMulti
+                                                            value={options.filter(option => CousesId.includes(option.value))}
+                                                            name="CousesId"
+                                                            onChange={handleNewChange}
+                                                            options={options}
+                                                            components={animatedComponents}
+                                                            inputId="exampleFormControlSelect2"
+                                                        />
+                                                        <ul>
+                                                            {CousesId.map(id => {
+                                                                const course = options.find(opt => opt.value === id);
+                                                                return course ? <li key={id}>{course.label}</li> : <li key={id}>Unknown Course ID: {id}</li>;
+                                                            })}
+                                                        </ul>
+                                                         {/* {errors.BatchId && <div className='errors'>{errors.BatchId}</div>} */}
+
+                                                    </div>
+                                                    {/* <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <ul>
+                                                        {CousesId.map(id => {
+                                                            const course = options.find(opt => opt.value === id);
+                                                            return course ? <li key={id}>{course.label}</li> : <li key={id}>Unknown Course ID: {id}</li>;
+                                                        })}
+                                                    </ul>
+                                                    </div> */}
+                                                    <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                        <label class="form-label">Upload Image</label>
+                                                        <input
+                                                            type="file"
+                                                            class="form-control"
+                                                            id="inputGroupFile04"
+                                                            aria-describedby="inputGroupFileAddon04"
+                                                            aria-label="Upload"
+                                                            onChange={handleFileChange}
+                                                        />
+                                                        {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
+
+                                                    </div>
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-icon-default-message">Instructor Your Introducation & Skills</label>
                                                         <div class="input-group input-group-merge">
@@ -941,6 +995,7 @@ function ListUse() {
                                                                 name="YourIntroducationAndSkills" value={YourIntroducationAndSkills} onChange={(e) => setYourIntroducationAndSkills(e.target.value)}></textarea>
                                                         </div>
                                                     </div>
+                                                    
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal">Cancel</button>

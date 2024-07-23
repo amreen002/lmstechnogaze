@@ -203,7 +203,8 @@ function CoursesP() {
             if (token) {
            const response =   await axios.patch(`${REACT_APP_API_ENDPOINT}/viewscourses/${coursesId}`, data, {
                     headers: {
-                        Authorization: `Bearer ${token}`
+                         'Content-Type': 'multipart/form-data',
+                          Authorization: `Bearer ${token}`
                     }
                 });
                 fetchData(coursesId)

@@ -134,10 +134,13 @@ function AttemtedQuestionComponent() {
                         Authorization: `Bearer ${token}`
                     }
                 });
+                 window.location.href="/quizresult"
                 if (response.status === 200) {
                     setSeconds(0);
                     localStorage.removeItem('quizState');
+                    window.location.href="/quizresult"
                     localStorage.removeItem('quizStartTime');
+                  
                   
                 } else {
                     alert('Something went wrong');
@@ -243,6 +246,44 @@ function AttemtedQuestionComponent() {
                                                                     </div>
                                                                 ))}
                                                                 
+                                                        <form onSubmit={handleSubmit}>
+                                                            <input
+                                                                type='hidden' 
+                                                                name='QuizeId'
+                                                                value={quiz?.Quize?.id}
+                                                            />
+                                                            <input
+                                                               type='hidden' 
+                                                                name='QuestionId'
+                                                                value={currentQuestion?.id}
+                                                            />
+                                                            {['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
+                                                                <div className='flex-row d-flex optiionss mt-2' key={index}>
+                                                                    <input
+                                                                        type='radio'
+                                                                        name='AnswersStudent'
+                                                                        style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
+                                                                        value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
+                                                                        checked={selectedAnswer === String.fromCharCode(97 + index)}
+                                                                        onChange={handleChange}
+                                                                    />
+                                                                    <p>{currentQuestion?.[option]}</p>
+                                                                </div>
+                                                            ))}
+                                                            <div className='flex-row d-flex mt-5'>
+                                                                <div className='prqust'>
+                                                                    <button type='button' onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
+                                                                        Previous question
+                                                                    </button>
+                                                                </div>
+                                                                <div className='prqust ml-40'>
+                                                                    <button type='button' onClick={handleNext} disabled={currentQuestionIndex >= (quiz?.Quize?.Questions.length - 1)}>
+                                                                        Next question
+                                                                    </button>
+                                                                </div>
+                                                                <div className='prqust ml-50'>
+                                                                    <button type='submit' className="btn btn-primary">Submit</button>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div className='flex-row d-flex justify-content-between mt-5'>

@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Navbarmenu from './Navbarmenu';
 import FooterFrontend from './FooterFrontend';
 import axios from 'axios';
+import Select, { StylesConfig } from 'react-select'
+import makeAnimated from 'react-select/animated'; 
 import { useParams } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
+const animatedComponents = makeAnimated();
 const { REACT_APP_API_ENDPOINT } = process.env;
 
 const CompleteProfile = () => {
@@ -18,6 +21,8 @@ const CompleteProfile = () => {
   const [countryTable, setCountryTable] = useState([]);
   const [selectedCountry, setSelectedCountry] = useState('');
   const [selectedState, setSelectedState] = useState('');
+  const [options, setOptions] = useState([]);
+  const [selectedFiles, setSelectedFiles] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     userName: '',
@@ -38,7 +43,8 @@ const CompleteProfile = () => {
     TeacherType: '',
     CoursesId: '',
     BatchId: '',
-    CousesId:''
+    CoursesId:'',
+    CousesId:[]
   });
 
   useEffect(() => {
@@ -94,7 +100,18 @@ const CompleteProfile = () => {
     }
 
   };
-
+    // Handle change event
+    const handleNewChange = (selectedOptions) => {
+      const selectedIds = selectedOptions ? selectedOptions.map(option => option.value) : [];
+      setFormData({
+        ...formData,
+        CousesId: selectedIds,
+      });
+    
+  };
+  const handleFileChange = (event) => {
+    setSelectedFiles(event.target.files);
+};
   const fetchData1 = async () => {
     try {
       const response = await axios.get(`${REACT_APP_API_ENDPOINT}/country`);
@@ -109,6 +126,11 @@ const CompleteProfile = () => {
 
       const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
       const userDatas = response.data.courses;
+      const courses = response.data.courses.map(course => ({
+        value: course.id,
+        label: course.name
+    }));
+    setOptions(courses);
       setCourses(userDatas)
 
 
@@ -236,10 +258,10 @@ const CompleteProfile = () => {
 
 
   const handleChange = (e) => {
-    const { name, files, value } = e.target;
+    const { name,value } = e.target;
     setFormData(formData => ({
       ...formData,
-      [name]: files ? files[0] : value
+      [name]: value
     }));
   };
 
@@ -247,6 +269,9 @@ const CompleteProfile = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     const data = new FormData();
+    if (selectedFiles) {
+      data.append('file', selectedFiles[0]);
+    }
     for (const key in formData) {
       data.append(key, formData[key]);
     }
@@ -442,12 +467,15 @@ const CompleteProfile = () => {
                   {userData.departmentId === 3 && (<>
                     <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                       <label htmlFor="exampleFormControlSelect2" className="form-label field_name">Class</label>
-                      <select id="exampleFormControlSelect2" className="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
-                        <option value="">Select</option>
-                        {courses.map((option) => (
-                          <option key={option.id} value={option.id}>{option.name}</option>
-                        ))}
-                      </select>
+                      <Select
+                        isMulti
+                        value={options.filter(option => formData.CousesId.includes(option.value))}
+                        name="CousesId"
+                        onChange={handleNewChange}
+                        options={options}
+                        components={animatedComponents}
+                        inputId="exampleFormControlSelect2"
+                      />
                     </div>
                     <div class="col-12 col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                       <label class="form-label field_name" for="add-user-email">DOB</label>
@@ -488,10 +516,9 @@ const CompleteProfile = () => {
                       id="inputGroupFile04"
                       aria-describedby="inputGroupFileAddon04"
                       aria-label="Upload"
-                      name="file"
                       accept="image/png, image/jpeg"
-                      onChange={handleChange}
-                      value={formData.image}
+                      onChange={handleFileChange}
+
 
                     />
                   </div>
@@ -526,12 +553,16 @@ const CompleteProfile = () => {
                         <div className='row mt-4'>
                             <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                             <label htmlFor="exampleFormControlSelect2" className="form-label field_name"> Class</label>
-                            <select id="exampleFormControlSelect2" className="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
-                              <option value="">Select</option>
-                              {courses.map((option) => (
-                                <option key={option.id} value={option.id}>{option.name}</option>
-                              ))}
-                            </select>
+          
+                              <Select
+                                isMulti
+                                value={options.filter(option => formData.CousesId.includes(option.value))}
+                                name="CousesId"
+                                onChange={handleNewChange}
+                                options={options}
+                                components={animatedComponents}
+                                inputId="exampleFormControlSelect2"
+                              />
                           </div>
                           <div className="col-12 col-md-6 col-xl-6 col-lg-6 p-4 fieldes">
                             <label className="form-label field_name" htmlFor="add-user-email">DOB</label>
