@@ -18,6 +18,10 @@ function Topic() {
     const [Topic, setTopic] = useState([]);
     const [selectedCourses, setSelectedCourses] = useState('');
     const [selectedFiles, setSelectedFiles] = useState(null);
+    const [findOnelession, setFindOneLession] = useState({})
+    const [files, setFiles] = useState([])
+    const [removedFiles, setRemovedFiles] = useState([]);
+    const [urlIdModel, seturlid] = useState('')
     useEffect(() => {
         fetchData(lessionId);
     }, [lessionId]);
@@ -57,6 +61,7 @@ function Topic() {
                     }
                 });
                 const lessonData = lessonResponse.data.lession;
+                setFindOneLession(lessonData)
                 setFormData({
                     LessionTitle: lessonData.LessionTitle,
                     CoursesId: lessonData.CoursesId,
@@ -158,11 +163,30 @@ function Topic() {
 
     };
 
-  
+    useEffect(() => {
+        if (findOnelession?.LessionUpload) {
+            setFiles(findOnelession.LessionUpload.map(file => ({ ...file, isNew: false })));
+        }
+    }, [findOnelession]);
+
     const handleFileChange = (event) => {
         setSelectedFiles(event.target.files);
+        const newFiles = Array.from(event.target.files).map(file => ({
+            path: file.path,
+            name: file.name,
+            isNew: true,
+            file // Store the file object for later upload
+        }));
+        setFiles(prevFiles => [...prevFiles, ...newFiles]);
     };
 
+    const handleRemoveFile = (index) => {
+        const fileToRemove = files[index];
+        if (!fileToRemove.isNew) {
+            setRemovedFiles(prev => [...prev, fileToRemove.path]);
+        }
+        setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -268,13 +292,12 @@ function Topic() {
         e.preventDefault();
         const data = new FormData();
 
-        // Append files to FormData
-        if (selectedFiles) {
-            for (let i = 0; i < selectedFiles.length; i++) {
-                data.append('files', selectedFiles[i]);
+        files.forEach(file => {
+            if (file.isNew) {
+                data.append('files', file.file);
             }
-        }
-
+        });
+        data.append('removedFiles', JSON.stringify(removedFiles));
         // Append other form data
         for (const key in formData) {
             data.append(key, formData[key]);
@@ -565,6 +588,28 @@ function Topic() {
 
 
                                                         </div>
+                                                    </div>
+                                                    <div className="d-flex flex-wrap">
+                                                        {files.map((file, index) => (
+                                                            <div key={index} className="col-12 col-md-6 col-lg-6 col-xl-6 mb-3">
+                                                                <div className="card">
+                                                                    <div className="card-body">
+                                                                        <iframe
+                                                                            src={`${process.env.REACT_APP_API_IMG}/${file.path}`}
+                                                                            width="100%"
+                                                                            height="300px"
+                                                                            style={{ border: 'none' }}
+                                                                        ></iframe>
+                                                                        <button
+                                                                            onClick={() => handleRemoveFile(index)}
+                                                                            className="btn btn-danger mt-2 w-100"
+                                                                        >
+                                                                            Remove
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
                                                     </div>
                                                     <div class="mb-3">
                                                         <Editor

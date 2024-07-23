@@ -18,6 +18,9 @@ function Video() {
     const [findOnevideo, setfindOnevido] = useState({})
     const [selectedCourses, setSelectedCourses] = useState('');
     const [selectedFiles, setSelectedFiles] = useState(null);
+    const [files, setFiles] = useState([])
+    const [removedFiles, setRemovedFiles] = useState([]);
+
     useEffect(() => {
         fetchData(videoId);
     }, [videoId]);
@@ -33,6 +36,8 @@ function Video() {
         const value = e.target.value;
         setselectedvideo(value);
     };
+
+
     const handleCourseChange = async (e) => {
         const selectedCoursesId = parseInt(e.target.value);
         const selectedCourse = courses.find(course => course.id === selectedCoursesId);
@@ -45,7 +50,8 @@ function Video() {
         if (selectedCoursesId) {
             fetchData3(selectedCoursesId);
         }
-    };
+    }
+    
     const fetchData = async (videoId) => {
         try {
 
@@ -150,10 +156,23 @@ function Video() {
     });
 
     const [errors ,setErrors] =useState({})
+    useEffect(() => {
+        if (findOnevideo?.VideoUplod) {
+            setFiles(findOnevideo.VideoUplod.map(file => ({ ...file, isNew: false })));
+        }
+    }, [findOnevideo]);
 
     const handleFileChange = (event) => {
-        setSelectedFiles(event.target.files);
+        setSelectedFiles(event.target.files) 
+        const newFiles = Array.from(event.target.files).map(file => ({
+            path: file.path,
+            name: file.name,
+            isNew: true,
+            file // Store the file object for later upload
+        }));
+        setFiles(prevFiles => [...prevFiles, ...newFiles]);
     };
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData(formData => ({
@@ -167,7 +186,13 @@ function Video() {
         const validationErrors = ValidationVideo(updatedFormData);
         setErrors(validationErrors);
     };
-
+    const handleRemoveFile = (index) => {
+        const fileToRemove = files[index];
+        if (!fileToRemove.isNew) {
+            setRemovedFiles(prev => [...prev, fileToRemove.path]);
+        }
+        setFiles(prevFiles => prevFiles.filter((_, i) => i !== index));
+    };
     const handleSubmit = async (e) => {
         e.preventDefault();
         const data = new FormData();
@@ -267,12 +292,12 @@ function Video() {
     const handleUpdate = async (e) => {
         e.preventDefault();
         const data = new FormData();
-          // Append files to FormData
-          if (selectedFiles) {
-            for (let i = 0; i < selectedFiles.length; i++) {
-              data.append('files', selectedFiles[i]);
+        files.forEach(file => {
+            if (file.isNew) {
+                data.append('files', file.file);
             }
-          }
+        });
+        data.append('removedFiles', JSON.stringify(removedFiles));
         for (const key in formData) {
             data.append(key, formData[key]);
         }
@@ -416,7 +441,7 @@ function Video() {
                                                                     </div>) : selectedvideo === 'gallery' ? (
                                                                         <div class="mb-3" data-quillbot-parent="oopPrLVIHzQ4Ey_EnMuDh">
                                                                             <label class="form-label">Video Url</label>
-                                                                            <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoUplod} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
+                                                                            <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoIframe} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
 
                                                                         </div>
                                                                     ) : ''
@@ -594,6 +619,30 @@ function Video() {
                                                         <textarea id="full-featured-non-premium" name="VideoIframe" value={formData.VideoIframe} onChange={handleChange} class="form-control w-100" data-gramm="false" wt-ignore-input="true" data-quillbot-element="oopPrLVIHzQ4Ey_EnMuDh"></textarea>
                                                     </div>
 
+                                                    <div className="d-flex flex-wrap">
+                                                        {files.map((file, index) => (
+                                                            <div key={index} className="col-12 col-md-6 col-lg-4 col-xl-3 mb-3 d-flex flex-column align-items-center" style={{ marginRight: "70px" }}
+                                                            >
+                                                                <div className="card" style={{ width: '100%' }}>
+                                                                    <iframe
+                                                                        src={`${process.env.REACT_APP_API_IMG}/${file.path}`}
+                                                                        width="100%"
+                                                                        height="150px"
+                                                                        style={{ border: 'none' }}
+                                                                        title={`File ${index}`}
+                                                                    ></iframe>
+                                                                    <div className="card-body text-center">
+                                                                        <button
+                                                                            onClick={() => handleRemoveFile(index)}
+                                                                            className="btn btn-danger"
+                                                                        >
+                                                                            Remove
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        ))}
+                                                    </div>
                                                     <div class="col-12 text-center d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                         <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>

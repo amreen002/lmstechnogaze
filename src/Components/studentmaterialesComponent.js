@@ -4,10 +4,8 @@ import { useNavigate, useParams, Link, useLocation } from 'react-router-dom';
 import Navbarmenu from "./Navbarmenu";
 import Sidebar from './sidebar';
 import DashboardCard from './dashboardcardComponent';
-import CreateModelComponent from './createmodelComponent'
-import CreateContentComponent from './createcontentComponent'
-import CreateSubjectComponent from './createsubjectComponent'
-import CreateCoureComponent   from './createclassComponent'
+const datatoken = localStorage.getItem('datatoken');
+const coursedatafetch = JSON.parse(datatoken)
 const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 
 function Materiales() {
@@ -63,18 +61,40 @@ function Materiales() {
             }
         ] // ad
     };
+
     const [courses, setCourse] = useState([]);
     const [totalLessionCount, settotalLessionCount] = useState(0);
     const [totalStudentCount, settotalStudentCount] = useState(0);
     const [Lastupdated, setLastupdated] = useState(null);
     const [CoureseFindOne, setCoureseFindOne] = useState({});
     const { coursesId } = useParams();
+
+    const { videoId } = useParams();
+    const [userData, setUserData] = useState({});
+    const [Topic, setTopic] = useState({});
+    const [category, setCategory] = useState([]);
+    const [selectedCourses, setSelectedCourses] = useState('');
+    const [selectedvideo, setselectedvideo] = useState('');
+    const [subject, setSubject] = useState({})
+
+
+    const handleSelectVideo = (e) => {
+        const value = e.target.value;
+        setselectedvideo(value);
+    };
+
+
+
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [])
+
+
     useEffect(() => {
         fetchData1(coursesId);
-    }, [coursesId]);
+    }, [coursesId])
+
+
     const fetchData = async () => {
         try {
             const response = await axios.get(`${REACT_APP_API_ENDPOINT}/courses`);
@@ -88,7 +108,9 @@ function Materiales() {
         } catch (error) {
             console.error('Error fetching data:', error);
         }
-    };
+    }
+
+
     const fetchData1 = async (coursesId) => {
         try {
             if (!coursesId) {
@@ -116,6 +138,7 @@ function Materiales() {
     const [isExpandedTopic, setIsExpandedTopic] = useState('');
     const [isExpandedLesson, setIsExpandedLesson] = useState('');
     const [isExpandedVideo, setIsExpandedVideo] = useState('');
+    const [activeService, setActiveService] = useState(null);
 
     const toggleDropdownTopic = (id) => {
         setIsExpandedTopic(isExpandedTopic === id ? '' : id);
@@ -152,39 +175,66 @@ function Materiales() {
     const [isPopupOpen, setIsPopupOpen] = useState(false);
 
     const openPopup = () => {
-      setIsPopupOpen(true);
+        setIsPopupOpen(true);
     };
-  
+
     const closePopup = () => {
-      setIsPopupOpen(false);
+        setIsPopupOpen(false);
     };
     const [isContent, setIsContent] = useState(false);
 
     const openContent = () => {
         setIsContent(true);
     };
-  
+
     const closeContent = () => {
         setIsContent(false);
     };
-    const [isSubject, setIsSubject] = useState(false);
 
-    const openSubject = () => {
-        setIsSubject(true);
-    };
-  
-    const closeSubject = () => {
-        setIsSubject(false);
-    };
-     const [isCourse, setIsCourse] = useState(false);
+    const [isCourse, setIsCourse] = useState(false);
 
     const openCourse = () => {
         setIsCourse(true);
     };
-  
+
     const closeCourse = () => {
         setIsCourse(false);
     };
+    useEffect(() => {
+        fetchData1();
+        fetchData2();
+    }, []);
+
+   
+    //Dropdown Navigation
+    const [isExpanded, setIsExpanded] = useState(false);
+
+    const toggleDropdown = (serviceName) => {
+        setIsExpanded(isExpanded === serviceName ? '' : serviceName);
+    };
+
+
+
+    const fetchData2 = async () => {
+        try {
+            const token = localStorage.getItem('token');
+
+            if (token) {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/categories`, {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+
+                    }
+                });
+                const userDatas = response.data.categories;
+                setCategory(userDatas)
+            }
+
+        } catch (error) {
+            console.error('Error fetching data:', error);
+        }
+    }
+
 
     return (
         <div>
@@ -213,7 +263,7 @@ function Materiales() {
                                                         <li className="nav-item" role="presentation">
                                                             <button className="nav-link " id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Course Content</button>
                                                         </li>
-                                                       
+
                                                     </ul>
                                                 </div>
                                                 <div className="tab-content tabcnt mt--50" id="myTabContent">
@@ -227,23 +277,24 @@ function Materiales() {
                                                             <p className="disc">
                                                                 {CoureseFindOne.Description}
                                                             </p>
-                                                            <p className="disc">
+                                                            {/* <p className="disc">
                                                                 {CoureseFindOne.Description}
                                                             </p>
                                                             <p className="disc">
                                                                 {CoureseFindOne.Description}
-                                                            </p>
+                                                            </p> */}
 
                                                         </div>
                                                     </div>
                                                     <div className="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                                                         <div className="course-content-wrapper-main">
-                                                            <div className='flex-row d-flex'> 
-                                                                <h5 className="title">Course Content</h5>
-                                                            <i class="fa-light fa-pen-to-square ml--15" onClick={openCourse} ></i>
+
+                                                            <div className='flex-row d-flex'>
+                                                                <h5 className="title">{CoureseFindOne.name}</h5>
                                                             </div>
-                                                           
-                                                           
+
+
+
                                                             {/* <!-- course content accordion area --> */}
                                                             <div className="accordion mt--30" id="accordionExample">
 
@@ -263,8 +314,13 @@ function Materiales() {
                                                                                         aria-controls={`collapse${topic.id}`}
                                                                                     >
                                                                                         <span className='topic_name'>{topic.name}</span>
-                                                                                       
-                                                                                        <span className='timess'>{CoureseFindOne.lessionCount} Lectures . 9 min  <i class="fa-chevron-double-down fa-regular ml--10"></i>  <i class="fa-light fa-pen-to-square ml--15" onClick={openSubject}></i></span>
+
+                                                                                        <span className='timess'>{CoureseFindOne.lessionCount} Lectures . 9 min
+                                                                                            <i class="fa-chevron-double-down fa-regular ml--10">{coursedatafetch?.Role?.Name === "Instructor" && (
+                                                                                                <Link to={`/updatesubject/${topic.id}`}  >
+                                                                                                    <i class="fa-light fa-pen-to-square ml--15" ></i>
+                                                                                                </Link>)}
+                                                                                            </i></span>
                                                                                     </button>
                                                                                 </h2>
                                                                                 {isExpandedTopic === `collapse${topic.id}` && (
@@ -288,7 +344,13 @@ function Materiales() {
                                                                                                         aria-expanded={isExpandedVideo === `collapse${video.id}`}
                                                                                                         aria-controls={`collapse${video.id}`}
                                                                                                     >
-                                                                                                 <span className='flex-row d-flex ml--10 '><i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon" ></i> {video.Title}</span> <i class="fa-chevron-double-down fa-regular ml--10"></i>
+                                                                                                        <span className='flex-row d-flex ml--10 '>
+                                                                                                        <i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon" ></i> {video.Title}</span> 
+                                                                                                        <i class="fa-chevron-double-down fa-regular ml--10">{coursedatafetch?.Role?.Name === "Instructor" && (
+                                                                                                            <Link to={`/updatecontent/${video.id}`}  >
+                                                                                                                <i class="fa-light fa-pen-to-square ml--15" ></i>
+                                                                                                            </Link>)}
+                                                                                                        </i>
                                                                                                     </button>
                                                                                                 </h2>
                                                                                                 {isExpandedVideo === `collapse${video.id}` && (
@@ -301,29 +363,30 @@ function Materiales() {
                                                                                                         {video.VideoUplod.map((videofiles) => (
 
                                                                                                             <div className="accordion-body  py-1 text-end" key={videofiles.id}>
-                                                                                                              
-                                                                                                               
-                                                                                                                    <div className='row'>
+
+
+                                                                                                                <div className='row'>
                                                                                                                     <div className="col-12 col-md-6 col-lg-6 col-lx-6  ">
-                                                                                                                    <a href="#" className="play-video-wrapper d-flex "  onClick={() => openModal(videofiles)}>
-                                                                                                                    <video src={`${REACT_APP_API_IMG}/${videofiles.path}`}   autoplay="true" muted className='videoes_play'>
-                                                                                                                    </video>  
-                                                                                                                    <div className='mt-4 '>{videofiles.name}</div> 
-                                                                                                                    </a>
+                                                                                                                        <a href="#" className="play-video-wrapper d-flex " onClick={() => openModal(videofiles)}>
+                                                                                                                            <video src={`${REACT_APP_API_IMG}/${videofiles.path}`} autoplay="true" muted className='videoes_play'>
+                                                                                                                            </video>
+                                                                                                                            <div className='mt-4 '>{videofiles.name}</div>
+                                                                                                                         
+                                                                                                                        </a>
                                                                                                                     </div>
-                                                                                                                   
+
                                                                                                                     <div className="col-12 col-md-6 col-lg-6 col-lx-6 text-end mt-4">
                                                                                                                         <span className="play timess ">Preview</span>
                                                                                                                         <span className='min_nine timess'> 9 min</span>
-                                                                                                                      <p> <i class="fa-light fa-pen-to-square" onClick={openContent}></i></p> 
                                                                                                                        
-                                                                                                                    </div>
-                                                                                                                    
-                                                                                                                                                                                                                               
 
                                                                                                                     </div>
-                                                                                                                
-                                                                                                               
+
+
+
+                                                                                                                </div>
+
+
                                                                                                             </div>))}
                                                                                                     </div>
                                                                                                 )}
@@ -342,7 +405,14 @@ function Materiales() {
                                                                                                         aria-expanded={isExpandedLesson === `collapse${lession.id}`}
                                                                                                         aria-controls={`collapse${lession.id}`}
                                                                                                     >
-                                                                                                     <p className='d-flex ml--10 '><i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon"></i> Lession Title : <span> {lession.Title}</span></p>  <i class="fa-chevron-double-down fa-regular chervn"></i>
+                                                                                                        <p className='d-flex ml--10 '><i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon"></i> Lession Title : <span> {lession.Title}</span>
+                                                                                                            
+                                                                                                        </p> 
+                                                                                                        <i class="fa-chevron-double-down fa-regular chervn">{coursedatafetch?.Role?.Name === "Instructor" && (
+                                                                                                            <Link to={`/updatemodel/${lession.id}`}>
+                                                                                                                <i class="fa-light fa-pen-to-square ml--15" ></i>
+                                                                                                            </Link>
+                                                                                                        )}</i>
                                                                                                     </button>
                                                                                                 </h2>
                                                                                                 {isExpandedLesson === `collapse${lession.id}` && (
@@ -356,17 +426,16 @@ function Materiales() {
                                                                                                             <div className="accordion-body" key={file.id}>
                                                                                                                 <a href="#" className="play-video-wrapper" onClick={() => openModalPDF(file)}>
                                                                                                                     <div className="left editers">
-                                                                                                                    <i class="fa-solid fa-share bx-tada-hover" ></i>
-                                                                                                                    <i class="fa-file-pdf fa-light mt-1 p-1"></i>
-                                                                                                                        <span className='p-1 ml--10'>{file.name}</span>
-                                                                                                                       
-                                                                                                                    </div>
-                                                                                                                   
-                                                                                                                </a>
-                                                                                                                <div className='text-end editess'>
-                                                                                                                <i class="fa-light fa-pen-to-square "  onClick={openPopup}></i>
+                                                                                                                        <i class="fa-solid fa-share bx-tada-hover" ></i>
+                                                                                                                        <i class="fa-file-pdf fa-light mt-1 p-1"></i>
+                                                                                                                        <span className='p-1 ml--10'>{file.name}
+
+                                                                                                                        </span>
 
                                                                                                                     </div>
+
+                                                                                                                </a>
+                              
                                                                                                             </div>))}
                                                                                                     </div>
                                                                                                 )}
@@ -433,7 +502,7 @@ function Materiales() {
                                                 </div>
 
                                             </div>
-                                    
+
                                         </div>
                                     </div>
                                 </div>
@@ -443,36 +512,6 @@ function Materiales() {
 
                 </div>
             </div>
-            {isPopupOpen &&   
-      <div className=' login-pupup-modal  modal-backdropss  'tabindex="-1" aria-labelledby="exampleModalLabel" style={{display: 'block', paddingRight: '17px'}} aria-modal="true" role="dialog">
-      <div className=' modal-dialog modalss'>
-                                     <CreateModelComponent closePopup={closePopup} />
-
-                                        </div></div>
-                                        }
-
-
-                                          {isContent &&   
-      <div className=' login-pupup-modal  modal-backdropss  'tabindex="-1" aria-labelledby="exampleModalLabel" style={{display: 'block', paddingRight: '17px'}} aria-modal="true" role="dialog">
-      <div className=' modal-dialog modalss'>
-                                     <CreateContentComponent closeContent={closeContent} />
-
-                                        </div></div>
-                                        }
-                                         {isSubject &&   
-      <div className=' login-pupup-modal  modal-backdropss  'tabindex="-1" aria-labelledby="exampleModalLabel" style={{display: 'block', paddingRight: '17px'}} aria-modal="true" role="dialog">
-      <div className=' modal-dialog modalss'>
-                                     <CreateSubjectComponent closeSubject={closeSubject} />
-
-                                        </div></div>
-                                        }
-                                        {isCourse &&   
-      <div className=' login-pupup-modal  modal-backdropss  'tabindex="-1" aria-labelledby="exampleModalLabel" style={{display: 'block', paddingRight: '17px'}} aria-modal="true" role="dialog">
-      <div className=' modal-dialog modalss'>
-                                     <CreateCoureComponent closeCourse={closeCourse} />
-
-                                        </div></div>
-                                        }
         </div>
     )
 
