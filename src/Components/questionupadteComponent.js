@@ -205,7 +205,7 @@ function MultiplequestionComponent(token) {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                const userData = response.data.students;
+                const userData = response.data.students.rows;
                 setStudentsFindAll(userData);
             }
         } catch (error) {

@@ -27400,9 +27400,14 @@ edit .quantity-edit button {
   background: var(--color-primary);
   border: 1px solid transparent;
 }
-.dashboard-banner-area-start .author-profile-image-and-name {
+/* .dashboard-banner-area-start .author-profile-image-and-name {
   position: absolute;
   bottom: -60px;
+  left: 60px;
+  display: flex;
+  align-items: center;
+} */
+.dashboard-banner-area-start .author-profile-image-and-name {
   left: 60px;
   display: flex;
   align-items: center;

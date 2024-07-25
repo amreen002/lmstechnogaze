@@ -20,10 +20,17 @@ function Video() {
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [files, setFiles] = useState([])
     const [removedFiles, setRemovedFiles] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // Track total pages for pagination
+
+    useEffect(() => {
+        fetchData(page);
+    }, [page]);
 
     useEffect(() => {
         fetchData(videoId);
     }, [videoId]);
+
     useEffect(() => {
         fetchData1();
         fetchData2();
@@ -37,7 +44,11 @@ function Video() {
         setselectedvideo(value);
     };
 
-
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage);
+        }
+    }
     const handleCourseChange = async (e) => {
         const selectedCoursesId = parseInt(e.target.value);
         const selectedCourse = courses.find(course => course.id === selectedCoursesId);
@@ -87,19 +98,20 @@ function Video() {
         }
     };
 
-    const fetchData1 = async () => {
+    const fetchData1 = async (page = 1) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/video`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/video?page=${page}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
-                const userData = response.data.video;
+                const userData = response.data.video.rows;
                 setVideo(userData)
+                setTotalPages(response.data.video.totalPage ||1); // Ensure totalPages has a default value
             }
 
         } catch (error) {
@@ -476,8 +488,24 @@ function Video() {
                                                         <input type="search" class="form-control" placeholder="Search Category" aria-controls="DataTables_Table_0" /></label></div></div>
                                                     <div class="d-flex justify-content-start justify-content-md-end align-items-baseline">
                                                         <div class="dt-action-buttons d-flex align-items-start align-items-md-center justify-content-sm-center mb-3 mb-sm-0 gap-3 pt-0">
-                                                            <div class="dataTables_length mt-0 mt-md-3" id="DataTables_Table_0_length">
-                                                                <label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="7">7</option><option value="10">10</option><option value="20">20</option><option value="50">50</option><option value="70">70</option><option value="100">100</option></select></label></div><div class="dt-buttons btn-group flex-wrap">
+                                                            <div className="me-3">
+                                                                <div className="dataTables_length" id="DataTables_Table_0_length">
+                                                                    <label>
+                                                                        <select
+                                                                            name="DataTables_Table_0_length"
+                                                                            aria-controls="DataTables_Table_0"
+                                                                            className="form-select"
+                                                                            onChange={(e) => setPage(1)} // Reset to page 1 on changing page size
+                                                                        >
+                                                                            <option value="10">10</option>
+                                                                            <option value="25">25</option>
+                                                                            <option value="50">50</option>
+                                                                            <option value="100">100</option>
+                                                                        </select>
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                                <div class="dt-buttons btn-group flex-wrap">
 
                                                             </div></div></div></div><table class="datatables-category-list table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                         <thead>
@@ -545,7 +573,32 @@ function Video() {
                                                             ))}
 
                                                         </tbody>
-                                                    </table><div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 7 of 14 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div><div width="1%;"></div></div>
+                                                    </table>
+                                                    <div className="row mx-2">
+                                                        <div className="col-sm-12 col-md-6">
+                                                            <div className="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                                                Showing {((page - 1) * 10) + 1} to {Math.min(page * 10, totalPages * 10)} of {totalPages * 10} entries
+                                                            </div>
+                                                        </div>
+                                                        <div className="col-sm-12 col-md-6">
+                                                            <div className="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                                                <ul className="pagination">
+                                                                    <li className={`paginate_button page-item previous ${page === 1 ? 'disabled' : ''}`}>
+                                                                        <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page - 1)} className="page-link">Previous</a>
+                                                                    </li>
+                                                                    {[...Array(totalPages).keys()].map(p => (
+                                                                        <li key={p + 1} className={`paginate_button page-item ${page === p + 1 ? 'active' : ''}`}>
+                                                                            <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(p + 1)} className="page-link">{p + 1}</a>
+                                                                        </li>
+                                                                    ))}
+                                                                    <li className={`paginate_button page-item next ${page === totalPages ? 'disabled' : ''}`}>
+                                                                        <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page + 1)} className="page-link">Next</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    </div>
                                             </div>
                                         </div>
 
