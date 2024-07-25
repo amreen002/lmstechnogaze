@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { useLocation, useNavigate, Link } from 'react-router-dom';
+import { useLocation, useNavigate, Link , } from 'react-router-dom';
 import Navbarmenu from './Navbarmenu';
 import Sidebar from './sidebar';
 import DashboardCard from './dashboardcardComponent';
@@ -16,7 +16,11 @@ function AttemtedQuestionComponent() {
     const [seconds, setSeconds] = useState(0);
     const [timerEnd, setTimerEnd] = useState(false);
     const [answers, setAnswers] = useState([]);
-
+    const [submitted, setSubmitted] = useState(false);
+    const [paused, setPaused] = useState(false); // Add paused state
+    const submittedRef = useRef(false);
+    const timerEndRef = useRef(timerEnd);
+    const intervalRef = useRef(null);
     useEffect(() => {
         if (!quiz) {
             console.error('No quiz data available');
@@ -41,11 +45,11 @@ function AttemtedQuestionComponent() {
         if (storedStartTime) {
             const elapsedTime = Math.floor((currentTime - parseInt(storedStartTime, 10)) / 1000);
             initialSeconds = quizDurationInSeconds - elapsedTime;
-            localStorage.removeItem('quizStartTime', currentTime.toString());
             if (initialSeconds < 0) {
                 initialSeconds = 0;
                 setTimerEnd(true);
-                handleSubmit(); // Automatically submit the quiz if the time has already expired
+                setSubmitted(true); // Mark quiz as submitted
+                autoSubmit()
             }
         } else {
             initialSeconds = quizDurationInSeconds;
@@ -56,20 +60,27 @@ function AttemtedQuestionComponent() {
         setTimerEnd(false);
 
         const tick = () => {
+
             setSeconds(prevSeconds => {
                 if (prevSeconds <= 1) {
                     setTimerEnd(true);
-                    handleSubmit(); // Automatically submit the quiz when the timer reaches zero
+                    autoSubmit()
                     return 0;
                 }
                 return prevSeconds - 1;
             });
+
         };
 
-        const intervalId = setInterval(tick, 1000);
+        intervalRef.current = setInterval(tick, 1000);
+        return () => {
+            clearInterval(intervalRef.current);
+            localStorage.removeItem('quizStartTime'); 
 
-        return () => clearInterval(intervalId);
+        };
+        return localStorage.removeItem('quizStartTime'); // Clean up timer  
     }, [quiz, navigate]);
+    
 
     const updateLocalStorage = (index, answer) => {
         const updatedAnswers = [...answers];
@@ -121,35 +132,80 @@ function AttemtedQuestionComponent() {
     };
 
     const handleSubmit = async (e) => {
-        e?.preventDefault();
+        if (e) e.preventDefault();
+        if (submittedRef.current) return;
+
+        setSubmitted(true);
+        submittedRef.current = true;
+
+        const currentAnswer = {
+            QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
+            AnswersStudent: selectedAnswer,
+            TimeTaken: seconds,
+        };
+
+        const updatedAnswers = [...answers];
+        updatedAnswers[currentQuestionIndex] = currentAnswer;
+        setAnswers(updatedAnswers);
+
         try {
             const token = localStorage.getItem('token');
             if (token) {
                 const formData = {
                     QuizeId: quiz.Quize.id,
-                    answers,
+                    answers: updatedAnswers,
                 };
+
                 const response = await axios.post(`${REACT_APP_API_ENDPOINT}/studentquize`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                window.location.href = "/quizresult"
+
                 if (response.status === 200) {
                     setSeconds(0);
                     localStorage.removeItem('quizState');
-                    window.location.href = "/quizresult"
                     localStorage.removeItem('quizStartTime');
-
-
+                    navigate(`/quizetresult/${response.data.studentsquize.QuizeId}`);
                 } else {
                     alert('Something went wrong');
                 }
             }
         } catch (error) {
+            console.error('Failed to submit quiz:', error);
             alert('Failed to submit quiz.');
         }
     };
+
+    const autoSubmit = async () => {
+        if (submittedRef.current || timerEnd) return;
+        setTimerEnd(true);
+        await handleSubmit();
+    };
+
+ 
+
+    
+    
+    const togglePause = () => {
+        if (paused) {
+            setPaused(false);
+            intervalRef.current = setInterval(() => {
+                setSeconds(prevSeconds => {
+                    if (prevSeconds <= 1) {
+                        setTimerEnd(true);
+                        handleSubmit(); // Automatically submit the quiz when the timer reaches zero
+                        return 0;
+                    }
+                    return prevSeconds - 1;
+                });
+            }, 1000);
+        } else {
+            setPaused(true);
+            clearInterval(intervalRef.current);
+        }
+    };
+
 
     const currentQuestion = quiz?.Quize?.Questions?.[currentQuestionIndex];
 
@@ -167,20 +223,25 @@ function AttemtedQuestionComponent() {
                             <div className="calendar-area">
                                 {quiz ? (
                                     <>
-                                        <div className='flex-row d-flex quiz_timer'>
+                                       <div className='flex-row d-flex quiz_timer'>
                                             <h5 className="title quiz_title">Quiz: {quiz.Quize.QuizzName}</h5>
-                                            <div className='flex-row d-flex ml--50  quiz_title' >
+                                         
+                                            <div className='flex-row d-flex ml--50 quiz_title'>
                                                 <h5>Total Mark: {quiz?.Quize?.TotalMarks}</h5>
                                                 <br />
                                                 <h5>Timer: {Math.floor(seconds / 60)}:{('0' + (seconds % 60)).slice(-2)}</h5>
+                                                <button  style={{ color:'#fff'}} onClick={togglePause}>
+                                                    {paused ? <i class="fa-solid fa-play"></i> : <i class="fa-solid fa-pause"></i>}
+                                                </button>
                                             </div>
                                         </div>
-
+                                     
                                         <div className='question_paper '>
                                             <div className=''>
                                                 <div className='row' style={{ backgroundColor: '#bab0a65c' }}>
                                                     <div className='col-12 py-2'>
                                                         <div className='flex-row d-flex'>
+                                                       
                                                             <div className='qust'>
                                                                 ({quiz?.Quize?.TotalQuestions}) Questions
                                                             </div>
@@ -223,12 +284,12 @@ function AttemtedQuestionComponent() {
                                                         <div className='row'>
                                                             <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
                                                                 <input
-                                                                    /* type='hidden' */
+                                                                    type='hidden'
                                                                     name='QuizeId'
                                                                     value={quiz?.Quize?.id}
                                                                 />
                                                                 <input
-                                                                    /* type='hidden' */
+                                                                    type='hidden'
                                                                     name='QuestionId'
                                                                     value={currentQuestion?.id}
                                                                 />
@@ -245,8 +306,6 @@ function AttemtedQuestionComponent() {
                                                                         <p>{currentQuestion?.[option]}</p>
                                                                     </div>
                                                                 ))}
-
-
                                                                 <div className='flex-row d-flex justify-content-between mt-5'>
                                                                     <div className='prqust'>
                                                                         <button type='button' onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
@@ -259,18 +318,19 @@ function AttemtedQuestionComponent() {
                                                                         </button>
                                                                     </div>
                                                                     <div className=''>
-                                                                        {/* <button type='submit' className="btn btn-primary">Submit</button> */}
-                                                                        {/* <a class="btnrs" href="/quizetresult">Submit</a> */}
-                                                                        <Link class="btnrs" to={'/quizetresult'}>Submit</Link>
+                                                                         <button type='submit' className="btn btn-primary">Submit</button> 
+                                                                   
+                                                                     {/*    <Link class="btnrs" to={'/quizetresult'}>Submit</Link> */}
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                         </div>
                                                     </form>
                                                 </div>
 
                                             </div>
                                         </div>
+                                     
                                     </>
                                 ) : (
                                     <p>No quiz data available</p>

@@ -6,6 +6,8 @@ import Sidebar from "./sidebar";
 import DashboardCard from "./dashboardcardComponent";
 const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
 function QuizresultComponent(token) {
+
+    const { studentquizeId } = useParams();
     const [StutentResult, setStutentResult] = useState([])
     const [Incorrect, setIncorrect] = useState(0)
     const [Correct, setCorrect] = useState(0)
@@ -14,7 +16,7 @@ function QuizresultComponent(token) {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/studentquize`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/studentquize/${studentquizeId}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
@@ -30,8 +32,8 @@ function QuizresultComponent(token) {
     }
 
     useEffect(() => {
-        fetchDataStutentResult()
-    }, []);
+        fetchDataStutentResult(studentquizeId)
+    }, [studentquizeId]);
 
 
 

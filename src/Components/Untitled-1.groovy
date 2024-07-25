@@ -1,447 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { useNavigate, useParams, Link } from 'react-router-dom';
-import Navbarmenu from "./Navbarmenu";
-import Sidebar from "./sidebar";
-import DashboardCard from "./dashboardcardComponent";
-import Accordion from 'react-bootstrap/Accordion';
-import Button from 'react-bootstrap/Button';
-import Select, { StylesConfig } from 'react-select'
-import makeAnimated from 'react-select/animated';
-const animatedComponents = makeAnimated();
-const { REACT_APP_API_ENDPOINT, REACT_APP_API_IMG } = process.env;
-function MultiplequestionComponent(token) {
-    const navigate = useNavigate();
-
-    //Dropdown Navigation
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState([]);
-    const [singleOption, setSingleOption] = useState([])
-    const [selectedOption, setSelectedOption] = useState('');
-    const [selectednewquestion, setselectednewquestion] = useState('');
-    const [numQuestions, setNumQuestions] = useState(0);
-    const { questionId } = useParams();
-    const { quizzeId } = useParams();
-    const [question, setQuestion] = useState([]);
-    const [studentId, setStudentId] = useState({});
-    const [forms, setForms] = useState([]);
-    const [options, setOptions] = useState([]);
-    const [FindOneQuestion, setFindOneQuestion] = useState({})
-    const [CategoryId, setCategoryId] = useState('');
-    const [quizze, setQuizze] = useState([]);
-    const [category, setCategory] = useState([]);
-    const [message, setMessage] = useState('');
-    const [error, setError] = useState('');
-    const [QuizzeFindOne, setQuizzeFindOne] = useState('')
-    const [StudentsFindAll, setStudentsFindAll] = useState([]);
-    const [Instructor, setInstructor] = useState('')
-
-    const handleSelectQuestion = (e) => {
-        let value = e.target.value;
-        value ? setselectednewquestion(e.target.value) : setselectednewquestion('');
-    };
-
-    useEffect(() => {
-        fetchDataQuizzeFindOne(quizzeId)
-    }, [quizzeId]);
-
-    useEffect(() => {
-        if (forms) {
-            const updatedForms = forms.map(form => ({
-                ...form,
-                studentId: form.studentId ? form.studentId.map(id => String(id)) : []
-            }));
-            setForms(updatedForms);
-        }
-    }, [forms]);
-
-    useEffect(() => {
-        fetchDataQuestion();
-        fetchDataQuizze()
-        fetchDataQuestionscategory()
-    }, []);
-
-    useEffect(() => {
-        fetchDataFindAllStudents(Instructor)
-    }, [Instructor]);
-
-
-    useEffect(() => {
-        setNumQuestions(forms.length);
-    }, [forms]);
-
-
-    const fetchDataQuestion = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/question`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userData = response.data.questions;
-                setQuestion(userData)
-
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-
-    const fetchDataQuizze = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/quizze`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userData = response.data.quizze.rows;
-                setQuizze(userData)
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-    const fetchDataQuizzeFindOne = async (quizzeId) => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/quizze/${quizzeId}`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userData = response.data.quizze;
-                setQuizzeFindOne(userData)
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    }
-
-    const fetchDataQuestionscategory = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/questionscategory`, {
-                    headers: {
-                        Authorization: `Bearer ${token}`
-                    }
-                });
-                const userDatas = response.data.questionscategory;
-                setCategory(userDatas)
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-
-    const fetchDataFindAllStudents = async () => {
-        try {
-            const token = localStorage.getItem('token');
-
-            if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/liststudents?Instructor=true`, {
-
-                    headers: {
-                        Authorization: `Bearer ${token}`
-
-                    }
-                });
-                const userData = response.data.students.rows;
-                const studentdata = response.data.students.rows.map(s => ({
-                    value: s.id,
-                    label: s.Name
-                }));
-                setOptions(studentdata);
-                setStudentsFindAll(userData)
-            }
-
-        } catch (error) {
-            console.error('Error fetching data:', error);
-        }
-    };
-
-
-    const [selectedQuestionType, setSelectedQuestionType] = useState('');
-    const [selectedStudents, setSelectedStudents] = useState({});
-
-    const [questionsData, setQuestionsData] = useState({
-        Questions: '',
-        Type: '',
-        CategoryId: '',
-        QuizzeId: '',
-        Options1: '',
-        Options2: '',
-        Options3: '',
-        Options4: '',
-        Answer: [] || '',
-        studentId: []
-    });
-
-
-    const toggleDropdown = (serviceName) => {
-        setIsExpanded(isExpanded === serviceName ? '' : serviceName);
-    };
-
-    const handleOptionSelect = (option) => {
-        const newSelectedOptions = selectedOptions.includes(option)
-            ? selectedOptions.filter(item => item !== option)
-            : [...selectedOptions, option];
-        setSelectedOptions(newSelectedOptions);
-
-        const updatedForms = forms.map(form => ({
-            ...form,
-            Answer: newSelectedOptions.join(', ')
-        }));
-        setForms(updatedForms);
-    };
-
-    const handleOptionChange = (e, formIndex) => {
-        const { value } = e.target;
-        setSelectedOption(value);
-        setForms(prevForms => {
-            const updatedForms = [...prevForms];
-            if (updatedForms[formIndex]) {
-                updatedForms[formIndex].Answer = value;
-            }
-            return updatedForms;
-        });
-    };
-
-    const handleStudentSelection = (selectedOptions, formIndex) => {
-        const selectedIds = selectedOptions ? selectedOptions.map(option => String(option.value)) : [];
-        const updatedForms = forms.map((form, i) => (
-            i === formIndex ? { ...form, studentId: selectedIds } : form
-        ));
-        setForms(updatedForms);
-        console.log('Updated Forms after selection:', updatedForms);
-    };
-
-    
-
-    const handleRemoveOption = (formIndex, optionIndex) => {
-        // Clone the current forms array to modify it
-        const updatedForms = [...forms];
-
-        // Get the specific form to update
-        const form = updatedForms[formIndex];
-
-        // Get all options keys and sort them
-        const optionKeys = Object.keys(form).filter(key => key.startsWith('Options')).sort();
-
-        // Create a new options object with the specified option removed
-        const newOptions = optionKeys
-            .filter((_, idx) => idx !== optionIndex)
-            .reduce((acc, key, idx) => {
-                acc[`Options${idx + 1}`] = form[key];
-                return acc;
-            }, {});
-
-        // Update the form with the new options
-        updatedForms[formIndex] = {
-            ...form,
-            ...newOptions,
-            // Adjust the answer if it was the removed option
-            Answer: optionKeys[optionIndex] === form.Answer ? '' : form.Answer
-        };
-
-        // Update the state with the modified forms
-        setForms(updatedForms);
-    };
-    const handleRemoveForm = (index) => {
-        // Clone the forms array and remove the item at the specified index
-        const updatedForms = forms.filter((_, i) => i !== index);
-        
-        // Update the state with the modified forms
-        setForms(updatedForms);
-    };
-    
-
-    // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-
-        if (!Array.isArray(forms)) {
-            console.error('Forms is not an array:', forms);
-            alert('Data format is incorrect.');
-            return;
-        }
-
-        try {
-            const token = localStorage.getItem('token');
-            if (token) {
-                for (const formData of forms) {
-                    await axios.post(`${process.env.REACT_APP_API_ENDPOINT}/question`, formData, {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                            'Content-Type': 'application/json',
-                        }
-                    });
-                }
-                alert('All questions have been successfully created.');
-                navigate('/instructor/viewquize');
-            } else {
-                throw new Error('No authentication token found');
-            }
-        } catch (error) {
-            console.error('Error submitting forms:', error);
-            alert('Failed to submit forms. Please try again.');
-        }
-    };
-
-
-    // Handle adding a new form
-    const handleAddQuestionForm = () => {
-        setForms(prevForms => {
-            if (!Array.isArray(prevForms)) {
-                console.error('Expected prevForms to be an array, but received:', prevForms);
-                return [];
-            }
-
-            if (prevForms.length < QuizzeFindOne.TotalQuestions) {
-                return [...prevForms, { ...questionsData }];
-            } else {
-                alert("You have reached the maximum number of questions");
-                return prevForms;
-            }
-        });
-
-        setNumQuestions(prevNum => prevNum + 1);
-    };
-
-
-
-
-
-    // Handle input changes for a specific form
-
-    const handleInputChange = (index, name, value) => {
-        setForms(prevForms => {
-            const updatedForms = [...prevForms];
-            updatedForms[index] = { ...updatedForms[index], [name]: value };
-            return updatedForms;
-        });
-    };
-
-
-
-    return (
-        <div>
-            <section>
-                <Navbarmenu />
-            </section>
-
-            <DashboardCard />
-            <div class="dashboard--area-main pt--100 pt_sm--50">
-                <div class="container">
-                    <div class="row g-5">
-                        <Sidebar />
-                        <div class="col-lg-9">
-                            <div class="right-sidebar-dashboard" style={{ backgroundColor: '#fff' }}>
-                                <h5 class="title">Multiple Questions</h5>
-
-
-
-                                <>
-                                    <table className='table'>
-                                        <thead>
-                                            <tr>
-                                                <th>Type</th>
-                                                <th>Details</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr>
-                                                <td>Total Easy (1 Mark)</td>
-                                                <td>
-                                                    <div className='qust'>
-                                                        ({QuizzeFindOne.EasyQuestions}) Questions
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Medium (2 Mark)</td>
-                                                <td>
-                                                    <div className='qust'>
-                                                        ({QuizzeFindOne.MediumQuestions}) Questions
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Total Hard (4 Mark)</td>
-                                                <td>
-                                                    <div className='qust'>
-                                                        ({QuizzeFindOne.HardQuestions}) Questions
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-
-
-                                    <div className='mt-2'>
-                                        <div className='row' style={{ backgroundColor: 'rgba(49, 4, 2, 0.58)', color: "#fff" }}>
-                                            <div className='col-12 py-2'>
-                                                <div className='flex-row d-flex ml--40'>
-                                                    <div className='qust'>
-                                                        ({QuizzeFindOne.TotalQuestions}) Total Questions
-                                                    </div>
-                                                    <div className='flex-row d-flex ml--40'>
-                                                        <div className='qust'>
-                                                            ({QuizzeFindOne.TotalMarks}) Total Marks
-                                                        </div>
-                                                    </div>
-
-                                                    <div className='flex-row d-flex ml--40'>
-                                                        <div>
-                                                            <i className="fa fa-clock"></i>
-                                                        </div>
-                                                        <div className='flex-row d-flex ml--10'>
-                                                            {QuizzeFindOne && QuizzeFindOne.QuizzTestDuration} Time
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className='container mt-5'>
-                                        <div className="col-3 mb-3 d-flex mt-3">
-                                            <button type="button" className="btn btn-primary me-sm-3 me-1 data-submit" onClick={handleAddQuestionForm}>
-                                                <i className="fa fa-plus-circle" />
-                                            </button>
-                                        </div>
-                                        <div>Number of Questions: {numQuestions}</div>
+<div className='row mt-5' >
                                         <form onSubmit={handleSubmit}>
-                                            {Array.isArray(forms) && forms.map((form, index) => (
-                                                <Accordion key={index} defaultActiveKey="0">
-                                                    <Accordion.Item eventKey={index.toString()}>
-                                                        <Accordion.Header>
-                                                            
-                                                            <div>
-                                                            Add Multiple Question {index + 1}
-                                                                <i className="fa-light fa-trash-alt crl" onClick={() => handleRemoveForm(index)}></i>
-                                                            </div>
-                                                        </Accordion.Header>
-                                                        <Accordion.Body>
+                                            <Accordion defaultActiveKey="0">
+                                                {forms.map((form, index) => (
+                                                    <Accordion.Item eventKey={index.toString()} key={index} >
+                                                        <Accordion.Header >Add Multiple Question {index + 1}</Accordion.Header>
+                                                        <Accordion.Body >
+
                                                             <div className='row'>
                                                                 <div className='col-12 col-md-6 mt-5'>
                                                                     <label className='pb-2'>Choose Type Of Questions</label>
@@ -462,7 +26,7 @@ function MultiplequestionComponent(token) {
                                                                     <label className="pb-2">Students Assign to Questions</label>
                                                                     <Select
                                                                         isMulti
-                                                                        value={options.filter(option => form.studentId ? form.studentId.includes(String(option.value)) : [])}
+                                                                        value={options.filter(option => form.studentId.includes(option.value))}
                                                                         name='studentId'
                                                                         onChange={(selectedOptions) => handleStudentSelection(selectedOptions, index)}
                                                                         options={options}
@@ -519,11 +83,12 @@ function MultiplequestionComponent(token) {
                                                                         className='inputts ints'
                                                                         placeholder='Type question here'
                                                                         name='Questions'
-                                                                        value={form.Questions || ''}
+                                                                        value={form.Questions}
                                                                         onChange={(e) => handleInputChange(index, 'Questions', e.target.value)}
                                                                     />
                                                                 </div>
-                                                                {selectednewquestion === 'Fill_in_the_Blank' && index && (
+
+                                                                {selectednewquestion === 'Fill_in_the_Blank' && (
                                                                     <div className='container mt-5'>
                                                                         <div className='row mt-5'>
                                                                             {['a', 'b', 'c', 'd'].map((option, idx) => (
@@ -531,15 +96,15 @@ function MultiplequestionComponent(token) {
                                                                                     <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
                                                                                         <div className='d-flex iconss'>
                                                                                             <div>
-                                                                                                <i className="fa-light fa-trash-alt crl" onClick={() => handleRemoveOption(index, idx)}></i>
+                                                                                                <i className="fa-light fa-trash-alt crl"></i>
                                                                                             </div>
                                                                                             <div className='crls'>{option}</div>
-                                                                                            <label className={`custom-radio ${form.Answer === option ? 'selected' : ''}`}>
+                                                                                            <label className={`custom-radio ${selectedOption === option ? 'selected' : ''}`}>
                                                                                                 <input
                                                                                                     type="radio"
-                                                                                                    name={`option${index}`}
+                                                                                                    name="option"
                                                                                                     value={option}
-                                                                                                    checked={form.Answer === option}
+                                                                                                    checked={selectedOption === option}
                                                                                                     onChange={(e) => handleOptionChange(e, index)}
                                                                                                 />
                                                                                             </label>
@@ -568,30 +133,32 @@ function MultiplequestionComponent(token) {
                                                                     </div>
                                                                 )}
 
-                                                                {selectednewquestion === 'Multiple_Choice' && index && (
+
+
+                                                                {selectednewquestion === 'Multiple_Choice' && (
                                                                     <div className='row mt-5'>
                                                                         <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
                                                                             <a className='crans' onClick={() => setIsExpanded('single')}>Single Correct Answer</a>
                                                                             <a className='crans ml--10' onClick={() => setIsExpanded('multiple')}>Multiple Correct Answers</a>
                                                                         </div>
 
-                                                                        {isExpanded === "multiple"  && index && (
+                                                                        {isExpanded === "multiple" && (
                                                                             <div className='row mt-5'>
-                                                                                {['a', 'b', 'c', 'd'].map((option, idx) => (
+                                                                                {['a', 'b', 'c', 'd'].map((option, index) => (
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3' key={option}>
                                                                                         <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
                                                                                             <div className='d-flex iconss'>
                                                                                                 <div>
-                                                                                                    <i className="fa-light fa-trash-alt crl" onClick={() => handleRemoveOption(index, idx)}></i>
+                                                                                                    <i className="fa-light fa-trash-alt crl"></i>
                                                                                                 </div>
                                                                                                 <div className='crls'>{option}</div>
                                                                                                 <label className={`custom-checkbox ${selectedOptions.includes(option) ? 'selected' : ''}`}>
                                                                                                     <input
                                                                                                         type="checkbox"
-                                                                                                        name={`option${idx}`}
+                                                                                                        name="optin"
                                                                                                         value={option}
                                                                                                         checked={selectedOptions.includes(option)}
-                                                                                                        onChange={() => handleOptionSelect(option, index)}
+                                                                                                        onChange={() => handleOptionSelect(option)}
                                                                                                     />
                                                                                                 </label>
                                                                                             </div>
@@ -599,9 +166,9 @@ function MultiplequestionComponent(token) {
                                                                                                 type='text'
                                                                                                 className='inputts ints'
                                                                                                 placeholder='Type answer here'
-                                                                                                name={`Options${idx + 1}`}
-                                                                                                value={form[`Options${idx + 1}`] || ''}
-                                                                                                onChange={(e) => handleInputChange(index, `Options${idx + 1}`, e.target.value)}
+                                                                                                name={`Options${index + 1}`}
+                                                                                                value={form[`Options${index + 1}`] || ''}
+                                                                                                onChange={(e) => handleInputChange(index, `Options${index + 1}`, e.target.value)}
                                                                                             />
                                                                                         </div>
                                                                                     </div>
@@ -618,22 +185,23 @@ function MultiplequestionComponent(token) {
                                                                             </div>
                                                                         )}
 
-                                                                        {isExpanded === "single" && index && (
+
+                                                                        {isExpanded === "single" && (
                                                                             <div className='row mt-5'>
                                                                                 {['a', 'b', 'c', 'd'].map((option, idx) => (
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3' key={option}>
                                                                                         <div className='shadow-sm p-3 mb-5 bg-body-tertiary rounded'>
                                                                                             <div className='d-flex iconss'>
                                                                                                 <div>
-                                                                                                    <i className="fa-light fa-trash-alt crl" onClick={() => handleRemoveOption(index, idx)}></i>
+                                                                                                    <i className="fa-light fa-trash-alt crl"></i>
                                                                                                 </div>
                                                                                                 <div className='crls'>{option}</div>
-                                                                                                <label className={`custom-radio ${form.Answer === option ? 'selected' : ''}`}>
+                                                                                                <label className={`custom-radio ${selectedOption === option ? 'selected' : ''}`}>
                                                                                                     <input
                                                                                                         type="radio"
-                                                                                                        name={`option${idx}`}
+                                                                                                        name="option"
                                                                                                         value={option}
-                                                                                                        checked={form.Answer === option}
+                                                                                                        checked={selectedOption === option}
                                                                                                         onChange={(e) => handleOptionChange(e, index)}
                                                                                                     />
                                                                                                 </label>
@@ -663,29 +231,19 @@ function MultiplequestionComponent(token) {
                                                                     </div>
                                                                 )}
                                                             </div>
+
+
+
                                                         </Accordion.Body>
+
                                                     </Accordion.Item>
-                                                </Accordion>
-                                            ))}
+                                                ))}
+                                            </Accordion>
                                             <div className="col-3 mb-3 d-flex mt-3">
-                                                <button type="submit" className="btn btn-primary me-sm-3 me-1 data-submit">
-                                                    Submit
-                                                </button>
-                                                <button type="reset" className="btn btn-label-secondary">
-                                                    Cancel
-                                                </button>
+                                                <button type="submit" className="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
+                                                <button type="reset" className="btn btn-label-secondary" data-bs-dismiss="offcanvas">Cancel</button>
+                                                <input type="hidden" />
                                             </div>
                                         </form>
+                                       
                                     </div>
-
-                                </>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-export default MultiplequestionComponent;

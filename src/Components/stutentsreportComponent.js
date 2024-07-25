@@ -36,7 +36,18 @@ function StudentUse() {
     const [courses, setCourses] = useState([])
     const [activeService, setActiveService] = useState(null);
     const [show, setShow] = useState(false)
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // Track total pages for pagination
 
+    useEffect(() => {
+        fetchData(page);
+    }, [page]);
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage);
+        }
+    }
     const handleshow = () => {
         setShow(show ? false : true)
     }
@@ -78,18 +89,19 @@ function StudentUse() {
         fetchData4()
     }, []);
   
-    const fetchData = async () => {
+    const fetchData = async (page = 1) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/liststudents`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/liststudents?page=${page}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
 
-                setTable(response.data.students);
+                setTable(response.data.students.rows);
+                setTotalPages(response.data.students.totalPage ||1)
             }// Updated state variable
         } catch (err) {
             console.log(err.response);
@@ -501,7 +513,25 @@ const formData = {
                                         </div>
                                     </div>
                                     <div class="card-datatable table-responsive">
-                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2"><div class="me-3"><div class="dataTables_length" id="DataTables_Table_0_length"><label><select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="form-select"><option value="10">10</option><option value="25">25</option><option value="50">50</option><option value="100">100</option></select></label></div></div></div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
+                                        <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap5 no-footer"><div class="row mx-2"><div class="col-md-2">
+                                            <div className="me-3">
+                                                <div className="dataTables_length" id="DataTables_Table_0_length">
+                                                    <label>
+                                                        <select
+                                                            name="DataTables_Table_0_length"
+                                                            aria-controls="DataTables_Table_0"
+                                                            className="form-select"
+                                                            onChange={(e) => setPage(1)} // Reset to page 1 on changing page size
+                                                        >
+                                                            <option value="10">10</option>
+                                                            <option value="25">25</option>
+                                                            <option value="50">50</option>
+                                                            <option value="100">100</option>
+                                                        </select>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            </div><div class="col-md-10"><div class="dt-action-buttons text-xl-end text-lg-start text-md-end text-start d-flex align-items-center justify-content-end flex-md-row flex-column mb-3 mb-md-0"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label>
                                             <input type="search" class="form-control" placeholder="Search.." aria-controls="DataTables_Table_0" />
                                             </label></div>
                                             <div class="btn-group d-flex flex-row">
@@ -614,9 +644,32 @@ const formData = {
                                                     ))}
                                                 </tbody>
                                             </table>
-                                            <div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 50 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                                            <div className="row mx-2">
+                                                <div className="col-sm-12 col-md-6">
+                                                    <div className="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                                        Showing {((page - 1) * 10) + 1} to {Math.min(page * 10, totalPages * 10)} of {totalPages * 10} entries
+                                                    </div>
+                                                </div>
+                                                <div className="col-sm-12 col-md-6">
+                                                    <div className="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                                        <ul className="pagination">
+                                                            <li className={`paginate_button page-item previous ${page === 1 ? 'disabled' : ''}`}>
+                                                                <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page - 1)} className="page-link">Previous</a>
+                                                            </li>
+                                                            {[...Array(totalPages).keys()].map(p => (
+                                                                <li key={p + 1} className={`paginate_button page-item ${page === p + 1 ? 'active' : ''}`}>
+                                                                    <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(p + 1)} className="page-link">{p + 1}</a>
+                                                                </li>
+                                                            ))}
+                                                            <li className={`paginate_button page-item next ${page === totalPages ? 'disabled' : ''}`}>
+                                                                <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page + 1)} className="page-link">Next</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
                                         <div class="offcanvas-header">
                                             <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Student</h5>

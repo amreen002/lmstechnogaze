@@ -33,7 +33,7 @@ function InstructorviewquizComponent(token) {
 
                     }
                 });
-                const userData = response.data.quizze;
+                const userData = response.data.quizze.rows;
                 setQuizze(userData)
             }
 
@@ -98,7 +98,7 @@ function InstructorviewquizComponent(token) {
                                                 </div>
                                                 <div className='grips' >
                                                     <select>
-                                                        <option>{item.Quize.QuizzTestDuration} Minutes</option>
+                                                      <option>{item.Quize && item.Quize.QuizzTestDuration} Minutes</option> 
                                                     </select>
                                                 </div>
                                                 <div className='grips'>
@@ -132,7 +132,7 @@ function InstructorviewquizComponent(token) {
                                                         <div className=''>
                                                             <i class="fa-light fa-pen icp"></i>
                                                         </div>
-                                                        <Link to={`/quizeupdate/${item.Quize.id}`}>Edit</Link>
+                                                        <Link to={`/quizeupdate/${item.Quize && item.Quize.id}`}>Edit</Link>
                                                     </button>
                                                   
                                                 </div>
