@@ -91,18 +91,17 @@ function InstructorviewquizComponent(token) {
                                 <h5 class="title">Quiz View</h5>
                                 {question.map((item, index) => (
                                     <div className='box' key={item.id}>
-
-                                        <div className='pt--5 pl--5'>
-                                            <div className='flex-row d-flex'>
+                                        <div className='row option_icon'>
+                                            <div className='flex-row d-flex justify-content-evenly'>
                                                 <div className='icon grips'>
                                                     <i class="fa-grip-vertical fa-light"></i>
                                                 </div>
-                                                <div className='grips' style={{ marginLeft: '4px' }}>
+                                                <div className='grips' >
                                                     <select>
                                                         <option>{item.Quize.QuizzTestDuration} Minutes</option>
                                                     </select>
                                                 </div>
-                                                <div className='grips' style={{ marginLeft: '285px' }}>
+                                                <div className='grips'>
                                                     <select>
                                                         <i class="fa-light fa-stars"></i>
                                                         <option> AI</option>
@@ -112,7 +111,7 @@ function InstructorviewquizComponent(token) {
                                                         <option> AI</option>
                                                     </select>
                                                 </div>
-                                                <div className=' grips' style={{ marginLeft: '4px' }}>
+                                                <div className=' grips' >
                                                     <div className='felx-row d-flex'>
                                                         <div>
                                                             <i class="fa-copy fa-light"></i>
@@ -120,7 +119,7 @@ function InstructorviewquizComponent(token) {
 
                                                     </div>
                                                 </div>
-                                                <div className=' grips' style={{ marginLeft: '4px' }}>
+                                                <div className=' grips' >
                                                     <div className='felx-row d-flex'>
                                                         <div>
                                                             <i class="fa-light fa-tags"></i>
@@ -128,19 +127,16 @@ function InstructorviewquizComponent(token) {
 
                                                     </div>
                                                 </div>
-                                                <div className=' grips' style={{ marginLeft: '4px' }}>
+                                                <div className=' grips'>
                                                     <button className='felx-row d-flex' onClick={() => toggleDropdown('dropdownprofile')}>
                                                         <div className=''>
                                                             <i class="fa-light fa-pen icp"></i>
                                                         </div>
-                                                        Edit
+                                                        <Link to={`/quizeupdate/${item.Quize.id}`}>Edit</Link>
                                                     </button>
-                                                    {activeService === 'dropdownprofile' && (
-                                                        <div classNmae="dropdown-menu dropdown-menu-end m-0">
-                                                            <Link to={`/quizeupdate/${item.Quize.id}`} classNmae="dropdown-item">View</Link></div>
-                                                    )}
+                                                  
                                                 </div>
-                                                <div className=' grips' style={{ marginLeft: '4px' }}>
+                                                <div className=' grips'>
                                                     <button className='felx-row d-flex'>
                                                         <div>
                                                             <i class="fa-light fa-trash-alt"></i>
@@ -150,18 +146,19 @@ function InstructorviewquizComponent(token) {
 
                                             </div>
                                         </div>
-                                        <div className='pt--50 pl--5'>
-                                            <div>
-                                                <p>{item.Questions}</p>
+                                        <div className='pt--20 pl--5'>
+                                        <div className='flex-row d-flex '>
+                                                <p className='mr--10'>Q. </p>
+                                            <p> {item.Questions}</p>
                                             </div>
-                                            <div className='pt--20'>
+                                            <div className='mt-2'>
                                                 <span className='ansc'>  Answer Choices</span>
                                             </div>
-                                            <div className="pt-3">
+                                            <div className="pt-2">
                                                 <div className="row flex-row d-flex">
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
                                                         <div className="icon">
-                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("a") || item.Answer === "a" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("a") || item.Answer === "a" ? 'fa-check selected right_icons' : 'fa-times not-selected choose_icons'}`}></i>
                                                         </div>
 
                                                         <div>
@@ -172,7 +169,7 @@ function InstructorviewquizComponent(token) {
                                                     </div>
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
                                                         <div className="icon">
-                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("b") || item.Answer === "b" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("b") || item.Answer === "b" ? 'fa-check selected right_icons' : 'fa-times not-selected choose_icons'}`}></i>
                                                         </div>
 
                                                         <div>
@@ -184,7 +181,7 @@ function InstructorviewquizComponent(token) {
                                                 <div className=" row flex-row d-flex">
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
                                                         <div className="icon">
-                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("c") || item.Answer === "c" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("c") || item.Answer === "c" ? 'fa-check selected right_icons' : 'fa-times not-selected choose_icons'}`}></i>
                                                         </div>
 
                                                         <div>
@@ -193,7 +190,7 @@ function InstructorviewquizComponent(token) {
                                                     </div>
                                                     <div class="col-lg-4 col-md-6 col-sm-6 col-12 d-flex mt-3">
                                                         <div className="icon">
-                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("d") || item.Answer === "d" ? 'fa-check selected' : 'fa-times not-selected'}`}></i>
+                                                            <i className={`fa-light ${Array.isArray(item.Answer) && item.Answer.includes("d") || item.Answer === "d" ? 'fa-check selected right_icons' : 'fa-times not-selected choose_icons'}`}></i>
                                                         </div>
 
                                                         <div>
