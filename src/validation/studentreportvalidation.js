@@ -35,11 +35,12 @@ const ValidationStudentReport =(formData)=>{
         }
         if (!formData.Password) {
           error.Password = 'Password is required';
-        } else if (formData.Password.length < 8) {
-          error.Password = 'Password must be at least 8 characters long';
-        } else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(formData.Password)) {
-          error.Password = "Password must contain at least one special character, e.g., 'Abc@123'.";
         }
+        //  else if (formData.Password.length < 8) {
+        //   error.Password = 'Password must be at least 8 characters long';
+        // } else if (!/[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(formData.Password)) {
+        //   error.Password = "Password must contain at least one special character, e.g., 'Abc@123'.";
+        // }
   
 
     if(!formData.Date){

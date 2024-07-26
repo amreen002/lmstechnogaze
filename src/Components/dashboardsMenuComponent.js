@@ -102,7 +102,7 @@ function DashBoardMenu(onLogout) {
                                 <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul'></i>
-                                        <div data-i18n="Without menu">Class List</div>
+                                        <div data-i18n="Without menu">Class / Course List</div>
                                     </Link>
                                 </li>
 
@@ -305,20 +305,20 @@ function DashBoardMenu(onLogout) {
                                 <li className="menu-item">
                                     <Link to="/courses" className="menu-link">
                                         <i className='menu-icon bx bx-add-to-queue'></i>
-                                        <div data-i18n="Without menu">Add Class</div>
+                                        <div data-i18n="Without menu">Add Class / Course</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/coursesreports" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Class Report</div>
+                                        <div data-i18n="Without menu">Class / Course Report</div>
                                     </Link>
                                 </li>
 
                                 <li className="menu-item">
                                     <Link to="/topic" className="menu-link">
                                         <i className='menu-icon bx-tada bx bxs-report'></i>
-                                        <div data-i18n="Without menu">Subjectes</div>
+                                        <div data-i18n="Without menu">Subject</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">

@@ -85,7 +85,7 @@ function DashboardCard(token) {
 
                             </div>
                             <div className="author-profile-image-and-name">
-                                <div className="profile-pic">
+                                <div className="profile-pices">
                                     <img src={`${REACT_APP_API_IMG}/uploads/images/${dataUserss.image}`} alt="dashboard" />
                                 </div>
                                 <div className="name-desig">

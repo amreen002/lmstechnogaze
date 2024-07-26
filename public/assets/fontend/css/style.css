@@ -27453,7 +27453,7 @@ edit .quantity-edit button {
 }
 .dashboard-banner-area-start .author-profile-image-and-name .name-desig {
   margin-left: 50px;
-  margin-top: -50px;
+  margin-bottom: -83px;
 }
 @media only screen and (max-width: 767px) {
   .dashboard-banner-area-start .author-profile-image-and-name .name-desig {
@@ -33066,6 +33066,28 @@ background-color: #f8f1e8;
 }
 .titlees{
   color: #fff !important;
+}
+.profile-pices{
+  padding: 10px;
+  border-radius: 50% 50%;
+  background: #fff;
+  position: relative;
+  overflow: hidden;
+  width: 14%;
+  margin-top: 13%;
+  /* height: 195px; */
+  margin-left: 39px;
+}
+.optiones{
+  border: none !important;
+  box-shadow: 0px 0px 3px 0px #ccc !important;
+  padding: 12px !important;
+  
+}
+.option_number{
+  border: 1px solid #ccc;
+  padding: 0px 9px;
+  border-radius: 25px;
 }
 @media  (min-width: 480px) and (max-width: 570px){
 
