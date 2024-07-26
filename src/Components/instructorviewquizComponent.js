@@ -33,7 +33,7 @@ function InstructorviewquizComponent(token) {
 
                     }
                 });
-                const userData = response.data.quizze;
+                const userData = response.data.quizze.rows;
                 setQuizze(userData)
             }
 
@@ -99,7 +99,7 @@ function InstructorviewquizComponent(token) {
                                                 </div>
                                                 <div className='grips' style={{ marginLeft: '4px' }}>
                                                     <select>
-                                                        <option>{item.Quize.QuizzTestDuration} Minutes</option>
+                                                      <option>{item.Quize && item.Quize.QuizzTestDuration} Minutes</option> 
                                                     </select>
                                                 </div>
                                                 <div className='grips' style={{ marginLeft: '285px' }}>
@@ -137,7 +137,7 @@ function InstructorviewquizComponent(token) {
                                                     </button>
                                                     {activeService === 'dropdownprofile' && (
                                                         <div classNmae="dropdown-menu dropdown-menu-end m-0">
-                                                            <Link to={`/quizeupdate/${item.Quize.id}`} classNmae="dropdown-item">View</Link></div>
+                                                            <Link to={`/quizeupdate/${item.Quize && item.Quize.id}`} classNmae="dropdown-item">View</Link></div>
                                                     )}
                                                 </div>
                                                 <div className=' grips' style={{ marginLeft: '4px' }}>

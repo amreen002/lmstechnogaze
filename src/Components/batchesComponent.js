@@ -89,7 +89,7 @@ function BatchesUse() {
 
                     }
                 });
-                const userData = response.data.teachers;
+                const userData = response.data.teachers.rows;
                 setTeachers(userData)
             }
 

@@ -17,7 +17,14 @@ function Topic() {
     const [errors, setErrors] = useState({});
     const token = localStorage.getItem('token');
     const [table, setTopic] = useState([]);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // Track total pages for pagination
 
+    useEffect(() => {
+        fetchData(page);
+    }, [page]);
+
+ 
     useEffect(() => {
         fetchData(topicId);
     }, [topicId]);
@@ -55,19 +62,20 @@ function Topic() {
             console.log(err.response);
         }
     }
-    const fetchData1 = async () => {
+    const fetchData1 = async (page = 1) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/topic?page=${page}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
 
                     }
                 });
                 const userDatas = response.data.topic;
-                setTopic(userDatas)
+                setTopic(response.data.topic.rows);
+                setTotalPages(response.data.topic.totalPage ||1);
             }
 
         } catch (error) {
@@ -104,6 +112,11 @@ function Topic() {
         setErrors(validationErrors);
     };
 
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage);
+        }
+    };
 
     const handleFormSubmit = async (e) => {
         e.preventDefault(); // Prevent default form submission behavior
@@ -391,7 +404,31 @@ function Topic() {
                                                     ))}
                                                 </tbody>
                                             </table>
-                                            <div class="row mx-2"><div class="col-sm-12 col-md-6"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 10 of 50 entries</div></div><div class="col-sm-12 col-md-6"><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><ul class="pagination"><li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a aria-controls="DataTables_Table_0" aria-disabled="true" role="link" data-dt-idx="previous" tabindex="-1" class="page-link">Previous</a></li><li class="paginate_button page-item active"><a href="#" aria-controls="DataTables_Table_0" role="link" aria-current="page" data-dt-idx="0" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="1" tabindex="0" class="page-link">2</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="2" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="3" tabindex="0" class="page-link">4</a></li><li class="paginate_button page-item "><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="4" tabindex="0" class="page-link">5</a></li><li class="paginate_button page-item next" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" role="link" data-dt-idx="next" tabindex="0" class="page-link">Next</a></li></ul></div></div></div></div>
+                                            <div className="row mx-2">
+                                            <div className="col-sm-12 col-md-6">
+                                                <div className="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">
+                                                    Showing {((page - 1) * 10) + 1} to {Math.min(page * 10, totalPages * 10)} of {totalPages * 10} entries
+                                                </div>
+                                            </div>
+                                            <div className="col-sm-12 col-md-6">
+                                                <div className="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                                    <ul className="pagination">
+                                                        <li className={`paginate_button page-item previous ${page === 1 ? 'disabled' : ''}`}>
+                                                            <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page - 1)} className="page-link">Previous</a>
+                                                        </li>
+                                                        {[...Array(totalPages).keys()].map(p => (
+                                                            <li key={p + 1} className={`paginate_button page-item ${page === p + 1 ? 'active' : ''}`}>
+                                                                <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(p + 1)} className="page-link">{p + 1}</a>
+                                                            </li>
+                                                        ))}
+                                                        <li className={`paginate_button page-item next ${page === totalPages ? 'disabled' : ''}`}>
+                                                            <a href="#" aria-controls="DataTables_Table_0" role="link" onClick={() => handlePageChange(page + 1)} className="page-link">Next</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
                                     </div>
                                 </div>
                                 {/*  <!-- Modal -->

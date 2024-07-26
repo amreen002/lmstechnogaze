@@ -24,6 +24,9 @@ function ListUse() {
     const [options, setOptions] = useState([]);
     const [selectedFiles, setSelectedFiles] = useState(null);
     const [isVisible, setIsVisible] = useState(null);
+    const [page, setPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1); // Track total pages for pagination
+
 
     const toggleVisibility = (id) => {
         setIsVisible(isVisible === id ? null : id);
@@ -91,6 +94,16 @@ function ListUse() {
     const handleFileChange = (event) => {
         setSelectedFiles(event.target.files);
     };
+
+    const handlePageChange = (newPage) => {
+        if (newPage >= 1 && newPage <= totalPages) {
+            setPage(newPage);
+        }
+    };
+    useEffect(() => {
+        fetchData(page);
+    }, [page]);
+
     useEffect(() => {
         fetchData();
         fetchData1()
@@ -99,18 +112,19 @@ function ListUse() {
         fetchData4()
     }, []);
 
-    const fetchData = async () => {
+    const fetchData = async (page = 1) => {
         try {
             const token = localStorage.getItem('token');
 
             if (token) {
-                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users`, {
+                const response = await axios.get(`${REACT_APP_API_ENDPOINT}/users?page=${page}`, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
 
                 setTable(response.data.users);
+                setTotalPages(response.data.users.totalPage ||1);
             }// Updated state variable
         } catch (err) {
             console.log(err.response);
