@@ -36,11 +36,11 @@ function MultiplequestionComponent(token) {
     const [StudentsFindAll, setStudentsFindAll] = useState([]);
     const [Instructor, setInstructor] = useState('')
 
-    const handleSelectQuestion = (e) => {
-        let value = e.target.value;
-        value ? setselectednewquestion(e.target.value) : setselectednewquestion('');
+    const handleSelectQuestion = (e, index) => {
+        const updatedQuestionType = [...selectednewquestion];
+        updatedQuestionType[index] = e.target.value;
+        setselectednewquestion(updatedQuestionType);
     };
-
     useEffect(() => {
         fetchDataQuizzeFindOne(quizzeId)
     }, [quizzeId]);
@@ -197,22 +197,35 @@ function MultiplequestionComponent(token) {
     });
 
 
-    const toggleDropdown = (serviceName) => {
-        setIsExpanded(isExpanded === serviceName ? '' : serviceName);
+    const toggleDropdown = (index, state) => {
+        const updatedExpandedState = { ...isExpanded };
+        updatedExpandedState[index] = state;
+        setIsExpanded(updatedExpandedState);
     };
 
-    const handleOptionSelect = (option) => {
-        const newSelectedOptions = selectedOptions.includes(option)
-            ? selectedOptions.filter(item => item !== option)
-            : [...selectedOptions, option];
-        setSelectedOptions(newSelectedOptions);
 
-        const updatedForms = forms.map(form => ({
-            ...form,
-            Answer: newSelectedOptions.join(', ')
-        }));
+
+    const handleOptionSelect = (option, index) => {
+        const updatedOptions = { ...selectedOptions };
+        if (!updatedOptions[index]) {
+            updatedOptions[index] = [];
+        }
+        if (updatedOptions[index].includes(option)) {
+            updatedOptions[index] = updatedOptions[index].filter(item => item !== option);
+        } else {
+            updatedOptions[index].push(option);
+        }
+        setSelectedOptions(updatedOptions);
+        const updatedForms = [...forms];
+        if (!updatedForms[index]) {
+            updatedForms[index] = {};
+        }
+        updatedForms[index].selectedOptions = updatedOptions[index];
+        updatedForms[index].Answer = updatedOptions[index];
         setForms(updatedForms);
     };
+    
+    
 
     const handleOptionChange = (e, formIndex) => {
         const { value } = e.target;
@@ -238,32 +251,9 @@ function MultiplequestionComponent(token) {
     
 
     const handleRemoveOption = (formIndex, optionIndex) => {
-        // Clone the current forms array to modify it
         const updatedForms = [...forms];
-
-        // Get the specific form to update
-        const form = updatedForms[formIndex];
-
-        // Get all options keys and sort them
-        const optionKeys = Object.keys(form).filter(key => key.startsWith('Options')).sort();
-
-        // Create a new options object with the specified option removed
-        const newOptions = optionKeys
-            .filter((_, idx) => idx !== optionIndex)
-            .reduce((acc, key, idx) => {
-                acc[`Options${idx + 1}`] = form[key];
-                return acc;
-            }, {});
-
-        // Update the form with the new options
-        updatedForms[formIndex] = {
-            ...form,
-            ...newOptions,
-            // Adjust the answer if it was the removed option
-            Answer: optionKeys[optionIndex] === form.Answer ? '' : form.Answer
-        };
-
-        // Update the state with the modified forms
+        const optionKey = `Options${optionIndex + 1}`;
+        delete updatedForms[formIndex][optionKey];
         setForms(updatedForms);
     };
     const handleRemoveForm = (index) => {
@@ -338,8 +328,9 @@ function MultiplequestionComponent(token) {
             const updatedForms = [...prevForms];
             updatedForms[index] = { ...updatedForms[index], [name]: value };
             return updatedForms;
-        });
-    };
+        })
+    }
+    
 
 
 
@@ -504,7 +495,7 @@ function MultiplequestionComponent(token) {
                                                                     <select
                                                                         className='inputts'
                                                                         name="videoselect"
-                                                                        onChange={handleSelectQuestion}
+                                                                        onChange={(e) => handleSelectQuestion(e, index)}
                                                                     >
                                                                         <option value={''}>Add a new question</option>
                                                                         <option value={'Multiple_Choice'}>Multiple Choice</option>
@@ -523,7 +514,7 @@ function MultiplequestionComponent(token) {
                                                                         onChange={(e) => handleInputChange(index, 'Questions', e.target.value)}
                                                                     />
                                                                 </div>
-                                                                {selectednewquestion === 'Fill_in_the_Blank' && index && (
+                                                                {selectednewquestion[index] === 'Fill_in_the_Blank' &&  (
                                                                     <div className='container mt-5'>
                                                                         <div className='row mt-5'>
                                                                             {['a', 'b', 'c', 'd'].map((option, idx) => (
@@ -567,15 +558,14 @@ function MultiplequestionComponent(token) {
                                                                         </div>
                                                                     </div>
                                                                 )}
-
-                                                                {selectednewquestion === 'Multiple_Choice' && index && (
+                                                                {selectednewquestion[index] === 'Multiple_Choice' &&  (
                                                                     <div className='row mt-5'>
                                                                         <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
-                                                                            <a className='crans' onClick={() => setIsExpanded('single')}>Single Correct Answer</a>
-                                                                            <a className='crans ml--10' onClick={() => setIsExpanded('multiple')}>Multiple Correct Answers</a>
+                                                                            <a className='crans' onClick={() => toggleDropdown(index,'single')}>Single Correct Answer</a>
+                                                                            <a className='crans ml--10' onClick={() => toggleDropdown(index,'multiple')}>Multiple Correct Answers</a>
                                                                         </div>
 
-                                                                        {isExpanded === "multiple"  && index && (
+                                                                        {isExpanded[index] === "multiple" && (
                                                                             <div className='row mt-5'>
                                                                                 {['a', 'b', 'c', 'd'].map((option, idx) => (
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3' key={option}>
@@ -585,12 +575,12 @@ function MultiplequestionComponent(token) {
                                                                                                     <i className="fa-light fa-trash-alt crl" onClick={() => handleRemoveOption(index, idx)}></i>
                                                                                                 </div>
                                                                                                 <div className='crls'>{option}</div>
-                                                                                                <label className={`custom-checkbox ${selectedOptions.includes(option) ? 'selected' : ''}`}>
+                                                                                                <label className={`custom-checkbox ${forms[index]?.selectedOptions?.includes(option) ? 'selected' : ''}`}>
                                                                                                     <input
                                                                                                         type="checkbox"
                                                                                                         name={`option${idx}`}
                                                                                                         value={option}
-                                                                                                        checked={selectedOptions.includes(option)}
+                                                                                                        checked={forms[index]?.selectedOptions?.includes(option) || false}
                                                                                                         onChange={() => handleOptionSelect(option, index)}
                                                                                                     />
                                                                                                 </label>
@@ -600,7 +590,7 @@ function MultiplequestionComponent(token) {
                                                                                                 className='inputts ints'
                                                                                                 placeholder='Type answer here'
                                                                                                 name={`Options${idx + 1}`}
-                                                                                                value={form[`Options${idx + 1}`] || ''}
+                                                                                                value={forms[index]?.[`Options${idx + 1}`] || ''}
                                                                                                 onChange={(e) => handleInputChange(index, `Options${idx + 1}`, e.target.value)}
                                                                                             />
                                                                                         </div>
@@ -609,16 +599,17 @@ function MultiplequestionComponent(token) {
                                                                                 <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
                                                                                 <div className='col-12 col-md-3 col-xl-3 col-lg-3 d-flex mt-3'>
-                                                                                    {selectedOptions.map(option => (
+                                                                                    {forms[index]?.selectedOptions?.map(option => (
                                                                                         <div className='selected-option boxs' key={option}>
-                                                                                            <div>{option}</div>
+                                                                                            <input value={option} name="Answer" readOnly />
                                                                                         </div>
                                                                                     ))}
                                                                                 </div>
                                                                             </div>
                                                                         )}
+        
 
-                                                                        {isExpanded === "single" && index && (
+                                                                        {isExpanded[index] === "single" &&  (
                                                                             <div className='row mt-5'>
                                                                                 {['a', 'b', 'c', 'd'].map((option, idx) => (
                                                                                     <div className='col-12 col-md-3 col-xl-3 col-lg-3' key={option}>

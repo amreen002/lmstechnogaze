@@ -21,6 +21,7 @@ function AttemtedQuestionComponent() {
     const submittedRef = useRef(false);
     const timerEndRef = useRef(timerEnd);
     const intervalRef = useRef(null);
+    const pausedTimeRef = useRef(0);
     useEffect(() => {
         if (!quiz) {
             console.error('No quiz data available');
@@ -75,7 +76,6 @@ function AttemtedQuestionComponent() {
         intervalRef.current = setInterval(tick, 1000);
         return () => {
             clearInterval(intervalRef.current);
-            localStorage.removeItem('quizStartTime'); 
 
         };
         return localStorage.removeItem('quizStartTime'); // Clean up timer  
@@ -122,12 +122,33 @@ function AttemtedQuestionComponent() {
         }
     };
 
-    const handleChange = (e) => {
-        setSelectedAnswer(e.target.value);
+    const handleChange = (e,qIndex) => {
+        const { value, type, checked } = e.target;
+        let updatedAnswer;
+
+        if (type === 'checkbox') {
+            if (checked) {
+                updatedAnswer = selectedAnswer ? [...selectedAnswer, value] : [value];
+            } else {
+                updatedAnswer = selectedAnswer.filter((ans) => ans !== value);
+            }
+        } else {
+            updatedAnswer = value;
+        }
+
+        const updatedAnswers = [...answers];
+        updatedAnswers[qIndex] = {
+            ...updatedAnswers[qIndex],
+            AnswersStudent: updatedAnswer
+        };
+    
+        setAnswers(updatedAnswers);
+        setSelectedAnswer(updatedAnswer);
+    
         localStorage.setItem('quizState', JSON.stringify({
             currentQuestionIndex,
-            selectedAnswer: e.target.value,
-            answers
+            selectedAnswer: updatedAnswer,
+            answers: updatedAnswers
         }));
     };
 
@@ -143,10 +164,10 @@ function AttemtedQuestionComponent() {
             AnswersStudent: selectedAnswer,
             TimeTaken: seconds,
         };
-
         const updatedAnswers = [...answers];
         updatedAnswers[currentQuestionIndex] = currentAnswer;
         setAnswers(updatedAnswers);
+
 
         try {
             const token = localStorage.getItem('token');
@@ -183,13 +204,14 @@ function AttemtedQuestionComponent() {
         await handleSubmit();
     };
 
- 
 
     
-    
+
     const togglePause = () => {
         if (paused) {
             setPaused(false);
+            const remainingSeconds = pausedTimeRef.current; // Get the remaining seconds when paused
+            setSeconds(remainingSeconds); // Set the seconds to the remaining time
             intervalRef.current = setInterval(() => {
                 setSeconds(prevSeconds => {
                     if (prevSeconds <= 1) {
@@ -202,6 +224,7 @@ function AttemtedQuestionComponent() {
             }, 1000);
         } else {
             setPaused(true);
+            pausedTimeRef.current = seconds; // Store the remaining time when paused
             clearInterval(intervalRef.current);
         }
     };
@@ -283,48 +306,62 @@ function AttemtedQuestionComponent() {
                                                     <form onSubmit={handleSubmit}>
                                                         <div className='row'>
                                                             <div className='col-12 col-md-6 col-xl-6 col-lg-6'>
-                                                                <input
-                                                                    type='hidden'
-                                                                    name='QuizeId'
-                                                                    value={quiz?.Quize?.id}
-                                                                />
-                                                                <input
-                                                                    type='hidden'
-                                                                    name='QuestionId'
-                                                                    value={currentQuestion?.id}
-                                                                />
-                                                                {['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
-                                                                    <div className='flex-row d-flex optiionss mt-2' key={index}>
-                                                                        <input
-                                                                            type='radio'
-                                                                            name='AnswersStudent'
-                                                                            style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
-                                                                            value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
-                                                                            checked={selectedAnswer === String.fromCharCode(97 + index)}
-                                                                            onChange={handleChange}
-                                                                        />
-                                                                        <p>{currentQuestion?.[option]}</p>
+                                                                <input type='hidden' name='QuizeId' value={quiz?.Quize?.id} />
+                                                                <input type='hidden' name='QuestionId'  value={currentQuestion?.id} />
+
+                                                                {currentQuestion  && (
+                                                                    <div key={currentQuestionIndex}>
+                                                                        <h3>Question {currentQuestionIndex + 1}</h3>
+                                                                        {Array.isArray(quiz.Quize.Questions[currentQuestionIndex].Answer) ? (
+                                                                            ['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
+                                                                                <div className='flex-row d-flex options mt-2' key={index}>
+                                                                                    <input
+                                                                                        type='checkbox'
+                                                                                        name={`AnswersStudent`}
+                                                                                        style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
+                                                                                        value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
+                                                                                        checked={selectedAnswer?.includes(String.fromCharCode(97 + index))}
+                                                                                        onChange={(e) => handleChange(e)}
+                                                                                    />
+                                                                                    <p>{quiz.Quize.Questions[currentQuestionIndex][option]}</p>
+                                                                                </div>
+                                                                            ))
+                                                                        ) :  (
+                                                                            ['Options1', 'Options2', 'Options3', 'Options4'].map((option, index) => (
+                                                                                <div className='flex-row d-flex options mt-2' key={index}>
+                                                                                    <input
+                                                                                        type='radio'
+                                                                                        name={`AnswersStudent${currentQuestionIndex}`}
+                                                                                        style={{ opacity: '1', position: 'static', height: '31px', width: '14px', marginRight: '8px' }}
+                                                                                        value={String.fromCharCode(97 + index)} // 'a', 'b', 'c', 'd'
+                                                                                        checked={selectedAnswer === String.fromCharCode(97 + index)}
+                                                                                        onChange={(e) => handleChange(e)}
+                                                                                    />
+                                                                                    <p>{currentQuestion[option]}</p>
+                                                                                </div>
+                                                                            ))
+                                                                        )}
                                                                     </div>
-                                                                ))}
+                                                                )}
+
+                                                           
                                                                 <div className='flex-row d-flex justify-content-between mt-5'>
                                                                     <div className='prqust'>
                                                                         <button type='button' onClick={handlePrevious} disabled={currentQuestionIndex === 0}>
-                                                                            <i class="fa-arrow-left fa-regular fa-sharp mr--10"></i>  Previous
+                                                                            <i className="fa-arrow-left fa-regular fa-sharp mr--10"></i> Previous
                                                                         </button>
                                                                     </div>
-                                                                    <div className='prqust '>
+                                                                    <div className='prqust'>
                                                                         <button type='button' onClick={handleNext} disabled={currentQuestionIndex >= (quiz?.Quize?.Questions.length - 1)}>
-                                                                            Next  <i class="fa-arrow-right fa-regular fa-sharp ml--10"></i>
+                                                                            Next <i className="fa-arrow-right fa-regular fa-sharp ml--10"></i>
                                                                         </button>
                                                                     </div>
-                                                                    <div className=''>
-                                                                         <button type='submit' className="btn btn-primary">Submit</button> 
-                                                                   
-                                                                     {/*    <Link class="btnrs" to={'/quizetresult'}>Submit</Link> */}
+                                                                    <div>
+                                                                        <button type='submit' className="btn btn-primary">Submit</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                         </div>
+                                                        </div>
                                                     </form>
                                                 </div>
 

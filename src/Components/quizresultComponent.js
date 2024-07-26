@@ -103,9 +103,7 @@ function QuizresultComponent(token) {
                                                 <div className='anslist'>
                                                 <ul className='flex-row d-flex'>
                                                     {StutentResult.map((item, index) => (
-
                                                         <div className='  mt-2' key={item.id}>
-                                                            
                                                                 <li style={{ backgroundColor: item.Correct ? 'green' : item.Incorrect ? 'red' : 'black' }}>
                                                                     {item.id}
                                                                 </li>
