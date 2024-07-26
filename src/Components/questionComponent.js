@@ -515,7 +515,7 @@ function Questions() {
                                                                 <div className='flex-row d-flex'>
                                                                     <div className='ques1'>
                                                                         {item.Options1}
-                                                                    </div>
+                                      </div>
                                                                     <div className='ques2'>
                                                                         {item.Options2}
                                                                     </div>
@@ -688,7 +688,7 @@ function Questions() {
                                                         </select>
                                                     </div>
                                                     <div className='col-12 col-md-6 col-lg-6 col-xl-6 mt-5' >
-                                                        <label className='pb-2'>Quizzed</label>
+                                                        <label className='pb-2'>Quiz</label>
                                                         <select className='inputts' name="QuizzeId" value={QuizzeId} onChange={(e) => setQuizzeId(e.target.value)}>
                                                             <option value="">Select</option>
                                                             {quizze.map((option) => (

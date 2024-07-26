@@ -172,40 +172,6 @@ function Materiales() {
     };
 
 
-    const [isPopupOpen, setIsPopupOpen] = useState(false);
-
-    const openPopup = () => {
-        setIsPopupOpen(true);
-    };
-
-    const closePopup = () => {
-        setIsPopupOpen(false);
-    };
-    const [isContent, setIsContent] = useState(false);
-
-    const openContent = () => {
-        setIsContent(true);
-    };
-
-    const closeContent = () => {
-        setIsContent(false);
-    };
-
-    const [isCourse, setIsCourse] = useState(false);
-
-    const openCourse = () => {
-        setIsCourse(true);
-    };
-
-    const closeCourse = () => {
-        setIsCourse(false);
-    };
-    useEffect(() => {
-        fetchData1();
-        fetchData2();
-    }, []);
-
-   
     //Dropdown Navigation
     const [isExpanded, setIsExpanded] = useState(false);
 
@@ -249,8 +215,8 @@ function Materiales() {
                     <div className="row g-5">
                         <Sidebar />
                         {/* <!-- course details area start --> */}
-                        <div class="col-lg-9">
-                            <div class="exrolled-course-wrapper-dashed">
+                        <div class="col-lg-9" >
+                            <div class="exrolled-course-wrapper-dashed " style={{backgroundColor:"#fff"}}>
                                 <div className="rts-course-area rts-section-gap">
                                     <div className="container">
                                         <div className="row g-5">
@@ -303,7 +269,7 @@ function Materiales() {
                                                                     {CoureseFindOne.topics && Array.isArray(CoureseFindOne.topics) ? (
                                                                         CoureseFindOne.topics.map((topic) => (
                                                                             <div key={topic.id} className="accordion-item mb-4 acordin_space">
-                                                                                <h2 className="accordion-header" id={`heading${topic.id}`}>
+                                                                                <h2 className="accordion-header arr_clrs" id={`heading${topic.id}`}>
                                                                                     <button
                                                                                         className="accordion-button"
                                                                                         onClick={() => toggleDropdownTopic(`collapse${topic.id}`)}
@@ -326,7 +292,7 @@ function Materiales() {
                                                                                 {isExpandedTopic === `collapse${topic.id}` && (
                                                                                     <div
                                                                                         id={`collapse${topic.id}`}
-                                                                                        className="accordion-collapse collapse show backa_color"
+                                                                                        className="accordion-collapse collapse show "
                                                                                         aria-labelledby={`heading${topic.id}`}
                                                                                         data-bs-parent="#accordionExample"
                                                                                     >
@@ -334,7 +300,7 @@ function Materiales() {
 
 
                                                                                             <div key={video.id}>
-                                                                                                <h2 className="accordion-header acordion_head p-3" id={`heading${video.id}`}>
+                                                                                                <h2 className="accordion-header acordion_head backa_color" id={`heading${video.id}`}>
                                                                                                     <button
                                                                                                         className="accordion-button ardion_btn "
                                                                                                         onClick={() => toggleDropdownVideo(`collapse${video.id}`)}
@@ -344,11 +310,11 @@ function Materiales() {
                                                                                                         aria-expanded={isExpandedVideo === `collapse${video.id}`}
                                                                                                         aria-controls={`collapse${video.id}`}
                                                                                                     >
-                                                                                                        <span className='flex-row d-flex ml--10 '>
+                                                                                                        <span className='flex-row d-flex ml--10 titlees'>
                                                                                                         <i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon" ></i> {video.Title}</span> 
-                                                                                                        <i class="fa-chevron-double-down fa-regular ml--10">{coursedatafetch?.Role?.Name === "Instructor" && (
+                                                                                                        <i class="fa-chevron-double-down titlees fa-regular ml--10">{coursedatafetch?.Role?.Name === "Instructor" && (
                                                                                                             <Link to={`/updatecontent/${video.id}`}  >
-                                                                                                                <i class="fa-light fa-pen-to-square ml--15" ></i>
+                                                                                                                <i class="fa-light fa-pen-to-square titlees ml--15" ></i>
                                                                                                             </Link>)}
                                                                                                         </i>
                                                                                                     </button>
@@ -356,28 +322,33 @@ function Materiales() {
                                                                                                 {isExpandedVideo === `collapse${video.id}` && (
                                                                                                     <div
                                                                                                         id={`collapse${video.id}`}
-                                                                                                        className="accordion-collapse acordion_head  collapse show acrdion_color"
+                                                                                                        className="accordion-collapse acordion_head  collapse show  p-3"
                                                                                                         aria-labelledby={`heading${video.id}`}
                                                                                                         data-bs-parent="#accordionExample"
                                                                                                     >
                                                                                                         {video.VideoUplod.map((videofiles) => (
 
-                                                                                                            <div className="accordion-body  py-1 text-end" key={videofiles.id}>
+                                                                                                            <div className=" text-end" key={videofiles.id}>
 
 
                                                                                                                 <div className='row'>
                                                                                                                     <div className="col-12 col-md-6 col-lg-6 col-lx-6  ">
-                                                                                                                        <a href="#" className="play-video-wrapper d-flex " onClick={() => openModal(videofiles)}>
+                                                                                                                        <a href="#" className="play-video-wrapperes d-flex " onClick={() => openModal(videofiles)}>
+                                                                                                                       
                                                                                                                             <video src={`${REACT_APP_API_IMG}/${videofiles.path}`} autoplay="true" muted className='videoes_play'>
                                                                                                                             </video>
-                                                                                                                            <div className='mt-4 '>{videofiles.name}</div>
+                                                                                                                           <div className='video_icons'>
+                                                                                                                            <i class="fa-play-circle fa-regular "></i>
+                                                                                                                           </div>
+                                                                                                                           
+                                                                                                                            <div className='mt-3 ml--10 videos_name'>{videofiles.name}</div>
                                                                                                                          
                                                                                                                         </a>
                                                                                                                     </div>
 
-                                                                                                                    <div className="col-12 col-md-6 col-lg-6 col-lx-6 text-end mt-4">
+                                                                                                                    <div className="col-12 col-md-6 col-lg-6 col-lx-6 text-end mt-4 ">
                                                                                                                         <span className="play timess ">Preview</span>
-                                                                                                                        <span className='min_nine timess'> 9 min</span>
+                                                                                                                        <span className='min_nine timess mr--15'> 9 min</span>
                                                                                                                        
 
                                                                                                                     </div>
@@ -395,7 +366,7 @@ function Materiales() {
                                                                                         ))}
                                                                                         {topic.lessions && Array.isArray(topic.lessions) && topic.lessions.map((lession) => (
                                                                                             <div key={lession.id}>
-                                                                                                <h2 className="accordion-header acordion_head  p-2" id={`heading${lession.id}`}>
+                                                                                                <h2 className="accordion-header acordion_head colorsss " id={`heading${lession.id}`}>
                                                                                                     <button
                                                                                                         className="accordion-button"
                                                                                                         onClick={() => toggleDropdownLesson(`collapse${lession.id}`)}
@@ -405,12 +376,12 @@ function Materiales() {
                                                                                                         aria-expanded={isExpandedLesson === `collapse${lession.id}`}
                                                                                                         aria-controls={`collapse${lession.id}`}
                                                                                                     >
-                                                                                                        <p className='d-flex ml--10 '><i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon"></i> Lession Title : <span> {lession.Title}</span>
+                                                                                                        <p className='d-flex mb--0 ml--10 titlees'><i class="fa-arrow-right-long fa-regular mr--10 mt-1 arrow_icon"></i> Lession Title : <span className='titlees'> {lession.Title} </span>
                                                                                                             
                                                                                                         </p> 
-                                                                                                        <i class="fa-chevron-double-down fa-regular chervn">{coursedatafetch?.Role?.Name === "Instructor" && (
+                                                                                                        <i class="fa-chevron-double-down chervn fa-regular">{coursedatafetch?.Role?.Name === "Instructor" && (
                                                                                                             <Link to={`/updatemodel/${lession.id}`}>
-                                                                                                                <i class="fa-light fa-pen-to-square ml--15" ></i>
+                                                                                                                <i class="fa-light fa-pen-to-square squer ml--15" ></i>
                                                                                                             </Link>
                                                                                                         )}</i>
                                                                                                     </button>
@@ -418,7 +389,7 @@ function Materiales() {
                                                                                                 {isExpandedLesson === `collapse${lession.id}` && (
                                                                                                     <div
                                                                                                         id={`collapse${lession.id}`}
-                                                                                                        className="accordion-collapse acordion_head  collapse show acrdion_color p-4"
+                                                                                                        className="accordion-collapse acordion_head  collapse show  p-4"
                                                                                                         aria-labelledby={`heading${lession.id}`}
                                                                                                         data-bs-parent="#accordionExample"
                                                                                                     >

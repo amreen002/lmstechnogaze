@@ -134,7 +134,7 @@ const Sidebar = () => {
 
                             <Link to={`/lernerenrollcourse`} className="single-item">
                                 <i className="fa-light fa-book"></i>
-                                <p>My Class</p>
+                                <p>My Class / Course</p>
                             </Link>
 
 
