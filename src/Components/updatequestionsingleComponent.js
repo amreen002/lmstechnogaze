@@ -55,21 +55,23 @@ function MultiplequestionComponent(token) {
             setSelectedOptions(newSelectedOptions);
             setSingleOption(newSelectedOptions)
             setAnswer(newSelectedOptions);
+            console.log(newSelectedOptions)
         } else {
             const newSelectedOptions = [...selectedOptions, option];
             setSelectedOptions(newSelectedOptions);
             setSingleOption(newSelectedOptions)
+            console.log(newSelectedOptions)
             setAnswer(newSelectedOptions);
-        }
+        } 
     };
 
     useEffect(() => {
         fetchDataQuestionFindOne(questionId);
     }, [questionId]);
 
-    useEffect(() => {
+/*     useEffect(() => {
         fetchDataQuizzeFindOne(quizzeId);
-    }, [quizzeId]);
+    }, [quizzeId]); */
 
     useEffect(() => {
         fetchDataQuestion();
@@ -172,10 +174,11 @@ function MultiplequestionComponent(token) {
 
                 const initialStudentState = {};
                 userData.Students.map(student => {
-                    initialStudentState[student.id] = true;
+                    initialStudentState[student.id] = true ;
                 });
                 setStudentId(initialStudentState)
                 let initialAnswerState = {};
+
                 if (Array.isArray(userData.Answer)) {
                     userData.Answer.forEach((answer) => {
                         initialAnswerState[answer] = true;
@@ -186,7 +189,6 @@ function MultiplequestionComponent(token) {
                     initialAnswerState = userData.Answer;
                     setAnswer(initialAnswerState);
                 }
-               
             } else {
                 console.warn('No token found in localStorage');
             }
@@ -285,7 +287,7 @@ function MultiplequestionComponent(token) {
                                             <td>Total Easy (1 Mark)</td>
                                             <td>
                                                 <div className='qust'>
-                                                    ({QuizzeFindOne.EasyQuestions}) Questions
+                                                    ({FindOneQuestion.Quize && FindOneQuestion.Quize.EasyQuestions}) Questions
                                                 </div>
                                             </td>
                                         </tr>
@@ -293,7 +295,7 @@ function MultiplequestionComponent(token) {
                                             <td>Total Medium (2 Mark)</td>
                                             <td>
                                                 <div className='qust'>
-                                                    ({QuizzeFindOne.MediumQuestions}) Questions
+                                                    ({FindOneQuestion.Quize && FindOneQuestion.Quize.MediumQuestions}) Questions
                                                 </div>
                                             </td>
                                         </tr>
@@ -301,7 +303,7 @@ function MultiplequestionComponent(token) {
                                             <td>Total Hard (4 Mark)</td>
                                             <td>
                                                 <div className='qust'>
-                                                    ({QuizzeFindOne.HardQuestions}) Questions
+                                                    ({FindOneQuestion.Quize && FindOneQuestion.Quize.HardQuestions}) Questions
                                                 </div>
                                             </td>
                                         </tr>
@@ -314,11 +316,11 @@ function MultiplequestionComponent(token) {
                                             <div className='col-12 py-2'>
                                                 <div className='flex-row d-flex ml--40'>
                                                     <div className='qust'>
-                                                        ({QuizzeFindOne.TotalQuestions}) Total Questions
+                                                        ({FindOneQuestion.Quize && FindOneQuestion.Quize.TotalQuestions}) Total Questions
                                                     </div>
                                                     <div className='flex-row d-flex ml--40'>
                                                         <div className='qust'>
-                                                            ({QuizzeFindOne.TotalMarks}) Total Marks
+                                                            ({FindOneQuestion.Quize && FindOneQuestion.Quize.TotalMarks}) Total Marks
                                                         </div>
                                                     </div>
 
@@ -327,7 +329,7 @@ function MultiplequestionComponent(token) {
                                                             <i className="fa fa-clock"></i>
                                                         </div>
                                                         <div className='flex-row d-flex ml--10'>
-                                                            {QuizzeFindOne.QuizzTestDuration} Time
+                                                            {FindOneQuestion.Quize && FindOneQuestion.Quize.QuizzTestDuration} Time
                                                         </div>
                                                     </div>
                                                 </div>
@@ -367,7 +369,7 @@ function MultiplequestionComponent(token) {
                                                                             id={`dropdown_student_${student.id}`}
                                                                             checked={!!studentId[student.id]}
                                                                             onChange={() => handleChangestudent(student.id)}
-                                                                            disabled={!!studentId[student.id]}
+                                                                            disabled={!!studentId[student.id]} 
                                                                     
                                                                         />
                                                                         <label className="form-check-label" htmlFor={`dropdown_student_${student.id}`}>
@@ -396,7 +398,7 @@ function MultiplequestionComponent(token) {
                                                     <label className='pb-2'>Quizzed</label>
                                                     <select className='inputts' name="QuizzeId" value={QuizzeId} onChange={(e) => setQuizzeId(e.target.value)}>
                                                         <option value="">--Select---</option>
-                                                        <option key={QuizzeFindOne.id} value={QuizzeFindOne.id}>{QuizzeFindOne.QuizzName}</option>
+                                                        <option key={FindOneQuestion.Quize && FindOneQuestion.Quize.id} value={FindOneQuestion.Quize && FindOneQuestion.Quize.id}>{FindOneQuestion.Quize && FindOneQuestion.Quize.QuizzName}</option>
 
                                                     </select>
                                                 </div>
@@ -642,7 +644,6 @@ function MultiplequestionComponent(token) {
                                                             <div className='col-12 col-md-6 col-xl-6 col-lg-6'></div>
                                                             <div className='col-12 col-md-3 col-xl-3 col-lg-3'></div>
                                                             <div className='col-12 col-md-3 col-xl-3 col-lg-3 d-flex mt-3'>
-                                            
                                                                 {selectedOptions.map(option => (
                                                                     <div className='selected-option boxs' key={option} >
                                                                         <input value={option} name="Answer"
@@ -650,8 +651,6 @@ function MultiplequestionComponent(token) {
                                                                         />
                                                                     </div>
                                                                 ))}
-                                                             
-
 
                                                             </div>
 

@@ -550,16 +550,15 @@ const InstructorCourseadd = () => {
                                                 <div className="accordion-body">
                                                     <div className="course-information-area">
                                                         <form className="top-form-create-course" onSubmit={handleSubmitCourse}>
+                                                          
                                                             <div className="single-input">
-                                                                <label htmlFor="name" className="form-label">Class Title</label>
-                                                                <input
-                                                                    id="name"
-                                                                    name="name"
-                                                                    value={formDataCourse.name}
-                                                                    onChange={handleChangeCourse}
-                                                                    type="text"
-                                                                    placeholder="Class 6th/Class 7th/Class 8th"
-                                                                />
+                                                                <label htmlFor="duration" className="form-label">Select Class Title</label>
+                                                                <select id="exampleFormControlSelect2" class="select2 form-select" name="name" value={formDataCourse.name} onChange={handleChangeCourse}>
+                                                                    <option value="">Class 6th/7th/8th</option>
+                                                                    {courses.map((option) => (
+                                                                        <option key={option.name} value={option.name}>{option.name}</option>
+                                                                    ))}
+                                                                </select>
                                                             </div>
                                                             <div className="single-input">
                                                                 <label htmlFor="slug" className="form-label">Class Price</label>

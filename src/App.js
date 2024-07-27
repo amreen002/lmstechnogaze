@@ -76,7 +76,7 @@ import UpdatequestionRouter from './Routers/questionupdateRouter.js';
 import UpdateSubjectRouter from './Routers/updatesubjectRouter.js';
 import UpdateModelRouter from './Routers/updatemodelRouter.js';
 import UpdateContentRouter from './Routers/updatecontentRouter.js';
-
+import UpdatequestionsRouter from './Routers/updatequestionsingleRouter.js'
 const { REACT_APP_API_ENDPOINT } = process.env;
 // -----app-----------------------
 function App() {
@@ -418,6 +418,7 @@ function App() {
           <Route path='/studentmateriales/:coursesId' element={loggedIn === true ? (<StudentMaterialesRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/quizeupdate/:quizzeId'   element={loggedIn === true ? (<QuizeUpdateRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/updatequestion/:quizzeId/:questionId'  element={loggedIn === true ? (<UpdatequestionRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
+          <Route path='/updatequestion/:questionId'  element={loggedIn === true ? (<UpdatequestionsRouter  onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/updatesubject/:topicId'   element={loggedIn === true ? (<UpdateSubjectRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/updatemodel/:lessionId'   element={loggedIn === true ? (<UpdateModelRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
           <Route path='/updatecontent/:videoId'   element={loggedIn === true ? (<UpdateContentRouter onLogout={handleLogout} />) : (<Login onLogin={handleLogin} />)} />
