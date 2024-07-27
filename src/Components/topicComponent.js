@@ -197,7 +197,7 @@ function Topic() {
                     }
                 });
                 const userdata = response.data
-                fetchData();
+                fetchData(topicId);
                 window.location.href = "/topic";
                 toast.success(userdata.message, {
                     position: "top-right",

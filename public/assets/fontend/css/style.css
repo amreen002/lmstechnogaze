@@ -32906,16 +32906,7 @@ padding: 15px !important;
     padding: 5px;
     background-color: #ddd8f991;
 }
-.choose_icons{
-  background-color: #ff00004f;
-  padding: 4px 9px 4px 9px;
-  border-radius: 20px;
-}
-.right_icons{
-  background-color: #0080004a;
-  padding: 5px 9px 4px 5px;
-  border-radius: 20px;
-}
+
 .topic_name{
   font-weight: 600 !important;
   font-size: 17px !important;
@@ -33055,14 +33046,13 @@ background-color: #f8f1e8;
     background-color: #ddd8f991;
 }
 .choose_icons{
-  background-color: #ff00004f;
   padding: 4px 9px 4px 9px;
   border-radius: 20px;
 }
 .right_icons{
-  background-color: #0080004a;
   padding:5px 6px 4px 5px;
   border-radius: 20px;
+
 }
 .titlees{
   color: #fff !important;
@@ -33088,6 +33078,14 @@ background-color: #f8f1e8;
   border: 1px solid #ccc;
   padding: 0px 9px;
   border-radius: 25px;
+}
+
+
+@media  (max-width:1028px){
+  .profile-pices{
+    margin-top: 189px;
+
+  }
 }
 @media  (min-width: 480px) and (max-width: 570px){
 

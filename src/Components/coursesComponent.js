@@ -164,6 +164,7 @@ function CoursesP() {
                 });
                 fetchData(coursesId);
                 const userdata = response.data
+                window.location.href = "/courses";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,

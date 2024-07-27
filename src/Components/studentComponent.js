@@ -29,7 +29,7 @@ function StudentUse() {
     const [City, setCity] = useState('')
     const [DistrictId, setDistrictId] = useState('')
     const [Username, setUsername] = useState('')
-    const [Date, setDate] = useState('')
+    const [Date, setDate] = useState('');
     const [CoursesId, setCoursesId] = useState('')
     const [BatchId, setBatchId] = useState('')
     const [FindOneInstructor, setFindOneInstructor] = useState({})
@@ -195,12 +195,12 @@ function StudentUse() {
                     setEmail(userData.Email);
                     setPhoneNumber(userData.PhoneNumber);
                     setUsername(userData.Username);
-                    setCountryId(userData.Address.CountryId);
-                    setStateId(userData.Address.StateId);
-                    setDistrictId(userData.Address.DistrictId);
-                    setAddress(userData.Address.Address);
+                    setCountryId(userData.Address && userData.Address.CountryId);
+                    setStateId(userData.Address && userData.Address.StateId);
+                    setDistrictId(userData.Address && userData.Address.DistrictId);
+                    setAddress(userData.Address && userData.Address.Address);
                     setCity(userData.Address && userData.Address.City);
-                    setDate(userData.Date && userData.Date);
+                    setDate(userData.Date);
                     setCoursesId(userData.CoursesId);
                     setBatchId(userData.BatchId);
                     setimage(userData.image);
@@ -368,7 +368,7 @@ function StudentUse() {
                        Authorization: `Bearer ${token}`
                    }
                 });
-                fetchData3(studentsId);
+                fetchData3();
                 window.location.href = "/students"
                 const userdata = response.data
                 toast.success(userdata.message,{
@@ -714,7 +714,7 @@ function StudentUse() {
                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
                                                 <div class="card-body row">
 
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
                                                         <label class="form-label" for="add-user-fullname"> Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
@@ -723,7 +723,7 @@ function StudentUse() {
                                                             {errors.Name && <div className='errors'>{errors.Name}</div>}
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                         </div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6">
                                                         <label class="form-label" for="add-user-fullname"> Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={handleChange}
@@ -739,28 +739,28 @@ function StudentUse() {
                                                              {errors.Email && <div className='errors'>{errors.Email}</div>}
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6 ">
                                                         <label class="form-label" for="add-user-contact"> Contact</label>
                                                         <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={handleChange}
                                                             value={PhoneNumber} />
                                                         {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6 ">
                                                         <label class="form-label" for="add-user-contact">Alternative Contact</label>
                                                         <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={handleChange}
                                                             value={PhoneNumber} />
                                                         {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="col-md-6">
                                                         <label class="form-label" for="add-user"> User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                             onChange={handleChange}
                                                             value={Username} />
                                                              {errors.Username && <div className='errors'>{errors.Username}</div>}
                                                     </div>
-                                                    <div class="mb-3 paswrd">
+                                                    <div class="col-md-6 paswrd">
 
                                                         <label class="form-label" for="basic-icon-default-password"> Password</label>
                                                         <input type={show ? "text" : "password"}
@@ -775,14 +775,14 @@ function StudentUse() {
                                                          {errors.Password && <div className='errors'>{errors.Password}</div>}
                                                        
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="col-md-6">
                                                         <label class="form-label" for="add-user-contact"> Date</label>
                                                         <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
                                                             onChange={handleChange}
                                                             value={Date} />
                                                              {errors.Date && <div className='errors'>{errors.Date}</div>}
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="col-lg-6 col-md-6 ">
                                                         <label for="exampleFormControlSelect2" class="form-label"> Class / Course</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
                                                             <option value="">Select</option>
@@ -792,7 +792,7 @@ function StudentUse() {
                                                         </select>
                                                         {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                     </div>
-                                                    <div class="mb-3">
+                                                    <div class="col-lg-6 col-md-6 ">
                                                         <label for="exampleFormControlSelect2" class="form-label"> Batch</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={handleChange}>
                                                             <option value="">Select</option>
@@ -802,7 +802,7 @@ function StudentUse() {
                                                         </select>
                                                         {errors.BatchId && <div className='errors'>{errors.BatchId}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
@@ -818,7 +818,7 @@ function StudentUse() {
                                                         </select>
                                                         {errors.CountryId && <div className='errors'>{errors.CountryId}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
@@ -835,7 +835,7 @@ function StudentUse() {
                                                         {errors.StateId && <div className='errors'>{errors.StateId}</div>}
                                                     </div>
 
-                                                    <div class="mb-3">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <label htmlFor="exampleFormControlSelect2" className="form-label">  District</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
@@ -852,7 +852,7 @@ function StudentUse() {
                                                         {errors.DistrictId && <div className='errors'>{errors.DistrictId}</div>}
                                                     </div>
 
-                                                    <div class="mb-3">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <label class="form-label" for="add-user-email"> City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
                                                             onChange={handleChange}
@@ -861,7 +861,7 @@ function StudentUse() {
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
-                                                    <div class="mb-3">
+                                                    <div class="col-lg-6 col-md-6">
                                                         <label class="form-label" for="add-user-email"> Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                             onChange={handleChange}
@@ -882,14 +882,15 @@ function StudentUse() {
                                                         {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
 
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <p class="form-label" for="add-user-email"> Remark  </p>
-                                                        <label className="custom-checkbox">
-                                                            <input
-                                                                type="checkbox"
-                                                                name="remark"
-                                                            />
-                                                        </label>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label">Remark</label>
+                                                        <textarea
+                                                            id="basic-icon-default-message"
+                                                            class="form-control"
+                                                            placeholder="Hi, Do you have a moment to talk Joe?"
+                                                            aria-label="Hi, Do you have a moment to talk Joe?"
+                                                            aria-describedby="basic-icon-default-message2"
+                                                            name="remark" ></textarea>
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3 d-flex">

@@ -339,7 +339,7 @@ div#listOnclick {
   font-weight: bold;
 }
 .icon i {
-  font-size: 20px; /* Adjust the size as needed */
+  font-size: 28px; /* Adjust the size as needed */
 }
 
 .selected {
@@ -376,6 +376,7 @@ div#listOnclick {
   border-radius: 4px;
   padding: 20px;
   margin-bottom: 20px;
+  background-color: #fff;
 }
 /* Add to your CSS file */
 .quiz-card.disabled {
@@ -398,3 +399,14 @@ div#listOnclick {
   color: white;
 }
 
+.quize-h2 {
+  font-size: 34px;
+  color: #310402;
+  padding-bottom: 20px;
+}
+.card-header ,.qiuze-view{
+  padding: 1.5rem 1.5rem;
+  margin-bottom: 0;
+  background-color: #edebeb;
+  border-bottom: 0 solid #a3b5c7;
+}

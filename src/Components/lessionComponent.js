@@ -272,6 +272,7 @@ function Topic() {
                 });
                 fetchData(lessionId)
                 const userdata = response.data
+                window.location.href = "/lession";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,

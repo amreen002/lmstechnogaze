@@ -261,7 +261,7 @@ function DashBoardMenu(onLogout) {
                     <li className={`menu-item  ${activeService === 'Administrator' ? 'active' : ''} show_project_web`}>
                         <a href="#" onClick={() => toggleDropdown('dropdowninstructor')} className="menu-link  menu-toggle " id="dropdownMenuButton">
                             <i className='menu-icon bx bx-user bx-spain'></i>
-                            <div data-i18n="Layouts">Instructor</div>
+                            <div data-i18n="Layouts">Faculty</div>
                         </a>
                         {/* Step 4: Conditionally render dropdown based on state */}
                         {activeService === 'dropdowninstructor' && (
@@ -270,13 +270,13 @@ function DashBoardMenu(onLogout) {
                                 <li className="menu-item">
                                     <Link to="/teachers" className="menu-link">
                                         <i className='menu-icon bx bx-list-ul bx-fade-left'></i>
-                                        <div data-i18n="Without menu">All Instructor</div>
+                                        <div data-i18n="Without menu">All Faculty</div>
                                     </Link>
                                 </li>
                                 <li className="menu-item">
                                     <Link to="/addteachers" className="menu-link">
                                         <i className='menu-icon bx bx-add-to-queue'></i>
-                                        <div data-i18n="Without menu">Add Instructor</div>
+                                        <div data-i18n="Without menu">Add Faculty</div>
                                     </Link>
                                 </li>
                             </ul>
@@ -390,7 +390,7 @@ function DashBoardMenu(onLogout) {
 
                         <a href="#" onClick={() => toggleDropdown('dropdownquize')} className="menu-link  menu-toggle" id="dropdownMenuButton">
                             <i className="menu-icon tf-icons bx bxs-envelope bx-tada-hover"></i>
-                            <div data-i18n="Layouts">Quizze</div>
+                            <div data-i18n="Layouts">Quizzes</div>
                         </a>
 
                         {/* Step 4: Conditionally render dropdown based on state */}

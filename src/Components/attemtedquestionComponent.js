@@ -94,7 +94,7 @@ function AttemtedQuestionComponent() {
         }));
     };
 
-    const handleNext = () => {
+    /* const handleNext = () => {
         const currentAnswer = {
             QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
             AnswersStudent: selectedAnswer,
@@ -106,9 +106,33 @@ function AttemtedQuestionComponent() {
             setCurrentQuestionIndex(currentQuestionIndex + 1);
             setSelectedAnswer(answers[currentQuestionIndex + 1]?.AnswersStudent || '');
         }
+    }; */
+    const handleNext = () => {
+        const currentAnswer = {
+            QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
+            AnswersStudent: selectedAnswer,
+            TimeTaken: seconds,
+            QuizeId: quiz.Quize.id,
+        };
+    
+        const updatedAnswers = [...answers];
+        updatedAnswers[currentQuestionIndex] = currentAnswer;
+        setAnswers(updatedAnswers);
+    
+        if (currentQuestionIndex < quiz.Quize.Questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+            setSelectedAnswer(updatedAnswers[currentQuestionIndex + 1]?.AnswersStudent || []);
+        }
+    
+        localStorage.setItem('quizState', JSON.stringify({
+            currentQuestionIndex: currentQuestionIndex + 1,
+            selectedAnswer: updatedAnswers[currentQuestionIndex + 1]?.AnswersStudent || [],
+            answers: updatedAnswers
+        }));
     };
+    
 
-    const handlePrevious = () => {
+    /* const handlePrevious = () => {
         const currentAnswer = {
             QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
             AnswersStudent: selectedAnswer,
@@ -120,8 +144,31 @@ function AttemtedQuestionComponent() {
             setCurrentQuestionIndex(currentQuestionIndex - 1);
             setSelectedAnswer(answers[currentQuestionIndex - 1]?.AnswersStudent || '');
         }
+    }; */
+    const handlePrevious = () => {
+        const currentAnswer = {
+            QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
+            AnswersStudent: selectedAnswer,
+            TimeTaken: seconds,
+            QuizeId: quiz.Quize.id,
+        };
+    
+        const updatedAnswers = [...answers];
+        updatedAnswers[currentQuestionIndex] = currentAnswer;
+        setAnswers(updatedAnswers);
+    
+        if (currentQuestionIndex > 0) {
+            setCurrentQuestionIndex(currentQuestionIndex - 1);
+            setSelectedAnswer(updatedAnswers[currentQuestionIndex - 1]?.AnswersStudent || []);
+        }
+    
+        localStorage.setItem('quizState', JSON.stringify({
+            currentQuestionIndex: currentQuestionIndex - 1,
+            selectedAnswer: updatedAnswers[currentQuestionIndex - 1]?.AnswersStudent || [],
+            answers: updatedAnswers
+        }));
     };
-
+    
     const handleChange = (e,qIndex) => {
         const { value, type, checked } = e.target;
         let updatedAnswer;
@@ -155,7 +202,7 @@ function AttemtedQuestionComponent() {
     const handleSubmit = async (e) => {
         if (e) e.preventDefault();
         if (submittedRef.current) return;
-
+    
         setSubmitted(true);
         submittedRef.current = true;
 
@@ -163,12 +210,14 @@ function AttemtedQuestionComponent() {
             QuestionId: quiz.Quize.Questions[currentQuestionIndex].id,
             AnswersStudent: selectedAnswer,
             TimeTaken: seconds,
+            QuizeId: quiz.Quize.id,
         };
+
         const updatedAnswers = [...answers];
         updatedAnswers[currentQuestionIndex] = currentAnswer;
         setAnswers(updatedAnswers);
 
-
+        console.log(updatedAnswers)
         try {
             const token = localStorage.getItem('token');
             if (token) {
@@ -176,13 +225,13 @@ function AttemtedQuestionComponent() {
                     QuizeId: quiz.Quize.id,
                     answers: updatedAnswers,
                 };
-
+    
                 const response = await axios.post(`${REACT_APP_API_ENDPOINT}/studentquize`, formData, {
                     headers: {
                         Authorization: `Bearer ${token}`
                     }
                 });
-
+    
                 if (response.status === 200) {
                     setSeconds(0);
                     localStorage.removeItem('quizState');
@@ -197,6 +246,7 @@ function AttemtedQuestionComponent() {
             alert('Failed to submit quiz.');
         }
     };
+    
 
     const autoSubmit = async () => {
         if (submittedRef.current || timerEnd) return;

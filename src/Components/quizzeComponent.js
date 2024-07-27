@@ -289,7 +289,8 @@ function Quizze() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData();
+                fetchData(quizzeId);
+                window.location.href = "/quizzes";
                 const userdata =response.data
                 toast.success(userdata.message,{
                     position: "top-right",

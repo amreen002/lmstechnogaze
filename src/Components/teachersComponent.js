@@ -374,7 +374,7 @@ function ListUse() {
                 });
                 const userdata = response.data
                 fetchData3(teachersId);
- /*                window.location.href = "/teachers" */
+               window.location.href = "/teachers" 
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: 5000,
@@ -591,12 +591,12 @@ function ListUse() {
                                                     <th className="control sorting_disabled dtr-hidden" rowSpan="1" colSpan="1" aria-label=""></th>
                                                     <th className="sorting sorting_desc" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="100px" aria-label="User: activate to sort column ascending" aria-sort="descending">So.Id</th>
                                                     <th className="sorting sorting_desc" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="200px" aria-label="User: activate to sort column ascending" aria-sort="descending">Name</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="350px" aria-label="Role: activate to sort column ascending">Address</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="100px" aria-label="Plan: activate to sort column ascending">Type</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="150px" aria-label="Billing: activate to sort column ascending">City</th>
-                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="170px" aria-label="Status: activate to sort column ascending">MOBILE</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="200px" aria-label="Status: activate to sort column ascending">Email</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="170px" aria-label="Status: activate to sort column ascending">MOBILE</th>
                                                     <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="200px" aria-label="Status: activate to sort column ascending">DOB</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="100px" aria-label="Plan: activate to sort column ascending">Type</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="350px" aria-label="Role: activate to sort column ascending">Address</th>
+                                                    <th className="sorting" tabIndex="0" aria-controls="DataTables_Table_0" rowSpan="1" colSpan="1" width="150px" aria-label="Billing: activate to sort column ascending">City</th>
                                                     <th className="sorting_disabled" rowSpan="1" colSpan="1" width="145px" aria-label="Actions">Actions</th>
                                                 </tr>
                                             </thead>
@@ -607,12 +607,15 @@ function ListUse() {
                                                         <td className="sorting_1"></td>
                                                         <td>{item.id}</td>
                                                         <td>{item.Name + " " + item.LastName}</td>
-                                                        <td>{item.Address && item.Address.Address}</td>
-                                                        <td>{item.TeacherType}</td>
-                                                        <td>{item.Address && item.Address.City}</td>
-                                                        <td>{item.PhoneNumber}</td>
                                                         <td>{item.Email}</td>
+                                                        <td>{item.PhoneNumber}</td>
                                                         <td>{item.DOB}</td>
+                                                        <td>{item.TeacherType}</td>
+                                                        <td>{item.Address && item.Address.Address}</td>
+                                                        <td>{item.Address && item.Address.City}</td>
+                                                     
+                                                       
+                                                        
                                                         <td>
                                                             <div className="d-inline-block text-nowrap">
                                                                 <Link to={`/teachers/${item.id}`} className="navbar-brand">
@@ -658,7 +661,7 @@ function ListUse() {
                                     
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
                                         <div class="offcanvas-header">
-                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Instructor</h5>
+                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Faculty</h5>
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
@@ -895,39 +898,39 @@ function ListUse() {
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
-                                                        <label class="form-label" for="add-user-fullname">Faculty Frist Name</label>
+                                                        <label class="form-label" for="add-user-fullname">Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
                                                             onChange={(e) => setName(e.target.value)}
                                                             defaultValue={Name} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Faculty Last Name</label>
+                                                        <label class="form-label" for="add-user-fullname">Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={(e) => setLastName(e.target.value)}
                                                             defaultValue={LastName} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Faculty Email</label>
+                                                        <label class="form-label" for="add-user-email">Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
                                                             onChange={(e) => setEmail(e.target.value)}
                                                             value={Email} />
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-contact">Faculty Contact</label>
+                                                        <label class="form-label" for="add-user-contact">Contact</label>
                                                         <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={(e) => setPhoneNumber(e.target.value)}
                                                             value={PhoneNumber} />
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user">Faculty User Name</label>
+                                                        <label class="form-label" for="add-user">User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                             onChange={(e) => setUsername(e.target.value)}
                                                             value={Username} />
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
 
-                                                        <label class="form-label" for="basic-icon-default-password">Faculty DOB</label>
+                                                        <label class="form-label" for="basic-icon-default-password">DOB</label>
                                                         <input type="date"
                                                             onChange={(e) => setDOB(e.target.value)}
                                                             name='DOB'
@@ -939,7 +942,7 @@ function ListUse() {
 
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Faculty Type</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Type</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="TeacherType" value={TeacherType} onChange={(e) => setTeacherType(e.target.value)}>
                                                             <option value="">Select</option>
                                                             <option value="Online">Online</option>
@@ -947,7 +950,7 @@ function ListUse() {
                                                         </select>
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Faculty Country</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Country</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -962,7 +965,7 @@ function ListUse() {
                                                         </select>
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Faculty State</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">State</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -978,7 +981,7 @@ function ListUse() {
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Faculty District</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">District</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -994,14 +997,14 @@ function ListUse() {
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Faculty Address</label>
+                                                        <label class="form-label" for="add-user-email">Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                             onChange={(e) => setAddress(e.target.value)}
                                                             value={Address} />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Faculty City</label>
+                                                        <label class="form-label" for="add-user-email">City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
                                                             onChange={(e) => setCity(e.target.value)}
                                                             value={City} />
@@ -1052,9 +1055,6 @@ function ListUse() {
                                                     <div class="mb-3">
                                                         <label class="form-label" for="basic-icon-default-message">Faculty Your Introducation & Skills</label>
                                                         <div class="input-group input-group-merge">
-                                                            <span id="basic-icon-default-message2" class="input-group-text"
-                                                            ><i class="bx bx-comment"></i
-                                                            ></span>
                                                             <textarea
                                                                 id="basic-icon-default-message"
                                                                 class="form-control"

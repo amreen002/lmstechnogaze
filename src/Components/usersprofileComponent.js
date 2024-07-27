@@ -5,6 +5,7 @@ import Navbarmenu from './Navbarmenu';
 import FooterFrontend from './FooterFrontend';
 import { useParams, Link } from 'react-router-dom';
 import Sidebar from "./sidebar";
+import { Last } from 'react-bootstrap/esm/PageItem';
 const { REACT_APP_API_ENDPOINT } = process.env;
 function UserMyProfile(token) {
     const { usersId } = useParams();
@@ -20,6 +21,7 @@ function UserMyProfile(token) {
     const [formData, setFormData] = useState({
         name: '',
         userName: '',
+        lastname:'',
         email: '',
         password: '',
         roleName: '',
@@ -82,6 +84,7 @@ function UserMyProfile(token) {
 
     const setTeacherFormData = (userData) => ({
         name: userData?.name || '',
+        LastName:userData?.LastName || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -99,6 +102,7 @@ function UserMyProfile(token) {
     });
     const setUserFormData = (userData) => ({
         name: userData?.name || '',
+        lastname:userData.lastname || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -112,6 +116,7 @@ function UserMyProfile(token) {
     });
     const setStudentFormData = (userData) => ({
         name: userData?.name || '',
+        LastName:userData?.LastName || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -129,6 +134,7 @@ function UserMyProfile(token) {
     const setGestFormData = (userData) => {
         const baseData = {
             name: userData?.name || '',
+            LastName: userData?.LastName || '',
             userName: userData?.userName || '',
             email: userData?.email || '',
             departmentId: userData?.departmentId || '',
@@ -320,8 +326,8 @@ function UserMyProfile(token) {
                                 {/* <!-- single My portfolio end--> */}
                                 {/* <!-- single My portfolio start--> */}
                                 <div class="my-single-portfolio-dashed">
-                                    <div class="name">First Name:</div>
-                                    <div class="value">{userData.name}</div>
+                                    <div class="name">Full Name:</div>
+                                    <div class="value">{userData.name}  {userData.lastname}</div>
                                 </div>
                                 {/* <!-- single My portfolio end--> */}
                                 {/* <!-- single My portfolio start--> */}
@@ -375,9 +381,16 @@ function UserMyProfile(token) {
                                         <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
 
                                             <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Full Name</label>
+                                                <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Frist Name</label>
                                                 <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
                                                     value={formData.name} onChange={handleChange}
+                                                />
+                                            </div>
+
+                                            <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Last Name</label>
+                                                <input type="text" id="modalEditUserFirstName" name='lastname' class="form-control" placeholder="John"
+                                                    value={formData.lastname} onChange={handleChange}
                                                 />
                                             </div>
 

@@ -60,6 +60,33 @@ function StudentquizattemptComponent() {
     setCurrentQuiz(quiz);
     navigate('/attemptquestion', { state: { quiz } });  // Pass quiz data with navigate
   };
+  const renderTopics = (courses, quizItem) => {
+    const uniqueTopicIds = new Set();
+  
+    return courses.flatMap((course, courseIndex) => {
+      const uniqueTopics = course.topics.filter((topic) => {
+        if (uniqueTopicIds.has(topic.id)) {
+          return false;
+        } else {
+          uniqueTopicIds.add(topic.id);
+          return true;
+        }
+      });
+  
+      return uniqueTopics.map((topic, topicIndex) => (
+        <span
+          key={`${courseIndex}-${topicIndex}`}
+          className="topic-link"
+       /*    onClick={() => handleShow(quizItem)} */
+          style={{ cursor: 'pointer', textDecoration: 'underline', color: 'blue' }}
+        >
+          {topic.name}
+          {topicIndex < uniqueTopics.length - 1 ? ', ' : ''}
+        </span>
+      ));
+    });
+  };
+  
 
   const attemptedQuizzes = studentquize?.map(sq => sq.QuizeId) || []; // Ensure `studentquize` is not undefined
 
@@ -76,8 +103,15 @@ function StudentquizattemptComponent() {
             <div className="col-lg-9">
               {uniqueQuestions.map((item) => (
                 <div key={item.id} className="calendar-area quiz-card">
-                  <div className='flex-row d-flex align-items-center justify-content-between'>
-                    <a className="quiz-name">{item.Quize?.QuizzName}</a>
+                  <div className="flex-row d-flex align-items-center justify-content-between">
+                    <div className="quiz-details">
+                      <div className="topic-names">
+                        {item.Quize?.courses && renderTopics(item.Quize.courses, item)}
+                      </div>
+                      <a className="quiz-name">
+                        {item.Quize?.QuizzName}
+                      </a>
+                    </div>
                     <div className='ml-40'>
                       <Button
                         className="start-button"

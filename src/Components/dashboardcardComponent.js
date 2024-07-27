@@ -89,7 +89,7 @@ function DashboardCard(token) {
                                     <img src={`${REACT_APP_API_IMG}/uploads/images/${dataUserss.image}`} alt="dashboard" />
                                 </div>
                                 <div className="name-desig">
-                                    <h1 className="title">{coursedatafetch.name}</h1>
+                                    <h1 className="title">{coursedatafetch.name}  {coursedatafetch.lastname}</h1>
                                     <div className="course-vedio">
                                         <div className="single">
                                             <i className="fa-light fa-users"></i>

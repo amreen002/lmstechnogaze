@@ -100,6 +100,7 @@ function BatchesUse() {
     useEffect(() => {
         fetchData3(batchesId)
     }, [batchesId]);
+
     const fetchData3 = async (batchesId) => {
         try {
             const token = localStorage.getItem('token');
@@ -220,8 +221,9 @@ function BatchesUse() {
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData();
+                fetchData3(batchesId);
                 const userdata = response.data
+                window.location.href = "/batches";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,

@@ -33,6 +33,7 @@ function ListUse() {
     };
     const [formData, setFormData] = useState({
         name: '',
+        lastname:'',
         userName: '',
         email: '',
         password: '',
@@ -482,7 +483,7 @@ function ListUse() {
                                                                 </div>
                                                             </td>
                                                             <td>{index + 1}</td>
-                                                            <td>{item.name}</td>
+                                                            <td>{item.name} {item.lastname}</td>
                                                             <td>{item.userName}</td>
                                                             <td>{item.phoneNumber}</td>
                                                             <td>{item.email}</td>
@@ -520,10 +521,17 @@ function ListUse() {
 
                                                 <div class="col-12 col-md-6">
                                                     {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
-                                                    <label class="form-label" for="add-user-fullname">Full Name</label>
+                                                    <label class="form-label" for="add-user-fullname">Frist Name</label>
                                                     <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='name'
                                                         onChange={handleChange}
                                                         value={formData.name} aria-label="John Doe" />
+                                                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                <div class="col-12 col-md-6">
+                                                    {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
+                                                    <label class="form-label" for="add-user-fullname">Last Name</label>
+                                                    <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='lastname'
+                                                        onChange={handleChange}
+                                                        value={formData.lastname} aria-label="John Doe" />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
 
 
