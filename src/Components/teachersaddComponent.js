@@ -326,7 +326,7 @@ function ListUse() {
                                     <div class="card-header border-bottom">
                                         <div class="d-flex justify-content-between align-items-center row py-3 gap-3 gap-md-0">
                                             <div class="offcanvas-header">
-                                                <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Instructor</h5>
+                                                <h5 id="offcanvasAddUserLabel" class="offcanvas-title"> Fculty</h5>
                                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                             </div>
                                             <div class="offcanvas-body mx-0 flex-grow-0">
@@ -409,7 +409,7 @@ function ListUse() {
                                                         </div>
 
                                                         <div class="col-lg-3 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Class</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Class / Course</label>
                                                         <Select
                                                             isMulti
                                                             value={options.filter(option => CousesId.includes(option.value))}

@@ -29,7 +29,7 @@ function StudentUse() {
     const [City, setCity] = useState('')
     const [DistrictId, setDistrictId] = useState('')
     const [Username, setUsername] = useState('')
-    const [Date, setDate] = useState('')
+    const [Date, setDate] = useState('');
     const [CoursesId, setCoursesId] = useState('')
     const [BatchId, setBatchId] = useState('')
     const [FindOneInstructor, setFindOneInstructor] = useState({})
@@ -195,12 +195,12 @@ function StudentUse() {
                     setEmail(userData.Email);
                     setPhoneNumber(userData.PhoneNumber);
                     setUsername(userData.Username);
-                    setCountryId(userData.Address.CountryId);
-                    setStateId(userData.Address.StateId);
-                    setDistrictId(userData.Address.DistrictId);
-                    setAddress(userData.Address.Address);
+                    setCountryId(userData.Address && userData.Address.CountryId);
+                    setStateId(userData.Address && userData.Address.StateId);
+                    setDistrictId(userData.Address && userData.Address.DistrictId);
+                    setAddress(userData.Address && userData.Address.Address);
                     setCity(userData.Address && userData.Address.City);
-                    setDate(userData.Date && userData.Date);
+                    setDate(userData.Date);
                     setCoursesId(userData.CoursesId);
                     setBatchId(userData.BatchId);
                     setimage(userData.image);
@@ -368,7 +368,7 @@ function StudentUse() {
                        Authorization: `Bearer ${token}`
                    }
                 });
-                fetchData3(studentsId);
+                fetchData3();
                 window.location.href = "/students"
                 const userdata = response.data
                 toast.success(userdata.message,{
@@ -566,10 +566,13 @@ function StudentUse() {
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">#</th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Id</th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Name</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Stutent Details</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Email</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Phone Number</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Instructor</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Date</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Status: activate to sort column ascending">Address</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Course</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Bacth</th>
+                                                      {/*   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Date</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Status: activate to sort column ascending">Address</th> */}
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="145px;" aria-label="Actions">Actions</th>
 
                                                     </tr>
@@ -582,10 +585,14 @@ function StudentUse() {
                                                             </td>
                                                             <td>{item.id}</td>
                                                             <td>{item.Name + " " + item.LastName}</td>
-                                                            <td>{item.Email + " " + item.PhoneNumber}</td>
+                                                            <td>{item.Email}</td>
+                                                            <td>{item.PhoneNumber}</td>
+                                                          
                                                             <td>{item.Batch && item.Batch.Teacher && item.Batch.Teacher.Name}</td>
-                                                            <td>{item.Date}</td>
-                                                            <td>{item.Address && item.Address.Address}</td>
+                                                            <td>{item.Course && item.Course.name}</td>
+                                                            <td>{item.Batch && item.Batch.Title}</td>
+                                                           {/*  <td>{item.Date}</td>
+                                                            <td>{item.Address && item.Address.Address}</td> */}
                                                             <td>
 
 
@@ -700,53 +707,62 @@ function StudentUse() {
 
                                     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasAddUser" aria-labelledby="offcanvasAddUserLabel" style={{ width: "28%" }}>
                                         <div class="offcanvas-header">
-                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title">Add Student</h5>
+                                            <h5 id="offcanvasAddUserLabel" class="offcanvas-title"> Student</h5>
                                             <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                                         </div>
                                         <div class="offcanvas-body mx-0 flex-grow-0">
                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleSubmit} novalidate="novalidate">
                                                 <div class="card-body row">
 
-                                                    <div class="col-lg-6 p-t-20">
+                                                    <div class="col-lg-6">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
-                                                        <label class="form-label" for="add-user-fullname">Student Frist Name</label>
+                                                        <label class="form-label" for="add-user-fullname"> Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
                                                             onChange={handleChange}
                                                             value={Name} aria-label="John Doe" />
                                                             {errors.Name && <div className='errors'>{errors.Name}</div>}
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <div class="col-lg-6 p-t-20">
-                                                        <label class="form-label" for="add-user-fullname">Student Last Name</label>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                        </div>
+                                                    <div class="col-lg-6">
+                                                        <label class="form-label" for="add-user-fullname"> Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={handleChange}
                                                             value={LastName} aria-label="John Doe" />
                                                              {errors.LastName && <div className='errors'>{errors.LastName}</div>}
-                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
+                                                        </div>
                                                     <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email">Student Email</label>
+                                                        <label class="form-label" for="add-user-email"> Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
                                                             onChange={handleChange}
                                                             value={Email} />
                                                              {errors.Email && <div className='errors'>{errors.Email}</div>}
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-contact">Student Contact</label>
+                                                    <div class="col-lg-6 ">
+                                                        <label class="form-label" for="add-user-contact"> Contact</label>
                                                         <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={handleChange}
                                                             value={PhoneNumber} />
-                                                             {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
+                                                        {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user">Student User Name</label>
+                                                    <div class="col-lg-6 ">
+                                                        <label class="form-label" for="add-user-contact">Alternative Contact</label>
+                                                        <input type="number" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
+                                                            onChange={handleChange}
+                                                            value={PhoneNumber} />
+                                                        {errors.PhoneNumber && <div className='errors'>{errors.PhoneNumber}</div>}
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="add-user"> User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                             onChange={handleChange}
                                                             value={Username} />
                                                              {errors.Username && <div className='errors'>{errors.Username}</div>}
                                                     </div>
-                                                    <div class="mb-3 paswrd">
+                                                    <div class="col-md-6 paswrd">
 
-                                                        <label class="form-label" for="basic-icon-default-password">Student Password</label>
+                                                        <label class="form-label" for="basic-icon-default-password"> Password</label>
                                                         <input type={show ? "text" : "password"}
                                                             onChange={handleChange}
                                                             name='Password'
@@ -759,15 +775,15 @@ function StudentUse() {
                                                          {errors.Password && <div className='errors'>{errors.Password}</div>}
                                                        
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-contact">Student Date</label>
+                                                    <div class="col-md-6">
+                                                        <label class="form-label" for="add-user-contact"> Date</label>
                                                         <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
                                                             onChange={handleChange}
                                                             value={Date} />
                                                              {errors.Date && <div className='errors'>{errors.Date}</div>}
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Class</label>
+                                                    <div class="col-lg-6 col-md-6 ">
+                                                        <label for="exampleFormControlSelect2" class="form-label"> Class / Course</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (
@@ -776,8 +792,8 @@ function StudentUse() {
                                                         </select>
                                                         {errors.CoursesId && <div className='errors'>{errors.CoursesId}</div>}
                                                     </div>
-                                                    <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                                                    <div class="col-lg-6 col-md-6 ">
+                                                        <label for="exampleFormControlSelect2" class="form-label"> Batch</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {selectedCourses && selectedCourses.Batches.map(batch => (
@@ -786,8 +802,8 @@ function StudentUse() {
                                                         </select>
                                                         {errors.BatchId && <div className='errors'>{errors.BatchId}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Student Country</label>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -802,8 +818,8 @@ function StudentUse() {
                                                         </select>
                                                         {errors.CountryId && <div className='errors'>{errors.CountryId}</div>}
                                                     </div>
-                                                    <div class="col-lg-6 p-t-20">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Student State</label>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -819,8 +835,8 @@ function StudentUse() {
                                                         {errors.StateId && <div className='errors'>{errors.StateId}</div>}
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Student District</label>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">  District</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -836,8 +852,8 @@ function StudentUse() {
                                                         {errors.DistrictId && <div className='errors'>{errors.DistrictId}</div>}
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email">Student City</label>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label class="form-label" for="add-user-email"> City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="City" name='City'
                                                             onChange={handleChange}
                                                             value={City} />
@@ -845,8 +861,8 @@ function StudentUse() {
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
 
-                                                    <div class="mb-3">
-                                                        <label class="form-label" for="add-user-email">Student Address</label>
+                                                    <div class="col-lg-6 col-md-6">
+                                                        <label class="form-label" for="add-user-email"> Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                             onChange={handleChange}
                                                             value={Address} />
@@ -865,6 +881,17 @@ function StudentUse() {
                                                         />
                                                         {/*    {errors.file && <div className='errors'>{errors.file}</div>} */}
 
+                                                    </div>
+                                                    <div class="mb-3 fv-plugins-icon-container">
+                                                        <label class="form-label">Remark</label>
+                                                        <textarea
+                                                            id="basic-icon-default-message"
+                                                            class="form-control"
+                                                            placeholder="Hi, Do you have a moment to talk Joe?"
+                                                            aria-label="Hi, Do you have a moment to talk Joe?"
+                                                            aria-describedby="basic-icon-default-message2"
+                                                            name="remark" ></textarea>
+                                                        <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                     </div>
                                                     <div class="mb-3 d-flex">
                                                         <button type="submit" class="btn btn-primary me-sm-3 me-1 data-submit">Submit</button>
@@ -894,45 +921,45 @@ function StudentUse() {
                                                 <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
                                                         {emailerror && <div style={{ color: 'red' }}>{emailerror}</div>}
-                                                        <label class="form-label" for="add-user-fullname">Student Frist Name</label>
+                                                        <label class="form-label" for="add-user-fullname"> Frist Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='Name'
                                                             onChange={(e) => setName(e.target.value)}
                                                             value={Name} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-fullname">Student Last Name</label>
+                                                        <label class="form-label" for="add-user-fullname"> Last Name</label>
                                                         <input type="text" class="form-control" id="add-user-fullname" placeholder="John Doe" name='LastName'
                                                             onChange={(e) => setLastName(e.target.value)}
                                                             value={LastName} aria-label="John Doe" />
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Student Email</label>
+                                                        <label class="form-label" for="add-user-email"> Email</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="john.doe@example.com" name='Email'
                                                             onChange={(e) => setEmail(e.target.value)}
                                                             value={Email} />
 
                                                         <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div></div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-contact">Student Contact</label>
+                                                        <label class="form-label" for="add-user-contact"> Contact</label>
                                                         <input type="text" id="add-user-contact" class="form-control phone-mask" placeholder="+91 (609) 988-44-11" name="PhoneNumber"
                                                             onChange={(e) => setPhoneNumber(e.target.value)}
                                                             value={PhoneNumber} />
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user">Student User Name</label>
+                                                        <label class="form-label" for="add-user"> User Name</label>
                                                         <input type="text" id="add-user" class="form-control" placeholder="User@123" name="Username"
                                                             onChange={(e) => setUsername(e.target.value)}
                                                             value={Username} />
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-contact">Student Date</label>
+                                                        <label class="form-label" for="add-user-contact"> Date</label>
                                                         <input type="date" id="add-user-contact" class="form-control phone-mask" placeholder="Date" name="Date"
                                                             onChange={(e) => setDate(e.target.value)}
                                                             value={Date} />
                                                     </div>
                                              
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Student Country</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> Country</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -947,7 +974,7 @@ function StudentUse() {
                                                         </select>
                                                     </div>
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Student State</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> State</label>
                                                         <select
                                                             id="exampleFormControlSelect2"
                                                             className="select2 form-select"
@@ -963,7 +990,7 @@ function StudentUse() {
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label htmlFor="exampleFormControlSelect2" className="form-label">Student District</label>
+                                                        <label htmlFor="exampleFormControlSelect2" className="form-label"> District</label>
                                                         <select id="exampleFormControlSelect2"
                                                             className="select2 form-select"
                                                             name="DistrictId"
@@ -978,7 +1005,7 @@ function StudentUse() {
 
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Student City</label>
+                                                        <label class="form-label" for="add-user-email"> City</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='City'
                                                             onChange={(e) => setCity(e.target.value)}
                                                             value={City} />
@@ -986,7 +1013,7 @@ function StudentUse() {
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Class</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label"> Class</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={CoursesId} onChange={handleCourseChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (
@@ -996,7 +1023,7 @@ function StudentUse() {
                                                     </div>
 
                                                     <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Student Batch</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label"> Batch</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="BatchId" value={BatchId} onChange={(e) => setBatchId(e.target.value)}>
                                                             <option value="">Select</option>
                                                             {selectedCourses && selectedCourses.Batches.map(batch => (
@@ -1006,7 +1033,7 @@ function StudentUse() {
                                                     </div>
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label class="form-label" for="add-user-email">Student Address</label>
+                                                        <label class="form-label" for="add-user-email"> Address</label>
                                                         <input type="text" id="add-user-email" class="form-control" placeholder="Address" name='Address'
                                                             onChange={(e) => setAddress(e.target.value)}
                                                             value={Address} />

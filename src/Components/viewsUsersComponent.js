@@ -18,6 +18,7 @@ function VieweUsersP() {
     const [batches,setBatches]= useState([])
     const [formData, setFormData] = useState({
         name: '',
+        lastname : '',
         userName: '',
         email: '',
         password: '',
@@ -31,6 +32,7 @@ function VieweUsersP() {
         DistrictId: '',
         City: '',
         CousesId:'',
+
     });
 
     useEffect(() => {
@@ -74,6 +76,7 @@ function VieweUsersP() {
 
     const setTeacherFormData = (userData) => ({
         name: userData?.name || '',
+        LastName : userData?.LastName || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -92,6 +95,7 @@ function VieweUsersP() {
       });
       const setUserFormData = (userData) => ({
         name: userData?.name || '',
+        lastName : userData?.lastName || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -105,6 +109,7 @@ function VieweUsersP() {
       });
       const setStudentFormData = (userData) => ({
         name: userData?.name || '',
+        LastName : userData?.LastName || '',
         userName: userData?.userName || '',
         email: userData?.email || '',
         departmentId: userData?.departmentId || '',
@@ -122,6 +127,7 @@ function VieweUsersP() {
       const setGestFormData = (userData) => {
         const baseData = {
           name: userData?.name || '',
+          LastName : userData?.LastName || '',
           userName: userData?.userName || '',
           email: userData?.email || '',
           departmentId: userData?.departmentId || '',
@@ -377,7 +383,7 @@ function VieweUsersP() {
                                                 <ul class="list-unstyled" >
                                                     <li class="mb-3" >
                                                         <span class="fw-medium me-2">Full Name:</span>
-                                                        <span>{userData.name}</span>
+                                                        <span>{userData.name}  {userData.lastname}</span>
                                                     </li>
                                                     <li class="mb-3">
                                                         <span class="fw-medium me-2">User Name:</span>
@@ -607,9 +613,16 @@ function VieweUsersP() {
                                             <form id="editUserForm" class="row g-3 fv-plugins-bootstrap5 fv-plugins-framework" onSubmit={handleUpdate} novalidate="novalidate">
 
                                                 <div class="col-12 col-md-6 fv-plugins-icon-container">
-                                                    <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Full Name</label>
+                                                    <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Frist Name</label>
                                                     <input type="text" id="modalEditUserFirstName" name='name' class="form-control" placeholder="John"
                                                         value={formData.name} onChange={handleChange}
+                                                    />
+                                                </div>
+                                                
+                                                <div class="col-12 col-md-6 fv-plugins-icon-container">
+                                                    <label class="form-label" htmlFor="name" for="modalEditUserFirstName">Last Name</label>
+                                                    <input type="text" id="modalEditUserFirstName" name='lastname' class="form-control" placeholder="John"
+                                                        value={formData.lastname} onChange={handleChange}
                                                     />
                                                 </div>
 
@@ -701,7 +714,7 @@ function VieweUsersP() {
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
                                                 </div>
 
-                                                <div class="col-12">
+                                                <div class="col-12 col-md-6">
                                                     <label class="form-label" for="add-user-email"> Address</label>
                                                     <input type="text" className='form-control' name="Address" value={formData.Address} onChange={handleChange} placeholder="Address" />
                                                     <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback"></div>
@@ -871,7 +884,7 @@ function VieweUsersP() {
                                                     </div>
                                                 </div>
                                                 <div class="col-12 text-center d-flex">
-                                                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Submit</button>
+                                                    <button type="submit" class="btn btn-primary me-sm-3 me-1">Update</button>
                                                     <button type="reset" class="btn btn-label-secondary" data-bs-dismiss="modal" aria-label="Close">Cancel</button>
                                                 </div>
                                                 <input type="hidden" /></form>

@@ -272,6 +272,7 @@ function Topic() {
                 });
                 fetchData(lessionId)
                 const userdata = response.data
+                window.location.href = "/lession";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,
@@ -404,7 +405,7 @@ function Topic() {
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class / Course</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
                                                                         <option value="Select">Select</option>
                                                                         {courses.map((option) => (
@@ -507,7 +508,7 @@ function Topic() {
                                                                 <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
                                                                 <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Id</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="270px;" aria-label="Role: activate to sort column ascending">Module</th>
-                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Class</th>
+                                                                <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Class / Course</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Subject</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Board</th>
                                                                 <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="50px;" aria-label="Role: activate to sort column ascending">Duration</th>
@@ -613,7 +614,7 @@ function Topic() {
                                                     </div>
 
                                                     <div class="mb-3">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class / Course</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId"
                                                             value={formData.CoursesId}
                                                             onChange={handleCourseChange}>

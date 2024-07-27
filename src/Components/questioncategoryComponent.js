@@ -144,8 +144,9 @@ const [errors, setErrors] = useState({})
                         Authorization: `Bearer ${token}`
                     }
                 });
-                fetchData();
+                fetchData2(questionscategoryId);
                 const userdata = response.data
+                window.location.href = "/questioncategory";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,

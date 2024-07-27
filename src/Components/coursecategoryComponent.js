@@ -143,7 +143,8 @@ function QuestionsCategory() {
                     }
                 });
                 const userdata = response.data
-                fetchData();
+                fetchData2(categoriesId);
+                window.location.href = "/coursecategory";
                 toast.success(userdata.message,{
                     position: "top-right",
                     autoClose: true,

@@ -400,7 +400,7 @@ function Video() {
 
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class / Course</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleCourseChange}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (

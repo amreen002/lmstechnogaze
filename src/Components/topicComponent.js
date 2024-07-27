@@ -197,7 +197,7 @@ function Topic() {
                     }
                 });
                 const userdata = response.data
-                fetchData();
+                fetchData(topicId);
                 window.location.href = "/topic";
                 toast.success(userdata.message, {
                     position: "top-right",
@@ -305,7 +305,7 @@ function Topic() {
                                             <div class="card-body">
                                                 <div class=" align-items-start justify-content-between">
                                                     <div class="content-left">
-                                                        <h3>Add Subject</h3>
+                                                        <h3> Subject</h3>
                                                         <div class="offcanvas-body mx-0 flex-grow-0">
                                                             <form class="add-new-user pt-0 fv-plugins-bootstrap5 fv-plugins-framework" id="addNewUserForm" onSubmit={handleFormSubmit} novalidate="novalidate">
 
@@ -323,7 +323,7 @@ function Topic() {
                                                                 </div>
 
                                                                 <div class="mb-3 fv-plugins-icon-container">
-                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
+                                                                    <label for="exampleFormControlSelect2" class="form-label">Select Class / Course</label>
                                                                     <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
                                                                         <option value="">Select</option>
                                                                         {courses.map((option) => (
@@ -372,7 +372,7 @@ function Topic() {
                                                         <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="" width="20px;"></th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">S.NO</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Role: activate to sort column ascending">Subject</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Classes</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="350px;" aria-label="Role: activate to sort column ascending">Classes / Course</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="Role: activate to sort column ascending">Price</th>
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="100px;" aria-label="Actions">Actions</th>
 
@@ -453,7 +453,7 @@ function Topic() {
                                                     </div>
 
                                                     <div class="mb-3 fv-plugins-icon-container">
-                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class</label>
+                                                        <label for="exampleFormControlSelect2" class="form-label">Select Class / Course</label>
                                                         <select id="exampleFormControlSelect2" class="select2 form-select" name="CoursesId" value={formData.CoursesId} onChange={handleChange}>
                                                             <option value="">Select</option>
                                                             {courses.map((option) => (

@@ -550,29 +550,35 @@ const formData = {
                                             </div></div></div><table class="datatables-users table border-top dataTable no-footer dtr-column" id="DataTables_Table_0" aria-describedby="DataTables_Table_0_info" width="1390px;">
                                                 <thead>
                                                     <tr>
-                                                        <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">#</th>
+                                                    <th class="control sorting_disabled dtr-hidden" rowspan="1" colspan="1" aria-label="">#</th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="100px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Id</th>
                                                         <th class="sorting sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="User: activate to sort column ascending" aria-sort="descending">Name</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Stutent Details</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Email</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Phone Number</th>
                                                         <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Instructor</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Date</th>
-                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Status: activate to sort column ascending">Address</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Course</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Role: activate to sort column ascending">Bacth</th>
+                                                      {/*   <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="200px;" aria-label="Billing: activate to sort column ascending">Date</th>
+                                                        <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" width="400px;" aria-label="Status: activate to sort column ascending">Address</th> */}
                                                         <th class="sorting_disabled" rowspan="1" colspan="1" width="145px;" aria-label="Actions">Actions</th>
-
                                                     </tr>
                                                 </thead>
                                                 <tbody>
                                                     {table.map((item, index) => (
                                                         <tr key={item.id}>
-                                                            <td class="sorting_1">
+                                                          <td class="sorting_1">
                                                                 {index + 1}
                                                             </td>
                                                             <td>{item.id}</td>
                                                             <td>{item.Name + " " + item.LastName}</td>
-                                                            <td>{item.Email + " " + item.PhoneNumber}</td>
-                                                            <td>{item.Batch && item.Batch.Teacher&&item.Batch.Teacher.Name}</td>
-                                                            <td>{item.Date}</td>
-                                                            <td>{item.Address && item.Address.Address}</td>
+                                                            <td>{item.Email}</td>
+                                                            <td>{item.PhoneNumber}</td>
+                                                          
+                                                            <td>{item.Batch && item.Batch.Teacher && item.Batch.Teacher.Name}</td>
+                                                            <td>{item.Course && item.Course.name}</td>
+                                                            <td>{item.Batch && item.Batch.Title}</td>
+                                                           {/*  <td>{item.Date}</td>
+                                                            <td>{item.Address && item.Address.Address}</td> */}
                                                             <td>
                                                                 {activeService === item.id && (
                                                                     <div className="dropdown-menu dropdown-menu-end" id="listOnclicktwo">
