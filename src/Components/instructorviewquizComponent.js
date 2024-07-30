@@ -151,21 +151,21 @@ function InstructorviewquizComponent(token) {
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        {/* <div className='grips'>
+                                                                         <div className='grips'>
                                                                             <button className='flex-row d-flex' onClick={() => toggleDropdown('dropdownprofile')}>
                                                                                 <div className=''>
                                                                                     <i className="fa-light fa-pen icp"></i>
                                                                                 </div>
-                                                                                <Link to={`/quizeupdate/${item.Quize && item.Quize.id}`}>Edit</Link>
+                                                                                <Link to={`/updatequestion/${item.id}`}>Edit</Link>
                                                                             </button>
-                                                                        </div> */}
-                                                                       {/*  <div className='grips'>
+                                                                        </div> 
+                                                                       <div className='grips'>
                                                                             <button className='flex-row d-flex'>
                                                                                 <div>
                                                                                     <i className="fa-light fa-trash-alt"></i>
                                                                                 </div>
                                                                             </button>
-                                                                        </div> */}
+                                                                        </div> 
                                                                     </div>
                                                                 </div>
                                                                 <div className='pt-3 pl-3'>
